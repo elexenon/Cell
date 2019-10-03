@@ -2,7 +2,9 @@
 
 #include <QString>
 
+#ifdef Q_OS_WIN32
 #include <windows.h>
+#endif
 
 #include <QFontDatabase>
 
@@ -17,6 +19,14 @@
 #include <QFile>
 
 #include <QDesktopWidget>
+
+#include <QProxyStyle>
+
+#include <QPainter>
+
+#include <QProxyStyle>
+
+#include <QStyleOptionTab>
 
 static const QString IMG_DIR = ":/images/Share/images/";
 

@@ -21,5 +21,6 @@
         <file>Share/styleSheets/MainWindowMinimizeBtn.qss</file>
         <file>Share/styleSheets/MainWindowCloseBtn.qss</file>
         <file>Share/styleSheets/MainWindowMaximizeBtn.qss</file>
+        <file>Share/styleSheets/TabWidget.qss</file>
     </qresource>
 </RCC>

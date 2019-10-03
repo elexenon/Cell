@@ -1,7 +1,11 @@
 #include "Headers/mainwindow.h"
+
+#ifdef Q_OS_WIN32
 #include "Headers/WindWMAPI.h"
-#include "ui_mainwindow.h"
 #pragma comment(lib, "user32.lib")
+#endif
+
+#include "ui_mainwindow.h"
 #define DEBUG
 
 mainWindow::mainWindow(QWidget *parent)
@@ -11,28 +15,27 @@ mainWindow::mainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     InitMainWindow();
-    Sleep(3000);
 }
 mainWindow::~mainWindow()
 {
     delete ui;
 }
 
-// Achieve the window drop shadow effect.
+#ifdef Q_OS_WIN32
+// Achieve the window drop shadow effect( Windows ).
 bool mainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
-    MSG* msg = (MSG *)message;
-    switch (msg->message)
-    {
-    case WM_NCCALCSIZE:
-    {
-        *result = 0;
-        return true;
-    }
-    default:
-        return QWidget::nativeEvent(eventType, message, result);
+    MSG* msg = reinterpret_cast<MSG*>(message);
+    switch (msg->message){
+        case WM_NCCALCSIZE:{
+            *result = 0;
+            return true;
+        }
+        default:
+            return QWidget::nativeEvent(eventType, message, result);
     }
 }
+#endif
 
 // Mouse drag process.
 void mainWindow::mousePressEvent(QMouseEvent *event)
@@ -67,12 +70,14 @@ void mainWindow::InitMainWindow()
     styleSheetLoader = new QFile;
     ui->Btn_max->setEnabled(false);
 
+#ifdef Q_OS_WIN32
     // Achieve the window drop shadow effect.
     HWND hwnd = (HWND)this->winId();
-    DWORD style = ::GetWindowLong(hwnd, GWL_STYLE);
+    DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
     ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
     const MARGINS shadow = { 1, 1, 1, 1 };
     WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
+#endif
 
     // Load Custom Fonts.
     int fontID_Info = QFontDatabase::addApplicationFont(FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
@@ -95,6 +100,9 @@ void mainWindow::InitMainWindow()
 
     setMyStyleSheet(QStringLiteral("MainWindowCloseBtn.qss"));
     ui->Btn_close->setStyleSheet(myStyleSheet);
+
+    setMyStyleSheet("TabWidget.qss");
+    ui->tabWidget->setStyleSheet(myStyleSheet);
 }
 
 void mainWindow::setMyStyleSheet(QString name)

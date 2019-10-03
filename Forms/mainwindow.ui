@@ -6,13 +6,102 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
-    <height>384</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>mainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(247, 247, 247);</string>
+  </property>
+  <widget class="QLabel" name="label_mainWindowIcon">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>33</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/CELL_MainIcon.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_mainWindowTitle">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>18</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CELL LAUNCHER</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Btn_mini">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>0</y>
+     <width>50</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/minimize.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Btn_max">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>0</y>
+     <width>50</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/maximize.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Btn_close">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>0</y>
+     <width>50</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/close.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

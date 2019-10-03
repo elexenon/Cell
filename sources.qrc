@@ -1,5 +1,25 @@
 <RCC>
     <qresource prefix="/images">
         <file>Share/images/SplashScreen.png</file>
+        <file>Share/images/CELL.png</file>
+        <file>Share/images/CELL_logo_big.png</file>
+        <file>Share/images/CELL_logo_medium.png</file>
+        <file>Share/images/CELL_logo_small.png</file>
+        <file>Share/images/CELL_SLOGAN.png</file>
+        <file>Share/images/CELL_MainIcon.png</file>
+        <file>Share/images/minimize.png</file>
+        <file>Share/images/minimize1.png</file>
+        <file>Share/images/close.png</file>
+        <file>Share/images/close1.png</file>
+        <file>Share/images/maximize.png</file>
+        <file>Share/images/maximize1.png</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
+    </qresource>
+    <qresource prefix="/styleSheets">
+        <file>Share/styleSheets/MainWindowMinimizeBtn.qss</file>
+        <file>Share/styleSheets/MainWindowCloseBtn.qss</file>
+        <file>Share/styleSheets/MainWindowMaximizeBtn.qss</file>
     </qresource>
 </RCC>

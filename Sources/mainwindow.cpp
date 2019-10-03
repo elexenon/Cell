@@ -61,12 +61,26 @@ void mainWindow::mouseReleaseEvent(QMouseEvent *event)
         m_move = false;
     }
 }
+
+void mainWindow::paintEvent(QPaintEvent *e)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setBrush(QBrush(QColor::fromRgb(247, 247, 247)));
+    painter.setPen(Qt::transparent);
+    QRect rect = this->rect();
+    rect.setWidth(rect.width() - 1);
+    rect.setHeight(rect.height() - 1);
+    painter.drawRoundedRect(rect, 5, 5);
+    QWidget::paintEvent(e);
+}
 //
 
 void mainWindow::InitMainWindow()
 {
     // Functional.
     this->setWindowFlags(windowFlags() | Qt::FramelessWindowHint);  // Remove Windows' Default Window Frame.
+    this->setAttribute(Qt::WA_TranslucentBackground);
     styleSheetLoader = new QFile;
     ui->Btn_max->setEnabled(false);
 
@@ -87,6 +101,8 @@ void mainWindow::InitMainWindow()
 #endif
 
     // Load Styles.
+    //this->setStyleSheet("QWidget{border-radius:5px;}");
+
     QFont font_Lulo(Info, 14);
     font_Lulo.setLetterSpacing(QFont::PercentageSpacing, 100);
     ui->label_mainWindowTitle->setFont(font_Lulo);

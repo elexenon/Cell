@@ -1,5 +1,4 @@
 #include "Headers/mainwindow.h"
-#include "Headers/_utility.h"
 
 #include <QApplication>
 #include <QSplashScreen>
@@ -10,7 +9,11 @@ int main(int argc, char *argv[])
 
     QPixmap pixmap(IMG_DIR + QStringLiteral("SplashScreen.png"));
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);
+#ifdef Q_OS_WIN32
     startUp.setFont(QFont(QStringLiteral("微软雅黑")));
+#elif defined (__APPLE__)
+    startUp.setFont(QFont(QStringLiteral("苹方-简")));
+#endif
     startUp.show();
     startUp.showMessage(QStringLiteral("装载模块"), Qt::AlignBottom | Qt::AlignHCenter, Qt::white);
     a.processEvents();

@@ -2,7 +2,9 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = CELL LAUNCH
+TARGET = CELL_LAUNCH
+
+TEMPLATE = app
 
 CONFIG += c++11
 
@@ -11,12 +13,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
-    Sources/WindWMAPI.cpp
+
 
 HEADERS += \
     Headers/_utility.h \
     Headers/mainwindow.h \
+
+win32{
+SOURCES += \
+    Sources/WindWMAPI.cpp
+
+HEADERS += \
     Headers/WindWMAPI.h
+}
 
 FORMS += \
     Forms\mainwindow.ui

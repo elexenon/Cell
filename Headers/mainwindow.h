@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "Headers/_utility.h"
+#include "guidedialog.h"
+//#define ROUNDED_WINDOW
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }
@@ -19,17 +21,22 @@ public:
 public:
     void InitMainWindow();
 
+// Pointers.
 private:
     Ui::mainWindow *ui;
+    QFile          *styleSheetLoader;
+    GuideDialog    *guideDialog;
+
+// Regular members;
+private:
     QPoint          m_startPoint;
     QPoint          m_windowPoint;
-    bool            m_move;
-    QFile          *styleSheetLoader;
+    bool            m_move;   
     QString         myStyleSheet;
-    bool            isMaxSize;
 
 private:
     void            setMyStyleSheet(QString name);
+    void            setAllTabsUnchecked();
 
 protected:
 #ifdef Q_OS_WIN32
@@ -41,11 +48,13 @@ protected:
     virtual void    mouseMoveEvent(QMouseEvent *event);
 
     virtual void    mouseReleaseEvent(QMouseEvent *event);
-
+#ifdef ROUNDED_WINDOW
     virtual void    paintEvent(QPaintEvent *e);
+#endif
 private slots:
-    void            on_Btn_mini_clicked();
-    void            on_Btn_max_clicked();
-    void            on_Btn_close_clicked();
+    void on_Btn_mini_clicked();
+    void on_Btn_close_clicked();
+    void on_Btn_HomePage_clicked();
+    void on_Btn_Settings_clicked();
 };
 #endif // MAINWINDOW_H

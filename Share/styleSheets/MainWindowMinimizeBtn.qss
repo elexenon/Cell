@@ -1,9 +1,9 @@
 QPushButton{
-    border-image: url(:/images/Share/images/minimize.png);
+    border-image: url(:/images/Share/images/mini1.png);
 }
 QPushButton:hover{
-    border-image: url(:/images/Share/images/minimize1.png);
+    border-image: url(:/images/Share/images/mini.png);
 }
 QPushButton:pressed{
-    border-image: url(:/images/Share/images/minimize1.png);
+    border-image: url(:/images/Share/images/mini-1.png);
 }

@@ -11,7 +11,6 @@
 mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::mainWindow)
-    , isMaxSize(false)
 {
     ui->setupUi(this);
     InitMainWindow();
@@ -61,7 +60,7 @@ void mainWindow::mouseReleaseEvent(QMouseEvent *event)
         m_move = false;
     }
 }
-
+#ifdef ROUNDED_WINDOW
 void mainWindow::paintEvent(QPaintEvent *e)
 {
     QPainter painter(this);
@@ -75,18 +74,20 @@ void mainWindow::paintEvent(QPaintEvent *e)
     QWidget::paintEvent(e);
 }
 //
+#endif
 
 void mainWindow::InitMainWindow()
 {
     // Functional.
     this->setWindowFlags(windowFlags() | Qt::FramelessWindowHint);  // Remove Windows' Default Window Frame.
+#ifdef ROUNDED_WINDOW
     this->setAttribute(Qt::WA_TranslucentBackground);
+#endif
     styleSheetLoader = new QFile;
-    ui->Btn_max->setEnabled(false);
 
 #ifdef Q_OS_WIN32
     // Achieve the window drop shadow effect.
-    HWND hwnd = (HWND)this->winId();
+    HWND hwnd =  (HWND)this->winId();
     DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
     ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
     const MARGINS shadow = { 1, 1, 1, 1 };
@@ -101,24 +102,28 @@ void mainWindow::InitMainWindow()
 #endif
 
     // Load Styles.
-    //this->setStyleSheet("QWidget{border-radius:5px;}");
-
-    QFont font_Lulo(Info, 14);
-    font_Lulo.setLetterSpacing(QFont::PercentageSpacing, 100);
-    ui->label_mainWindowTitle->setFont(font_Lulo);
+    QFont font_Info(Info, 14);
+    font_Info.setLetterSpacing(QFont::PercentageSpacing, 100);
+    ui->label_mainWindowTitle->setFont(font_Info);
     ui->label_mainWindowTitle->setStyleSheet("color:"+COLOR_SPACE_GRAY+";");
 
-    setMyStyleSheet(QStringLiteral("MainWindowMinimizeBtn.qss"));
-    ui->Btn_mini->setStyleSheet(myStyleSheet);
+    ui->label_welcome->setFont(QFont("微软雅黑 Light", 18));
 
-    setMyStyleSheet(QStringLiteral("MainWindowMaximizeBtn.qss"));
-    ui->Btn_max->setStyleSheet(myStyleSheet);
+    setMyStyleSheet("MainWindowLeftTab_HomePage.qss");
+    ui->Btn_HomePage->setStyleSheet(myStyleSheet);
+
+    setMyStyleSheet("MainWindowLeftTab_Settings.qss");
+    ui->Btn_Settings->setStyleSheet(myStyleSheet);
 
     setMyStyleSheet(QStringLiteral("MainWindowCloseBtn.qss"));
     ui->Btn_close->setStyleSheet(myStyleSheet);
 
-    setMyStyleSheet("TabWidget.qss");
-    ui->tabWidget->setStyleSheet(myStyleSheet);
+    setMyStyleSheet(QStringLiteral("MainWindowMinimizeBtn.qss"));
+    ui->Btn_mini->setStyleSheet(myStyleSheet);
+
+    // Functiona;
+    guideDialog = new GuideDialog(this);
+    guideDialog->show();
 }
 
 void mainWindow::setMyStyleSheet(QString name)
@@ -129,6 +134,11 @@ void mainWindow::setMyStyleSheet(QString name)
     styleSheetLoader->close();
 }
 
+void mainWindow::setAllTabsUnchecked()
+{
+    ui->Btn_HomePage->setChecked(false);
+    ui->Btn_Settings->setChecked(false);
+}
 
 void mainWindow::on_Btn_mini_clicked()
 {
@@ -136,23 +146,19 @@ void mainWindow::on_Btn_mini_clicked()
             this->setWindowState(Qt::WindowMinimized);    // 在macOS下有bug
 }
 
-void mainWindow::on_Btn_max_clicked()
-{
-    static QSize size;
-    static QPoint point;
-    if(!isMaxSize){
-        size.setWidth(width());
-        size.setHeight(height());
-        point = pos();
-
-        QDesktopWidget *desktopWidget = QApplication::desktop();
-        QRect rect = desktopWidget->availableGeometry();
-        resize(rect.width(), rect.height());
-        move(0, 0);
-    }
-}
-
 void mainWindow::on_Btn_close_clicked()
 {
     close();
+}
+
+void mainWindow::on_Btn_HomePage_clicked()
+{
+    setAllTabsUnchecked();
+    ui->Btn_HomePage->setChecked(true);
+}
+
+void mainWindow::on_Btn_Settings_clicked()
+{
+    setAllTabsUnchecked();
+    ui->Btn_Settings->setChecked(true);
 }

@@ -7,20 +7,30 @@
         <file>Share/images/CELL_logo_small.png</file>
         <file>Share/images/CELL_SLOGAN.png</file>
         <file>Share/images/CELL_MainIcon.png</file>
-        <file>Share/images/minimize.png</file>
-        <file>Share/images/minimize1.png</file>
         <file>Share/images/close.png</file>
         <file>Share/images/close1.png</file>
-        <file>Share/images/maximize.png</file>
-        <file>Share/images/maximize1.png</file>
+        <file>Share/images/GuideDialogHint.PNG</file>
+        <file>Share/images/mainBackGround.png</file>
+        <file>Share/images/close-1.png</file>
+        <file>Share/images/GuideDialogHint.png</file>
+        <file>Share/images/mini.png</file>
+        <file>Share/images/mini1.png</file>
+        <file>Share/images/mini-1.png</file>
+        <file>Share/images/zoom.png</file>
+        <file>Share/images/MainWindowHomePage1.png</file>
+        <file>Share/images/MainWindowHomePage2.png</file>
+        <file>Share/images/MainWindowSettings1.png</file>
+        <file>Share/images/MainWindowSettings2.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
+        <file>Share/fonts/PingFang-Light.ttf</file>
     </qresource>
     <qresource prefix="/styleSheets">
         <file>Share/styleSheets/MainWindowMinimizeBtn.qss</file>
         <file>Share/styleSheets/MainWindowCloseBtn.qss</file>
-        <file>Share/styleSheets/MainWindowMaximizeBtn.qss</file>
-        <file>Share/styleSheets/TabWidget.qss</file>
+        <file>Share/styleSheets/GuideDialogCloseBtn.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_HomePage.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Settings.qss</file>
     </qresource>
 </RCC>

@@ -13,11 +13,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
+    Sources/guidedialog.cpp
 
 
 HEADERS += \
     Headers/_utility.h \
     Headers/mainwindow.h \
+    Headers/guidedialog.h
 
 win32{
 SOURCES += \
@@ -28,7 +30,8 @@ HEADERS += \
 }
 
 FORMS += \
-    Forms\mainwindow.ui
+    Forms/mainwindow.ui \
+    Forms/guidedialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

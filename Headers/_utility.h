@@ -29,6 +29,8 @@
 
 #include <QStyleOptionTab>
 
+#include <QList>
+
 static const QString IMG_DIR = ":/images/Share/images/";
 
 static const QString FONT_DIR = ":/fonts/Share/fonts/";

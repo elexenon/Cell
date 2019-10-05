@@ -27,6 +27,10 @@
         <file>Share/images/MainWindowNewPJ2.png</file>
         <file>Share/images/MainWindowOpenPJ1.png</file>
         <file>Share/images/MainWindowOpenPJ2.png</file>
+        <file>Share/images/MainWindowGrid1.png</file>
+        <file>Share/images/MainWindowGrid2.png</file>
+        <file>Share/images/MainWindowList1.png</file>
+        <file>Share/images/MainWindowList2.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
@@ -41,5 +45,9 @@
         <file>Share/styleSheets/MainWindowLeftTab_Guide.qss</file>
         <file>Share/styleSheets/MainWindowLeftTab_NewPJ.qss</file>
         <file>Share/styleSheets/MainWindowLeftTab_OpenPJ.qss</file>
+        <file>Share/styleSheets/MainWindowGridBtn.qss</file>
+        <file>Share/styleSheets/MainWindowScrollBar.qss</file>
+        <file>Share/styleSheets/MainWindowComboBox.qss</file>
+        <file>Share/styleSheets/MainWindowListBtn.qss</file>
     </qresource>
 </RCC>

@@ -114,59 +114,40 @@ border-image: url(:/images/Share/images/CELL_MainIcon.png);</string>
      <string>从这里开始学习使用 Cell 深度学习系统。</string>
     </property>
    </widget>
-   <widget class="QFrame" name="frame_3">
+   <widget class="QCheckBox" name="checkBox_showUp">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>502</y>
-      <width>781</width>
-      <height>31</height>
+      <x>10</x>
+      <y>505</y>
+      <width>161</width>
+      <height>19</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(200, 200, 200, 200);</string>
+     <string notr="true">background-color: rgb(209, 209, 209);</string>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+    <property name="text">
+     <string>不再显示启动向导</string>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+   </widget>
+   <widget class="QPushButton" name="Btn_close">
+    <property name="geometry">
+     <rect>
+      <x>677</x>
+      <y>495</y>
+      <width>90</width>
+      <height>31</height>
+     </rect>
     </property>
-    <widget class="QPushButton" name="Btn_close">
-     <property name="geometry">
-      <rect>
-       <x>688</x>
-       <y>0</y>
-       <width>90</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Quit</string>
-     </property>
-     <property name="autoDefault">
-      <bool>true</bool>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_showUp">
-     <property name="geometry">
-      <rect>
-       <x>13</x>
-       <y>7</y>
-       <width>161</width>
-       <height>19</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(209, 209, 209);</string>
-     </property>
-     <property name="text">
-      <string>不再显示启动向导</string>
-     </property>
-    </widget>
+    <property name="text">
+     <string>Quit</string>
+    </property>
+    <property name="autoDefault">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
  </widget>

@@ -94,8 +94,6 @@ void mainWindow::InitMainWindow()
     WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
 #endif
 
-
-
     mainWindowTabBtns->append(ui->Btn_HomePage);
     mainWindowTabBtns->append(ui->Btn_Settings);
 
@@ -135,7 +133,29 @@ void mainWindow::InitMainWindow()
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn.qss"));
     ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
 
-    // Functiona;
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn.qss"));
+    ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
+
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn.qss"));
+    ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
+
+    ui->label_recentPJ->setFont(QFont("微软雅黑", 12));
+
+    ui->label_sort->setFont(QFont("微软雅黑 Light", 10));
+    ui->label_sort->setStyleSheet("color:dadada;");
+
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowScrollBar.qss"));
+    QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
+    verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
+
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowComboBox.qss"));
+    ui->comboBox_sort->setStyleSheet(styleSheetLoader->styleSheet());
+    ui->comboBox_sort->setFont(QFont("微软雅黑"));
+
+    //ui->main_scrollArea->setStyleSheet("QScrollArea > QWidget {background-color:transparent;}");
+    //ui->main_scrollArea->viewport()->setStyleSheet("background-color:transparent;");
+
+    // Functional;
     guideDialog = new GuideDialog(this);
     guideDialog->show();
 }
@@ -144,6 +164,12 @@ void mainWindow::setAllTabsUnchecked()
 {
     for(auto & e : *mainWindowTabBtns)
         e->setChecked(false);
+}
+
+void mainWindow::setAllGraphBtnsUnchecked()
+{
+    ui->Btn_grid->setChecked(false);
+    ui->Btn_list->setChecked(false);
 }
 
 void mainWindow::on_Btn_mini_clicked()
@@ -172,4 +198,16 @@ void mainWindow::on_Btn_Settings_clicked()
 void mainWindow::on_Btn_Guide_clicked()
 {
     guideDialog->show();
+}
+
+void mainWindow::on_Btn_grid_clicked()
+{
+    setAllGraphBtnsUnchecked();
+    ui->Btn_grid->setChecked(true);
+}
+
+void mainWindow::on_Btn_list_clicked()
+{
+    setAllGraphBtnsUnchecked();
+    ui->Btn_list->setChecked(true);
 }

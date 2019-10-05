@@ -42,7 +42,4 @@
         <file>Share/styleSheets/MainWindowLeftTab_NewPJ.qss</file>
         <file>Share/styleSheets/MainWindowLeftTab_OpenPJ.qss</file>
     </qresource>
-    <qresource prefix="/libs">
-        <file>Share/libs/QStyleSheetLoader.dll</file>
-    </qresource>
 </RCC>

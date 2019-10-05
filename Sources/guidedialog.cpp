@@ -3,7 +3,6 @@
 
 #ifdef Q_OS_WIN32
 #include "Headers/WindWMAPI.h"
-#pragma comment(lib, "user32.lib")
 #endif
 
 GuideDialog::GuideDialog(QWidget *parent) :

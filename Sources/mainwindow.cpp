@@ -2,7 +2,6 @@
 
 #ifdef Q_OS_WIN32
 #include "Headers/WindWMAPI.h"
-#pragma comment(lib, "user32.lib")
 #endif
 
 #include "ui_mainwindow.h"
@@ -11,6 +10,8 @@
 mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::mainWindow)
+    , styleSheetLoader(new QFile)
+    , mainWindowTabBtns(new QList<QPushButton*>)
 {
     ui->setupUi(this);
     InitMainWindow();
@@ -39,7 +40,7 @@ bool mainWindow::nativeEvent(const QByteArray &eventType, void *message, long *r
 // Mouse drag process.
 void mainWindow::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton && event->y() <= 40){
+    if (event->button() == Qt::LeftButton && event->y() <= 60){
         m_move = true;
         m_startPoint = event->globalPos();
         m_windowPoint = this->frameGeometry().topLeft();
@@ -83,7 +84,6 @@ void mainWindow::InitMainWindow()
 #ifdef ROUNDED_WINDOW
     this->setAttribute(Qt::WA_TranslucentBackground);
 #endif
-    styleSheetLoader = new QFile;
 
 #ifdef Q_OS_WIN32
     // Achieve the window drop shadow effect.
@@ -93,6 +93,11 @@ void mainWindow::InitMainWindow()
     const MARGINS shadow = { 1, 1, 1, 1 };
     WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
 #endif
+
+
+
+    mainWindowTabBtns->append(ui->Btn_HomePage);
+    mainWindowTabBtns->append(ui->Btn_Settings);
 
     // Load Custom Fonts.
     int fontID_Info = QFontDatabase::addApplicationFont(FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
@@ -109,11 +114,20 @@ void mainWindow::InitMainWindow()
 
     ui->label_welcome->setFont(QFont("微软雅黑 Light", 18));
 
-    setMyStyleSheet("MainWindowLeftTab_HomePage.qss");
+    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_HomePage.qss"));
     ui->Btn_HomePage->setStyleSheet(myStyleSheet);
 
-    setMyStyleSheet("MainWindowLeftTab_Settings.qss");
+    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_Settings.qss"));
     ui->Btn_Settings->setStyleSheet(myStyleSheet);
+
+    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_Guide.qss"));
+    ui->Btn_Guide->setStyleSheet(myStyleSheet);
+
+    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_NewPJ.qss"));
+    ui->Btn_NewProject->setStyleSheet(myStyleSheet);
+
+    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_OpenPJ.qss"));
+    ui->Btn_OpenProject->setStyleSheet(myStyleSheet);
 
     setMyStyleSheet(QStringLiteral("MainWindowCloseBtn.qss"));
     ui->Btn_close->setStyleSheet(myStyleSheet);
@@ -136,8 +150,8 @@ void mainWindow::setMyStyleSheet(QString name)
 
 void mainWindow::setAllTabsUnchecked()
 {
-    ui->Btn_HomePage->setChecked(false);
-    ui->Btn_Settings->setChecked(false);
+    for(auto & e : *mainWindowTabBtns)
+        e->setChecked(false);
 }
 
 void mainWindow::on_Btn_mini_clicked()
@@ -161,4 +175,9 @@ void mainWindow::on_Btn_Settings_clicked()
 {
     setAllTabsUnchecked();
     ui->Btn_Settings->setChecked(true);
+}
+
+void mainWindow::on_Btn_Guide_clicked()
+{
+    guideDialog->show();
 }

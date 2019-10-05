@@ -23,9 +23,10 @@ public:
 
 // Pointers.
 private:
-    Ui::mainWindow *ui;
-    QFile          *styleSheetLoader;
-    GuideDialog    *guideDialog;
+    Ui::mainWindow      *ui;
+    QFile               *styleSheetLoader;
+    GuideDialog         *guideDialog;
+    QList<QPushButton*> *mainWindowTabBtns;
 
 // Regular members;
 private:
@@ -56,5 +57,6 @@ private slots:
     void on_Btn_close_clicked();
     void on_Btn_HomePage_clicked();
     void on_Btn_Settings_clicked();
+    void on_Btn_Guide_clicked();
 };
 #endif // MAINWINDOW_H

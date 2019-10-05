@@ -21,6 +21,12 @@
         <file>Share/images/MainWindowHomePage2.png</file>
         <file>Share/images/MainWindowSettings1.png</file>
         <file>Share/images/MainWindowSettings2.png</file>
+        <file>Share/images/MainWindowGuide1.png</file>
+        <file>Share/images/MainWindowGuide2.png</file>
+        <file>Share/images/MainWindowNewPJ1.png</file>
+        <file>Share/images/MainWindowNewPJ2.png</file>
+        <file>Share/images/MainWindowOpenPJ1.png</file>
+        <file>Share/images/MainWindowOpenPJ2.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
@@ -32,5 +38,8 @@
         <file>Share/styleSheets/GuideDialogCloseBtn.qss</file>
         <file>Share/styleSheets/MainWindowLeftTab_HomePage.qss</file>
         <file>Share/styleSheets/MainWindowLeftTab_Settings.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Guide.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_NewPJ.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_OpenPJ.qss</file>
     </qresource>
 </RCC>

@@ -111,7 +111,7 @@ border-image: url(:/images/Share/images/CELL_MainIcon.png);</string>
      </rect>
     </property>
     <property name="text">
-     <string>从这里开始学习使用 Cell WorkStation。</string>
+     <string>从这里开始学习使用 Cell 深度学习系统。</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame_3">

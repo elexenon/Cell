@@ -10,8 +10,8 @@
 mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::mainWindow)
-    , styleSheetLoader(new QFile)
     , mainWindowTabBtns(new QList<QPushButton*>)
+    , styleSheetLoader(new QStyleSheetLoader(STYLESHEET_DIR))
 {
     ui->setupUi(this);
     InitMainWindow();
@@ -114,38 +114,30 @@ void mainWindow::InitMainWindow()
 
     ui->label_welcome->setFont(QFont("微软雅黑 Light", 18));
 
-    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_HomePage.qss"));
-    ui->Btn_HomePage->setStyleSheet(myStyleSheet);
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage.qss"));
+    ui->Btn_HomePage->setStyleSheet(styleSheetLoader->styleSheet());
 
-    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_Settings.qss"));
-    ui->Btn_Settings->setStyleSheet(myStyleSheet);
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Settings.qss"));
+    ui->Btn_Settings->setStyleSheet(styleSheetLoader->styleSheet());
 
-    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_Guide.qss"));
-    ui->Btn_Guide->setStyleSheet(myStyleSheet);
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Guide.qss"));
+    ui->Btn_Guide->setStyleSheet(styleSheetLoader->styleSheet());
 
-    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_NewPJ.qss"));
-    ui->Btn_NewProject->setStyleSheet(myStyleSheet);
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ.qss"));
+    ui->Btn_NewProject->setStyleSheet(styleSheetLoader->styleSheet());
 
-    setMyStyleSheet(QStringLiteral("MainWindowLeftTab_OpenPJ.qss"));
-    ui->Btn_OpenProject->setStyleSheet(myStyleSheet);
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ.qss"));
+    ui->Btn_OpenProject->setStyleSheet(styleSheetLoader->styleSheet());
 
-    setMyStyleSheet(QStringLiteral("MainWindowCloseBtn.qss"));
-    ui->Btn_close->setStyleSheet(myStyleSheet);
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn.qss"));
+    ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
 
-    setMyStyleSheet(QStringLiteral("MainWindowMinimizeBtn.qss"));
-    ui->Btn_mini->setStyleSheet(myStyleSheet);
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn.qss"));
+    ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
 
     // Functiona;
     guideDialog = new GuideDialog(this);
     guideDialog->show();
-}
-
-void mainWindow::setMyStyleSheet(QString name)
-{
-    styleSheetLoader->setFileName(STYLESHEET_DIR + name);
-    styleSheetLoader->open(QFile::ReadOnly);
-    myStyleSheet = tr(styleSheetLoader->readAll());
-    styleSheetLoader->close();
 }
 
 void mainWindow::setAllTabsUnchecked()

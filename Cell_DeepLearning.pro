@@ -13,13 +13,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
-    Sources/guidedialog.cpp
+    Sources/guidedialog.cpp \
 
 
 HEADERS += \
     Headers/_utility.h \
     Headers/mainwindow.h \
-    Headers/guidedialog.h
+    Headers/guidedialog.h \
+    Headers/qstylesheetloader.h \
 
 win32{
 SOURCES += \
@@ -32,6 +33,8 @@ HEADERS += \
 FORMS += \
     Forms/mainwindow.ui \
     Forms/guidedialog.ui
+
+LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\QStyleSheetLoader.dll
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

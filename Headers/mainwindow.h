@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "Headers/_utility.h"
 #include "guidedialog.h"
+#include "Headers/qstylesheetloader.h"
 //#define ROUNDED_WINDOW
 
 QT_BEGIN_NAMESPACE
@@ -24,19 +25,17 @@ public:
 // Pointers.
 private:
     Ui::mainWindow      *ui;
-    QFile               *styleSheetLoader;
     GuideDialog         *guideDialog;
     QList<QPushButton*> *mainWindowTabBtns;
+    QStyleSheetLoader   *styleSheetLoader;
 
 // Regular members;
 private:
     QPoint          m_startPoint;
     QPoint          m_windowPoint;
-    bool            m_move;   
-    QString         myStyleSheet;
+    bool            m_move;
 
 private:
-    void            setMyStyleSheet(QString name);
     void            setAllTabsUnchecked();
 
 protected:

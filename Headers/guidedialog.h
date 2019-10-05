@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "Headers/_utility.h"
+#include "qstylesheetloader.h"
 
 namespace Ui {
 class GuideDialog;
@@ -17,18 +18,16 @@ public:
     ~GuideDialog();
 
 private:
-    Ui::GuideDialog *ui;
-    QFile           *styleSheetLoader;
+    Ui::GuideDialog   *ui;
+    QStyleSheetLoader *styleSheetLoader;
 
 private:
     QPoint  m_startPoint;
     QPoint  m_windowPoint;
     bool    m_move;
-    QString myStyleSheet;
 
 private:
     void Init();
-    void setMyStyleSheet(QString name);
 
 protected:
 #ifdef Q_OS_WIN32

@@ -7,7 +7,8 @@
 
 GuideDialog::GuideDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::GuideDialog)
+    ui(new Ui::GuideDialog),
+    styleSheetLoader(new QStyleSheetLoader(STYLESHEET_DIR))
 {
     ui->setupUi(this);
     Init();
@@ -22,7 +23,7 @@ void GuideDialog::Init()
 {
     // Functional.
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-    styleSheetLoader = new QFile;
+    setModal(true);
 
 #ifdef Q_OS_WIN32
     // Achieve the window drop shadow effect.
@@ -45,17 +46,9 @@ void GuideDialog::Init()
     ui->checkBox_showUp->setFont(QFont(QStringLiteral("微软雅黑 Light")));
     ui->checkBox_showUp->setStyleSheet(QStringLiteral("QCheckBox{color:#798186;background-color: transparent;}"));
 
-    setMyStyleSheet("GuideDialogCloseBtn.qss");
-    ui->Btn_close->setStyleSheet(myStyleSheet);
+    styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn.qss"));
+    ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
     ui->Btn_close->setFont(QFont(QStringLiteral("微软雅黑")));
-}
-
-void GuideDialog::setMyStyleSheet(QString name)
-{
-    styleSheetLoader->setFileName(STYLESHEET_DIR + name);
-    styleSheetLoader->open(QFile::ReadOnly);
-    myStyleSheet = tr(styleSheetLoader->readAll());
-    styleSheetLoader->close();
 }
 
 #ifdef Q_OS_WIN32

@@ -37,6 +37,7 @@ private:
 
 private:
     void            setAllTabsUnchecked();
+    void            setAllGraphBtnsUnchecked();
 
 protected:
 #ifdef Q_OS_WIN32
@@ -57,5 +58,7 @@ private slots:
     void on_Btn_HomePage_clicked();
     void on_Btn_Settings_clicked();
     void on_Btn_Guide_clicked();
+    void on_Btn_grid_clicked();
+    void on_Btn_list_clicked();
 };
 #endif // MAINWINDOW_H

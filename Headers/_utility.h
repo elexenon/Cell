@@ -7,6 +7,8 @@
 
 #include <QString>
 
+#include <QScrollBar>
+
 #include <QFontDatabase>
 
 #include <QDebug>

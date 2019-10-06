@@ -1,9 +1,7 @@
 #include "Headers/mainwindow.h"
-
 #ifdef Q_OS_WIN32
 #include "Headers/WindWMAPI.h"
 #endif
-
 #include "ui_mainwindow.h"
 #define DEBUG
 
@@ -11,7 +9,7 @@ mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::mainWindow)
     , mainWindowTabBtns(new QList<QPushButton*>)
-    , styleSheetLoader(new QStyleSheetLoader(STYLESHEET_DIR))
+    , currentPage(PAGE_TYPE::_HOME)
 {
     ui->setupUi(this);
     InitMainWindow();
@@ -61,6 +59,7 @@ void mainWindow::mouseReleaseEvent(QMouseEvent *event)
         m_move = false;
     }
 }
+
 #ifdef ROUNDED_WINDOW
 void mainWindow::paintEvent(QPaintEvent *e)
 {
@@ -96,6 +95,12 @@ void mainWindow::InitMainWindow()
 
     mainWindowTabBtns->append(ui->Btn_HomePage);
     mainWindowTabBtns->append(ui->Btn_Settings);
+
+    homePage = new HomePageWidget;
+    settingsPage = new SettingsPageWidget;
+    ui->stackedWidget->addWidget(homePage);
+    ui->stackedWidget->addWidget(settingsPage);
+    ui->stackedWidget->setCurrentWidget(homePage);
 
     // Load Custom Fonts.
     int fontID_Info = QFontDatabase::addApplicationFont(FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
@@ -133,28 +138,6 @@ void mainWindow::InitMainWindow()
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn.qss"));
     ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn.qss"));
-    ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
-
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn.qss"));
-    ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
-
-    ui->label_recentPJ->setFont(QFont("微软雅黑", 12));
-
-    ui->label_sort->setFont(QFont("微软雅黑 Light", 10));
-    ui->label_sort->setStyleSheet("color:dadada;");
-
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowScrollBar.qss"));
-    QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
-    verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
-
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowComboBox.qss"));
-    ui->comboBox_sort->setStyleSheet(styleSheetLoader->styleSheet());
-    ui->comboBox_sort->setFont(QFont("微软雅黑"));
-
-    //ui->main_scrollArea->setStyleSheet("QScrollArea > QWidget {background-color:transparent;}");
-    //ui->main_scrollArea->viewport()->setStyleSheet("background-color:transparent;");
-
     // Functional;
     guideDialog = new GuideDialog(this);
     guideDialog->show();
@@ -166,10 +149,18 @@ void mainWindow::setAllTabsUnchecked()
         e->setChecked(false);
 }
 
-void mainWindow::setAllGraphBtnsUnchecked()
+void mainWindow::startPageSwitchAnimation(PAGE_TYPE nextPage)
 {
-    ui->Btn_grid->setChecked(false);
-    ui->Btn_list->setChecked(false);
+    int duration = 400;
+    if(nextPage == PAGE_TYPE::_SETTINGS){
+        settingsPage->setWindowOpacity(0);
+        ui->stackedWidget->setCurrentWidget(settingsPage);
+        startFadeInOrOutAnimation(settingsPage, ui->stackedWidget, duration, FADE_TYPE::_IN);
+    }else{
+        homePage->setWindowOpacity(0);
+        ui->stackedWidget->setCurrentWidget(homePage);
+        startFadeInOrOutAnimation(homePage, ui->stackedWidget, duration, FADE_TYPE::_IN);
+    }
 }
 
 void mainWindow::on_Btn_mini_clicked()
@@ -185,14 +176,22 @@ void mainWindow::on_Btn_close_clicked()
 
 void mainWindow::on_Btn_HomePage_clicked()
 {
+    if(currentPage == PAGE_TYPE::_HOME)
+        return;
+    currentPage = PAGE_TYPE::_HOME;
     setAllTabsUnchecked();
     ui->Btn_HomePage->setChecked(true);
+    startPageSwitchAnimation(PAGE_TYPE::_HOME);
 }
 
 void mainWindow::on_Btn_Settings_clicked()
 {
+    if(currentPage == PAGE_TYPE::_SETTINGS)
+        return;
+    currentPage = PAGE_TYPE::_SETTINGS;
     setAllTabsUnchecked();
     ui->Btn_Settings->setChecked(true);
+    startPageSwitchAnimation(PAGE_TYPE::_SETTINGS);
 }
 
 void mainWindow::on_Btn_Guide_clicked()
@@ -200,14 +199,27 @@ void mainWindow::on_Btn_Guide_clicked()
     guideDialog->show();
 }
 
-void mainWindow::on_Btn_grid_clicked()
+void mainWindow::startFadeInOrOutAnimation(QWidget *target, QWidget *parent, int duration, FADE_TYPE type)
 {
-    setAllGraphBtnsUnchecked();
-    ui->Btn_grid->setChecked(true);
+    int startValue = 0, endValue = 1;
+    if(type == FADE_TYPE::_OUT)
+        qSwap(startValue, endValue);
+    opacityEffect = new QGraphicsOpacityEffect(target);
+    opacityEffect->setOpacity(startValue);
+    target->setGraphicsEffect(opacityEffect);
+    setPropertyAnimation("opacity", startValue, endValue, duration, QEasingCurve::Linear, nullptr, opacityEffect, parent);
 }
 
-void mainWindow::on_Btn_list_clicked()
+void mainWindow::setPropertyAnimation(QByteArray _property, QVariant startValue, QVariant endValue, int duration,
+                                      QEasingCurve curve, QWidget *target = nullptr, QGraphicsEffect* effect = nullptr, QWidget* _parent = nullptr)
 {
-    setAllGraphBtnsUnchecked();
-    ui->Btn_list->setChecked(true);
+    if(!effect)
+        propertyAnimi = new QPropertyAnimation(target, _property);
+    else
+        propertyAnimi = new QPropertyAnimation(effect, _property, _parent);
+    propertyAnimi->setDuration(duration);
+    propertyAnimi->setEasingCurve(curve);
+    propertyAnimi->setStartValue(startValue);
+    propertyAnimi->setEndValue(endValue);
+    propertyAnimi->start(QAbstractAnimation::DeleteWhenStopped);
 }

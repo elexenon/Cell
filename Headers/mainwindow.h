@@ -2,9 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QWidget>
-#include "Headers/_utility.h"
+#include "_utility.h"
 #include "guidedialog.h"
-#include "Headers/qstylesheetloader.h"
+#include "qstylesheetloader.h"
+#include "homepagewidget.h"
+#include "settingspagewidget.h"
 //#define ROUNDED_WINDOW
 
 QT_BEGIN_NAMESPACE
@@ -19,38 +21,44 @@ public:
     explicit mainWindow(QWidget *parent = nullptr);
     ~mainWindow();
 
-public:
-    void InitMainWindow();
-
 // Pointers.
 private:
-    Ui::mainWindow      *ui;
-    GuideDialog         *guideDialog;
-    QList<QPushButton*> *mainWindowTabBtns;
-    QStyleSheetLoader   *styleSheetLoader;
+    Ui::mainWindow         *ui;
+    GuideDialog            *guideDialog;
+    QList<QPushButton*>    *mainWindowTabBtns;
+    QGraphicsOpacityEffect *opacityEffect;
+    QPropertyAnimation     *propertyAnimi;
+
+    HomePageWidget      *homePage;
+    SettingsPageWidget  *settingsPage;
 
 // Regular members;
 private:
-    QPoint          m_startPoint;
-    QPoint          m_windowPoint;
-    bool            m_move;
+    QPoint m_startPoint;
+    QPoint m_windowPoint;
+    bool   m_move;
+    PAGE_TYPE currentPage;
 
 private:
-    void            setAllTabsUnchecked();
-    void            setAllGraphBtnsUnchecked();
+    void InitMainWindow();
+    void setAllTabsUnchecked();
+    void startPageSwitchAnimation(PAGE_TYPE nextPage);
+    void startFadeInOrOutAnimation(QWidget *target, QWidget *parent, int duration, FADE_TYPE type);
+    void setPropertyAnimation(QByteArray, QVariant, QVariant, int,
+                              QEasingCurve, QWidget*, QGraphicsEffect*, QWidget*);
 
 protected:
 #ifdef Q_OS_WIN32
-      virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 #endif
 
-    virtual void    mousePressEvent(QMouseEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
 
-    virtual void    mouseMoveEvent(QMouseEvent *event);
+    virtual void mouseMoveEvent(QMouseEvent *event);
 
-    virtual void    mouseReleaseEvent(QMouseEvent *event);
+    virtual void mouseReleaseEvent(QMouseEvent *event);
 #ifdef ROUNDED_WINDOW
-    virtual void    paintEvent(QPaintEvent *e);
+    virtual void paintEvent(QPaintEvent *e);
 #endif
 private slots:
     void on_Btn_mini_clicked();
@@ -58,7 +66,5 @@ private slots:
     void on_Btn_HomePage_clicked();
     void on_Btn_Settings_clicked();
     void on_Btn_Guide_clicked();
-    void on_Btn_grid_clicked();
-    void on_Btn_list_clicked();
 };
 #endif // MAINWINDOW_H

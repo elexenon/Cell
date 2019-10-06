@@ -7,8 +7,7 @@
 
 GuideDialog::GuideDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::GuideDialog),
-    styleSheetLoader(new QStyleSheetLoader(STYLESHEET_DIR))
+    ui(new Ui::GuideDialog)
 {
     ui->setupUi(this);
     Init();
@@ -23,7 +22,6 @@ void GuideDialog::Init()
 {
     // Functional.
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-    setModal(true);
 
 #ifdef Q_OS_WIN32
     // Achieve the window drop shadow effect.

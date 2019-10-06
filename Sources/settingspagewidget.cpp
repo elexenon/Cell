@@ -42,3 +42,15 @@ void SettingsPageWidget::on_Btn_dark_clicked()
     ui->Btn_bright->setChecked(false);
     ui->radioBtn_dark->setChecked(true);
 }
+
+void SettingsPageWidget::on_radioBtn_bright_clicked()
+{
+    ui->Btn_dark->setChecked(false);
+    ui->Btn_bright->setChecked(true);
+}
+
+void SettingsPageWidget::on_radioBtn_dark_clicked()
+{
+    ui->Btn_bright->setChecked(false);
+    ui->Btn_dark->setChecked(true);
+}

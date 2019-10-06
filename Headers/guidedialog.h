@@ -1,14 +1,17 @@
 #ifndef GUIDEDIALOG_H
 #define GUIDEDIALOG_H
 
-#include <QDialog>
 #include "Headers/_utility.h"
+
+#ifdef Q_OS_WIN32
+#include "DropShadowDialog.h"
+#endif
 
 namespace Ui {
 class GuideDialog;
 }
 
-class GuideDialog : public QDialog
+class GuideDialog : public DropShadowDialog
 {
     Q_OBJECT
 

@@ -6,7 +6,7 @@
 #endif
 
 GuideDialog::GuideDialog(QWidget *parent) :
-    QDialog(parent),
+    DropShadowDialog(parent),
     ui(new Ui::GuideDialog)
 {
     ui->setupUi(this);
@@ -22,16 +22,9 @@ void GuideDialog::Init()
 {
     // Functional.
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-
 #ifdef Q_OS_WIN32
-    // Achieve the window drop shadow effect.
-    HWND hwnd =  (HWND)this->winId();
-    DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
-    ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
-    const MARGINS shadow = { 1, 1, 1, 1 };
-    WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
+    DropShadowDialog::LoadWinStyle(this);
 #endif
-
     // Load styles
     ui->frame->setStyleSheet(QStringLiteral("#frame{border:1.4px solid #DCDCDC}"));
 
@@ -53,15 +46,7 @@ void GuideDialog::Init()
 // Achieve the window drop shadow effect( Windows ).
 bool GuideDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
-    MSG* msg = reinterpret_cast<MSG*>(message);
-    switch (msg->message){
-        case WM_NCCALCSIZE:{
-            *result = 0;
-            return true;
-        }
-        default:
-            return QWidget::nativeEvent(eventType, message, result);
-    }
+    return DropShadowDialog::nativeEvent(eventType, message, result);
 }
 #endif
 

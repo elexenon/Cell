@@ -1,7 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
-#include <QWidget>
 #include "_utility.h"
 #include "guidedialog.h"
 #include "qstylesheetloader.h"
@@ -13,7 +11,11 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }
 QT_END_NAMESPACE
 
-class mainWindow : public QWidget
+#ifdef Q_OS_WIN32
+#include "DropShadowWidget.h"
+#endif
+
+class mainWindow : public DropShadowWidget
 {
     Q_OBJECT
 
@@ -67,4 +69,3 @@ private slots:
     void on_Btn_Settings_clicked();
     void on_Btn_Guide_clicked();
 };
-#endif // MAINWINDOW_H

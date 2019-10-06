@@ -6,7 +6,7 @@
 #define DEBUG
 
 mainWindow::mainWindow(QWidget *parent)
-    : QWidget(parent)
+    : DropShadowWidget(parent)
     , ui(new Ui::mainWindow)
     , mainWindowTabBtns(new QList<QPushButton*>)
     , currentPage(PAGE_TYPE::_HOME)
@@ -23,15 +23,7 @@ mainWindow::~mainWindow()
 // Achieve the window drop shadow effect( Windows ).
 bool mainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
-    MSG* msg = reinterpret_cast<MSG*>(message);
-    switch (msg->message){
-        case WM_NCCALCSIZE:{
-            *result = 0;
-            return true;
-        }
-        default:
-            return QWidget::nativeEvent(eventType, message, result);
-    }
+    return DropShadowWidget::nativeEvent(eventType, message, result);
 }
 #endif
 
@@ -85,12 +77,7 @@ void mainWindow::InitMainWindow()
 #endif
 
 #ifdef Q_OS_WIN32
-    // Achieve the window drop shadow effect.
-    HWND hwnd =  (HWND)this->winId();
-    DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
-    ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
-    const MARGINS shadow = { 1, 1, 1, 1 };
-    WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
+    DropShadowWidget::LoadWinStyle(this);
 #endif
 
     mainWindowTabBtns->append(ui->Btn_HomePage);
@@ -151,7 +138,7 @@ void mainWindow::setAllTabsUnchecked()
 
 void mainWindow::startPageSwitchAnimation(PAGE_TYPE nextPage)
 {
-    int duration = 400;
+    int duration = 200;
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(settingsPage);

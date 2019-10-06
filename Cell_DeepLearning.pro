@@ -11,6 +11,8 @@ CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    Sources/DropShadowDialog.cpp \
+    Sources/DropShadowWidget.cpp \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
     Sources/guidedialog.cpp \
@@ -19,6 +21,8 @@ SOURCES += \
 
 
 HEADERS += \
+    Headers/DropShadowDialog.h \
+    Headers/DropShadowWidget.h \
     Headers/_utility.h \
     Headers/mainwindow.h \
     Headers/guidedialog.h \

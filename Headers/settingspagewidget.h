@@ -21,6 +21,10 @@ private slots:
 
     void on_Btn_dark_clicked();
 
+    void on_radioBtn_bright_clicked();
+
+    void on_radioBtn_dark_clicked();
+
 private:
     Ui::SettingsPageWidget *ui;
 

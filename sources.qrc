@@ -10,7 +10,6 @@
         <file>Share/images/close.png</file>
         <file>Share/images/close1.png</file>
         <file>Share/images/GuideDialogHint.PNG</file>
-        <file>Share/images/mainBackGround.png</file>
         <file>Share/images/close-1.png</file>
         <file>Share/images/GuideDialogHint.png</file>
         <file>Share/images/mini.png</file>
@@ -31,6 +30,11 @@
         <file>Share/images/MainWindowGrid2.png</file>
         <file>Share/images/MainWindowList1.png</file>
         <file>Share/images/MainWindowList2.png</file>
+        <file>Share/images/labelCell.png</file>
+        <file>Share/images/ColorScheme_bright.png</file>
+        <file>Share/images/ColorScheme_dark.png</file>
+        <file>Share/images/ColorScheme_bright1.png</file>
+        <file>Share/images/ColorScheme_dark1.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
@@ -49,5 +53,7 @@
         <file>Share/styleSheets/MainWindowScrollBar.qss</file>
         <file>Share/styleSheets/MainWindowComboBox.qss</file>
         <file>Share/styleSheets/MainWindowListBtn.qss</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_BrightBtn.qss</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkBtn.qss</file>
     </qresource>
 </RCC>

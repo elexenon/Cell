@@ -1,5 +1,5 @@
-#include "Headers/DropShadowWidget.h"
-#include "Headers/WindWMAPI.h"
+#include "../../Headers/Kits/DropShadowWidget.h"
+#include "../../Headers/Kits/WindWMAPI.h"
 
 DropShadowWidget::DropShadowWidget(QWidget *parent):
     QWidget(parent)

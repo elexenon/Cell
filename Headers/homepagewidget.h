@@ -2,7 +2,7 @@
 #define HOMEPAGEWIDGET_H
 
 #include <QWidget>
-#include "_utility.h"
+#include "Kits/_utility.h"
 
 namespace Ui {
 class HomePageWidget;
@@ -24,6 +24,7 @@ private:
     void setAllGraphBtnsUnchecked();
 
 private slots:
+    void setColorScheme(COLOR_SCHEME mode);
     void on_Btn_grid_clicked();
     void on_Btn_list_clicked();
 };

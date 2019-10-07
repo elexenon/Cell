@@ -1,5 +1,5 @@
-#include "Headers/DropShadowDialog.h"
-#include "Headers/WindWMAPI.h"
+#include "../../Headers/Kits/DropShadowDialog.h"
+#include "../../Headers/Kits/WindWMAPI.h"
 
 DropShadowDialog::DropShadowDialog(QWidget *parent):
     QDialog(parent)

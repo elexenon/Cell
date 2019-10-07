@@ -43,11 +43,18 @@
 
 #include <typeinfo>
 
+#include <QMetaType>
+
+#include <QPropertyAnimation>
+
 #include "qstylesheetloader.h"
 
 enum FADE_TYPE{_IN, _OUT};
 
 enum PAGE_TYPE{_HOME, _SETTINGS};
+
+enum COLOR_SCHEME{_BRIGHT, _DARK};
+Q_DECLARE_METATYPE(COLOR_SCHEME);
 
 static const QString IMG_DIR = ":/images/Share/images/";
 

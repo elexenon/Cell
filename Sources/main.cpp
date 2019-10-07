@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+    qRegisterMetaType<COLOR_SCHEME>("COLOR_SCHEME");
     QPixmap pixmap(IMG_DIR + QStringLiteral("SplashScreen.png"));
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);
 #ifdef Q_OS_WIN32
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     a.processEvents();
     startUp.showMessage(QStringLiteral("初始化主界面"), Qt::AlignHCenter | Qt::AlignBottom, Qt::white);
     mainWindow w;
-    w.setWindowTitle("Cell Launcher");
+    w.setWindowTitle(QStringLiteral("Cell Launcher"));
     w.show();
     startUp.finish(&w);
     return a.exec();

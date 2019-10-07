@@ -1,10 +1,6 @@
 #include "Headers/guidedialog.h"
 #include "ui_guidedialog.h"
 
-#ifdef Q_OS_WIN32
-#include "Headers/WindWMAPI.h"
-#endif
-
 GuideDialog::GuideDialog(QWidget *parent) :
     DropShadowDialog(parent),
     ui(new Ui::GuideDialog)

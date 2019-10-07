@@ -2,7 +2,7 @@
 #define SETTINGSPAGEWIDGET_H
 
 #include <QWidget>
-#include "_utility.h"
+#include "Kits/_utility.h"
 
 namespace Ui {
 class SettingsPageWidget;
@@ -27,9 +27,16 @@ private slots:
 
 private:
     Ui::SettingsPageWidget *ui;
+    QList<QFrame*>         *optionBlocks;
 
 private:
-    void Init();
+    void   Init();
+    void   modulesChangeToDarkness();
+    void   modulesChangeToBrightness();
+
+signals:
+    // Custom signals.
+    void enableColorScheme(COLOR_SCHEME mode);
 };
 
 #endif // SETTINGSPAGEWIDGET_H

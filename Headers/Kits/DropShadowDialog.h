@@ -1,6 +1,7 @@
 /*
 
   CREATED BY HENGYI YU 2019/10/06
+  This class achieve both window drop shadow effet & "color" property.
 
 */
 #ifndef DROPSHADOWDIALOG_H

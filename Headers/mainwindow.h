@@ -1,19 +1,20 @@
 #pragma once
 
-#include "_utility.h"
+#include "Kits/_utility.h"
+#include "Kits/qstylesheetloader.h"
+#ifdef Q_OS_WIN32
+#include "Kits/DropShadowWidget.h"
+#endif
+
 #include "guidedialog.h"
-#include "qstylesheetloader.h"
 #include "homepagewidget.h"
 #include "settingspagewidget.h"
-//#define ROUNDED_WINDOW
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }
 QT_END_NAMESPACE
 
-#ifdef Q_OS_WIN32
-#include "DropShadowWidget.h"
-#endif
+
 
 class mainWindow : public DropShadowWidget
 {
@@ -59,10 +60,8 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent *event);
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
-#ifdef ROUNDED_WINDOW
-    virtual void paintEvent(QPaintEvent *e);
-#endif
 private slots:
+    void setColorScheme(COLOR_SCHEME mode);
     void on_Btn_mini_clicked();
     void on_Btn_close_clicked();
     void on_Btn_HomePage_clicked();

@@ -1,0 +1,7 @@
+QRadioButton{
+	background-color: #dadada;
+}
+QRadioButton::indicator:checked {
+    background-color:       green;
+    border:                 2px solid white;
+}

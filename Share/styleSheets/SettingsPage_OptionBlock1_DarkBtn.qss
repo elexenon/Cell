@@ -1,9 +1,0 @@
-QPushButton{
-    border-image: url(:/images/Share/images/ColorScheme_dark1.png);
-}
-QPushButton:hover{
-    border-image: url(:/images/Share/images/ColorScheme_dark.png);
-}
-QPushButton:checked{
-    border-image: url(:/images/Share/images/ColorScheme_dark.png);
-}

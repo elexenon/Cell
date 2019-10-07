@@ -1,0 +1,9 @@
+QPushButton{
+    border-image: url(:/images/Share/images/ColorScheme_BrightMode_BrightBtn.png);
+}
+QPushButton:hover{
+    border-image: url(:/images/Share/images/ColorScheme_BrightMode_BrightBtn1.png);
+}
+QPushButton:checked{
+    border-image: url(:/images/Share/images/ColorScheme_BrightMode_BrightBtn1.png);
+}

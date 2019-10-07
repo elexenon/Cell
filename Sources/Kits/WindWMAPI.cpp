@@ -1,4 +1,15 @@
-﻿#include "Headers/windwmapi.h"
+﻿/**
+ * 去掉标题之后添加边框阴影
+ *
+ * windwmapi.h
+ * 封装windows api的头文件。
+ *
+ * FlyWM_
+ * GitHub: https://github.com/FlyWM
+ * CSDN: https://blog.csdn.net/a844651990
+ *
+ */
+#include "../../Headers/Kits/WindWMAPI.h"
 
 WinDwmapi::WinDwmapi()
     : dwm_is_composition_enabled_(nullptr)

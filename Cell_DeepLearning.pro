@@ -11,8 +11,10 @@ CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    Sources/DropShadowDialog.cpp \
-    Sources/DropShadowWidget.cpp \
+    Sources/Kits/DropShadowDialog.cpp \
+    Sources/Kits/DropShadowWidget.cpp \
+    Sources/Kits/customLabel.cpp \
+    Sources/Kits/customScrollArea.cpp \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
     Sources/guidedialog.cpp \
@@ -21,21 +23,23 @@ SOURCES += \
 
 
 HEADERS += \
-    Headers/DropShadowDialog.h \
-    Headers/DropShadowWidget.h \
-    Headers/_utility.h \
+    Headers/Kits/DropShadowDialog.h \
+    Headers/Kits/DropShadowWidget.h \
+    Headers/Kits/customLabel.h \
+    Headers/Kits/customScrollArea.h \
+    Headers/Kits/qstylesheetloader.h \
+    Headers/Kits/_utility.h \
     Headers/mainwindow.h \
-    Headers/guidedialog.h \
-    Headers/qstylesheetloader.h \
+    Headers/guidedialog.h \   
     Headers/homepagewidget.h \
     Headers/settingspagewidget.h
 
 win32{
 SOURCES += \
-    Sources/WindWMAPI.cpp
+    Sources/Kits/WindWMAPI.cpp
 
 HEADERS += \
-    Headers/WindWMAPI.h
+    Headers/Kits/WindWMAPI.h
 }
 
 FORMS += \

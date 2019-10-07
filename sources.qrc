@@ -31,10 +31,15 @@
         <file>Share/images/MainWindowList1.png</file>
         <file>Share/images/MainWindowList2.png</file>
         <file>Share/images/labelCell.png</file>
-        <file>Share/images/ColorScheme_bright.png</file>
-        <file>Share/images/ColorScheme_dark.png</file>
-        <file>Share/images/ColorScheme_bright1.png</file>
-        <file>Share/images/ColorScheme_dark1.png</file>
+        <file>Share/images/ColorScheme_DarkMode_DarkBtn1.png</file>
+        <file>Share/images/ColorScheme_BrightMode_DarkBtn.png</file>
+        <file>Share/images/ColorScheme_BrightMode_BrightBtn1.png</file>
+        <file>Share/images/ColorScheme_BrightMode_DarkBtn1.png</file>
+        <file>Share/images/ColorScheme_DarkMode_BrightBtn.png</file>
+        <file>Share/images/ColorScheme_DarkMode_BrightBtn1.png</file>
+        <file>Share/images/labelCell_dark.png</file>
+        <file>Share/images/ColorScheme_BrightMode_BrightBtn.png</file>
+        <file>Share/images/ColorScheme_DarkMode_DarkBtn.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
@@ -50,10 +55,16 @@
         <file>Share/styleSheets/MainWindowLeftTab_NewPJ.qss</file>
         <file>Share/styleSheets/MainWindowLeftTab_OpenPJ.qss</file>
         <file>Share/styleSheets/MainWindowGridBtn.qss</file>
-        <file>Share/styleSheets/MainWindowScrollBar.qss</file>
         <file>Share/styleSheets/MainWindowComboBox.qss</file>
         <file>Share/styleSheets/MainWindowListBtn.qss</file>
-        <file>Share/styleSheets/SettingsPage_OptionBlock1_BrightBtn.qss</file>
-        <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkBtn.qss</file>
+        <file>Share/styleSheets/SettingsPage_RatioBtn.qss</file>
+        <file>Share/styleSheets/Frame_OptionBlock_bright.qss</file>
+        <file>Share/styleSheets/Frame_OptionBlock_dark.qss</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_BrightMode_BrightBtn.qss</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_BrightMode_DarkBtn.qss</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkMode_BrightBtn.qss</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkMode_DarkBtn.qss</file>
+        <file>Share/styleSheets/ScrollBar_Bright.qss</file>
+        <file>Share/styleSheets/ScrollBar_Dark.qss</file>
     </qresource>
 </RCC>

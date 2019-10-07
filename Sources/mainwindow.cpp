@@ -1,7 +1,4 @@
 #include "Headers/mainwindow.h"
-#ifdef Q_OS_WIN32
-#include "Headers/WindWMAPI.h"
-#endif
 #include "ui_mainwindow.h"
 #define DEBUG
 
@@ -9,6 +6,8 @@ mainWindow::mainWindow(QWidget *parent)
     : DropShadowWidget(parent)
     , ui(new Ui::mainWindow)
     , mainWindowTabBtns(new QList<QPushButton*>)
+    , homePage(new HomePageWidget)
+    , settingsPage(new SettingsPageWidget)
     , currentPage(PAGE_TYPE::_HOME)
 {
     ui->setupUi(this);
@@ -20,7 +19,6 @@ mainWindow::~mainWindow()
 }
 
 #ifdef Q_OS_WIN32
-// Achieve the window drop shadow effect( Windows ).
 bool mainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     return DropShadowWidget::nativeEvent(eventType, message, result);
@@ -52,21 +50,25 @@ void mainWindow::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-#ifdef ROUNDED_WINDOW
-void mainWindow::paintEvent(QPaintEvent *e)
+void mainWindow::setColorScheme(COLOR_SCHEME mode)
 {
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setBrush(QBrush(QColor::fromRgb(247, 247, 247)));
-    painter.setPen(Qt::transparent);
-    QRect rect = this->rect();
-    rect.setWidth(rect.width() - 1);
-    rect.setHeight(rect.height() - 1);
-    painter.drawRoundedRect(rect, 5, 5);
-    QWidget::paintEvent(e);
+    QPixmap tmp;
+    if(mode == COLOR_SCHEME::_BRIGHT){
+        tmp.load(IMG_DIR+QStringLiteral("labelCell.png"));
+
+        this->setStyleSheet("background-color: rgb(247, 247, 247);");
+
+        ui->frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:#FFFFFF}"));
+    }
+    else{
+        tmp.load(IMG_DIR+QStringLiteral("labelCell_dark.png"));
+
+        this->setStyleSheet(QStringLiteral("background-color: rgb(31, 30, 31);"));
+
+        ui->frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:#2C2C2D}"));
+    }
+    ui->label_backGND->setPixmap(tmp);
 }
-//
-#endif
 
 void mainWindow::InitMainWindow()
 {
@@ -80,11 +82,15 @@ void mainWindow::InitMainWindow()
     DropShadowWidget::LoadWinStyle(this);
 #endif
 
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            this, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            homePage, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+
     mainWindowTabBtns->append(ui->Btn_HomePage);
     mainWindowTabBtns->append(ui->Btn_Settings);
 
-    homePage = new HomePageWidget;
-    settingsPage = new SettingsPageWidget;
     ui->stackedWidget->addWidget(homePage);
     ui->stackedWidget->addWidget(settingsPage);
     ui->stackedWidget->setCurrentWidget(homePage);
@@ -102,7 +108,7 @@ void mainWindow::InitMainWindow()
     ui->label_mainWindowTitle->setFont(font_Info);
     ui->label_mainWindowTitle->setStyleSheet("color:"+COLOR_SPACE_GRAY+";");
 
-    ui->label_welcome->setFont(QFont("微软雅黑 Light", 18));
+    ui->label_welcome->setFont(QFont(QStringLiteral("微软雅黑 Light"), 18));
 
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage.qss"));
     ui->Btn_HomePage->setStyleSheet(styleSheetLoader->styleSheet());
@@ -127,7 +133,7 @@ void mainWindow::InitMainWindow()
 
     // Functional;
     guideDialog = new GuideDialog(this);
-    guideDialog->show();
+    //guideDialog->show();
 }
 
 void mainWindow::setAllTabsUnchecked()

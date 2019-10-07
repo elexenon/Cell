@@ -1,10 +1,10 @@
 #ifndef GUIDEDIALOG_H
 #define GUIDEDIALOG_H
 
-#include "Headers/_utility.h"
+#include "Kits/_utility.h"
 
 #ifdef Q_OS_WIN32
-#include "DropShadowDialog.h"
+#include "Kits/DropShadowDialog.h"
 #endif
 
 namespace Ui {

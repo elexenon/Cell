@@ -14,4 +14,3 @@ QComboBox::drop-down {
     border-top-right-radius: 3px; /* same radius as the QComboBox */
     border-bottom-right-radius: 3px;
 }
- 

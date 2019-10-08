@@ -16,111 +16,6 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(247, 247, 247);</string>
   </property>
-  <widget class="QFrame" name="frame_titleBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1311</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <widget class="QLabel" name="label_mainWindowIcon">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>15</y>
-      <width>30</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/Share/images/CELL_MainIcon.png);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_mainWindowTitle">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>15</y>
-      <width>221</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>CELL LAUNCHER</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Btn_max">
-    <property name="geometry">
-     <rect>
-      <x>1210</x>
-      <y>20</y>
-      <width>19</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/Share/images/zoom.png);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Btn_mini">
-    <property name="geometry">
-     <rect>
-      <x>1240</x>
-      <y>20</y>
-      <width>19</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/Share/images/mini1.png);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Btn_close">
-    <property name="geometry">
-     <rect>
-      <x>1270</x>
-      <y>20</y>
-      <width>19</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/Share/images/close1.png);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-  </widget>
   <widget class="QPushButton" name="Btn_HomePage">
    <property name="geometry">
     <rect>
@@ -131,7 +26,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/MainWindowHomePage1.png);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -156,7 +51,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/MainWindowSettings1.png);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -181,7 +76,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/MainWindowGuide1.png);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -273,6 +168,92 @@
    </property>
    <widget class="QWidget" name="page"/>
    <widget class="QWidget" name="page_2"/>
+  </widget>
+  <widget class="QLabel" name="label_mainWindowIcon">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>15</y>
+     <width>30</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/CELL_MainIcon.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_mainWindowTitle">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>15</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CELL LAUNCHER</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Btn_close">
+   <property name="geometry">
+    <rect>
+     <x>1270</x>
+     <y>20</y>
+     <width>19</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/close1.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Btn_max">
+   <property name="geometry">
+    <rect>
+     <x>1210</x>
+     <y>20</y>
+     <width>19</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/zoom.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Btn_mini">
+   <property name="geometry">
+    <rect>
+     <x>1240</x>
+     <y>20</y>
+     <width>19</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/mini1.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <resources/>

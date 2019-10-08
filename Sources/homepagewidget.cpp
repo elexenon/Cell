@@ -3,7 +3,8 @@
 
 HomePageWidget::HomePageWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::HomePageWidget)
+    ui(new Ui::HomePageWidget),
+    m_mode(COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     Init();
@@ -18,10 +19,10 @@ void HomePageWidget::Init()
 {
     ui->label_welcome->setFont(QFont(QStringLiteral("微软雅黑 Light"), 18));
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Bright.qss"));
     ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Bright.qss"));
     ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
 
     ui->label_recentPJ->setFont(QFont(QStringLiteral("微软雅黑"), 12));
@@ -50,6 +51,8 @@ void HomePageWidget::setAllGraphBtnsUnchecked()
 void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
 {
     if(mode == COLOR_SCHEME::_DARK){
+        if(mode == m_mode) return;
+        m_mode = COLOR_SCHEME::_DARK;
         ui->label_welcome->setStyleSheet(QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->label_sort->setStyleSheet(QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->label_recentPJ->setStyleSheet(QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
@@ -64,8 +67,16 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
         styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Dark.qss"));
         QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
         verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
+
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Dark.qss"));
+        ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
+
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Dark.qss"));
+        ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
     }
     else{
+        if(mode == m_mode) return;
+        m_mode = COLOR_SCHEME::_BRIGHT;
         ui->label_welcome->setStyleSheet(QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->label_sort->setStyleSheet(QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->label_recentPJ->setStyleSheet(QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
@@ -79,6 +90,11 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
         styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.qss"));
         QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
         verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
+
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Bright.qss"));
+        ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Bright.qss"));
+        ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
     }
 }
 

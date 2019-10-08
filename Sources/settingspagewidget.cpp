@@ -4,10 +4,10 @@
 SettingsPageWidget::SettingsPageWidget(QWidget *parent) :
     QWidget(parent)
     ,ui(new Ui::SettingsPageWidget)
-    ,optionBlocks(new QList<QFrame*>)
-    ,frame_optionBlock2(new customFrame)
-    ,frame_optionBlock3(new customFrame)
-    ,frame_optionBlock1(new customFrame)
+    ,frame_optionBlock2(new customFrame(WINDOW_TYPE::_CHILD))
+    ,frame_optionBlock3(new customFrame(WINDOW_TYPE::_CHILD))
+    ,frame_optionBlock1(new customFrame(WINDOW_TYPE::_CHILD))
+    ,m_mode(COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     Init();
@@ -21,9 +21,6 @@ SettingsPageWidget::~SettingsPageWidget()
 void SettingsPageWidget::Init()
 {
     //Functional.
-    //optionBlocks->append(ui->frame_optionBlock1);
-    //optionBlocks->append(ui->frame_optionBlock2);
-    //optionBlocks->append(ui->frame_optionBlock3);
     frame_optionBlock1->setParent(ui->scrollAreaWidgetContents);
     frame_optionBlock1->setGeometry(20, 0, 861, 231);
 
@@ -55,32 +52,26 @@ void SettingsPageWidget::Init()
 
     styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.qss"));
     frame_optionBlock1->setStyleSheet(styleSheetLoader->styleSheet());
-    //ui->frame_optionBlock1->setStyleSheet(styleSheetLoader->styleSheet());
     frame_optionBlock2->setStyleSheet(styleSheetLoader->styleSheet());
-    //ui->frame_optionBlock2->setStyleSheet(styleSheetLoader->styleSheet());
     frame_optionBlock3->setStyleSheet(styleSheetLoader->styleSheet());
-    //ui->frame_optionBlock3->setStyleSheet(styleSheetLoader->styleSheet());
 
     ui->radioBtn_bright->setStyleSheet(QStringLiteral("QRadioButton{background-color: #dadada;}"));
     ui->radioBtn_dark->setStyleSheet(QStringLiteral("QRadioButton{background-color: #dadada;}"));
 }
 
-void SettingsPageWidget::modulesChangeToDarkness()
-{
-    using UTILITY::setPropertyAnimation;
+void SettingsPageWidget::modulesChangeToDarkness()  // Color_Scheme_Switch.
+{   
+    if(m_mode == COLOR_SCHEME::_DARK) return;
+    m_mode = COLOR_SCHEME::_DARK;
+    this->setStyleSheet("QWidget{background-color: rgb(31, 30, 31);}");
+    ui->scrollAreaWidgetContents->setStyleSheet("QWidget{background-color: rgb(31, 30, 31);}");
 
-    setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_DARK, 500,
+    UTILITY::setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_DARK, 500,
                          QEasingCurve::Linear, frame_optionBlock1, true, nullptr);
-    setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_DARK, 500,
+    UTILITY::setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_DARK, 500,
                          QEasingCurve::Linear, frame_optionBlock2, true, nullptr);
-    setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_DARK, 500,
+    UTILITY::setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_DARK, 500,
                          QEasingCurve::Linear, frame_optionBlock3, true, nullptr);
-
-    this->setStyleSheet("background-color: rgb(31, 30, 31);");
-    // Option Blocks.
-    styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_dark.qss"));
-    for(auto & e : *optionBlocks)
-        e->setStyleSheet(styleSheetLoader->styleSheet());
     // Ratio Btns.
     ui->radioBtn_bright->setStyleSheet(QStringLiteral("QRadioButton{background-color: #2C2C2D;}"));
     ui->radioBtn_dark->setStyleSheet(QStringLiteral("QRadioButton{background-color: #2C2C2D;}"));
@@ -99,21 +90,19 @@ void SettingsPageWidget::modulesChangeToDarkness()
     verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
 }
 
-void SettingsPageWidget::modulesChangeToBrightness()
+void SettingsPageWidget::modulesChangeToBrightness()    // Color_Scheme_Switch.
 {
-    using UTILITY::setPropertyAnimation;
-    setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock1, true, nullptr);
-    setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock2, true, nullptr);
-    setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock3, true, nullptr);
+    if(m_mode == COLOR_SCHEME::_BRIGHT) return;
+    m_mode = COLOR_SCHEME::_BRIGHT;
+    this->setStyleSheet("QWidget{background-color: rgb(247, 247, 247);}");
+    ui->scrollAreaWidgetContents->setStyleSheet("QWidget{background-color: rgb(247, 247, 247);}");
 
-    this->setStyleSheet("background-color: rgb(247, 247, 247);");
-    // Option Blocks.
-    styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.qss"));
-    for(auto & e : *optionBlocks)
-        e->setStyleSheet(styleSheetLoader->styleSheet());
+    UTILITY::setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
+                         QEasingCurve::Linear, frame_optionBlock1, true, nullptr);
+    UTILITY::setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
+                         QEasingCurve::Linear, frame_optionBlock2, true, nullptr);
+    UTILITY::setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
+                         QEasingCurve::Linear, frame_optionBlock3, true, nullptr);
     // Ratio Btns.
     ui->radioBtn_bright->setStyleSheet(QStringLiteral("QRadioButton{background-color: #dadada;}"));
     ui->radioBtn_dark->setStyleSheet(QStringLiteral("QRadioButton{background-color: #dadada;}"));

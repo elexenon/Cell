@@ -39,7 +39,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/MainWindowGrid2.png);</string>
+    <string notr="true">border-image: url(:/images/Share/images/MainWindowGrid2_Bright.png);</string>
    </property>
    <property name="text">
     <string/>
@@ -64,7 +64,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/MainWindowList1.png);</string>
+    <string notr="true">border-image: url(:/images/Share/images/MainWindowList1_Bright.png);</string>
    </property>
    <property name="text">
     <string/>

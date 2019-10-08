@@ -66,13 +66,11 @@ static void setPropertyAnimation(QPropertyAnimation* animi,QByteArray _property,
         animi = new QPropertyAnimation(target, _property);
     else
         animi = new QPropertyAnimation(effect, _property);
-    if(animi)
-        qDebug() << "Success";
     animi->setDuration(duration);
     animi->setEasingCurve(curve);
     animi->setStartValue(s_value);
     animi->setEndValue(e_value);
-    if(startNow) animi->start(QAbstractAnimation::DeleteWhenStopped);
+    if(startNow) animi->start(QAbstractAnimation::DeleteWhenStopped);   // Bug here.
 }
 
 }

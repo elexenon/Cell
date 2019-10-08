@@ -56,7 +56,14 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
     //QPixmap tmp;
     if(mode == COLOR_SCHEME::_BRIGHT){
         setPropertyAnimation(propertyAnimi, "color", color(), MAINWINDOW_BRIGHT, 500,
-                             QEasingCurve::Linear, this, true, nullptr, nullptr);
+                             QEasingCurve::Linear, this, true, nullptr);
+
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_bright.qss"));
+        ui->Btn_max->setStyleSheet(styleSheetLoader->styleSheet());
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.qss"));
+        ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.qss"));
+        ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
         //tmp.load(IMG_DIR+QStringLiteral("labelCell.png"));
 
         //this->setStyleSheet("background-color: rgb(247, 247, 247);");
@@ -65,7 +72,13 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
     }
     else{
         setPropertyAnimation(propertyAnimi, "color", color(), MAINWINDOW_DARK, 500,
-                             QEasingCurve::Linear, this, true, nullptr, nullptr);
+                             QEasingCurve::Linear, this, true, nullptr);
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_dark.qss"));
+        ui->Btn_max->setStyleSheet(styleSheetLoader->styleSheet());
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_dark.qss"));
+        ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_dark.qss"));
+        ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
         //tmp.load(IMG_DIR+QStringLiteral("labelCell_dark.png"));
 
         //this->setStyleSheet(QStringLiteral("background-color: rgb(31, 30, 31);"));
@@ -126,10 +139,10 @@ void mainWindow::InitMainWindow()
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ.qss"));
     ui->Btn_OpenProject->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.qss"));
     ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.qss"));
     ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
 
     // Functional;

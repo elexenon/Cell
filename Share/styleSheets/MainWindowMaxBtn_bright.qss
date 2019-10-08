@@ -1,0 +1,4 @@
+QPushButton{
+	background-color: rgb(255, 255, 255);
+    border-image: url(:/images/Share/images/zoom.png);
+}

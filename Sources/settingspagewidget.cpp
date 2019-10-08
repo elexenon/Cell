@@ -68,23 +68,13 @@ void SettingsPageWidget::Init()
 void SettingsPageWidget::modulesChangeToDarkness()
 {
     using UTILITY::setPropertyAnimation;
-    setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_DARK, 500,
-                         QEasingCurve::Linear, frame_optionBlock1, false, nullptr);
-    setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_DARK, 500,
-                         QEasingCurve::Linear, frame_optionBlock2, false, nullptr);
-    setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_DARK, 500,
-                         QEasingCurve::Linear, frame_optionBlock3, false, nullptr);
 
-    /*
-    QParallelAnimationGroup animiGroup;
-    animiGroup.addAnimation(frame_optionBlock1_animi);
-    animiGroup.addAnimation(frame_optionBlock2_animi);
-    animiGroup.addAnimation(frame_optionBlock3_animi);
-    animiGroup.start(QAbstractAnimation::DeleteWhenStopped);
-    */
-    frame_optionBlock1_animi->start(QAbstractAnimation::DeleteWhenStopped);
-    frame_optionBlock2_animi->start(QAbstractAnimation::DeleteWhenStopped);
-    frame_optionBlock3_animi->start(QAbstractAnimation::DeleteWhenStopped);
+    setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_DARK, 500,
+                         QEasingCurve::Linear, frame_optionBlock1, true, nullptr);
+    setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_DARK, 500,
+                         QEasingCurve::Linear, frame_optionBlock2, true, nullptr);
+    setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_DARK, 500,
+                         QEasingCurve::Linear, frame_optionBlock3, true, nullptr);
 
     this->setStyleSheet("background-color: rgb(31, 30, 31);");
     // Option Blocks.
@@ -113,18 +103,11 @@ void SettingsPageWidget::modulesChangeToBrightness()
 {
     using UTILITY::setPropertyAnimation;
     setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock1, false, nullptr);
+                         QEasingCurve::Linear, frame_optionBlock1, true, nullptr);
     setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock2, false, nullptr);
+                         QEasingCurve::Linear, frame_optionBlock2, true, nullptr);
     setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock3, false, nullptr);
-
-
-    QParallelAnimationGroup animiGroup;
-    animiGroup.addAnimation(frame_optionBlock1_animi);
-    animiGroup.addAnimation(frame_optionBlock2_animi);
-    animiGroup.addAnimation(frame_optionBlock3_animi);
-    animiGroup.start(QAbstractAnimation::DeleteWhenStopped);
+                         QEasingCurve::Linear, frame_optionBlock3, true, nullptr);
 
     this->setStyleSheet("background-color: rgb(247, 247, 247);");
     // Option Blocks.
@@ -156,7 +139,7 @@ void SettingsPageWidget::on_Btn_bright_clicked()
 
     modulesChangeToBrightness();
 
-    //emit enableColorScheme(COLOR_SCHEME::_BRIGHT);
+    emit enableColorScheme(COLOR_SCHEME::_BRIGHT);
 }
 
 void SettingsPageWidget::on_Btn_dark_clicked()
@@ -166,7 +149,7 @@ void SettingsPageWidget::on_Btn_dark_clicked()
 
     modulesChangeToDarkness();
 
-    //emit enableColorScheme(COLOR_SCHEME::_DARK);
+    emit enableColorScheme(COLOR_SCHEME::_DARK);
 }
 
 void SettingsPageWidget::on_radioBtn_bright_clicked()

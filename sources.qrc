@@ -46,8 +46,6 @@
         <file>Share/fonts/PingFang-Light.ttf</file>
     </qresource>
     <qresource prefix="/styleSheets">
-        <file>Share/styleSheets/MainWindowMinimizeBtn.qss</file>
-        <file>Share/styleSheets/MainWindowCloseBtn.qss</file>
         <file>Share/styleSheets/GuideDialogCloseBtn.qss</file>
         <file>Share/styleSheets/MainWindowLeftTab_HomePage.qss</file>
         <file>Share/styleSheets/MainWindowLeftTab_Settings.qss</file>
@@ -66,5 +64,11 @@
         <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkMode_DarkBtn.qss</file>
         <file>Share/styleSheets/ScrollBar_Bright.qss</file>
         <file>Share/styleSheets/ScrollBar_Dark.qss</file>
+        <file>Share/styleSheets/MainWindowCloseBtn_bright.qss</file>
+        <file>Share/styleSheets/MainWindowCloseBtn_dark.qss</file>
+        <file>Share/styleSheets/MainWindowMinimizeBtn_bright.qss</file>
+        <file>Share/styleSheets/MainWindowMinimizeBtn_dark.qss</file>
+        <file>Share/styleSheets/MainWindowMaxBtn_bright.qss</file>
+        <file>Share/styleSheets/MainWindowMaxBtn_dark.qss</file>
     </qresource>
 </RCC>

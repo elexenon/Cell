@@ -1,0 +1,12 @@
+QPushButton{
+	background-color: rgb(44, 44, 45);
+    border-image: url(:/images/Share/images/close1.png);
+}
+QPushButton:hover{
+	background-color: rgb(44, 44, 45);
+    border-image: url(:/images/Share/images/close.png);
+}
+QPushButton:pressed{
+	background-color: rgb(44, 44, 45);
+    border-image: url(:/images/Share/images/close-1.png);
+}

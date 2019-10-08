@@ -79,7 +79,7 @@
      <string/>
     </property>
     <property name="flat">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="Btn_mini">
@@ -97,6 +97,9 @@
     <property name="text">
      <string/>
     </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="Btn_close">
     <property name="geometry">
@@ -112,6 +115,9 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

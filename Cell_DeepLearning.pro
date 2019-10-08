@@ -13,6 +13,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Sources/Kits/DropShadowDialog.cpp \
     Sources/Kits/DropShadowWidget.cpp \
+    Sources/Kits/customFrame.cpp \
     Sources/Kits/customLabel.cpp \
     Sources/Kits/customScrollArea.cpp \
     Sources/main.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 HEADERS += \
     Headers/Kits/DropShadowDialog.h \
     Headers/Kits/DropShadowWidget.h \
+    Headers/Kits/customFrame.h \
     Headers/Kits/customLabel.h \
     Headers/Kits/customScrollArea.h \
     Headers/Kits/qstylesheetloader.h \

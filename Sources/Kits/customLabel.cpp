@@ -1,5 +1,11 @@
 #include "../../Headers/Kits/customLabel.h"
 
+customLabel::customLabel(QWidget *parent):
+    QLabel(parent)
+{
+
+}
+
 const QColor customLabel::color() const
 {
     return m_color;

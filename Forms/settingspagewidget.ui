@@ -52,150 +52,93 @@
       <height>1000</height>
      </size>
     </property>
-    <widget class="QFrame" name="frame_optionBlock1">
+    <widget class="QRadioButton" name="radioBtn_bright">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>0</y>
-       <width>861</width>
-       <height>231</height>
+       <x>218</x>
+       <y>140</y>
+       <width>16</width>
+       <height>19</height>
       </rect>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: #dadada;</string>
+     <property name="text">
+      <string/>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="label_colorScheme">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>10</y>
-        <width>111</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>外观</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Btn_bright">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>28</y>
-        <width>151</width>
-        <height>101</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border-image: url(:/images/Share/images/ColorScheme_BrightMode_BrightBtn1.png);</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioBtn_bright">
-      <property name="geometry">
-       <rect>
-        <x>218</x>
-        <y>140</y>
-        <width>16</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Btn_dark">
-      <property name="geometry">
-       <rect>
-        <x>360</x>
-        <y>28</y>
-        <width>151</width>
-        <height>101</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border-image: url(:/images/Share/images/ColorScheme_BrightMode_DarkBtn.png);</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioBtn_dark">
-      <property name="geometry">
-       <rect>
-        <x>428</x>
-        <y>140</y>
-        <width>16</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QFrame" name="frame_optionBlock2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>260</y>
-       <width>861</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: #dadada;</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_optionBlock3">
+    <widget class="QPushButton" name="Btn_dark">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>440</y>
-       <width>861</width>
-       <height>191</height>
+       <x>360</x>
+       <y>28</y>
+       <width>151</width>
+       <height>101</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: #dadada;</string>
+      <string notr="true">border-image: url(:/images/Share/images/ColorScheme_BrightMode_DarkBtn.png);</string>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+     <property name="text">
+      <string/>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_colorScheme">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>111</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>外观</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Btn_bright">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>28</y>
+       <width>151</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/images/Share/images/ColorScheme_BrightMode_BrightBtn1.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioBtn_dark">
+     <property name="geometry">
+      <rect>
+       <x>428</x>
+       <y>140</y>
+       <width>16</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>

@@ -4,7 +4,29 @@
 DropShadowWidget::DropShadowWidget(QWidget *parent):
     QWidget(parent)
 {
+    m_color = QColor(247, 247, 247);
+}
 
+const QColor DropShadowWidget::color() const
+{
+    return m_color;
+}
+
+void DropShadowWidget::setColor(const QColor color)
+{
+    m_color = color;
+    QString qss=QString("QWidget{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
+    setStyleSheet(qss);
+}
+
+const QColor DropShadowWidget::b_color() const
+{
+    return bright;
+}
+
+const QColor DropShadowWidget::d_color() const
+{
+    return dark;
 }
 #ifdef Q_OS_WIN32
 bool DropShadowWidget::nativeEvent(const QByteArray &eventType, void *message, long *result)

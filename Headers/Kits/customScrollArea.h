@@ -17,4 +17,6 @@ public:
 
 protected:
     QColor m_color;
+    QColor bright;
+    QColor dark;
 };

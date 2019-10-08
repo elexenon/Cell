@@ -24,6 +24,7 @@ public:
     explicit mainWindow(QWidget *parent = nullptr);
     ~mainWindow();
 
+
 // Pointers.
 private:
     Ui::mainWindow         *ui;
@@ -46,9 +47,7 @@ private:
     void InitMainWindow();
     void setAllTabsUnchecked();
     void startPageSwitchAnimation(PAGE_TYPE nextPage);
-    void startFadeInOrOutAnimation(QWidget *target, QWidget *parent, int duration, FADE_TYPE type);
-    void setPropertyAnimation(QByteArray, QVariant, QVariant, int,
-                              QEasingCurve, QWidget*, QGraphicsEffect*, QWidget*);
+    void startFadeInOrOutAnimation(QWidget *target, int duration, FADE_TYPE type);
 
 protected:
 #ifdef Q_OS_WIN32

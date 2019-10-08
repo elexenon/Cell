@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "Kits/_utility.h"
+#include "Kits/customFrame.h"
 
 namespace Ui {
 class SettingsPageWidget;
@@ -28,6 +29,13 @@ private slots:
 private:
     Ui::SettingsPageWidget *ui;
     QList<QFrame*>         *optionBlocks;
+    QPropertyAnimation     *frame_optionBlock1_animi;
+    QPropertyAnimation     *frame_optionBlock2_animi;
+    QPropertyAnimation     *frame_optionBlock3_animi;
+
+    customFrame            *frame_optionBlock2;
+    customFrame            *frame_optionBlock3;
+    customFrame            *frame_optionBlock1;
 
 private:
     void   Init();

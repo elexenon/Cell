@@ -52,32 +52,33 @@ void mainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void mainWindow::setColorScheme(COLOR_SCHEME mode)
 {
-    QPixmap tmp;
+    using UTILITY::setPropertyAnimation;
+    //QPixmap tmp;
     if(mode == COLOR_SCHEME::_BRIGHT){
-        tmp.load(IMG_DIR+QStringLiteral("labelCell.png"));
+        setPropertyAnimation(propertyAnimi, "color", color(), MAINWINDOW_BRIGHT, 500,
+                             QEasingCurve::Linear, this, true, nullptr, nullptr);
+        //tmp.load(IMG_DIR+QStringLiteral("labelCell.png"));
 
-        this->setStyleSheet("background-color: rgb(247, 247, 247);");
+        //this->setStyleSheet("background-color: rgb(247, 247, 247);");
 
         ui->frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:#FFFFFF}"));
     }
     else{
-        tmp.load(IMG_DIR+QStringLiteral("labelCell_dark.png"));
+        setPropertyAnimation(propertyAnimi, "color", color(), MAINWINDOW_DARK, 500,
+                             QEasingCurve::Linear, this, true, nullptr, nullptr);
+        //tmp.load(IMG_DIR+QStringLiteral("labelCell_dark.png"));
 
-        this->setStyleSheet(QStringLiteral("background-color: rgb(31, 30, 31);"));
+        //this->setStyleSheet(QStringLiteral("background-color: rgb(31, 30, 31);"));
 
         ui->frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:#2C2C2D}"));
     }
-    ui->label_backGND->setPixmap(tmp);
+    //ui->label_backGND->setPixmap(tmp);
 }
 
 void mainWindow::InitMainWindow()
 {
     // Functional.
     this->setWindowFlags(windowFlags() | Qt::FramelessWindowHint);  // Remove Windows' Default Window Frame.
-#ifdef ROUNDED_WINDOW
-    this->setAttribute(Qt::WA_TranslucentBackground);
-#endif
-
 #ifdef Q_OS_WIN32
     DropShadowWidget::LoadWinStyle(this);
 #endif
@@ -148,11 +149,11 @@ void mainWindow::startPageSwitchAnimation(PAGE_TYPE nextPage)
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(settingsPage);
-        startFadeInOrOutAnimation(settingsPage, ui->stackedWidget, duration, FADE_TYPE::_IN);
+        startFadeInOrOutAnimation(settingsPage, duration, FADE_TYPE::_IN);
     }else{
         homePage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(homePage);
-        startFadeInOrOutAnimation(homePage, ui->stackedWidget, duration, FADE_TYPE::_IN);
+        startFadeInOrOutAnimation(homePage, duration, FADE_TYPE::_IN);
     }
 }
 
@@ -192,27 +193,15 @@ void mainWindow::on_Btn_Guide_clicked()
     guideDialog->show();
 }
 
-void mainWindow::startFadeInOrOutAnimation(QWidget *target, QWidget *parent, int duration, FADE_TYPE type)
+void mainWindow::startFadeInOrOutAnimation(QWidget *target, int duration, FADE_TYPE type)
 {
+    using UTILITY::setPropertyAnimation;
     int startValue = 0, endValue = 1;
     if(type == FADE_TYPE::_OUT)
         qSwap(startValue, endValue);
     opacityEffect = new QGraphicsOpacityEffect(target);
     opacityEffect->setOpacity(startValue);
     target->setGraphicsEffect(opacityEffect);
-    setPropertyAnimation("opacity", startValue, endValue, duration, QEasingCurve::Linear, nullptr, opacityEffect, parent);
-}
-
-void mainWindow::setPropertyAnimation(QByteArray _property, QVariant startValue, QVariant endValue, int duration,
-                                      QEasingCurve curve, QWidget *target = nullptr, QGraphicsEffect* effect = nullptr, QWidget* _parent = nullptr)
-{
-    if(!effect)
-        propertyAnimi = new QPropertyAnimation(target, _property);
-    else
-        propertyAnimi = new QPropertyAnimation(effect, _property, _parent);
-    propertyAnimi->setDuration(duration);
-    propertyAnimi->setEasingCurve(curve);
-    propertyAnimi->setStartValue(startValue);
-    propertyAnimi->setEndValue(endValue);
-    propertyAnimi->start(QAbstractAnimation::DeleteWhenStopped);
+    setPropertyAnimation(propertyAnimi, "opacity", startValue, endValue, duration,
+                         QEasingCurve::Linear, nullptr, true, opacityEffect);
 }

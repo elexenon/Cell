@@ -6,6 +6,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
     qRegisterMetaType<COLOR_SCHEME>("COLOR_SCHEME");
     QPixmap pixmap(IMG_DIR + QStringLiteral("SplashScreen.png"));
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);

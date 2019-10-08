@@ -16,20 +16,8 @@
         <file>Share/images/mini1.png</file>
         <file>Share/images/mini-1.png</file>
         <file>Share/images/zoom.png</file>
-        <file>Share/images/MainWindowHomePage1.png</file>
-        <file>Share/images/MainWindowHomePage2.png</file>
-        <file>Share/images/MainWindowSettings1.png</file>
-        <file>Share/images/MainWindowSettings2.png</file>
-        <file>Share/images/MainWindowGuide1.png</file>
-        <file>Share/images/MainWindowGuide2.png</file>
-        <file>Share/images/MainWindowNewPJ1.png</file>
         <file>Share/images/MainWindowNewPJ2.png</file>
-        <file>Share/images/MainWindowOpenPJ1.png</file>
         <file>Share/images/MainWindowOpenPJ2.png</file>
-        <file>Share/images/MainWindowGrid1.png</file>
-        <file>Share/images/MainWindowGrid2.png</file>
-        <file>Share/images/MainWindowList1.png</file>
-        <file>Share/images/MainWindowList2.png</file>
         <file>Share/images/labelCell.png</file>
         <file>Share/images/ColorScheme_DarkMode_DarkBtn1.png</file>
         <file>Share/images/ColorScheme_BrightMode_DarkBtn.png</file>
@@ -40,21 +28,37 @@
         <file>Share/images/labelCell_dark.png</file>
         <file>Share/images/ColorScheme_BrightMode_BrightBtn.png</file>
         <file>Share/images/ColorScheme_DarkMode_DarkBtn.png</file>
+        <file>Share/images/MainWindowGrid1_Bright.png</file>
+        <file>Share/images/MainWindowGrid2_Bright.png</file>
+        <file>Share/images/MainWindowGuide1_Bright.png</file>
+        <file>Share/images/MainWindowGuide1_Dark.png</file>
+        <file>Share/images/MainWindowGuide2_Bright.png</file>
+        <file>Share/images/MainWindowGuide2_Dark.png</file>
+        <file>Share/images/MainWindowHomePage1_Bright.png</file>
+        <file>Share/images/MainWindowHomePage1_Dark.png</file>
+        <file>Share/images/MainWindowHomePage2_Bright.png</file>
+        <file>Share/images/MainWindowHomePage2_Dark.png</file>
+        <file>Share/images/MainWindowList1_Bright.png</file>
+        <file>Share/images/MainWindowList2_Bright.png</file>
+        <file>Share/images/MainWindowSettings1_Bright.png</file>
+        <file>Share/images/MainWindowSettings1_Dark.png</file>
+        <file>Share/images/MainWindowSettings2_Bright.png</file>
+        <file>Share/images/MainWindowSettings2_Dark.png</file>
+        <file>Share/images/MainWindowNewPJ1.png</file>
+        <file>Share/images/MainWindowOpenPJ1.png</file>
+        <file>Share/images/MainWindowNewPJ1_Dark.png</file>
+        <file>Share/images/MainWindowOpenPJ1_Dark.png</file>
+        <file>Share/images/MainWindowGrid1_Dark.png</file>
+        <file>Share/images/MainWindowGrid2_Dark.png</file>
+        <file>Share/images/MainWindowList1_Dark.png</file>
+        <file>Share/images/MainWindowList2_Dark.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
         <file>Share/fonts/PingFang-Light.ttf</file>
     </qresource>
     <qresource prefix="/styleSheets">
-        <file>Share/styleSheets/GuideDialogCloseBtn.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_HomePage.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Settings.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Guide.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_NewPJ.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_OpenPJ.qss</file>
-        <file>Share/styleSheets/MainWindowGridBtn.qss</file>
         <file>Share/styleSheets/MainWindowComboBox.qss</file>
-        <file>Share/styleSheets/MainWindowListBtn.qss</file>
         <file>Share/styleSheets/SettingsPage_RatioBtn.qss</file>
         <file>Share/styleSheets/Frame_OptionBlock_bright.qss</file>
         <file>Share/styleSheets/Frame_OptionBlock_dark.qss</file>
@@ -70,5 +74,23 @@
         <file>Share/styleSheets/MainWindowMinimizeBtn_dark.qss</file>
         <file>Share/styleSheets/MainWindowMaxBtn_bright.qss</file>
         <file>Share/styleSheets/MainWindowMaxBtn_dark.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Guide_Bright.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Guide_Dark.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Bright.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Dark.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Settings_Bright.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Settings_Dark.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_NewPJ_Bright.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_NewPJ_Dark.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_OpenPJ_Bright.qss</file>
+        <file>Share/styleSheets/MainWindowLeftTab_OpenPJ_Dark.qss</file>
+        <file>Share/styleSheets/MainWindowGridBtn_Bright.qss</file>
+        <file>Share/styleSheets/MainWindowGridBtn_Dark.qss</file>
+        <file>Share/styleSheets/MainWindowListBtn_Bright.qss</file>
+        <file>Share/styleSheets/MainWindowListBtn_Dark.qss</file>
+        <file>Share/styleSheets/GuideDialogCloseBtn_Bright.qss</file>
+        <file>Share/styleSheets/GuideDialogCloseBtn_Dark.qss</file>
+        <file>Share/styleSheets/GuideDialogIcon_bright.qss</file>
+        <file>Share/styleSheets/GuideDialogIcon_dark.qss</file>
     </qresource>
 </RCC>

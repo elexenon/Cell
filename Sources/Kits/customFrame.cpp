@@ -1,11 +1,11 @@
 #include "../../Headers/Kits/customFrame.h"
 #include <QDebug>
 
-customFrame::customFrame(QWidget *parent):
+customFrame::customFrame(WINDOW_TYPE type, QWidget *parent):
     QFrame(parent)
-{
-    m_color = QColor(218, 218, 218);
-}
+   ,m_type(type)
+   ,m_color(QColor(255, 255, 255))
+{}
 
 const QColor customFrame::color() const
 {
@@ -15,16 +15,9 @@ const QColor customFrame::color() const
 void customFrame::setColor(const QColor color)
 {
     m_color = color;
-    QString qss=QString("QFrame{border-radius:5px; background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
+    QString qss;
+    m_type == WINDOW_TYPE::_CHILD ?
+        qss=QString("QFrame{border-radius:5px; background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue())
+       :qss=QString("QFrame{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
     setStyleSheet(qss);
-}
-
-const QColor customFrame::b_color() const
-{
-    return bright;
-}
-
-const QColor customFrame::d_color() const
-{
-    return dark;
 }

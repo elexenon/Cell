@@ -12,10 +12,18 @@
 class DropShadowDialog : public QDialog
 {
     Q_OBJECT
+    Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
     explicit DropShadowDialog(QWidget *parent = nullptr);
     ~DropShadowDialog() = default;
+
+public:
+    const QColor color() const;
+    void setColor(const QColor color);
+
+protected:
+    QColor m_color;
 
 protected:
 #ifdef Q_OS_WIN32

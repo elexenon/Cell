@@ -5,6 +5,7 @@
 #ifdef Q_OS_WIN32
 #include "Kits/DropShadowWidget.h"
 #endif
+#include "Kits/customFrame.h"
 
 #include "guidedialog.h"
 #include "homepagewidget.h"
@@ -36,12 +37,15 @@ private:
     HomePageWidget      *homePage;
     SettingsPageWidget  *settingsPage;
 
+    customFrame         *frame_titleBar;
+
 // Regular members;
 private:
     QPoint m_startPoint;
     QPoint m_windowPoint;
     bool   m_move;
     PAGE_TYPE currentPage;
+    COLOR_SCHEME m_mode;
 
 private:
     void InitMainWindow();

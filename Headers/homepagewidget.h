@@ -20,6 +20,9 @@ private:
     Ui::HomePageWidget *ui;
 
 private:
+    COLOR_SCHEME m_mode;
+
+private:
     void Init();
     void setAllGraphBtnsUnchecked();
 

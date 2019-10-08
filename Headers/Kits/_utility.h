@@ -81,6 +81,8 @@ enum PAGE_TYPE{_HOME, _SETTINGS};
 
 enum COLOR_SCHEME{_BRIGHT, _DARK};
 
+enum WINDOW_TYPE{_MAIN, _CHILD};
+
 Q_DECLARE_METATYPE(COLOR_SCHEME);
 
 static const QString IMG_DIR = ":/images/Share/images/";

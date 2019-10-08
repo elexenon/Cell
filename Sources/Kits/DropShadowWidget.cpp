@@ -19,15 +19,6 @@ void DropShadowWidget::setColor(const QColor color)
     setStyleSheet(qss);
 }
 
-const QColor DropShadowWidget::b_color() const
-{
-    return bright;
-}
-
-const QColor DropShadowWidget::d_color() const
-{
-    return dark;
-}
 #ifdef Q_OS_WIN32
 bool DropShadowWidget::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {

@@ -28,7 +28,6 @@ private slots:
 
 private:
     Ui::SettingsPageWidget *ui;
-    QList<QFrame*>         *optionBlocks;
     QPropertyAnimation     *frame_optionBlock1_animi;
     QPropertyAnimation     *frame_optionBlock2_animi;
     QPropertyAnimation     *frame_optionBlock3_animi;
@@ -36,6 +35,9 @@ private:
     customFrame            *frame_optionBlock2;
     customFrame            *frame_optionBlock3;
     customFrame            *frame_optionBlock1;
+
+private:
+    COLOR_SCHEME m_mode;
 
 private:
     void   Init();

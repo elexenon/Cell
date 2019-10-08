@@ -1,0 +1,9 @@
+QPushButton{
+    border-image: url(:/images/Share/images/MainWindowHomePage1_Bright.png);
+}
+QPushButton:hover{
+    border-image: url(:/images/Share/images/MainWindowHomePage2_Bright.png);
+}
+QPushButton:checked{
+    border-image: url(:/images/Share/images/MainWindowHomePage2_Bright.png);
+}

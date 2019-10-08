@@ -4,8 +4,20 @@
 DropShadowDialog::DropShadowDialog(QWidget *parent):
     QDialog(parent)
 {
-
+    m_color = QColor(247,247,247);
 }
+const QColor DropShadowDialog::color() const
+{
+    return m_color;
+}
+
+void DropShadowDialog::setColor(const QColor color)
+{
+    m_color = color;
+    QString qss=QString("QWidget{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
+    setStyleSheet(qss);
+}
+
 #ifdef Q_OS_WIN32
 bool DropShadowDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {

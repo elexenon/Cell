@@ -1,9 +1,0 @@
-QPushButton{
-    border-image: url(:/images/Share/images/MainWindowGuide1.png);
-}
-QPushButton:hover{
-    border-image: url(:/images/Share/images/MainWindowGuide2.png);
-}
-QPushButton:clicked{
-    border-image: url(:/images/Share/images/MainWindowGuide2.png);
-}

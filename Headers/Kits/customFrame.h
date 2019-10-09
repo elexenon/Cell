@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CUSTOMFRAME_H
+#define CUSTOMFRAME_H
 
 #include "_utility.h"
 #include <QFrame>
@@ -20,3 +21,4 @@ protected:
     const WINDOW_TYPE m_type;
     QColor m_color;
 };
+#endif

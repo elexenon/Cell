@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include "Kits/_utility.h"
 #include "Kits/qstylesheetloader.h"
@@ -33,6 +34,8 @@ private:
     QList<QPushButton*>    *mainWindowTabBtns;
     QGraphicsOpacityEffect *opacityEffect;
     QPropertyAnimation     *propertyAnimi;
+    QTimer                 *changeColorTimer_Dark;
+    QTimer                 *changeColorTimer_Bright;
 
     HomePageWidget      *homePage;
     SettingsPageWidget  *settingsPage;
@@ -48,7 +51,7 @@ private:
     COLOR_SCHEME m_mode;
 
 private:
-    void InitMainWindow();
+    void InitMainWindow();  
     void setAllTabsUnchecked();
     void startPageSwitchAnimation(PAGE_TYPE nextPage);
     void startFadeInOrOutAnimation(QWidget *target, int duration, FADE_TYPE type);
@@ -64,6 +67,8 @@ protected:
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
 private slots:
+    void changePageNColor_BRIGHT();
+    void changePageNColor_DARK();
     void setColorScheme(COLOR_SCHEME mode);
     void on_Btn_mini_clicked();
     void on_Btn_close_clicked();
@@ -71,3 +76,4 @@ private slots:
     void on_Btn_Settings_clicked();
     void on_Btn_Guide_clicked();
 };
+#endif

@@ -6,6 +6,8 @@ mainWindow::mainWindow(QWidget *parent)
     : DropShadowWidget(parent)
     , ui(new Ui::mainWindow)
     , mainWindowTabBtns(new QList<QPushButton*>)
+    , changeColorTimer_Dark(new QTimer(this))
+    , changeColorTimer_Bright(new QTimer(this))
     , homePage(new HomePageWidget)
     , settingsPage(new SettingsPageWidget)
     , currentPage(PAGE_TYPE::_HOME)
@@ -49,6 +51,7 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
         ui->Btn_OpenProject->setStyleSheet(styleSheetLoader->styleSheet());
         styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Bright.qss"));
         ui->Btn_NewProject->setStyleSheet(styleSheetLoader->styleSheet());
+        QApplication::restoreOverrideCursor();
     }
     else{
         if(mode == m_mode) return;
@@ -76,6 +79,7 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
         ui->Btn_OpenProject->setStyleSheet(styleSheetLoader->styleSheet());
         styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Dark.qss"));
         ui->Btn_NewProject->setStyleSheet(styleSheetLoader->styleSheet());
+        QApplication::restoreOverrideCursor();
     }
 }
 
@@ -153,6 +157,33 @@ void mainWindow::InitMainWindow()
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             guideDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     guideDialog->show();
+
+    connect(changeColorTimer_Bright, SIGNAL(timeout()), this, SLOT(changePageNColor_BRIGHT()));
+    connect(changeColorTimer_Dark, SIGNAL(timeout()), this, SLOT(changePageNColor_DARK()));
+
+    QTime currentTime = QTime::currentTime();
+    if(currentTime.hour() >= 18){
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+        changeColorTimer_Dark->start(2000);
+    }else if(currentTime.hour() < 18){
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+        changeColorTimer_Bright->start(2000);
+    }
+}
+
+void mainWindow::changePageNColor_BRIGHT()
+{
+    delete changeColorTimer_Bright;
+
+    on_Btn_Settings_clicked();
+    settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_BRIGHT);
+}
+void mainWindow::changePageNColor_DARK()
+{
+    delete changeColorTimer_Dark;
+
+    on_Btn_Settings_clicked();
+    settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_DARK);
 }
 
 void mainWindow::on_Btn_mini_clicked()

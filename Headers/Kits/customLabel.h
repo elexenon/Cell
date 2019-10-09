@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CUSTOMLABEL_H
+#define CUSTOMLABEL_H
 
 #include <QLabel>
 
@@ -20,3 +21,4 @@ protected:
     QColor bright;
     QColor dark;
 };
+#endif

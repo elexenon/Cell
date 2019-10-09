@@ -16,6 +16,7 @@ SOURCES += \
     Sources/Kits/customFrame.cpp \
     Sources/Kits/customLabel.cpp \
     Sources/Kits/customScrollArea.cpp \
+    Sources/Kits/customWidget.cpp \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
     Sources/guidedialog.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     Headers/Kits/DropShadowDialog.h \
     Headers/Kits/DropShadowWidget.h \
     Headers/Kits/customFrame.h \
+    Headers/kits/customWidget.h \
     Headers/Kits/customLabel.h \
     Headers/Kits/customScrollArea.h \
     Headers/Kits/qstylesheetloader.h \

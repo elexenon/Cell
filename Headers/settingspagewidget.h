@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "Kits/_utility.h"
+#include "Kits/customWidget.h"
 #include "Kits/customFrame.h"
 
 namespace Ui {
@@ -16,6 +17,8 @@ class SettingsPageWidget : public QWidget
 public:
     explicit SettingsPageWidget(QWidget *parent = nullptr);
     ~SettingsPageWidget();
+
+    void mainWindowSetColorSchemeModeCall(COLOR_SCHEME mode);
 
 private slots:
     void on_Btn_bright_clicked();
@@ -31,10 +34,19 @@ private:
     QPropertyAnimation     *frame_optionBlock1_animi;
     QPropertyAnimation     *frame_optionBlock2_animi;
     QPropertyAnimation     *frame_optionBlock3_animi;
+    QPropertyAnimation     *scrollAreaContents_animi;
+    QTimer                 *mainWindowSetColorCall_BRIGHT_Timer;
+    QTimer                 *mainWindowSetColorCall_DARK_Timer;
+
+    QScrollArea            *main_ScrollArea;
+    customWidget           *scrollAreaWidgetContents;
 
     customFrame            *frame_optionBlock2;
     customFrame            *frame_optionBlock3;
     customFrame            *frame_optionBlock1;
+
+    bool switch_dark;
+    bool switch_bright;
 
 private:
     COLOR_SCHEME m_mode;

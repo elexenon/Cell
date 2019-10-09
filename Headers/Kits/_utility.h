@@ -3,12 +3,10 @@
  *      CREATED BY HENGYI YU 2019/10/1
  *
  */
-#pragma once
+#ifndef _UTILITY_H
+#define _UTILITY_H
 
-#ifdef Q_OS_WIN32
 #include <windows.h>
-
-#endif
 
 #include <QString>
 
@@ -17,6 +15,8 @@
 #include <QFontDatabase>
 
 #include <QDebug>
+
+#include <QTime>
 
 #include <QSize>
 
@@ -53,6 +53,8 @@
 #include <QPropertyAnimation>
 
 #include <QParallelAnimationGroup>
+
+#include <QScrollArea>
 
 #include "qstylesheetloader.h"
 
@@ -104,4 +106,6 @@ static const QColor COLOR_OPTION_BLOCK_BRIGHT(218, 218, 218);
 static const QColor MAINWINDOW_DARK(31, 30, 31);
 
 static const QColor MAINWINDOW_BRIGHT(247, 247, 247);
+
+#endif
 

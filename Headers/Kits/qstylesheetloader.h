@@ -1,7 +1,8 @@
 /*
  *  CREATED BY HENGYIYU 2019/10/5
  */
-#pragma once
+#ifndef QSTYLELOADER_H
+#define QSTYLELOADER_H
 
 #include <QFile>
 #include <QtCore/qglobal.h>
@@ -24,3 +25,4 @@ private:
     QString DIR;
     QString fileName;
 };
+#endif

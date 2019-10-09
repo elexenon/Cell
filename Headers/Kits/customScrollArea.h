@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CUSTOMSCROLLAREA_H
+#define CUSTOMSCROLLAREA_H
 
 #include <QScrollArea>
 
@@ -17,6 +18,5 @@ public:
 
 protected:
     QColor m_color;
-    QColor bright;
-    QColor dark;
 };
+#endif

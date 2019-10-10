@@ -21,7 +21,9 @@ SOURCES += \
     Sources/mainwindow.cpp \
     Sources/guidedialog.cpp \
     Sources/homepagewidget.cpp \
-    Sources/settingspagewidget.cpp
+    Sources/settingspagewidget.cpp \
+    Sources/workshop.cpp \
+    Sources/workshopdialog_1.cpp
 
 
 HEADERS += \
@@ -34,9 +36,11 @@ HEADERS += \
     Headers/Kits/qstylesheetloader.h \
     Headers/Kits/_utility.h \
     Headers/mainwindow.h \
-    Headers/guidedialog.h \   
+    Headers/guidedialog.h \
+    Headers/workshop.h \
     Headers/homepagewidget.h \
-    Headers/settingspagewidget.h
+    Headers/settingspagewidget.h \
+    Headers/workshopdialog_1.h
 
 win32{
 SOURCES += \
@@ -50,7 +54,9 @@ FORMS += \
     Forms/mainwindow.ui \
     Forms/guidedialog.ui \
     Forms/homepagewidget.ui \
-    Forms/settingspagewidget.ui
+    Forms/settingspagewidget.ui \
+    Forms/workshop.ui \
+    Forms/workshopdialog_1.ui
 
 LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\QStyleSheetLoader.dll
 

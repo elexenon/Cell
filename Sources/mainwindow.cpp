@@ -8,6 +8,7 @@ mainWindow::mainWindow(QWidget *parent)
     , mainWindowTabBtns(new QList<QPushButton*>)
     , changeColorTimer_Dark(new QTimer(this))
     , changeColorTimer_Bright(new QTimer(this))
+    , workshop(new Workshop)
     , homePage(new HomePageWidget)
     , settingsPage(new SettingsPageWidget)
     , currentPage(PAGE_TYPE::_HOME)
@@ -97,6 +98,9 @@ void mainWindow::InitMainWindow()
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             homePage, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
 
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            workshop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+
     frame_titleBar = new customFrame(WINDOW_TYPE::_MAIN, this);
     frame_titleBar->setGeometry(0, 0, 1311, 61);
     frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(255,255,255);}"));
@@ -162,10 +166,10 @@ void mainWindow::InitMainWindow()
     connect(changeColorTimer_Dark, SIGNAL(timeout()), this, SLOT(changePageNColor_DARK()));
 
     QTime currentTime = QTime::currentTime();
-    if(currentTime.hour() >= 18){
+    if(currentTime.hour() >= 18 && m_mode == COLOR_SCHEME::_BRIGHT){
         QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
         changeColorTimer_Dark->start(2000);
-    }else if(currentTime.hour() < 18){
+    }else if(currentTime.hour() < 18 && m_mode == COLOR_SCHEME::_DARK){
         QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
         changeColorTimer_Bright->start(2000);
     }
@@ -196,6 +200,7 @@ void mainWindow::on_Btn_mini_clicked()
 void mainWindow::on_Btn_close_clicked()
 {
     this->close();
+    workshop->close();
 }
 
 void mainWindow::on_Btn_HomePage_clicked()
@@ -285,4 +290,10 @@ void mainWindow::mouseReleaseEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton){
         m_move = false;
     }
+}
+
+void mainWindow::on_Btn_NewProject_clicked()
+{
+    workshop->show();
+    this->on_Btn_mini_clicked();
 }

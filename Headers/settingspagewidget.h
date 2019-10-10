@@ -34,6 +34,7 @@ private:
     QPropertyAnimation     *frame_optionBlock1_animi;
     QPropertyAnimation     *frame_optionBlock2_animi;
     QPropertyAnimation     *frame_optionBlock3_animi;
+    QPropertyAnimation     *frame_optionBlock4_animi;
     QPropertyAnimation     *scrollAreaContents_animi;
     QTimer                 *mainWindowSetColorCall_BRIGHT_Timer;
     QTimer                 *mainWindowSetColorCall_DARK_Timer;
@@ -44,6 +45,7 @@ private:
     customFrame            *frame_optionBlock2;
     customFrame            *frame_optionBlock3;
     customFrame            *frame_optionBlock1;
+    customFrame            *frame_optionBlock4;
 
     bool switch_dark;
     bool switch_bright;

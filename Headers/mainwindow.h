@@ -11,6 +11,7 @@
 #include "guidedialog.h"
 #include "homepagewidget.h"
 #include "settingspagewidget.h"
+#include "workshop.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }
@@ -30,15 +31,17 @@ public:
 // Pointers.
 private:
     Ui::mainWindow         *ui;
-    GuideDialog            *guideDialog;
+
     QList<QPushButton*>    *mainWindowTabBtns;
     QGraphicsOpacityEffect *opacityEffect;
     QPropertyAnimation     *propertyAnimi;
     QTimer                 *changeColorTimer_Dark;
     QTimer                 *changeColorTimer_Bright;
 
+    Workshop            *workshop;
     HomePageWidget      *homePage;
     SettingsPageWidget  *settingsPage;
+    GuideDialog         *guideDialog;
 
     customFrame         *frame_titleBar;
 
@@ -75,5 +78,6 @@ private slots:
     void on_Btn_HomePage_clicked();
     void on_Btn_Settings_clicked();
     void on_Btn_Guide_clicked();
+    void on_Btn_NewProject_clicked();
 };
 #endif

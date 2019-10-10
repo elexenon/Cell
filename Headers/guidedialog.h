@@ -22,8 +22,8 @@ public:
     ~GuideDialog();
 
 private:
-    Ui::GuideDialog   *ui;
-    customFrame       *frame_titleBar;
+    Ui::GuideDialog    *ui;
+    customFrame        *frame_titleBar;
     QPropertyAnimation *animi_main;
     QPropertyAnimation *animi_title;
 

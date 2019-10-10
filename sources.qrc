@@ -52,6 +52,7 @@
         <file>Share/images/MainWindowGrid2_Dark.png</file>
         <file>Share/images/MainWindowList1_Dark.png</file>
         <file>Share/images/MainWindowList2_Dark.png</file>
+        <file>Share/images/Workshop_logo.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>

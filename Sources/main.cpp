@@ -1,12 +1,19 @@
 #include "Headers/mainwindow.h"
 
 #include <QApplication>
+#include <QSharedMemory>
+#include <QMessageBox>
 #include <QSplashScreen>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    QSharedMemory mem("Cell Launcher");
+    if(!mem.create(1)){
+        QMessageBox::information(nullptr, QObject::tr("提示:"), QObject::tr("Cell启动器已在运行中。"));
+        return 0;
+    }
     qRegisterMetaType<COLOR_SCHEME>("COLOR_SCHEME");
     QPixmap pixmap(IMG_DIR + QStringLiteral("SplashScreen.png"));
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);

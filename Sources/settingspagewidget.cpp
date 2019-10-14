@@ -1,11 +1,10 @@
+#include "Headers/Kits/customWidget.h"
 #include "Headers/settingspagewidget.h"
 #include "ui_settingspagewidget.h"
 
 SettingsPageWidget::SettingsPageWidget(QWidget *parent) :
     QWidget(parent)
     ,ui(new Ui::SettingsPageWidget)
-    ,mainWindowSetColorCall_BRIGHT_Timer(new QTimer(this))
-    ,mainWindowSetColorCall_DARK_Timer(new QTimer(this))
     ,main_ScrollArea(new QScrollArea(this))
     ,scrollAreaWidgetContents(new customWidget)
     ,frame_optionBlock2(new customFrame(WINDOW_TYPE::_CHILD))
@@ -25,20 +24,17 @@ SettingsPageWidget::~SettingsPageWidget()
 
 void SettingsPageWidget::mainWindowSetColorSchemeModeCall(COLOR_SCHEME mode)
 {
+    qDebug() << "yes";
     if(mode == COLOR_SCHEME::_BRIGHT){
-        switch_bright = true;
-        mainWindowSetColorCall_BRIGHT_Timer->start(1000);
+        on_Btn_bright_clicked();
     }else{
-        switch_dark = true;
-        mainWindowSetColorCall_DARK_Timer->start(1000);
+        on_Btn_dark_clicked();
     }
 }
 
 void SettingsPageWidget::Init()
 {
     //Functional.
-    connect(mainWindowSetColorCall_BRIGHT_Timer, SIGNAL(timeout()), this, SLOT(on_Btn_bright_clicked()));
-    connect(mainWindowSetColorCall_DARK_Timer, SIGNAL(timeout()), this, SLOT(on_Btn_dark_clicked()));
 
     main_ScrollArea->setGeometry(4, 40, 951, 645);
     main_ScrollArea->setFrameShape(QFrame::NoFrame);
@@ -73,14 +69,14 @@ void SettingsPageWidget::Init()
     ui->label_auto_hint->setParent(frame_optionBlock1);
 
     // Load style.
-    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
     QScrollBar *verticalBar = main_ScrollArea->verticalScrollBar();
     verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_BrightBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_BrightBtn.css"));
     ui->Btn_bright->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_DarkBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_DarkBtn.css"));
     ui->Btn_dark->setStyleSheet(styleSheetLoader->styleSheet());
 
     ui->label_colorScheme->setFont(QFont(QStringLiteral("微软雅黑"), 16));
@@ -89,7 +85,7 @@ void SettingsPageWidget::Init()
     ui->label_about->setFont(QFont(QStringLiteral("微软雅黑"), 16));
     ui->label_about->setStyleSheet(QStringLiteral("color:#798186; background-color:#dadada"));
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.css"));
     frame_optionBlock1->setStyleSheet(styleSheetLoader->styleSheet());
     frame_optionBlock2->setStyleSheet(styleSheetLoader->styleSheet());
     frame_optionBlock3->setStyleSheet(styleSheetLoader->styleSheet());
@@ -114,15 +110,15 @@ void SettingsPageWidget::modulesChangeToDarkness()  // Color_Scheme_Switch.
     this->setStyleSheet("QWidget{background-color: rgb(31, 30, 31);}");
 
     UTILITY::setPropertyAnimation(scrollAreaContents_animi, "color", MAINWINDOW_BRIGHT, MAINWINDOW_DARK, 500,
-                         QEasingCurve::Linear, scrollAreaWidgetContents, true, nullptr);
+                         QEasingCurve::InOutCubic, scrollAreaWidgetContents, true, nullptr);
     UTILITY::setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_DARK, 500,
-                         QEasingCurve::Linear, frame_optionBlock1, true, nullptr);
+                         QEasingCurve::InOutCubic, frame_optionBlock1, true, nullptr);
     UTILITY::setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_DARK, 500,
-                         QEasingCurve::Linear, frame_optionBlock2, true, nullptr);
+                         QEasingCurve::InOutCubic, frame_optionBlock2, true, nullptr);
     UTILITY::setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_DARK, 500,
-                         QEasingCurve::Linear, frame_optionBlock3, true, nullptr);
+                         QEasingCurve::InOutCubic, frame_optionBlock3, true, nullptr);
     UTILITY::setPropertyAnimation(frame_optionBlock4_animi, "color", frame_optionBlock4->color(), COLOR_OPTION_BLOCK_DARK, 500,
-                         QEasingCurve::Linear, frame_optionBlock4, true, nullptr);
+                         QEasingCurve::InOutCubic, frame_optionBlock4, true, nullptr);
 
     // Ratio Btns.
     ui->radioBtn_bright->setStyleSheet(QStringLiteral("color: #2C2C2D;"));
@@ -131,9 +127,9 @@ void SettingsPageWidget::modulesChangeToDarkness()  // Color_Scheme_Switch.
     ui->label_colorScheme->setStyleSheet(QStringLiteral("color:#FFFFFF"));
     ui->label_about->setStyleSheet(QStringLiteral("color:#FFFFFF"));
     // Two Btns.
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_DarkMode_BrightBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_DarkMode_BrightBtn.css"));
     ui->Btn_bright->setStyleSheet(styleSheetLoader->styleSheet());
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_DarkMode_DarkBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_DarkMode_DarkBtn.css"));
     ui->Btn_dark->setStyleSheet(styleSheetLoader->styleSheet());
 
     ui->label_auto->setStyleSheet(QStringLiteral("color:#FFFFFF;"));
@@ -141,7 +137,7 @@ void SettingsPageWidget::modulesChangeToDarkness()  // Color_Scheme_Switch.
     ui->checkBox_auto->setStyleSheet(QStringLiteral("color:#2c2c2d"));
 
     // Scroll Bar
-    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Dark.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Dark.css"));
     QScrollBar *verticalBar = main_ScrollArea->verticalScrollBar();
     verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
 }
@@ -153,15 +149,15 @@ void SettingsPageWidget::modulesChangeToBrightness()    // Color_Scheme_Switch.
     this->setStyleSheet("QWidget{background-color: rgb(247, 247, 247);}");
 
     UTILITY::setPropertyAnimation(scrollAreaContents_animi, "color", MAINWINDOW_DARK, MAINWINDOW_BRIGHT, 500,
-                         QEasingCurve::Linear, scrollAreaWidgetContents, true, nullptr);
+                         QEasingCurve::InOutCubic, scrollAreaWidgetContents, true, nullptr);
     UTILITY::setPropertyAnimation(frame_optionBlock1_animi, "color", frame_optionBlock1->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock1, true, nullptr);
+                         QEasingCurve::InOutCubic, frame_optionBlock1, true, nullptr);
     UTILITY::setPropertyAnimation(frame_optionBlock2_animi, "color", frame_optionBlock2->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock2, true, nullptr);
+                         QEasingCurve::InOutCubic, frame_optionBlock2, true, nullptr);
     UTILITY::setPropertyAnimation(frame_optionBlock3_animi, "color", frame_optionBlock3->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock3, true, nullptr);
+                         QEasingCurve::InOutCubic, frame_optionBlock3, true, nullptr);
     UTILITY::setPropertyAnimation(frame_optionBlock4_animi, "color", frame_optionBlock4->color(), COLOR_OPTION_BLOCK_BRIGHT, 500,
-                         QEasingCurve::Linear, frame_optionBlock4, true, nullptr);
+                         QEasingCurve::InOutCubic, frame_optionBlock4, true, nullptr);
     // Ratio Btns.
     ui->radioBtn_bright->setStyleSheet(QStringLiteral("color: #dadada;"));
     ui->radioBtn_dark->setStyleSheet(QStringLiteral("color: #dadada;"));
@@ -169,9 +165,9 @@ void SettingsPageWidget::modulesChangeToBrightness()    // Color_Scheme_Switch.
     ui->label_colorScheme->setStyleSheet(QStringLiteral("color:#798186"));
     ui->label_about->setStyleSheet(QStringLiteral("color:#798186"));
     // Two Btns.
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_BrightBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_BrightBtn.css"));
     ui->Btn_bright->setStyleSheet(styleSheetLoader->styleSheet());
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_DarkBtn.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_DarkBtn.css"));
 
     ui->label_auto->setStyleSheet(QStringLiteral("color:#798186;"));
     ui->label_auto_hint->setStyleSheet(QStringLiteral("color:#798186;"));
@@ -179,7 +175,7 @@ void SettingsPageWidget::modulesChangeToBrightness()    // Color_Scheme_Switch.
 
     ui->Btn_dark->setStyleSheet(styleSheetLoader->styleSheet());
     // Scroll Bar
-    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
     QScrollBar *verticalBar = main_ScrollArea->verticalScrollBar();
     verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
 }
@@ -193,9 +189,6 @@ void SettingsPageWidget::on_Btn_bright_clicked()
     modulesChangeToBrightness();
 
     emit enableColorScheme(COLOR_SCHEME::_BRIGHT);
-    if(switch_bright && mainWindowSetColorCall_BRIGHT_Timer)
-        delete mainWindowSetColorCall_BRIGHT_Timer;
-    switch_bright = false;
 }
 
 void SettingsPageWidget::on_Btn_dark_clicked()
@@ -206,10 +199,6 @@ void SettingsPageWidget::on_Btn_dark_clicked()
     modulesChangeToDarkness();
 
     emit enableColorScheme(COLOR_SCHEME::_DARK);
-
-    if(switch_dark && mainWindowSetColorCall_DARK_Timer)
-        delete mainWindowSetColorCall_DARK_Timer;
-    switch_dark = false;
 }
 
 void SettingsPageWidget::on_radioBtn_bright_clicked()

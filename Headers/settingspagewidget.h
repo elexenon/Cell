@@ -2,13 +2,13 @@
 #define SETTINGSPAGEWIDGET_H
 
 #include <QWidget>
-#include "Kits/_utility.h"
-#include "Kits/customWidget.h"
 #include "Kits/customFrame.h"
 
 namespace Ui {
 class SettingsPageWidget;
 }
+
+class customWidget;
 
 class SettingsPageWidget : public QWidget
 {
@@ -36,8 +36,6 @@ private:
     QPropertyAnimation     *frame_optionBlock3_animi;
     QPropertyAnimation     *frame_optionBlock4_animi;
     QPropertyAnimation     *scrollAreaContents_animi;
-    QTimer                 *mainWindowSetColorCall_BRIGHT_Timer;
-    QTimer                 *mainWindowSetColorCall_DARK_Timer;
 
     QScrollArea            *main_ScrollArea;
     customWidget           *scrollAreaWidgetContents;
@@ -46,9 +44,6 @@ private:
     customFrame            *frame_optionBlock3;
     customFrame            *frame_optionBlock1;
     customFrame            *frame_optionBlock4;
-
-    bool switch_dark;
-    bool switch_bright;
 
 private:
     COLOR_SCHEME m_mode;

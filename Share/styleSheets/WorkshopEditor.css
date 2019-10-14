@@ -1,0 +1,67 @@
+QScrollBar:vertical
+{
+    width:12px;
+    background:#272727;
+    margin:0px;
+    padding-top:0px;
+    padding-bottom:0px;
+}
+QScrollBar::handle:vertical
+{
+    background: #454545;
+    border: 4px solid rgba(0,0,0,0);
+    border-radius:2px;
+    min-height:20;
+}
+QScrollBar::add-line:vertical 
+{
+    width:0px;
+    height:0px;
+    subcontrol-position:bottom;
+}
+QScrollBar::sub-line:vertical
+{
+    width:0px;
+    height:0px;
+    subcontrol-position:top;
+}
+QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical
+{
+    background:#272727;
+    border-radius:0px;
+}
+
+
+
+QScrollBar:horizontal
+{
+    height:12px;
+    background: #272727;
+    margin:0px;
+    padding-top:0px;
+    padding-bottom:0px;
+}
+QScrollBar::handle:horizontal
+{
+    background: #454545;
+    border: 4px solid rgba(0,0,0,0);
+    border-radius:2px;
+    min-width:20;
+}
+QScrollBar::add-line:horizontal 
+{
+    width:0px;
+    height:0px;
+    subcontrol-position:bottom;
+}
+QScrollBar::sub-line:horizontal
+{
+    width:0px;
+    height:0px;
+    subcontrol-position:top;
+}
+QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal
+{
+    background:#272727;
+    border-radius:0px;
+}

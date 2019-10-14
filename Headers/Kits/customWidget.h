@@ -8,8 +8,6 @@
 #define CUSTOMWIDGET_H
 
 #include <QWidget>
-#include <QStylePainter>
-#include <QStyleOption>
 
 class customWidget : public QWidget
 {

@@ -1,3 +1,5 @@
+#include <QPropertyAnimation>
+#include "../Headers/Kits/customFrame.h"
 #include "Headers/guidedialog.h"
 #include "ui_guidedialog.h"
 
@@ -36,7 +38,7 @@ void GuideDialog::Init()
     ui->checkBox_showUp->setFont(QFont(QStringLiteral("微软雅黑 Light")));
     ui->checkBox_showUp->setStyleSheet(QStringLiteral("QCheckBox{color:#798186;background-color: transparent;}"));
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
     ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
     ui->Btn_close->setFont(QFont(QStringLiteral("微软雅黑")));
 }
@@ -80,25 +82,25 @@ void GuideDialog::setColorScheme(COLOR_SCHEME mode)
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Dark.css"));
         ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
 
         UTILITY::setPropertyAnimation(animi_main, "color", color(), MAINWINDOW_DARK, 500,
-                             QEasingCurve::Linear, this, true, nullptr);
+                             QEasingCurve::InOutCubic, this, true, nullptr);
         UTILITY::setPropertyAnimation(animi_title, "color", frame_titleBar->color(), QColor(44, 44, 45), 500,
-                             QEasingCurve::Linear, frame_titleBar, true, nullptr);
+                             QEasingCurve::InOutCubic, frame_titleBar, true, nullptr);
     }
     else{
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
         ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
 
         UTILITY::setPropertyAnimation(animi_main, "color", color(), MAINWINDOW_BRIGHT, 500,
-                             QEasingCurve::Linear, this, true, nullptr);
+                             QEasingCurve::InOutCubic, this, true, nullptr);
         UTILITY::setPropertyAnimation(animi_title, "color", frame_titleBar->color(), QColor(164, 163, 164), 500,
-                             QEasingCurve::Linear, frame_titleBar, true, nullptr);
+                             QEasingCurve::InOutCubic, frame_titleBar, true, nullptr);
     }
 }
 

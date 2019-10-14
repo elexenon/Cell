@@ -50,10 +50,6 @@
 
 #include <QMetaType>
 
-#include <QPropertyAnimation>
-
-#include <QParallelAnimationGroup>
-
 #include <QScrollArea>
 
 #include "qstylesheetloader.h"

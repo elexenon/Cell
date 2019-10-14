@@ -1,3 +1,8 @@
+#include <QPushButton>
+#include "Headers/guidedialog.h"
+#include "Headers/homepagewidget.h"
+#include "Headers/settingspagewidget.h"
+#include "Headers/workshop.h"
 #include "Headers/mainwindow.h"
 #include "ui_mainwindow.h"
 #define DEBUG
@@ -6,9 +11,7 @@ mainWindow::mainWindow(QWidget *parent)
     : DropShadowWidget(parent)
     , ui(new Ui::mainWindow)
     , mainWindowTabBtns(new QList<QPushButton*>)
-    , changeColorTimer_Dark(new QTimer(this))
-    , changeColorTimer_Bright(new QTimer(this))
-    , workshop(new Workshop)
+    , workshop(nullptr)
     , homePage(new HomePageWidget)
     , settingsPage(new SettingsPageWidget)
     , currentPage(PAGE_TYPE::_HOME)
@@ -22,35 +25,33 @@ mainWindow::~mainWindow()
     delete ui;
 }
 
-
-
 void mainWindow::setColorScheme(COLOR_SCHEME mode)
 {
     if(mode == COLOR_SCHEME::_BRIGHT){
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
         UTILITY::setPropertyAnimation(propertyAnimi, "color", color(), MAINWINDOW_BRIGHT, 500,
-                             QEasingCurve::Linear, this, true, nullptr);
+                             QEasingCurve::InOutCubic, this, true, nullptr);
         UTILITY::setPropertyAnimation(propertyAnimi, "color", frame_titleBar->color(), QColor(255,255,255), 500,
-                             QEasingCurve::Linear, frame_titleBar, true, nullptr);
+                             QEasingCurve::InOutCubic, frame_titleBar, true, nullptr);
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_bright.css"));
         ui->Btn_max->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.css"));
         ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.css"));
         ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage_Bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage_Bright.css"));
         ui->Btn_HomePage->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Settings_Bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Settings_Bright.css"));
         ui->Btn_Settings->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Guide_Bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Guide_Bright.css"));
         ui->Btn_Guide->setStyleSheet(styleSheetLoader->styleSheet());
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ_Bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ_Bright.css"));
         ui->Btn_OpenProject->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Bright.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Bright.css"));
         ui->Btn_NewProject->setStyleSheet(styleSheetLoader->styleSheet());
         QApplication::restoreOverrideCursor();
     }
@@ -58,27 +59,27 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
         UTILITY::setPropertyAnimation(propertyAnimi, "color", color(), MAINWINDOW_DARK, 500,
-                             QEasingCurve::Linear, this, true, nullptr);
+                             QEasingCurve::InOutCubic, this, true, nullptr);
         UTILITY::setPropertyAnimation(propertyAnimi, "color", frame_titleBar->color(), QColor(44,44,45), 500,
-                             QEasingCurve::Linear, frame_titleBar, true, nullptr);
+                             QEasingCurve::InOutCubic, frame_titleBar, true, nullptr);
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_dark.css"));
         ui->Btn_max->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_dark.css"));
         ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_dark.css"));
         ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage_Dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage_Dark.css"));
         ui->Btn_HomePage->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Settings_Dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Settings_Dark.css"));
         ui->Btn_Settings->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Guide_Dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Guide_Dark.css"));
         ui->Btn_Guide->setStyleSheet(styleSheetLoader->styleSheet());
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ_Dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ_Dark.css"));
         ui->Btn_OpenProject->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Dark.qss"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Dark.css"));
         ui->Btn_NewProject->setStyleSheet(styleSheetLoader->styleSheet());
         QApplication::restoreOverrideCursor();
     }
@@ -97,9 +98,6 @@ void mainWindow::InitMainWindow()
 
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             homePage, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            workshop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
 
     frame_titleBar = new customFrame(WINDOW_TYPE::_MAIN, this);
     frame_titleBar->setGeometry(0, 0, 1311, 61);
@@ -135,25 +133,25 @@ void mainWindow::InitMainWindow()
     // Window Welcome Hint.
     ui->label_welcome->setFont(QFont(QStringLiteral("微软雅黑 Light"), 18));
     // Window Side Tabs.
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage_Bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage_Bright.css"));
     ui->Btn_HomePage->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Settings_Bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Settings_Bright.css"));
     ui->Btn_Settings->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Guide_Bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Guide_Bright.css"));
     ui->Btn_Guide->setStyleSheet(styleSheetLoader->styleSheet());
     // Window Project Btns.
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Bright.css"));
     ui->Btn_NewProject->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ_Bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ_Bright.css"));
     ui->Btn_OpenProject->setStyleSheet(styleSheetLoader->styleSheet());
     // Window Opeartion Btns
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.css"));
     ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.qss"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.css"));
     ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
 
     // Functional;
@@ -162,32 +160,14 @@ void mainWindow::InitMainWindow()
             guideDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     guideDialog->show();
 
-    connect(changeColorTimer_Bright, SIGNAL(timeout()), this, SLOT(changePageNColor_BRIGHT()));
-    connect(changeColorTimer_Dark, SIGNAL(timeout()), this, SLOT(changePageNColor_DARK()));
-
     QTime currentTime = QTime::currentTime();
     if(currentTime.hour() >= 18 && m_mode == COLOR_SCHEME::_BRIGHT){
-        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-        changeColorTimer_Dark->start(2000);
+        on_Btn_Settings_clicked();
+        settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_DARK);
     }else if(currentTime.hour() < 18 && m_mode == COLOR_SCHEME::_DARK){
-        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-        changeColorTimer_Bright->start(2000);
+        on_Btn_Settings_clicked();
+        settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_BRIGHT);
     }
-}
-
-void mainWindow::changePageNColor_BRIGHT()
-{
-    delete changeColorTimer_Bright;
-
-    on_Btn_Settings_clicked();
-    settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_BRIGHT);
-}
-void mainWindow::changePageNColor_DARK()
-{
-    delete changeColorTimer_Dark;
-
-    on_Btn_Settings_clicked();
-    settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_DARK);
 }
 
 void mainWindow::on_Btn_mini_clicked()
@@ -200,7 +180,9 @@ void mainWindow::on_Btn_mini_clicked()
 void mainWindow::on_Btn_close_clicked()
 {
     this->close();
-    workshop->close();
+    if(workshop){
+        workshop->close();
+    }
 }
 
 void mainWindow::on_Btn_HomePage_clicked()
@@ -294,6 +276,9 @@ void mainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void mainWindow::on_Btn_NewProject_clicked()
 {
+    workshop = new Workshop(m_mode);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            workshop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     workshop->show();
     this->on_Btn_mini_clicked();
 }

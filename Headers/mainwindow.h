@@ -1,23 +1,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "Kits/_utility.h"
-#include "Kits/qstylesheetloader.h"
-#ifdef Q_OS_WIN32
 #include "Kits/DropShadowWidget.h"
-#endif
 #include "Kits/customFrame.h"
-
-#include "guidedialog.h"
-#include "homepagewidget.h"
-#include "settingspagewidget.h"
-#include "workshop.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }
 QT_END_NAMESPACE
 
-
+class GuideDialog;
+class HomePageWidget;
+class Workshop;
+class SettingsPageWidget;
+class QPushButton;
 
 class mainWindow : public DropShadowWidget
 {
@@ -27,7 +22,6 @@ public:
     explicit mainWindow(QWidget *parent = nullptr);
     ~mainWindow();
 
-
 // Pointers.
 private:
     Ui::mainWindow         *ui;
@@ -35,8 +29,6 @@ private:
     QList<QPushButton*>    *mainWindowTabBtns;
     QGraphicsOpacityEffect *opacityEffect;
     QPropertyAnimation     *propertyAnimi;
-    QTimer                 *changeColorTimer_Dark;
-    QTimer                 *changeColorTimer_Bright;
 
     Workshop            *workshop;
     HomePageWidget      *homePage;
@@ -44,6 +36,7 @@ private:
     GuideDialog         *guideDialog;
 
     customFrame         *frame_titleBar;
+
 
 // Regular members;
 private:
@@ -70,8 +63,6 @@ protected:
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
 private slots:
-    void changePageNColor_BRIGHT();
-    void changePageNColor_DARK();
     void setColorScheme(COLOR_SCHEME mode);
     void on_Btn_mini_clicked();
     void on_Btn_close_clicked();

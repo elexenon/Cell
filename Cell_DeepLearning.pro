@@ -14,8 +14,6 @@ SOURCES += \
     Sources/Kits/DropShadowDialog.cpp \
     Sources/Kits/DropShadowWidget.cpp \
     Sources/Kits/customFrame.cpp \
-    Sources/Kits/customLabel.cpp \
-    Sources/Kits/customScrollArea.cpp \
     Sources/Kits/customWidget.cpp \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
@@ -23,7 +21,7 @@ SOURCES += \
     Sources/homepagewidget.cpp \
     Sources/settingspagewidget.cpp \
     Sources/workshop.cpp \
-    Sources/workshopdialog_1.cpp
+    Sources/wswelcomedialog.cpp
 
 
 HEADERS += \
@@ -31,8 +29,6 @@ HEADERS += \
     Headers/Kits/DropShadowWidget.h \
     Headers/Kits/customFrame.h \
     Headers/kits/customWidget.h \
-    Headers/Kits/customLabel.h \
-    Headers/Kits/customScrollArea.h \
     Headers/Kits/qstylesheetloader.h \
     Headers/Kits/_utility.h \
     Headers/mainwindow.h \
@@ -40,7 +36,7 @@ HEADERS += \
     Headers/workshop.h \
     Headers/homepagewidget.h \
     Headers/settingspagewidget.h \
-    Headers/workshopdialog_1.h
+    Headers/wswelcomedialog.h
 
 win32{
 SOURCES += \
@@ -56,9 +52,14 @@ FORMS += \
     Forms/homepagewidget.ui \
     Forms/settingspagewidget.ui \
     Forms/workshop.ui \
-    Forms/workshopdialog_1.ui
+    Forms/wswelcomedialog.ui
+
+INCLUDEPATH += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\QScintilla_gpl-2.11.2\Qt4Qt5
 
 LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\QStyleSheetLoader.dll
+LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\qscintilla2_qt5d.dll
+#LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\qscintilla2_qt5.dll
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

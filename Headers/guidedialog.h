@@ -2,12 +2,10 @@
 #define GUIDEDIALOG_H
 
 #include "Kits/_utility.h"
-
-#ifdef Q_OS_WIN32
 #include "Kits/DropShadowDialog.h"
-#endif
 
-#include "Kits/customFrame.h"
+class QPropertyAnimation;
+class customFrame;
 
 namespace Ui {
 class GuideDialog;

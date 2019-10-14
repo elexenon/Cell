@@ -53,45 +53,52 @@
         <file>Share/images/MainWindowList1_Dark.png</file>
         <file>Share/images/MainWindowList2_Dark.png</file>
         <file>Share/images/Workshop_logo.png</file>
+        <file>Share/images/start.png</file>
+        <file>Share/images/start1.png</file>
+        <file>Share/images/menuBar.png</file>
+        <file>Share/images/WS.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
         <file>Share/fonts/PingFang-Light.ttf</file>
     </qresource>
     <qresource prefix="/styleSheets">
-        <file>Share/styleSheets/MainWindowComboBox.qss</file>
-        <file>Share/styleSheets/SettingsPage_RatioBtn.qss</file>
-        <file>Share/styleSheets/Frame_OptionBlock_bright.qss</file>
-        <file>Share/styleSheets/Frame_OptionBlock_dark.qss</file>
-        <file>Share/styleSheets/SettingsPage_OptionBlock1_BrightMode_BrightBtn.qss</file>
-        <file>Share/styleSheets/SettingsPage_OptionBlock1_BrightMode_DarkBtn.qss</file>
-        <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkMode_BrightBtn.qss</file>
-        <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkMode_DarkBtn.qss</file>
-        <file>Share/styleSheets/ScrollBar_Bright.qss</file>
-        <file>Share/styleSheets/ScrollBar_Dark.qss</file>
-        <file>Share/styleSheets/MainWindowCloseBtn_bright.qss</file>
-        <file>Share/styleSheets/MainWindowCloseBtn_dark.qss</file>
-        <file>Share/styleSheets/MainWindowMinimizeBtn_bright.qss</file>
-        <file>Share/styleSheets/MainWindowMinimizeBtn_dark.qss</file>
-        <file>Share/styleSheets/MainWindowMaxBtn_bright.qss</file>
-        <file>Share/styleSheets/MainWindowMaxBtn_dark.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Guide_Bright.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Guide_Dark.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Bright.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Dark.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Settings_Bright.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Settings_Dark.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_NewPJ_Bright.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_NewPJ_Dark.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_OpenPJ_Bright.qss</file>
-        <file>Share/styleSheets/MainWindowLeftTab_OpenPJ_Dark.qss</file>
-        <file>Share/styleSheets/MainWindowGridBtn_Bright.qss</file>
-        <file>Share/styleSheets/MainWindowGridBtn_Dark.qss</file>
-        <file>Share/styleSheets/MainWindowListBtn_Bright.qss</file>
-        <file>Share/styleSheets/MainWindowListBtn_Dark.qss</file>
-        <file>Share/styleSheets/GuideDialogCloseBtn_Bright.qss</file>
-        <file>Share/styleSheets/GuideDialogCloseBtn_Dark.qss</file>
-        <file>Share/styleSheets/GuideDialogIcon_bright.qss</file>
-        <file>Share/styleSheets/GuideDialogIcon_dark.qss</file>
+        <file>Share/styleSheets/WorkshopEditor.css</file>
+        <file>Share/styleSheets/Editor_ScrollBar.css</file>
+        <file>Share/styleSheets/Frame_OptionBlock_bright.css</file>
+        <file>Share/styleSheets/Frame_OptionBlock_dark.css</file>
+        <file>Share/styleSheets/GuideDialogCloseBtn_Bright.css</file>
+        <file>Share/styleSheets/GuideDialogCloseBtn_Dark.css</file>
+        <file>Share/styleSheets/GuideDialogIcon_bright.css</file>
+        <file>Share/styleSheets/GuideDialogIcon_dark.css</file>
+        <file>Share/styleSheets/MainWindowCloseBtn_bright.css</file>
+        <file>Share/styleSheets/MainWindowCloseBtn_dark.css</file>
+        <file>Share/styleSheets/MainWindowComboBox.css</file>
+        <file>Share/styleSheets/MainWindowGridBtn_Bright.css</file>
+        <file>Share/styleSheets/MainWindowGridBtn_Dark.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Guide_Bright.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Guide_Dark.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Bright.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Dark.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_NewPJ_Bright.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_NewPJ_Dark.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_OpenPJ_Bright.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_OpenPJ_Dark.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Settings_Bright.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Settings_Dark.css</file>
+        <file>Share/styleSheets/MainWindowListBtn_Bright.css</file>
+        <file>Share/styleSheets/MainWindowListBtn_Dark.css</file>
+        <file>Share/styleSheets/MainWindowMaxBtn_bright.css</file>
+        <file>Share/styleSheets/MainWindowMaxBtn_dark.css</file>
+        <file>Share/styleSheets/MainWindowMinimizeBtn_bright.css</file>
+        <file>Share/styleSheets/MainWindowMinimizeBtn_dark.css</file>
+        <file>Share/styleSheets/ScrollBar_Bright.css</file>
+        <file>Share/styleSheets/ScrollBar_Dark.css</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_BrightMode_BrightBtn.css</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_BrightMode_DarkBtn.css</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkMode_BrightBtn.css</file>
+        <file>Share/styleSheets/SettingsPage_OptionBlock1_DarkMode_DarkBtn.css</file>
+        <file>Share/styleSheets/SettingsPage_RatioBtn.css</file>
+        <file>Share/styleSheets/WorkshopDialog_start.css</file>
     </qresource>
 </RCC>

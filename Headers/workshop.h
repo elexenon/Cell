@@ -2,13 +2,17 @@
 #define WORKSHOP_H
 
 #include <QWidget>
-#include <QPropertyAnimation>
 #include "Kits/_utility.h"
-#include "workshopdialog_1.h"
 
 namespace Ui {
 class Workshop;
 }
+
+class WSWelcomeDialog;
+class QsciScintilla;
+class customFrame;
+class QLabel;
+class QPushButton;
 
 class Workshop : public QWidget
 {
@@ -16,7 +20,7 @@ class Workshop : public QWidget
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-    explicit Workshop(QWidget *parent = nullptr);
+    explicit Workshop(COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
     ~Workshop();
 
 public:
@@ -25,17 +29,42 @@ public:
 
 private:
     Ui::Workshop *ui;
-    QPropertyAnimation *animi;
+    QPropertyAnimation *animi_MenuBar;
+    QPropertyAnimation *animi_StatusBar;
+    QPropertyAnimation *animi_LeftBlock;
+    QPropertyAnimation *animi_RightBlock;
 
-    WorkshopDialog_1 *welcomeDialog;
+    QGraphicsDropShadowEffect *eff1;
+    QGraphicsDropShadowEffect *eff2;
+    QGraphicsDropShadowEffect *eff3;
+
+    QFrame *dropShadowLine1;
+    QFrame *dropShadowLine2;
+    QFrame *dropShadowLine3;
+
+    WSWelcomeDialog  *welcomeDialog;
+    customFrame      *menuBar;
+    customFrame      *leftBlock;
+    customFrame      *rightBlock;
+    customFrame      *statusBar;
+    QLabel           *cntRow;
+    QLabel           *cntChar;
+    QLabel           *labelFormat;
+    QsciScintilla    *mainEditor;
 
     QColor m_color;
+    COLOR_SCHEME m_mode;
 
 private:
     void InitWorkshop();
+    void setConnections();
 
 private slots:
     void setColorScheme(COLOR_SCHEME mode);
+    void updateStatusBar();
+
+protected:
+    virtual void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // WORKSHOP_H

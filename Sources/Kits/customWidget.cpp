@@ -1,3 +1,5 @@
+#include <QStylePainter>
+#include <QStyleOption>
 #include "Headers/Kits/customWidget.h"
 
 customWidget::customWidget(QWidget *parent):

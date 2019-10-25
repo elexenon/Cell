@@ -13,6 +13,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Sources/Kits/DropShadowDialog.cpp \
     Sources/Kits/DropShadowWidget.cpp \
+    Sources/Kits/_utility.cpp \
     Sources/Kits/customFrame.cpp \
     Sources/Kits/customWidget.cpp \
     Sources/main.cpp \
@@ -54,11 +55,13 @@ FORMS += \
     Forms/workshop.ui \
     Forms/wswelcomedialog.ui
 
-INCLUDEPATH += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\QScintilla_gpl-2.11.2\Qt4Qt5
+INCLUDEPATH += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\QScintilla_gpl-2.11.2\Qt4Qt5
 
-LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\QStyleSheetLoader.dll
-LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\qscintilla2_qt5d.dll
-#LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\qscintilla2_qt5.dll
+
+
+LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\X86\QStyleSheetLoader.dll
+LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\X86\qscintilla2_qt5d.dll
+#LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\X86\qscintilla2_qt5.dll
 
 
 # Default rules for deployment.

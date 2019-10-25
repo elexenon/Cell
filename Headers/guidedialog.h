@@ -49,6 +49,7 @@ protected:
 private slots:
     void setColorScheme(COLOR_SCHEME);
     void on_Btn_close_clicked();
+    void on_pushButton_clicked();
 };
 
 #endif // GUIDEDIALOG_H

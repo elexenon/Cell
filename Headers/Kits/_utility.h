@@ -55,22 +55,11 @@
 #include "qstylesheetloader.h"
 
 namespace UTILITY{
-
-static void setPropertyAnimation(QPropertyAnimation* animi,QByteArray _property, QVariant s_value, QVariant e_value,
-                                 int duration, QEasingCurve curve, QWidget *target, bool startNow,
-                                 QGraphicsEffect *effect = nullptr)
-{
-    if(!effect)
-        animi = new QPropertyAnimation(target, _property);
-    else
-        animi = new QPropertyAnimation(effect, _property);
-    animi->setDuration(duration);
-    animi->setEasingCurve(curve);
-    animi->setStartValue(s_value);
-    animi->setEndValue(e_value);
-    if(startNow) animi->start(QAbstractAnimation::DeleteWhenStopped);   // Bug here.
-}
-
+    extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,QList<QWidget*> modules,QPoint offset,QColor color,
+                                    int blurRadius);
+    extern void setPropertyAnimation(QList<QPropertyAnimation*> animis,QByteArray _property, QVariant s_value, QVariant e_value,
+                                     int duration, QEasingCurve curve, QList<QWidget*> modules,QGraphicsEffect *effect = nullptr);
+    extern void multiModulesOneStyleSheet(QList<QWidget*> modules, QString qss);
 }
 
 enum FADE_TYPE{_IN, _OUT};
@@ -83,25 +72,16 @@ enum WINDOW_TYPE{_MAIN, _CHILD};
 
 Q_DECLARE_METATYPE(COLOR_SCHEME);
 
-static const QString IMG_DIR = ":/images/Share/images/";
-
-static const QString FONT_DIR = ":/fonts/Share/fonts/";
-
-static const QString STYLESHEET_DIR = "C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Share\\styleSheets\\";
-
-static const QString LIB_DIR = ":/libs/Share/libs/";
-
-static const QString COLOR_SPACE_GRAY = "#798186";
-
-static QStyleSheetLoader *styleSheetLoader = new QStyleSheetLoader(STYLESHEET_DIR);
-
-static const QColor COLOR_OPTION_BLOCK_DARK(44, 44, 45);
-
-static const QColor COLOR_OPTION_BLOCK_BRIGHT(218, 218, 218);
-
-static const QColor MAINWINDOW_DARK(31, 30, 31);
-
-static const QColor MAINWINDOW_BRIGHT(247, 247, 247);
+extern const QString IMG_DIR;
+extern const QString FONT_DIR;
+extern const QString STYLESHEET_DIR;
+extern const QString LIB_DIR;
+extern const QString COLOR_SPACE_GRAY;
+extern QStyleSheetLoader *styleSheetLoader;
+extern const QColor COLOR_OPTION_BLOCK_DARK;
+extern const QColor COLOR_OPTION_BLOCK_BRIGHT;
+extern const QColor MAINWINDOW_DARK;
+extern const QColor MAINWINDOW_BRIGHT;
 
 #endif
 

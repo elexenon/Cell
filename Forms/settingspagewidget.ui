@@ -38,6 +38,12 @@
      <height>101</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;浅色&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/Share/images/ColorScheme_BrightMode_BrightBtn1.png);</string>
    </property>
@@ -62,6 +68,9 @@
      <width>151</width>
      <height>101</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;深色&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/Share/images/ColorScheme_BrightMode_DarkBtn.png);</string>
@@ -150,14 +159,58 @@
   <widget class="QLabel" name="label_about">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>690</y>
+     <x>50</x>
+     <y>630</y>
      <width>111</width>
      <height>61</height>
     </rect>
    </property>
    <property name="text">
-    <string>关于 Cell</string>
+    <string>关于</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelGPL">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>490</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/Share/images/gpl.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelLicenseHint">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>480</y>
+     <width>731</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>此自由软件使用GUN GPLv3开源协议。若您想由此软件衍生新的程序，请务必开放源码
+
+请勿对由此软件衍生的产品进行任何闭源商业行为。</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelLicense">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>410</y>
+     <width>111</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>许可</string>
    </property>
   </widget>
  </widget>

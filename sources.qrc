@@ -57,6 +57,10 @@
         <file>Share/images/start1.png</file>
         <file>Share/images/menuBar.png</file>
         <file>Share/images/WS.png</file>
+        <file>Share/images/gpl.png</file>
+        <file>Share/images/guidePython.png</file>
+        <file>Share/images/guideBuild.png</file>
+        <file>Share/images/guideCalcu.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>

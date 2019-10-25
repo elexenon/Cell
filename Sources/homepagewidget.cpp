@@ -53,12 +53,9 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
     if(mode == COLOR_SCHEME::_DARK){
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
-        ui->label_welcome->setStyleSheet(QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
-        ui->label_sort->setStyleSheet(QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
-        ui->label_recentPJ->setStyleSheet(QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
+        UTILITY::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->line->setStyleSheet("QFrame{border:none;background-color:#FFFFFF;"
                                 "max-height : 21px;}");
-
         styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_dark.css"));
         ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
 
@@ -77,11 +74,8 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
     else{
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
-        ui->label_welcome->setStyleSheet(QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
-        ui->label_sort->setStyleSheet(QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
-        ui->label_recentPJ->setStyleSheet(QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
-        ui->line->setStyleSheet("QFrame{border:none;background-color:#DADADA;"
-                                               "max-height : 21px;}");
+        UTILITY::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
+        ui->line->setStyleSheet(QStringLiteral("QFrame{border:none;background-color:#DADADA;max-height : 21px;}"));
         styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.css"));
         ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
 

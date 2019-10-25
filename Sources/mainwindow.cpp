@@ -30,10 +30,10 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
     if(mode == COLOR_SCHEME::_BRIGHT){
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
-        UTILITY::setPropertyAnimation(propertyAnimi, "color", color(), MAINWINDOW_BRIGHT, 500,
-                             QEasingCurve::InOutCubic, this, true, nullptr);
-        UTILITY::setPropertyAnimation(propertyAnimi, "color", frame_titleBar->color(), QColor(255,255,255), 500,
-                             QEasingCurve::InOutCubic, frame_titleBar, true, nullptr);
+        UTILITY::setPropertyAnimation({propertyAnimi}, "color", color(), MAINWINDOW_BRIGHT, 500,
+                             QEasingCurve::InOutCubic, {this}, nullptr);
+        UTILITY::setPropertyAnimation({propertyAnimi}, "color", frame_titleBar->color(), QColor(255,255,255), 500,
+                             QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
 
         styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_bright.css"));
         ui->Btn_max->setStyleSheet(styleSheetLoader->styleSheet());
@@ -58,10 +58,10 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
     else{
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
-        UTILITY::setPropertyAnimation(propertyAnimi, "color", color(), MAINWINDOW_DARK, 500,
-                             QEasingCurve::InOutCubic, this, true, nullptr);
-        UTILITY::setPropertyAnimation(propertyAnimi, "color", frame_titleBar->color(), QColor(44,44,45), 500,
-                             QEasingCurve::InOutCubic, frame_titleBar, true, nullptr);
+        UTILITY::setPropertyAnimation({propertyAnimi}, "color", color(), MAINWINDOW_DARK, 500,
+                             QEasingCurve::InOutCubic, {this}, nullptr);
+        UTILITY::setPropertyAnimation({propertyAnimi}, "color", frame_titleBar->color(), QColor(44,44,45), 500,
+                             QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
 
         styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_dark.css"));
         ui->Btn_max->setStyleSheet(styleSheetLoader->styleSheet());
@@ -219,8 +219,8 @@ void mainWindow::startFadeInOrOutAnimation(QWidget *target, int duration, FADE_T
     opacityEffect = new QGraphicsOpacityEffect(target);
     opacityEffect->setOpacity(startValue);
     target->setGraphicsEffect(opacityEffect);
-    setPropertyAnimation(propertyAnimi, "opacity", startValue, endValue, duration,
-                         QEasingCurve::Linear, nullptr, true, opacityEffect);
+    setPropertyAnimation({propertyAnimi}, "opacity", startValue, endValue, duration,
+                         QEasingCurve::Linear, {nullptr}, opacityEffect);
 }
 
 void mainWindow::setAllTabsUnchecked()

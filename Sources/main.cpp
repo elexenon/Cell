@@ -1,3 +1,10 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #include "Headers/mainwindow.h"
 
 #include <QApplication>
@@ -15,7 +22,7 @@ int main(int argc, char *argv[])
         return 0;
     }
     qRegisterMetaType<COLOR_SCHEME>("COLOR_SCHEME");
-    QPixmap pixmap(IMG_DIR + QStringLiteral("SplashScreen.png"));
+    QPixmap pixmap(CELL_UTIL::LITERAL::IMG_DIR + QStringLiteral("SplashScreen.png"));
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);
 #ifdef Q_OS_WIN32
     startUp.setFont(QFont(QStringLiteral("微软雅黑")));

@@ -1,9 +1,10 @@
-/*
-
-  CREATED BY HENGYI YU 2019/10/06
-  This class achieve both window drop shadow effet & "color" property.
-
-*/
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef DROPSHADOWWIDGET_H
 #define DROPSHADOWWIDGET_H
 

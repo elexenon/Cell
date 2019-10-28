@@ -1,4 +1,12 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #include <QPropertyAnimation>
+#include <QFrame>
 #include <QLabel>
 #include <QDebug>
 #include <QCursor>
@@ -7,11 +15,14 @@
 #include <QGraphicsDropShadowEffect>
 #include <QSci/qsciscintilla.h>
 #include <QSci/qscilexerpython.h>
-#include "../Headers/Kits/_utility.h"
-#include "../Headers/wswelcomedialog.h"
-#include "../Headers/Kits/customFrame.h"
+#include "Headers/Kits/cell_util.h"
+#include "Headers/Kits/qstylesheetloader.hpp"
+#include "Headers/wswelcomedialog.h"
+#include "Headers/Kits/customFrame.h"
 #include "Headers/workshop.h"
 #include "ui_workshop.h"
+
+using namespace CELL_UTIL;
 
 Workshop::Workshop(COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     QWidget(parent),
@@ -109,22 +120,22 @@ void Workshop::InitWorkshop()
     ui->BtnView->setFont(QFont("微软雅黑", 10));
     ui->BtnHelp->setFont(QFont("微软雅黑", 10));
 
-    UTILITY::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
+    TOOLS::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
                                        QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
 
     // DropShadow Lines.
-    UTILITY::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
+    TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
                                        QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
 
     // DropShadowEffects.
 
-    UTILITY::setDropShadowEffect({eff1,eff2,eff3},{dropShadowLine1,dropShadowLine2,dropShadowLine3},
+    TOOLS::setDropShadowEffect({eff1,eff2,eff3},{dropShadowLine1,dropShadowLine2,dropShadowLine3},
                                  QPoint(0,1),Qt::black,10);
 
     // Main Editor.
     mainEditor->setFrameShape(QFrame::NoFrame);
-    styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditor.css"));
-    mainEditor->setStyleSheet(styleSheetLoader->styleSheet());
+    TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditor.css"));
+    mainEditor->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
     mainEditor->setFont(QFont("Courier New", 11));
     mainEditor->setPaper(QColor(249,250,250));
 
@@ -132,7 +143,7 @@ void Workshop::InitWorkshop()
     mainEditor->setCaretLineBackgroundColor(QColor(240,240,240));
 
     // Two Blocks.
-    UTILITY::multiModulesOneStyleSheet({leftBlock, rightBlock},
+    TOOLS::multiModulesOneStyleSheet({leftBlock, rightBlock},
                                        QStringLiteral("QFrame{background-color:rgb(235,235,235);}"));
 
     // Labels.
@@ -168,36 +179,36 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
 
-        UTILITY::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
+        TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
                                            QStringLiteral("QFrame{border:none;background-color:rgb(44,44,45);max-height:1px;}"));
 
-        UTILITY::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
+        TOOLS::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                            QStringLiteral("QLabel{color:rgb(255,255,255);}"));
 
-        UTILITY::setPropertyAnimation({animi_MenuBar}, "color", QColor(65,152,197), COLOR_OPTION_BLOCK_DARK, 500,
+        TOOLS::setPropertyAnimation({animi_MenuBar}, "color", QColor(65,152,197), LITERAL::COLOR_OPTION_BLOCK_DARK, 500,
                              QEasingCurve::InOutCubic, {menuBar}, nullptr);
-        UTILITY::setPropertyAnimation({animi_StatusBar}, "color", QColor(210,210,210), COLOR_OPTION_BLOCK_DARK, 500,
+        TOOLS::setPropertyAnimation({animi_StatusBar}, "color", QColor(210,210,210), LITERAL::COLOR_OPTION_BLOCK_DARK, 500,
                              QEasingCurve::InOutCubic, {statusBar}, nullptr);
 
-        UTILITY::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", QColor(235,235,235), QColor(70, 70, 70), 500,
+        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", QColor(235,235,235), QColor(70, 70, 70), 500,
                              QEasingCurve::InOutCubic, {leftBlock,rightBlock}, nullptr);
     }
     else{
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
 
-        UTILITY::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
+        TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
                                            QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
 
-        UTILITY::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
+        TOOLS::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                            QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));
 
-        UTILITY::setPropertyAnimation({animi_MenuBar}, "color", COLOR_OPTION_BLOCK_DARK, QColor(65,152,197), 500,
+        TOOLS::setPropertyAnimation({animi_MenuBar}, "color", LITERAL::COLOR_OPTION_BLOCK_DARK, QColor(65,152,197), 500,
                              QEasingCurve::InOutCubic, {menuBar}, nullptr);
-        UTILITY::setPropertyAnimation({animi_StatusBar}, "color", COLOR_OPTION_BLOCK_DARK, QColor(210,210,210), 500,
+        TOOLS::setPropertyAnimation({animi_StatusBar}, "color", LITERAL::COLOR_OPTION_BLOCK_DARK, QColor(210,210,210), 500,
                              QEasingCurve::InOutCubic, {statusBar}, nullptr);
 
-        UTILITY::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", QColor(70, 70, 70), QColor(235,235,235), 500,
+        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", QColor(70, 70, 70), QColor(235,235,235), 500,
                              QEasingCurve::InOutCubic, {leftBlock,rightBlock}, nullptr);
     }
 }

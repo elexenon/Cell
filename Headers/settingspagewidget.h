@@ -1,14 +1,24 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef SETTINGSPAGEWIDGET_H
 #define SETTINGSPAGEWIDGET_H
 
 #include <QWidget>
-#include "Kits/customFrame.h"
+#include "Kits/cell_util.h"
 
 namespace Ui {
 class SettingsPageWidget;
 }
 
 class customWidget;
+class QScrollArea;
+class QPropertyAnimation;
+class customFrame;
 
 class SettingsPageWidget : public QWidget
 {

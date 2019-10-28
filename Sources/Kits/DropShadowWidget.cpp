@@ -1,3 +1,10 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #include "../../Headers/Kits/DropShadowWidget.h"
 #include "../../Headers/Kits/WindWMAPI.h"
 

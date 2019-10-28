@@ -1,9 +1,10 @@
-/*
-
-  CREATED BY HENGYI YU 2019/10/06
-  This class achieve "color" property.
-
-*/
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef CUSTOMWIDGET_H
 #define CUSTOMWIDGET_H
 

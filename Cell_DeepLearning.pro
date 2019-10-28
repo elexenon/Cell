@@ -13,7 +13,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Sources/Kits/DropShadowDialog.cpp \
     Sources/Kits/DropShadowWidget.cpp \
-    Sources/Kits/_utility.cpp \
+    Sources/Kits/cell_util.cpp \
     Sources/Kits/customFrame.cpp \
     Sources/Kits/customWidget.cpp \
     Sources/main.cpp \
@@ -28,10 +28,10 @@ SOURCES += \
 HEADERS += \
     Headers/Kits/DropShadowDialog.h \
     Headers/Kits/DropShadowWidget.h \
+    Headers/Kits/cell_util.h \
     Headers/Kits/customFrame.h \
+    Headers/Kits/qstylesheetloader.hpp \
     Headers/kits/customWidget.h \
-    Headers/Kits/qstylesheetloader.h \
-    Headers/Kits/_utility.h \
     Headers/mainwindow.h \
     Headers/guidedialog.h \
     Headers/workshop.h \
@@ -57,12 +57,8 @@ FORMS += \
 
 INCLUDEPATH += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\QScintilla_gpl-2.11.2\Qt4Qt5
 
-
-
-LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\X86\QStyleSheetLoader.dll
 LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\X86\qscintilla2_qt5d.dll
 #LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\X86\qscintilla2_qt5.dll
-
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

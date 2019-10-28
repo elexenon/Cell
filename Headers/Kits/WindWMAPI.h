@@ -9,7 +9,6 @@
  * CSDN: https://blog.csdn.net/a844651990
  *
  */
-
 #ifndef WINDWMAPI_H
 #define WINDWMAPI_H
 

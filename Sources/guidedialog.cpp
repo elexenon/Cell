@@ -1,7 +1,18 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #include <QPropertyAnimation>
-#include "../Headers/Kits/customFrame.h"
+#include <QMouseEvent>
+#include "Headers/Kits/customFrame.h"
 #include "Headers/guidedialog.h"
+#include "Headers/Kits/qstylesheetloader.hpp"
 #include "ui_guidedialog.h"
+
+using namespace CELL_UTIL;
 
 GuideDialog::GuideDialog(QWidget *parent) :
     DropShadowDialog(parent),
@@ -36,13 +47,13 @@ void GuideDialog::Init()
 
     ui->label_getStart->setFont(QFont(QStringLiteral("微软雅黑"), 18));
     ui->label_learn->setFont(QFont(QStringLiteral("微软雅黑"), 9));
-    UTILITY::multiModulesOneStyleSheet({ui->label_getStart,ui->label_learn},QStringLiteral("QLabel{color:#DCDCDC;background-color: transparent;}"));
+    TOOLS::multiModulesOneStyleSheet({ui->label_getStart,ui->label_learn},QStringLiteral("QLabel{color:#DCDCDC;background-color: transparent;}"));
 
     ui->checkBox_showUp->setFont(QFont(QStringLiteral("微软雅黑 Light")));
     ui->checkBox_showUp->setStyleSheet(QStringLiteral("QCheckBox{color:#798186;background-color: transparent;}"));
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
-    ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
+    TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
+    ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
     ui->Btn_close->setFont(QFont(QStringLiteral("微软雅黑")));
 }
 
@@ -85,21 +96,21 @@ void GuideDialog::setColorScheme(COLOR_SCHEME mode)
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Dark.css"));
-        ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
-        UTILITY::setPropertyAnimation({animi_title}, "color", frame_titleBar->color(), QColor(44, 44, 45), 500,
+        TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Dark.css"));
+        ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
+        TOOLS::setPropertyAnimation({animi_title}, "color", frame_titleBar->color(), QColor(44, 44, 45), 500,
                              QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
     }
     else{
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
-        ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
+        TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
+        ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
 
         //UTILITY::setPropertyAnimation(animi_main, "color", color(), MAINWINDOW_BRIGHT, 500,
                              //QEasingCurve::InOutCubic, this, true, nullptr);
-        UTILITY::setPropertyAnimation({animi_title}, "color", frame_titleBar->color(), QColor(164, 163, 164), 500,
+        TOOLS::setPropertyAnimation({animi_title}, "color", frame_titleBar->color(), QColor(164, 163, 164), 500,
                              QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
     }
 }

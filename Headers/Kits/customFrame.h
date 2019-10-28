@@ -1,7 +1,14 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef CUSTOMFRAME_H
 #define CUSTOMFRAME_H
 
-#include "_utility.h"
+#include "cell_util.h"
 #include <QFrame>
 
 class customFrame : public QFrame

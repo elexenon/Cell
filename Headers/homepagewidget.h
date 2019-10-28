@@ -1,8 +1,15 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef HOMEPAGEWIDGET_H
 #define HOMEPAGEWIDGET_H
 
 #include <QWidget>
-#include "Kits/_utility.h"
+#include "Kits/cell_util.h"
 
 namespace Ui {
 class HomePageWidget;

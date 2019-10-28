@@ -1,7 +1,14 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef GUIDEDIALOG_H
 #define GUIDEDIALOG_H
 
-#include "Kits/_utility.h"
+#include "Kits/cell_util.h"
 #include "Kits/DropShadowDialog.h"
 
 class QPropertyAnimation;

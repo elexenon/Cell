@@ -1,3 +1,10 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -13,6 +20,8 @@ class HomePageWidget;
 class Workshop;
 class SettingsPageWidget;
 class QPushButton;
+class QGraphicsOpacityEffect;
+class QPropertyAnimation;
 
 class mainWindow : public DropShadowWidget
 {

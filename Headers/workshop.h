@@ -1,8 +1,15 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef WORKSHOP_H
 #define WORKSHOP_H
 
 #include <QWidget>
-#include "Kits/_utility.h"
+#include "Kits/cell_util.h"
 
 namespace Ui {
 class Workshop;
@@ -13,6 +20,10 @@ class QsciScintilla;
 class customFrame;
 class QLabel;
 class QPushButton;
+class QStyleSheetLoader;
+class QPropertyAnimation;
+class QGraphicsDropShadowEffect;
+class QFrame;
 
 class Workshop : public QWidget
 {

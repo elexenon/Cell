@@ -1,5 +1,17 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #include "Headers/homepagewidget.h"
+#include "Headers/Kits/qstylesheetloader.hpp"
 #include "ui_homepagewidget.h"
+
+#include <QScrollBar>
+
+using namespace CELL_UTIL;
 
 HomePageWidget::HomePageWidget(QWidget *parent) :
     QWidget(parent),
@@ -17,6 +29,7 @@ HomePageWidget::~HomePageWidget()
 
 void HomePageWidget::Init()
 {
+    using TOOLS::styleSheetLoader;
     ui->label_welcome->setFont(QFont(QStringLiteral("微软雅黑 Light"), 18));
 
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Bright.css"));
@@ -50,12 +63,14 @@ void HomePageWidget::setAllGraphBtnsUnchecked()
 
 void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
 {
+    using TOOLS::styleSheetLoader;
     if(mode == COLOR_SCHEME::_DARK){
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
-        UTILITY::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
+        TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->line->setStyleSheet("QFrame{border:none;background-color:#FFFFFF;"
                                 "max-height : 21px;}");
+        using TOOLS::styleSheetLoader;
         styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_dark.css"));
         ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
 
@@ -74,7 +89,7 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
     else{
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
-        UTILITY::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
+        TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->line->setStyleSheet(QStringLiteral("QFrame{border:none;background-color:#DADADA;max-height : 21px;}"));
         styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.css"));
         ui->frame->setStyleSheet(styleSheetLoader->styleSheet());

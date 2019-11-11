@@ -1,17 +1,23 @@
-#include "../../Headers/Kits/DropShadowDialog.h"
-#include "../../Headers/Kits/WindWMAPI.h"
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
+#include "Headers/Kits/customDialog.h"
+#include "Headers/Kits/WindWMAPI.h"
 
-DropShadowDialog::DropShadowDialog(QWidget *parent):
+customDialog::customDialog(QWidget *parent):
     QDialog(parent)
-{
-    m_color = QColor(247,247,247);
-}
-const QColor DropShadowDialog::color() const
+{}
+
+const QColor customDialog::color() const
 {
     return m_color;
 }
 
-void DropShadowDialog::setColor(const QColor color)
+void customDialog::setColor(const QColor color)
 {
     m_color = color;
     QString qss=QString("QWidget{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
@@ -19,7 +25,7 @@ void DropShadowDialog::setColor(const QColor color)
 }
 
 #ifdef Q_OS_WIN32
-bool DropShadowDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
+bool customDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     MSG* msg = reinterpret_cast<MSG*>(message);
     switch (msg->message){
@@ -33,7 +39,7 @@ bool DropShadowDialog::nativeEvent(const QByteArray &eventType, void *message, l
 }
 #endif
 
-void DropShadowDialog::LoadWinStyle(QDialog *obj)
+void customDialog::LoadWinStyle(QDialog *obj)
 {
 #ifdef Q_OS_WIN32
     // Achieve the window drop shadow effect.

@@ -1,6 +1,39 @@
-#include "Headers/Kits/_utility.h"
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
+#include "Headers/Kits/cell_util.h"
+#include "Headers/Kits/qstylesheetloader.hpp"
 
-void UTILITY::setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,QList<QWidget*> modules,QPoint offset,QColor color,
+#include <QWidget>
+#include <QDebug>
+#include <QGraphicsEffect>
+#include <QGraphicsDropShadowEffect>
+#include <QPropertyAnimation>
+
+namespace CELL_UTIL {
+namespace LITERAL {
+const char* const INSTANCE_IS_ON("Cell Launcher is already running");
+const QString IMG_DIR(":/images/Share/images/");
+const QString FONT_DIR(":/fonts/Share/fonts/");
+const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Share\\styleSheets\\");
+const QString LIB_DIR(":/libs/Share/libs/");
+const QString COLOR_SPACE_GRAY("#798186");
+const QColor COLOR_OPTION_BLOCK_DARK(44, 44, 45);
+const QColor COLOR_OPTION_BLOCK_BRIGHT(218, 218, 218);
+const QColor MAINWINDOW_DARK(31, 30, 31);
+const QColor MAINWINDOW_BRIGHT(247, 247, 247);
+} // namespace LITERAL{
+} // namespace CELL_UTIL{
+
+namespace CELL_UTIL{
+namespace TOOLS{
+QStyleSheetLoader *styleSheetLoader = new QStyleSheetLoader(CELL_UTIL::LITERAL::STYLESHEET_DIR);
+
+void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,QList<QWidget*> modules,QPoint offset,QColor color,
                                 int blurRadius)
 {
     if(animis.size() != modules.size()){
@@ -17,7 +50,7 @@ void UTILITY::setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,QList
         modules[i]->setGraphicsEffect(animis[i]);
     }
 }
-void UTILITY::setPropertyAnimation(QList<QPropertyAnimation*> animis,QByteArray _property, QVariant s_value, QVariant e_value,
+void setPropertyAnimation(QList<QPropertyAnimation*> animis,QByteArray _property, QVariant s_value, QVariant e_value,
                                      int duration, QEasingCurve curve, QList<QWidget*> modules, QGraphicsEffect *effect)
 {
     if(animis.size() != modules.size()){
@@ -44,19 +77,10 @@ void UTILITY::setPropertyAnimation(QList<QPropertyAnimation*> animis,QByteArray 
         animis[0]->start(QAbstractAnimation::DeleteWhenStopped);
     }
 }
-void UTILITY::multiModulesOneStyleSheet(QList<QWidget*> modules, QString qss)
+void multiModulesOneStyleSheet(QList<QWidget*> modules, QString qss)
 {
     for(auto &e : modules)
         e->setStyleSheet(qss);
 }
-
-const QString IMG_DIR(":/images/Share/images/");
-const QString FONT_DIR(":/fonts/Share/fonts/");
-const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Share\\styleSheets\\");
-const QString LIB_DIR(":/libs/Share/libs/");
-const QString COLOR_SPACE_GRAY("#798186");
-QStyleSheetLoader *styleSheetLoader = new QStyleSheetLoader(STYLESHEET_DIR);
-const QColor COLOR_OPTION_BLOCK_DARK(44, 44, 45);
-const QColor COLOR_OPTION_BLOCK_BRIGHT(218, 218, 218);
-const QColor MAINWINDOW_DARK(31, 30, 31);
-const QColor MAINWINDOW_BRIGHT(247, 247, 247);
+} // namespace TOOLS{
+} // namespace CELL_UTIL{

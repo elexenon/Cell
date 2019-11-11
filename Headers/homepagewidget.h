@@ -1,8 +1,17 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
+//
+// This is part of main launcher's stackwidget.
 #ifndef HOMEPAGEWIDGET_H
 #define HOMEPAGEWIDGET_H
 
 #include <QWidget>
-#include "Kits/_utility.h"
+#include "Kits/cell_util.h" // COLOR_SCHEME
 
 namespace Ui {
 class HomePageWidget;

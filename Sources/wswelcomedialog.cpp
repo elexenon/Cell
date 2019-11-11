@@ -1,16 +1,25 @@
-#include "Headers/wswelcomedialog.h"
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
+#include <QTimer>
+
 #include "ui_wswelcomedialog.h"
-#include "Headers/Kits/_utility.h"
+#include "Headers/wswelcomedialog.h"
+#include "Headers/Kits/cell_util.h"
 
 WSWelcomeDialog::WSWelcomeDialog(QWidget *parent) :
-    DropShadowDialog(parent),
+    customDialog(parent),
     ui(new Ui::WSWelcomeDialog),
     timer(new QTimer)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
 #ifdef Q_OS_WIN32
-    DropShadowDialog::LoadWinStyle(this);
+    customDialog::LoadWinStyle(this);
 #endif
     setAutoFillBackground(true);
     setModal(true);
@@ -44,31 +53,6 @@ void WSWelcomeDialog::updateProgressBar()
 // Achieve the window drop shadow effect( Windows ).
 bool WSWelcomeDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
-    return DropShadowDialog::nativeEvent(eventType, message, result);
+    return customDialog::nativeEvent(eventType, message, result);
 }
 #endif
-
-// Mouse drag process.
-void WSWelcomeDialog::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && event->y() <= 40){
-        m_move = true;
-        m_startPoint = event->globalPos();
-        m_windowPoint = this->frameGeometry().topLeft();
-    }
-}
-
-void WSWelcomeDialog::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_move && event->buttons() & Qt::LeftButton){
-        QPoint relativePos = event->globalPos() - m_startPoint;
-        this->move(m_windowPoint + relativePos );
-    }
-}
-
-void WSWelcomeDialog::mouseReleaseEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton){
-        m_move = false;
-    }
-}

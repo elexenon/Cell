@@ -1,14 +1,27 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
+//
+// This is part of main launcher's stackwidget.
 #ifndef SETTINGSPAGEWIDGET_H
 #define SETTINGSPAGEWIDGET_H
 
 #include <QWidget>
-#include "Kits/customFrame.h"
+#include "Kits/cell_util.h" // COLOR_SCHEME
 
 namespace Ui {
 class SettingsPageWidget;
 }
 
 class customWidget;
+class QScrollArea;
+class QPropertyAnimation;
+class customFrame;
+class customLabel;
 
 class SettingsPageWidget : public QWidget
 {
@@ -37,6 +50,13 @@ private:
     QPropertyAnimation     *frame_optionBlock4_animi;
     QPropertyAnimation     *scrollAreaContents_animi;
 
+    QPropertyAnimation     *label_appearence_animi;
+    QPropertyAnimation     *label_automation_animi;
+    QPropertyAnimation     *label_auto_hint_animi;
+    QPropertyAnimation     *label_license_animi;
+    QPropertyAnimation     *label_lice_hint_animi;
+    QPropertyAnimation     *label_about_animi;
+
     QScrollArea            *main_ScrollArea;
     customWidget           *scrollAreaWidgetContents;
 
@@ -44,6 +64,13 @@ private:
     customFrame            *frame_optionBlock3;
     customFrame            *frame_optionBlock1;
     customFrame            *frame_optionBlock4;
+
+    customLabel            *label_appearence;
+    customLabel            *label_automation;
+    customLabel            *label_auto_hint;
+    customLabel            *label_license;
+    customLabel            *label_lice_hint;
+    customLabel            *label_about;
 
 private:
     COLOR_SCHEME m_mode;

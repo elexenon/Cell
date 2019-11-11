@@ -1,8 +1,17 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
+//
+// Guide dialog under the main launcher interface
 #ifndef GUIDEDIALOG_H
 #define GUIDEDIALOG_H
 
-#include "Kits/_utility.h"
-#include "Kits/DropShadowDialog.h"
+#include "Kits/cell_util.h"    // COLOR_SCHEME
+#include "Kits/customDialog.h" // Derived class
 
 class QPropertyAnimation;
 class customFrame;
@@ -11,7 +20,7 @@ namespace Ui {
 class GuideDialog;
 }
 
-class GuideDialog : public DropShadowDialog
+class GuideDialog : public customDialog
 {
     Q_OBJECT
 

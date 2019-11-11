@@ -1,14 +1,21 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef WSWELCOMEDIALOG_H
 #define WSWELCOMEDIALOG_H
 
 #include <QDialog>
-#include "Kits/DropShadowDialog.h"
+#include "Kits/customDialog.h" // Derived class
 
 namespace Ui {
 class WSWelcomeDialog;
 }
 
-class WSWelcomeDialog : public DropShadowDialog
+class WSWelcomeDialog : public customDialog
 {
     Q_OBJECT
 
@@ -33,12 +40,6 @@ protected:
 #ifdef Q_OS_WIN32
     virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 #endif
-
-    virtual void    mousePressEvent(QMouseEvent *event);
-
-    virtual void    mouseMoveEvent(QMouseEvent *event);
-
-    virtual void    mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
     void updateProgressBar();

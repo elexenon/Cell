@@ -1,19 +1,38 @@
+// Copyright 2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #include <QPushButton>
+#include <QMouseEvent>
+#include <QPropertyAnimation>
+#include <QGraphicsOpacityEffect>
+#include <QFontDatabase>
+#include <QDebug>
+#include <QTime>
+
 #include "Headers/guidedialog.h"
 #include "Headers/homepagewidget.h"
 #include "Headers/settingspagewidget.h"
 #include "Headers/workshop.h"
 #include "Headers/mainwindow.h"
+#include "Headers/Kits/customFrame.h"
+#include "Headers/Kits/qstylesheetloader.hpp"
 #include "ui_mainwindow.h"
 #define DEBUG
 
+using namespace CELL_UTIL;
+
 mainWindow::mainWindow(QWidget *parent)
-    : DropShadowWidget(parent)
+    : customWidget(WIDGET_TYPE::_BASE, parent)
     , ui(new Ui::mainWindow)
     , mainWindowTabBtns(new QList<QPushButton*>)
     , workshop(nullptr)
     , homePage(new HomePageWidget)
     , settingsPage(new SettingsPageWidget)
+    , frame_titleBar(new customFrame(FRAME_TYPE::_REGULAR, this))
     , currentPage(PAGE_TYPE::_HOME)
     , m_mode(COLOR_SCHEME::_BRIGHT)
 {
@@ -27,12 +46,13 @@ mainWindow::~mainWindow()
 
 void mainWindow::setColorScheme(COLOR_SCHEME mode)
 {
+    using TOOLS::styleSheetLoader;
     if(mode == COLOR_SCHEME::_BRIGHT){
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
-        UTILITY::setPropertyAnimation({propertyAnimi}, "color", color(), MAINWINDOW_BRIGHT, 500,
+        TOOLS::setPropertyAnimation({propertyAnimi}, "color", color(), LITERAL::MAINWINDOW_BRIGHT, 500,
                              QEasingCurve::InOutCubic, {this}, nullptr);
-        UTILITY::setPropertyAnimation({propertyAnimi}, "color", frame_titleBar->color(), QColor(255,255,255), 500,
+        TOOLS::setPropertyAnimation({propertyAnimi}, "color", frame_titleBar->color(), QColor(255,255,255), 500,
                              QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
 
         styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_bright.css"));
@@ -58,9 +78,9 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
     else{
         if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
-        UTILITY::setPropertyAnimation({propertyAnimi}, "color", color(), MAINWINDOW_DARK, 500,
+        TOOLS::setPropertyAnimation({propertyAnimi}, "color", color(), LITERAL::MAINWINDOW_DARK, 500,
                              QEasingCurve::InOutCubic, {this}, nullptr);
-        UTILITY::setPropertyAnimation({propertyAnimi}, "color", frame_titleBar->color(), QColor(44,44,45), 500,
+        TOOLS::setPropertyAnimation({propertyAnimi}, "color", frame_titleBar->color(), QColor(44,44,45), 500,
                              QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
 
         styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_dark.css"));
@@ -87,19 +107,19 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
 
 void mainWindow::InitMainWindow()
 {
-    // Functional.
     this->setWindowFlags(windowFlags() | Qt::FramelessWindowHint);  // Remove Windows' Default Window Frame.
-#ifdef Q_OS_WIN32
-    DropShadowWidget::LoadWinStyle(this);
-#endif
-
+    customWidget::LoadWinStyle(this);
+    // Connect the signal "enableColorScheme" which's from class settings
+    //
+    // to main launcher's slot "setColorScheme"
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             this, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-
+    // Connect the signal "enableColorScheme" which's from class settings
+    //
+    // to homePage's slot "setColorScheme"
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             homePage, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
 
-    frame_titleBar = new customFrame(WINDOW_TYPE::_MAIN, this);
     frame_titleBar->setGeometry(0, 0, 1311, 61);
     frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(255,255,255);}"));
 
@@ -109,7 +129,6 @@ void mainWindow::InitMainWindow()
     ui->Btn_mini->setParent(frame_titleBar);
     ui->Btn_close->setParent(frame_titleBar);
 
-
     mainWindowTabBtns->append(ui->Btn_HomePage);
     mainWindowTabBtns->append(ui->Btn_Settings);
 
@@ -117,22 +136,19 @@ void mainWindow::InitMainWindow()
     ui->stackedWidget->addWidget(settingsPage);
     ui->stackedWidget->setCurrentWidget(homePage);
 
-    // Load Custom Fonts.
-    int fontID_Info = QFontDatabase::addApplicationFont(FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
+    int fontID_Info = QFontDatabase::addApplicationFont(LITERAL::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
-#ifdef DEBUG
-    qDebug() << QStringLiteral("Main Window Title Font: ") << Info;
-#endif
 
-    // Load Styles.
-    // Window Title
+    using TOOLS::styleSheetLoader;
+
     QFont font_Info(Info, 14);
     font_Info.setLetterSpacing(QFont::PercentageSpacing, 100);
+
     ui->label_mainWindowTitle->setFont(font_Info);
-    ui->label_mainWindowTitle->setStyleSheet("color:"+COLOR_SPACE_GRAY+";");
-    // Window Welcome Hint.
+    ui->label_mainWindowTitle->setStyleSheet("color:"+LITERAL::COLOR_SPACE_GRAY+";");
+
     ui->label_welcome->setFont(QFont(QStringLiteral("微软雅黑 Light"), 18));
-    // Window Side Tabs.
+
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_HomePage_Bright.css"));
     ui->Btn_HomePage->setStyleSheet(styleSheetLoader->styleSheet());
 
@@ -141,13 +157,13 @@ void mainWindow::InitMainWindow()
 
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_Guide_Bright.css"));
     ui->Btn_Guide->setStyleSheet(styleSheetLoader->styleSheet());
-    // Window Project Btns.
+
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_NewPJ_Bright.css"));
     ui->Btn_NewProject->setStyleSheet(styleSheetLoader->styleSheet());
 
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowLeftTab_OpenPJ_Bright.css"));
     ui->Btn_OpenProject->setStyleSheet(styleSheetLoader->styleSheet());
-    // Window Opeartion Btns
+
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.css"));
     ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
 
@@ -156,12 +172,18 @@ void mainWindow::InitMainWindow()
 
     // Functional;
     guideDialog = new GuideDialog(this);
+    // Connect the signal "enableColorScheme" which's from class settings
+    //
+    // to guideDialog's slot "setColorScheme"
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             guideDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     guideDialog->show();
 
+    // This part is to implement the function that changes
+    //
+    // color scheme automaticly.
     QTime currentTime = QTime::currentTime();
-    if(currentTime.hour() >= 18 && m_mode == COLOR_SCHEME::_BRIGHT){
+    if((currentTime.hour() >= 18 || currentTime.hour() <= 4) && m_mode == COLOR_SCHEME::_BRIGHT){
         on_Btn_Settings_clicked();
         settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_DARK);
     }else if(currentTime.hour() < 18 && m_mode == COLOR_SCHEME::_DARK){
@@ -209,17 +231,18 @@ void mainWindow::on_Btn_Guide_clicked()
 {
     guideDialog->show();
 }
-
+// This function is to set fade animation for
+//
+// the specified module using "setPropertyAnimation".
 void mainWindow::startFadeInOrOutAnimation(QWidget *target, int duration, FADE_TYPE type)
 {
-    using UTILITY::setPropertyAnimation;
     int startValue = 0, endValue = 1;
     if(type == FADE_TYPE::_OUT)
         qSwap(startValue, endValue);
     opacityEffect = new QGraphicsOpacityEffect(target);
     opacityEffect->setOpacity(startValue);
     target->setGraphicsEffect(opacityEffect);
-    setPropertyAnimation({propertyAnimi}, "opacity", startValue, endValue, duration,
+    TOOLS::setPropertyAnimation({propertyAnimi}, "opacity", startValue, endValue, duration,
                          QEasingCurve::Linear, {nullptr}, opacityEffect);
 }
 
@@ -246,7 +269,7 @@ void mainWindow::startPageSwitchAnimation(PAGE_TYPE nextPage)
 #ifdef Q_OS_WIN32
 bool mainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
-    return DropShadowWidget::nativeEvent(eventType, message, result);
+    return customWidget::nativeEvent(eventType, message, result);
 }
 #endif
 // Mouse drag process.

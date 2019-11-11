@@ -31,10 +31,10 @@ Workshop::Workshop(COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     dropShadowLine2(new QFrame),
     dropShadowLine3(new QFrame),
     welcomeDialog(new WSWelcomeDialog),
-    menuBar(new customFrame(WINDOW_TYPE::_MAIN, this)),
-    leftBlock(new customFrame(WINDOW_TYPE::_MAIN, this)),
-    rightBlock(new customFrame(WINDOW_TYPE::_MAIN, this)),
-    statusBar(new customFrame(WINDOW_TYPE::_MAIN, this)),
+    menuBar(new customFrame(FRAME_TYPE::_REGULAR, this)),
+    leftBlock(new customFrame(FRAME_TYPE::_REGULAR, this)),
+    rightBlock(new customFrame(FRAME_TYPE::_REGULAR, this)),
+    statusBar(new customFrame(FRAME_TYPE::_REGULAR, this)),
     mainEditor(new QsciScintilla(this)),
     m_color(COLOR_SCHEME::_BRIGHT)
 {
@@ -185,12 +185,12 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
         TOOLS::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                            QStringLiteral("QLabel{color:rgb(255,255,255);}"));
 
-        TOOLS::setPropertyAnimation({animi_MenuBar}, "color", QColor(65,152,197), LITERAL::COLOR_OPTION_BLOCK_DARK, 500,
+        TOOLS::setPropertyAnimation({animi_MenuBar}, "color", menuBar->color(), LITERAL::COLOR_OPTION_BLOCK_DARK, 500,
                              QEasingCurve::InOutCubic, {menuBar}, nullptr);
-        TOOLS::setPropertyAnimation({animi_StatusBar}, "color", QColor(210,210,210), LITERAL::COLOR_OPTION_BLOCK_DARK, 500,
+        TOOLS::setPropertyAnimation({animi_StatusBar}, "color", statusBar->color(), LITERAL::COLOR_OPTION_BLOCK_DARK, 500,
                              QEasingCurve::InOutCubic, {statusBar}, nullptr);
 
-        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", QColor(235,235,235), QColor(70, 70, 70), 500,
+        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", leftBlock->color(), QColor(70, 70, 70), 500,
                              QEasingCurve::InOutCubic, {leftBlock,rightBlock}, nullptr);
     }
     else{
@@ -203,12 +203,12 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
         TOOLS::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                            QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));
 
-        TOOLS::setPropertyAnimation({animi_MenuBar}, "color", LITERAL::COLOR_OPTION_BLOCK_DARK, QColor(65,152,197), 500,
+        TOOLS::setPropertyAnimation({animi_MenuBar}, "color", menuBar->color(), QColor(65,152,197), 500,
                              QEasingCurve::InOutCubic, {menuBar}, nullptr);
-        TOOLS::setPropertyAnimation({animi_StatusBar}, "color", LITERAL::COLOR_OPTION_BLOCK_DARK, QColor(210,210,210), 500,
+        TOOLS::setPropertyAnimation({animi_StatusBar}, "color", statusBar->color(), QColor(210,210,210), 500,
                              QEasingCurve::InOutCubic, {statusBar}, nullptr);
 
-        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", QColor(70, 70, 70), QColor(235,235,235), 500,
+        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", leftBlock->color(), QColor(235,235,235), 500,
                              QEasingCurve::InOutCubic, {leftBlock,rightBlock}, nullptr);
     }
 }

@@ -8,7 +8,7 @@
 #ifndef CELL_UTIL_H
 #define CELL_UTIL_H
 
-#include <QMetaType>
+#include <QMetaType> // Q_DECLARE_METATYPE()
 
 class QGraphicsDropShadowEffect;
 class QPropertyAnimation;
@@ -32,6 +32,7 @@ extern void multiModulesOneStyleSheet(QList<QWidget*> modules, QString qss);
 extern QStyleSheetLoader *styleSheetLoader;
 } // namespace TOOLS{
 namespace LITERAL{
+extern const char* const  INSTANCE_IS_ON;
 extern const QString      IMG_DIR;
 extern const QString      FONT_DIR;
 extern const QString      STYLESHEET_DIR;
@@ -47,7 +48,8 @@ extern const QColor       MAINWINDOW_BRIGHT;
 enum FADE_TYPE{_IN, _OUT};
 enum PAGE_TYPE{_HOME, _SETTINGS};
 enum COLOR_SCHEME{_BRIGHT, _DARK};
-enum WINDOW_TYPE{_MAIN, _CHILD};
+enum FRAME_TYPE{_REGULAR, _OPTIONBLOCK};
+enum WIDGET_TYPE{_BASE, _CHILD};
 Q_DECLARE_METATYPE(COLOR_SCHEME);
 
 #endif

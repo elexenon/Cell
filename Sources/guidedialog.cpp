@@ -15,9 +15,9 @@
 using namespace CELL_UTIL;
 
 GuideDialog::GuideDialog(QWidget *parent) :
-    DropShadowDialog(parent),
+    customDialog(parent),
     ui(new Ui::GuideDialog),
-    frame_titleBar(new customFrame(WINDOW_TYPE::_MAIN, this)),
+    frame_titleBar(new customFrame(FRAME_TYPE::_REGULAR, this)),
     m_mode(COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
@@ -31,21 +31,18 @@ GuideDialog::~GuideDialog()
 
 void GuideDialog::Init()
 {
-    // Functional.
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-#ifdef Q_OS_WIN32
-    DropShadowDialog::LoadWinStyle(this);
-#endif
+    customDialog::LoadWinStyle(this);
 
     ui->stackedWidget->setAutoFillBackground(true);
+
     ui->pushButton->setParent(this);
     ui->pushButton->setGeometry(640, 420, ui->pushButton->width(), ui->pushButton->height());
 
-    // Load styles   
     frame_titleBar->setGeometry(0, 0, 781, 51);
     frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(164, 163, 164);}"));
 
-    ui->label_getStart->setFont(QFont(QStringLiteral("微软雅黑"), 18));
+    ui->label_getStart->setFont(QFont(QStringLiteral("微软雅黑"), 18));   
     ui->label_learn->setFont(QFont(QStringLiteral("微软雅黑"), 9));
     TOOLS::multiModulesOneStyleSheet({ui->label_getStart,ui->label_learn},QStringLiteral("QLabel{color:#DCDCDC;background-color: transparent;}"));
 
@@ -57,15 +54,11 @@ void GuideDialog::Init()
     ui->Btn_close->setFont(QFont(QStringLiteral("微软雅黑")));
 }
 
-#ifdef Q_OS_WIN32
-// Achieve the window drop shadow effect( Windows ).
 bool GuideDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
-    return DropShadowDialog::nativeEvent(eventType, message, result);
+    return customDialog::nativeEvent(eventType, message, result);
 }
-#endif
 
-// Mouse drag process.
 void GuideDialog::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && event->y() <= 40){
@@ -108,8 +101,6 @@ void GuideDialog::setColorScheme(COLOR_SCHEME mode)
         TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
         ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
 
-        //UTILITY::setPropertyAnimation(animi_main, "color", color(), MAINWINDOW_BRIGHT, 500,
-                             //QEasingCurve::InOutCubic, this, true, nullptr);
         TOOLS::setPropertyAnimation({animi_title}, "color", frame_titleBar->color(), QColor(164, 163, 164), 500,
                              QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
     }

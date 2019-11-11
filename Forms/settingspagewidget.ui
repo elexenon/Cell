@@ -16,19 +16,6 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(247, 247, 247);</string>
   </property>
-  <widget class="QLabel" name="label_colorScheme">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>10</y>
-     <width>111</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>外观</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="Btn_bright">
    <property name="geometry">
     <rect>
@@ -114,19 +101,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_auto">
-   <property name="geometry">
-    <rect>
-     <x>33</x>
-     <y>189</y>
-     <width>61</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>自动化</string>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="checkBox_auto">
    <property name="geometry">
     <rect>
@@ -143,32 +117,6 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_auto_hint">
-   <property name="geometry">
-    <rect>
-     <x>122</x>
-     <y>179</y>
-     <width>501</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>勾选此项时,Cell会自动根据系统时间设定相应的颜色模式。</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_about">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>630</y>
-     <width>111</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>关于</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="labelGPL">
    <property name="geometry">
     <rect>
@@ -183,34 +131,6 @@
    </property>
    <property name="text">
     <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelLicenseHint">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>480</y>
-     <width>731</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>此自由软件使用GUN GPLv3开源协议。若您想由此软件衍生新的程序，请务必开放源码
-
-请勿对由此软件衍生的产品进行任何闭源商业行为。</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelLicense">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>410</y>
-     <width>111</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>许可</string>
    </property>
   </widget>
  </widget>

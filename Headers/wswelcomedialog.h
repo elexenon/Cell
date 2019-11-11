@@ -9,13 +9,13 @@
 #define WSWELCOMEDIALOG_H
 
 #include <QDialog>
-#include "Kits/DropShadowDialog.h"
+#include "Kits/customDialog.h" // Derived class
 
 namespace Ui {
 class WSWelcomeDialog;
 }
 
-class WSWelcomeDialog : public DropShadowDialog
+class WSWelcomeDialog : public customDialog
 {
     Q_OBJECT
 

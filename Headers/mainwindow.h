@@ -8,8 +8,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "Kits/DropShadowWidget.h"
-#include "Kits/customFrame.h"
+#include "Kits/customWidget.h"
+#include "Kits/cell_util.h" // PAGE_TYPE & COLOR_SCHEME & FADE_TYPE
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }
@@ -22,8 +22,9 @@ class SettingsPageWidget;
 class QPushButton;
 class QGraphicsOpacityEffect;
 class QPropertyAnimation;
+class customFrame;
 
-class mainWindow : public DropShadowWidget
+class mainWindow : public customWidget
 {
     Q_OBJECT
 

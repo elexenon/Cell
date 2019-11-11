@@ -8,9 +8,11 @@
 #include <QStylePainter>
 #include <QStyleOption>
 #include "Headers/Kits/customWidget.h"
+#include "Headers/Kits/WindWMAPI.h"
 
-customWidget::customWidget(QWidget *parent):
-    QWidget(parent)
+customWidget::customWidget(WIDGET_TYPE type, QWidget *parent):
+    QWidget(parent),
+    m_type(type)
 {}
 
 const QColor customWidget::color() const
@@ -27,10 +29,34 @@ void customWidget::setColor(const QColor color)
 
 void customWidget::paintEvent(QPaintEvent *event)
 {
+    if(m_type == WIDGET_TYPE::_BASE) return;
     QStylePainter painter(this);
     QStyleOption opt;
     opt.initFrom(this);
     opt.rect = rect();
     painter.drawPrimitive(QStyle::PE_Widget, opt);
     QWidget::paintEvent(event);
+}
+
+bool customWidget::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+    MSG* msg = reinterpret_cast<MSG*>(message);
+    switch (msg->message){
+        case WM_NCCALCSIZE:{
+            *result = 0;
+            return true;
+        }
+        default:
+            return QWidget::nativeEvent(eventType, message, result);
+    }
+}
+
+void customWidget::LoadWinStyle(QWidget *obj)
+{
+    // Achieve the window drop shadow effect.
+    HWND hwnd =  (HWND)obj->winId();
+    DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
+    ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+    const MARGINS shadow = { 1, 1, 1, 1 };
+    WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
 }

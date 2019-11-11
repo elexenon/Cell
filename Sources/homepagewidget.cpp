@@ -29,7 +29,6 @@ HomePageWidget::~HomePageWidget()
 
 void HomePageWidget::Init()
 {
-    // Load Styles.
     using TOOLS::styleSheetLoader;
     ui->label_welcome->setFont(QFont(QStringLiteral("微软雅黑 Light"), 18));
 

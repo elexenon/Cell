@@ -12,14 +12,14 @@
 #include "Headers/Kits/cell_util.h"
 
 WSWelcomeDialog::WSWelcomeDialog(QWidget *parent) :
-    DropShadowDialog(parent),
+    customDialog(parent),
     ui(new Ui::WSWelcomeDialog),
     timer(new QTimer)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
 #ifdef Q_OS_WIN32
-    DropShadowDialog::LoadWinStyle(this);
+    customDialog::LoadWinStyle(this);
 #endif
     setAutoFillBackground(true);
     setModal(true);
@@ -53,6 +53,6 @@ void WSWelcomeDialog::updateProgressBar()
 // Achieve the window drop shadow effect( Windows ).
 bool WSWelcomeDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
-    return DropShadowDialog::nativeEvent(eventType, message, result);
+    return customDialog::nativeEvent(eventType, message, result);
 }
 #endif

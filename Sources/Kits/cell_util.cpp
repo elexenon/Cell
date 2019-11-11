@@ -14,6 +14,21 @@
 #include <QGraphicsDropShadowEffect>
 #include <QPropertyAnimation>
 
+namespace CELL_UTIL {
+namespace LITERAL {
+const char* const INSTANCE_IS_ON("Cell Launcher is already running");
+const QString IMG_DIR(":/images/Share/images/");
+const QString FONT_DIR(":/fonts/Share/fonts/");
+const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Share\\styleSheets\\");
+const QString LIB_DIR(":/libs/Share/libs/");
+const QString COLOR_SPACE_GRAY("#798186");
+const QColor COLOR_OPTION_BLOCK_DARK(44, 44, 45);
+const QColor COLOR_OPTION_BLOCK_BRIGHT(218, 218, 218);
+const QColor MAINWINDOW_DARK(31, 30, 31);
+const QColor MAINWINDOW_BRIGHT(247, 247, 247);
+} // namespace LITERAL{
+} // namespace CELL_UTIL{
+
 namespace CELL_UTIL{
 namespace TOOLS{
 QStyleSheetLoader *styleSheetLoader = new QStyleSheetLoader(CELL_UTIL::LITERAL::STYLESHEET_DIR);
@@ -68,18 +83,4 @@ void multiModulesOneStyleSheet(QList<QWidget*> modules, QString qss)
         e->setStyleSheet(qss);
 }
 } // namespace TOOLS{
-} // namespace UTILITY{
-
-namespace UTILITY {
-namespace LITERAL {
-const QString IMG_DIR(":/images/Share/images/");
-const QString FONT_DIR(":/fonts/Share/fonts/");
-const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Share\\styleSheets\\");
-const QString LIB_DIR(":/libs/Share/libs/");
-const QString COLOR_SPACE_GRAY("#798186");
-const QColor COLOR_OPTION_BLOCK_DARK(44, 44, 45);
-const QColor COLOR_OPTION_BLOCK_BRIGHT(218, 218, 218);
-const QColor MAINWINDOW_DARK(31, 30, 31);
-const QColor MAINWINDOW_BRIGHT(247, 247, 247);
-}
-}
+} // namespace CELL_UTIL{

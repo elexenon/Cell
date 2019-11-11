@@ -9,7 +9,7 @@
 #define WORKSHOP_H
 
 #include <QWidget>
-#include "Kits/cell_util.h"
+#include "Kits/cell_util.h" // COLOR_SCHEME
 
 namespace Ui {
 class Workshop;
@@ -32,7 +32,7 @@ class Workshop : public QWidget
 
 public:
     explicit Workshop(COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
-    ~Workshop();
+    ~Workshop() override;
 
 public:
     const QColor color() const;

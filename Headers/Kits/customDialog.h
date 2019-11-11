@@ -5,19 +5,21 @@
 // See accompanying file LICENSE.txt at the root
 //
 // Of source file directory.
+//
+// This class implemented dropshadow effect & "color" custom property.
 #ifndef DROPSHADOWDIALOG_H
 #define DROPSHADOWDIALOG_H
 
 #include <QDialog>
 
-class DropShadowDialog : public QDialog
+class customDialog : public QDialog
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-    explicit DropShadowDialog(QWidget *parent = nullptr);
-    ~DropShadowDialog() = default;
+    explicit customDialog(QWidget *parent = nullptr);
+    ~customDialog() = default;
 
 public:
     const QColor color() const;

@@ -19,15 +19,21 @@ class customLabel : public QLabel
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-    explicit customLabel(QWidget *parent = nullptr);
+    explicit customLabel(const QString &qss, QWidget *parent = nullptr);
     ~customLabel() = default;
 
 public:
     const QColor color() const;
-    void  setColor(const QColor color);
+    void         setColor(const QColor color);
 
 protected:
     QColor m_color;
-};
+    virtual void mouseReleaseEvent(QMouseEvent*);
 
+private:
+    QString BASEQSS;
+
+signals:
+    void clicked(void);
+};
 #endif // CUSTOMLABEL_H

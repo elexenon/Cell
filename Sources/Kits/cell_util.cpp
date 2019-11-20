@@ -22,10 +22,47 @@ const QString FONT_DIR(":/fonts/Share/fonts/");
 const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Share\\styleSheets\\");
 const QString LIB_DIR(":/libs/Share/libs/");
 const QString COLOR_SPACE_GRAY("#798186");
+
 const QColor COLOR_OPTION_BLOCK_DARK(44, 44, 45);
 const QColor COLOR_OPTION_BLOCK_BRIGHT(218, 218, 218);
 const QColor MAINWINDOW_DARK(31, 30, 31);
 const QColor MAINWINDOW_BRIGHT(247, 247, 247);
+
+const QString QSS_CUSTOMFRAME_WITH_RADIUS(
+"QFrame{"
+"border-radius:5px; "
+"background-color: rgb(%1, %2, %3);"
+"}");
+const QString QSS_CUSTOMFRAME(
+"QFrame{"
+"background-color: rgb(%1, %2, %3);"
+"}");
+const QString QSS_CUSTOMLABEL(
+"QLabel{"
+"color: rgb(%1, %2, %3);"
+"}");
+const QString QSS_CUSTOMBUTTON_STATIC(
+"QPushButton{"
+"background-color: rgb(%1, %2, %3);"
+"border: 0px solid gray;"
+"}"
+"QPushButton:hover{"
+"background-color: rgb(%4, %5, %6);"
+"border: 0px solid gray;"
+"}"
+"QPushButton:checked{"
+"background-color: rgb(%7, %8, %9);"
+"border: 0px solid gray;"
+"}");
+const QString QSS_CUSTOMBUTTON_DYNAMIC(
+"QPushButton{"
+"background-color: rgb(%1, %2, %3);"
+"border: 1px solid gray;"
+"}"
+"QPushButton:checked{"
+"background-color: rgb(%4, %5, %6);"
+"border: 1px solid gray;"
+"}");
 } // namespace LITERAL{
 } // namespace CELL_UTIL{
 

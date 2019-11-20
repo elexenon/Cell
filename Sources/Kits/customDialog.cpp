@@ -20,8 +20,7 @@ const QColor customDialog::color() const
 void customDialog::setColor(const QColor color)
 {
     m_color = color;
-    QString qss=QString("QWidget{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
-    setStyleSheet(qss);
+    setStyleSheet(QString("QWidget{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
 #ifdef Q_OS_WIN32

@@ -23,10 +23,10 @@ public:
 
 public:
     const QColor color() const;
-    void setColor(const QColor color);
+    void         setColor(const QColor color);
 
 protected:
-    QColor m_color;
+    QColor       m_color;
 
 protected:
 #ifdef Q_OS_WIN32

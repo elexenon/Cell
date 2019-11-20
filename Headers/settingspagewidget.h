@@ -10,67 +10,59 @@
 #ifndef SETTINGSPAGEWIDGET_H
 #define SETTINGSPAGEWIDGET_H
 
-#include <QWidget>
+#include "Kits/customFrame.h"
 #include "Kits/cell_util.h" // COLOR_SCHEME
 
 namespace Ui {
 class SettingsPageWidget;
 }
-
 class customWidget;
 class QScrollArea;
 class QPropertyAnimation;
 class customFrame;
 class customLabel;
+class QFrame;
+class QGraphicsDropShadowEffect;
+class QPushButton;
+class QCheckBox;
+class QGraphicsDropShadowEffect;
 
-class SettingsPageWidget : public QWidget
+class SettingsPageWidget : public customFrame
 {
     Q_OBJECT
-
 public:
     explicit SettingsPageWidget(QWidget *parent = nullptr);
-    ~SettingsPageWidget();
+    ~SettingsPageWidget() = default;
 
     void mainWindowSetColorSchemeModeCall(COLOR_SCHEME mode);
 
 private slots:
-    void on_Btn_bright_clicked();
-
-    void on_Btn_dark_clicked();
-
-    void on_radioBtn_bright_clicked();
-
-    void on_radioBtn_dark_clicked();
+    void Btn_bright_clicked();
+    void Btn_dark_clicked();
 
 private:
-    Ui::SettingsPageWidget *ui;
-    QPropertyAnimation     *frame_optionBlock1_animi;
-    QPropertyAnimation     *frame_optionBlock2_animi;
-    QPropertyAnimation     *frame_optionBlock3_animi;
-    QPropertyAnimation     *frame_optionBlock4_animi;
-    QPropertyAnimation     *scrollAreaContents_animi;
-
+    QPropertyAnimation     *line_color_animi;
     QPropertyAnimation     *label_appearence_animi;
-    QPropertyAnimation     *label_automation_animi;
+    QPropertyAnimation     *label_general_animi;
     QPropertyAnimation     *label_auto_hint_animi;
-    QPropertyAnimation     *label_license_animi;
-    QPropertyAnimation     *label_lice_hint_animi;
-    QPropertyAnimation     *label_about_animi;
+    QPropertyAnimation     *optionBlock1_animi;
+    QPropertyAnimation     *optionBlock2_animi;
+    QPropertyAnimation     *animi;
 
-    QScrollArea            *main_ScrollArea;
-    customWidget           *scrollAreaWidgetContents;
+    QGraphicsDropShadowEffect *Btn_dark_dse;
+    QGraphicsDropShadowEffect *Btn_bright_dse;
 
-    customFrame            *frame_optionBlock2;
-    customFrame            *frame_optionBlock3;
-    customFrame            *frame_optionBlock1;
-    customFrame            *frame_optionBlock4;
+    customFrame            *optionBlock1;
+    customFrame            *optionBlock2;
+
+    QPushButton            *Btn_dark;
+    QPushButton            *Btn_bright;
 
     customLabel            *label_appearence;
-    customLabel            *label_automation;
+    customLabel            *label_general;
     customLabel            *label_auto_hint;
-    customLabel            *label_license;
-    customLabel            *label_lice_hint;
-    customLabel            *label_about;
+
+    QFrame                 *line_color;
 
 private:
     COLOR_SCHEME m_mode;
@@ -79,9 +71,9 @@ private:
     void   Init();
     void   modulesChangeToDarkness();
     void   modulesChangeToBrightness();
+    void   setEventConnections();
 
 signals:
-    // Custom signals.
     void enableColorScheme(COLOR_SCHEME mode);
 };
 

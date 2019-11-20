@@ -17,7 +17,7 @@ using namespace CELL_UTIL;
 GuideDialog::GuideDialog(QWidget *parent) :
     customDialog(parent),
     ui(new Ui::GuideDialog),
-    frame_titleBar(new customFrame(FRAME_TYPE::_REGULAR, this)),
+    frame_titleBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
     m_mode(COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
@@ -85,24 +85,33 @@ void GuideDialog::mouseReleaseEvent(QMouseEvent *event)
 
 void GuideDialog::setColorScheme(COLOR_SCHEME mode)
 {
+    if(m_mode == mode) return;
     if(mode == COLOR_SCHEME::_DARK){
-        if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
-
+#ifdef CELL_DEBUG
+        qDebug() << "Here";
+#endif
         TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Dark.css"));
         ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
-        TOOLS::setPropertyAnimation({animi_title}, "color", frame_titleBar->color(), QColor(44, 44, 45), 500,
-                             QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
+        TOOLS::setPropertyAnimation({animi_title},
+                                     "color",
+                                     frame_titleBar->color(),
+                                     QColor(44, 44, 45),
+                                     500,
+                                     QEasingCurve::InOutCubic,
+                                     {frame_titleBar}, nullptr);
     }
     else{
-        if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
 
         TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
         ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
-
-        TOOLS::setPropertyAnimation({animi_title}, "color", frame_titleBar->color(), QColor(164, 163, 164), 500,
-                             QEasingCurve::InOutCubic, {frame_titleBar}, nullptr);
+        TOOLS::setPropertyAnimation({animi_title},
+                                     "color",
+                                     frame_titleBar->color(),
+                                     QColor(164, 163, 164), 500,
+                                     QEasingCurve::InOutCubic,
+                                     {frame_titleBar}, nullptr);
     }
 }
 

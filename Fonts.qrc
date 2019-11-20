@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file>Share/fonts/InfoDisplayWeb W01 Medium.ttf</file>
+        <file>Share/fonts/PingFang-Light.ttf</file>
+    </qresource>
+</RCC>

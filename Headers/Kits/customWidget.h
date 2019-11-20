@@ -26,12 +26,8 @@ public:
     void setColor(const QColor color);
 
 protected:
-    // The class customWidget is extended from QWidget
-    // But base class QWidget's paintEvent function is empty
-    // Because of this, we have to override function paintEvent
-    // And implement its style-loading operation.
-    virtual void paintEvent(QPaintEvent *event) override;
     virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+    virtual void paintEvent(QPaintEvent *event) override;
     void LoadWinStyle(QWidget *obj);
 
 protected:

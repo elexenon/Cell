@@ -10,277 +10,181 @@
 #include "Headers/Kits/customFrame.h"
 #include "Headers/Kits/customLabel.h"
 #include "Headers/settingspagewidget.h"
-#include "ui_settingspagewidget.h"
 
 #include <QSettings>
 #include <QScrollBar>
 #include <QPropertyAnimation>
 #include <QScrollArea>
 #include <QDebug>
+#include <QPushButton>
+#include <QCheckBox>
 
 using namespace CELL_UTIL;
 
 SettingsPageWidget::SettingsPageWidget(QWidget *parent) :
-    QWidget(parent)
-    ,ui(new Ui::SettingsPageWidget)
-    ,main_ScrollArea(new QScrollArea(this))
-    ,scrollAreaWidgetContents(new customWidget(WIDGET_TYPE::_CHILD))
-    ,frame_optionBlock2(new customFrame(FRAME_TYPE::_OPTIONBLOCK))
-    ,frame_optionBlock3(new customFrame(FRAME_TYPE::_OPTIONBLOCK))
-    ,frame_optionBlock1(new customFrame(FRAME_TYPE::_OPTIONBLOCK))
-    ,frame_optionBlock4(new customFrame(FRAME_TYPE::_OPTIONBLOCK))
-    ,label_appearence(new customLabel)
-    ,label_automation(new customLabel)
-    ,label_auto_hint(new customLabel)
-    ,label_license(new customLabel)
-    ,label_lice_hint(new customLabel)
-    ,label_about(new customLabel)
+    customFrame(LITERAL::QSS_CUSTOMFRAME,parent)
+    ,optionBlock1(new customFrame(LITERAL::QSS_CUSTOMFRAME_WITH_RADIUS, this))
+    ,optionBlock2(new customFrame(LITERAL::QSS_CUSTOMFRAME_WITH_RADIUS, this))
+    ,Btn_dark(new QPushButton(this))
+    ,Btn_bright(new QPushButton(this))
+    ,label_appearence(new customLabel(LITERAL::QSS_CUSTOMLABEL))
+    ,label_general(new customLabel(LITERAL::QSS_CUSTOMLABEL))
+    ,label_auto_hint(new customLabel(LITERAL::QSS_CUSTOMLABEL,this))
+    ,line_color(new QFrame)
     ,m_mode(COLOR_SCHEME::_BRIGHT)
 {
-    ui->setupUi(this);
     Init();
-}
-
-SettingsPageWidget::~SettingsPageWidget()
-{
-    delete ui;
 }
 
 void SettingsPageWidget::mainWindowSetColorSchemeModeCall(COLOR_SCHEME mode)
 {
-    qDebug() << "yes";
     if(mode == COLOR_SCHEME::_BRIGHT){
-        on_Btn_bright_clicked();
+        Btn_bright_clicked();
     }else{
-        on_Btn_dark_clicked();
+        Btn_dark_clicked();
     }
 }
 
 void SettingsPageWidget::Init()
 {
-    main_ScrollArea->setGeometry(4, 40, 951, 645);
-    main_ScrollArea->setFrameShape(QFrame::NoFrame);
-    main_ScrollArea->setFrameShadow(QFrame::Plain);
-    main_ScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    main_ScrollArea->setWidgetResizable(true);
+    setColor(QColor(255,255,255));
 
-    scrollAreaWidgetContents->setGeometry(0, 0, 951, 1000);
-    scrollAreaWidgetContents->setMinimumSize(951, 1000);
-    main_ScrollArea->setWidget(scrollAreaWidgetContents);
+    optionBlock1->setObjectName(QStringLiteral("optionBlock1"));
+    optionBlock1->setGeometry(45, 20, 881, 151);
+    optionBlock1->setColor(QColor(218,218,218));
 
-    frame_optionBlock1->setParent(scrollAreaWidgetContents);
-    frame_optionBlock1->setGeometry(20, 0, 861, 231);
+    optionBlock2->setObjectName(QStringLiteral("optionBlock2"));
+    optionBlock2->setGeometry(45, 220, 881, 151);
+    optionBlock2->setColor(QColor(218,218,218));
 
-    frame_optionBlock2->setParent(scrollAreaWidgetContents);
-    frame_optionBlock2->setGeometry(20, 260, 861, 151);
+    Btn_bright->setObjectName(QStringLiteral("Btn_bright"));
+    Btn_bright->setGeometry(150,20,151,101);
+    Btn_bright->setFlat(true);
+    Btn_bright->setStyleSheet("border-image: url(:/images/Share/images/ColorScheme_BrightMode_BrightBtn.png);");
+    Btn_bright->setCursor(Qt::PointingHandCursor);
+    Btn_bright->setParent(optionBlock1);
 
-    frame_optionBlock3->setParent(scrollAreaWidgetContents);
-    frame_optionBlock3->setGeometry(20, 440, 861, 191);
+    Btn_dark->setObjectName(QStringLiteral("Btn_dark"));
+    Btn_dark->setGeometry(360,20,151,101);
+    Btn_dark->setFlat(true);
+    Btn_dark->setStyleSheet("border-image: url(:/images/Share/images/ColorScheme_BrightMode_DarkBtn.png);");
+    Btn_dark->setCursor(Qt::PointingHandCursor);
+    Btn_dark->setParent(optionBlock1);
 
-    frame_optionBlock4->setParent(scrollAreaWidgetContents);
-    frame_optionBlock4->setGeometry(20, 660, 861, 1000-665);
-
-    label_appearence->setParent(frame_optionBlock1);
     label_appearence->setGeometry(30, 10, 111, 61);
     label_appearence->setText(tr("外观"));
-    label_appearence->setFont(QFont(QStringLiteral("微软雅黑"), 16));
+    label_appearence->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 16));
+    label_appearence->setParent(optionBlock1);
 
-    label_automation->setParent(frame_optionBlock1);
-    label_automation->setGeometry(33, 189, 61, 31);
-    label_automation->setText(tr("自动化"));
-    label_automation->setFont(QFont(QStringLiteral("微软雅黑"), 11));
+    label_general->setGeometry(30, 10, 111, 61);
+    label_general->setText(tr("通用"));
+    label_general->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 16));
+    label_general->setParent(optionBlock2);
 
-    label_auto_hint->setParent(frame_optionBlock1);
-    label_auto_hint->setGeometry(122, 179, 501, 51);
-    label_auto_hint->setText(tr("勾选此项时,Cell会自动根据系统时间设定相应的颜色模式。"));
-    label_auto_hint->setFont(QFont(QStringLiteral("微软雅黑 Light")));
+    label_auto_hint->setGeometry(55, 180, 215, 15);
+    label_auto_hint->setText(tr("将自动在日落后调整为黑暗模式。"));
+    label_auto_hint->setFont(QFont(QStringLiteral("Microsoft YaHei UI")));
 
-    label_license->setParent(frame_optionBlock2);
-    label_license->setGeometry(30, 10, 111, 61);
-    label_license->setText(tr("许可"));
-    label_license->setFont(QFont(QStringLiteral("微软雅黑"), 16));
+    line_color->setParent(this);
+    line_color->setGeometry(195, 150, 151, 2);
+    line_color->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(121,129,134);}"));
+    line_color->setFrameShape(QFrame::VLine);
+    line_color->setFrameShadow(QFrame::Plain);
 
-    label_lice_hint->setParent(frame_optionBlock2);
-    label_lice_hint->setGeometry(150, 20, 731, 81);
-    label_lice_hint->setText(tr("此自由软件使用GUN GPLv3开源协议。若您想由此软件衍生新的程序，请务必开放源码\n\n请勿对由此软件衍生的产品进行任何闭源商业行为。"));
-    label_lice_hint->setFont(QFont(QStringLiteral("微软雅黑"),10));
+    label_auto_hint->setStyleSheet(QStringLiteral("QLabel{color:#798186;background-color:rgb(255,255,255);}"));
 
-    label_about->setParent(frame_optionBlock3);
-    label_about->setGeometry(30, 10, 111, 61);
-    label_about->setText(tr("关于"));
-    label_about->setFont(QFont(QStringLiteral("微软雅黑"), 16));
-
-    using TOOLS::styleSheetLoader;
-
-    ui->Btn_bright->setParent(frame_optionBlock1);
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_BrightBtn.css"));
-    ui->Btn_bright->setStyleSheet(styleSheetLoader->styleSheet());
-
-    ui->Btn_dark->setParent(frame_optionBlock1);
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_DarkBtn.css"));
-    ui->Btn_dark->setStyleSheet(styleSheetLoader->styleSheet());
-
-    ui->checkBox_auto->setParent(frame_optionBlock1);
-    ui->checkBox_auto->setStyleSheet(QStringLiteral("background-color:#dadada"));
-
-    ui->labelGPL->setParent(frame_optionBlock2);
-    ui->labelGPL->setGeometry(730,99,ui->labelGPL->width(),ui->labelGPL->height());
-
-    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
-    QScrollBar *verticalBar = main_ScrollArea->verticalScrollBar();
-    verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
-
-    TOOLS::multiModulesOneStyleSheet({label_appearence,label_automation,label_auto_hint,
-                                      label_license,label_lice_hint,label_about},
+    TOOLS::multiModulesOneStyleSheet({label_appearence,label_general},
                                       QStringLiteral("color:#798186; background-color:#dadada"));
 
-    ui->radioBtn_bright->setParent(frame_optionBlock1);
-    ui->radioBtn_dark->setParent(frame_optionBlock1);
-    TOOLS::multiModulesOneStyleSheet({ui->radioBtn_bright,ui->radioBtn_dark},
-                                      QStringLiteral("QRadioButton{background-color: #dadada;}"));
-
-    styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.css"));
-    frame_optionBlock1->setStyleSheet(styleSheetLoader->styleSheet());
-    frame_optionBlock2->setStyleSheet(styleSheetLoader->styleSheet());
-    frame_optionBlock3->setStyleSheet(styleSheetLoader->styleSheet());
-    frame_optionBlock4->setStyleSheet(styleSheetLoader->styleSheet());
+    setEventConnections();
 }
 
 void SettingsPageWidget::modulesChangeToDarkness()  // Color_Scheme_Switch.
 {   
     if(m_mode == COLOR_SCHEME::_DARK) return;
     m_mode = COLOR_SCHEME::_DARK;
-    this->setStyleSheet("QWidget{background-color: rgb(31, 30, 31);}");
 
-    TOOLS::setPropertyAnimation({scrollAreaContents_animi},
+    TOOLS::setPropertyAnimation({label_appearence_animi, label_general_animi, label_auto_hint_animi},
                                  "color",
-                                 scrollAreaWidgetContents->color(),
-                                 LITERAL::MAINWINDOW_DARK,
-                                 500,
-                                 QEasingCurve::InOutCubic,
-                                 {scrollAreaWidgetContents},nullptr);
-
-    TOOLS::setPropertyAnimation({frame_optionBlock1_animi,frame_optionBlock2_animi,
-                                 frame_optionBlock3_animi,frame_optionBlock4_animi},
-                                 "color",
-                                 frame_optionBlock1->color(),
-                                 LITERAL::COLOR_OPTION_BLOCK_DARK,
-                                 500,
-                                 QEasingCurve::InOutCubic,
-                                 {frame_optionBlock1,frame_optionBlock2,
-                                  frame_optionBlock3,frame_optionBlock4},nullptr);
-
-    TOOLS::setPropertyAnimation({label_appearence_animi, label_automation_animi, label_auto_hint_animi,
-                                 label_license_animi, label_lice_hint_animi, label_about_animi},
-                                 "color",
-                                 label_about->color(),
+                                 label_appearence->color(),
                                  QColor(255,255,255),
                                  500,
                                  QEasingCurve::InOutCubic,
-                                 {label_appearence, label_automation, label_auto_hint,
-                                  label_license, label_lice_hint, label_about},nullptr);
-    // Ratio Btns.
-    TOOLS::multiModulesOneStyleSheet({ui->radioBtn_bright,ui->radioBtn_dark},
-                                      QStringLiteral("color: #2C2C2D;"));
-
-    // Two Btns.
-    using TOOLS::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_DarkMode_BrightBtn.css"));
-    ui->Btn_bright->setStyleSheet(styleSheetLoader->styleSheet());
-
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_DarkMode_DarkBtn.css"));
-    ui->Btn_dark->setStyleSheet(styleSheetLoader->styleSheet());
-
-    ui->checkBox_auto->setStyleSheet(QStringLiteral("color:#2c2c2d"));
-
-    // Scroll Bar
-    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Dark.css"));
-    QScrollBar *verticalBar = main_ScrollArea->verticalScrollBar();
-    verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
+                                 {label_appearence, label_general, label_auto_hint},nullptr);
+    TOOLS::setPropertyAnimation({line_color_animi},
+                                 "pos",
+                                 line_color->pos(),
+                                 QPoint(405, 150),
+                                 500,
+                                 QEasingCurve::InOutCubic,
+                                 {line_color},nullptr);
+    TOOLS::setPropertyAnimation({animi},
+                                 "color",
+                                 color(),
+                                 QColor(44,44,45),
+                                 500,
+                                 QEasingCurve::InOutCubic,
+                                 {this},nullptr);
+    TOOLS::setPropertyAnimation({optionBlock1_animi,optionBlock2_animi},
+                                 "color",
+                                 optionBlock1->color(),
+                                 QColor(70,70,70),
+                                 500,
+                                 QEasingCurve::InOutCubic,
+                                 {optionBlock1,optionBlock2},nullptr);
 }
 
 void SettingsPageWidget::modulesChangeToBrightness()    // Color_Scheme_Switch.
 {
     if(m_mode == COLOR_SCHEME::_BRIGHT) return;
     m_mode = COLOR_SCHEME::_BRIGHT;
-    this->setStyleSheet("QWidget{background-color: rgb(247, 247, 247);}");
 
-
-    TOOLS::setPropertyAnimation({scrollAreaContents_animi},
+    TOOLS::setPropertyAnimation({label_appearence_animi, label_general_animi, label_auto_hint_animi},
                                  "color",
-                                 scrollAreaWidgetContents->color(),
-                                 LITERAL::MAINWINDOW_BRIGHT,
-                                 500,
-                                 QEasingCurve::InOutCubic,
-                                 {scrollAreaWidgetContents},nullptr);
-
-    TOOLS::setPropertyAnimation({frame_optionBlock1_animi,frame_optionBlock2_animi,
-                                 frame_optionBlock3_animi,frame_optionBlock4_animi},
-                                 "color",
-                                 frame_optionBlock1->color(),
-                                 LITERAL::COLOR_OPTION_BLOCK_BRIGHT,
-                                 500,
-                                 QEasingCurve::InOutCubic,
-                                 {frame_optionBlock1,frame_optionBlock2,
-                                  frame_optionBlock3,frame_optionBlock4},nullptr);
-
-    TOOLS::setPropertyAnimation({label_appearence_animi, label_automation_animi, label_auto_hint_animi,
-                                 label_license_animi, label_lice_hint_animi, label_about_animi},
-                                 "color",
-                                 label_about->color(),
+                                 label_appearence->color(),
                                  QColor(121,129,134),
                                  500,
                                  QEasingCurve::InOutCubic,
-                                 {label_appearence, label_automation, label_auto_hint,
-                                  label_license, label_lice_hint, label_about},nullptr);
-
-    // Ratio Btns.
-    TOOLS::multiModulesOneStyleSheet({ui->radioBtn_bright,ui->radioBtn_dark},
-                                      QStringLiteral("color: #dadada;"));
-    // Two Btns.
-    using TOOLS::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_BrightBtn.css"));
-    ui->Btn_bright->setStyleSheet(styleSheetLoader->styleSheet());
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_OptionBlock1_BrightMode_DarkBtn.css"));
-
-    ui->checkBox_auto->setStyleSheet(QStringLiteral("color:#dadada"));
-
-    ui->Btn_dark->setStyleSheet(styleSheetLoader->styleSheet());
-    // Scroll Bar
-    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
-    QScrollBar *verticalBar = main_ScrollArea->verticalScrollBar();
-    verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
+                                 {label_appearence, label_general, label_auto_hint},nullptr);
+    TOOLS::setPropertyAnimation({line_color_animi},
+                                 "pos",
+                                 line_color->pos(),
+                                 QPoint(195, 150),
+                                 500,
+                                 QEasingCurve::InOutCubic,
+                                 {line_color},nullptr);
+    TOOLS::setPropertyAnimation({animi},
+                                 "color",
+                                 color(),
+                                 QColor(255,255,255),
+                                 500,
+                                 QEasingCurve::InOutCubic,
+                                 {this},nullptr);
+    TOOLS::setPropertyAnimation({optionBlock1_animi,optionBlock2_animi},
+                                 "color",
+                                 optionBlock1->color(),
+                                 QColor(218,218,218),
+                                 500,
+                                 QEasingCurve::InOutCubic,
+                                 {optionBlock1,optionBlock2},nullptr);
 }
 
-void SettingsPageWidget::on_Btn_bright_clicked()
+void SettingsPageWidget::setEventConnections()
 {
+    connect(Btn_bright, SIGNAL(clicked(bool)), this, SLOT(Btn_bright_clicked()));
+    connect(Btn_dark, SIGNAL(clicked(bool)), this, SLOT(Btn_dark_clicked()));
+}
 
-    ui->Btn_dark->setChecked(false);
-    ui->radioBtn_bright->setChecked(true);
-
+void SettingsPageWidget::Btn_bright_clicked()
+{
     modulesChangeToBrightness();
 
     emit enableColorScheme(COLOR_SCHEME::_BRIGHT);
 }
 
-void SettingsPageWidget::on_Btn_dark_clicked()
+void SettingsPageWidget::Btn_dark_clicked()
 {
-    ui->Btn_bright->setChecked(false);
-    ui->radioBtn_dark->setChecked(true);
-
     modulesChangeToDarkness();
 
     emit enableColorScheme(COLOR_SCHEME::_DARK);
-}
-
-void SettingsPageWidget::on_radioBtn_bright_clicked()
-{
-    ui->Btn_dark->setChecked(false);
-    ui->Btn_bright->setChecked(true);
-}
-
-void SettingsPageWidget::on_radioBtn_dark_clicked()
-{
-    ui->Btn_bright->setChecked(false);
-    ui->Btn_dark->setChecked(true);
 }

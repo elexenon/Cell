@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/GuideDialogHint.PNG);</string>
+    <string notr="true">border-image: url(:/images/Share/images/GuideDialogHint.png);</string>
    </property>
    <property name="text">
     <string/>

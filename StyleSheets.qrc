@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/styleSheets">
+        <file>Share/styleSheets/Editor_ScrollBar.css</file>
+        <file>Share/styleSheets/Frame_OptionBlock_bright.css</file>
+        <file>Share/styleSheets/Frame_OptionBlock_dark.css</file>
+        <file>Share/styleSheets/GuideDialogCloseBtn_Bright.css</file>
+        <file>Share/styleSheets/GuideDialogCloseBtn_Dark.css</file>
+        <file>Share/styleSheets/GuideDialogIcon_bright.css</file>
+        <file>Share/styleSheets/GuideDialogIcon_dark.css</file>
+        <file>Share/styleSheets/MainWindowCloseBtn_bright.css</file>
+        <file>Share/styleSheets/MainWindowCloseBtn_dark.css</file>
+        <file>Share/styleSheets/MainWindowComboBox.css</file>
+        <file>Share/styleSheets/MainWindowGridBtn_Bright.css</file>
+        <file>Share/styleSheets/MainWindowGridBtn_Dark.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Guide_Bright.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Guide_Dark.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Bright.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Dark.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Settings_Bright.css</file>
+        <file>Share/styleSheets/MainWindowLeftTab_Settings_Dark.css</file>
+        <file>Share/styleSheets/MainWindowListBtn_Bright.css</file>
+        <file>Share/styleSheets/MainWindowListBtn_Dark.css</file>
+        <file>Share/styleSheets/MainWindowMaxBtn_bright.css</file>
+        <file>Share/styleSheets/MainWindowMaxBtn_dark.css</file>
+        <file>Share/styleSheets/MainWindowMinimizeBtn_bright.css</file>
+        <file>Share/styleSheets/MainWindowMinimizeBtn_dark.css</file>
+        <file>Share/styleSheets/SettingsPage_ScrollBar_Bright.css</file>
+        <file>Share/styleSheets/SettingsPage_ScrollBar_Dark.css</file>
+        <file>Share/styleSheets/WorkshopDialog_start.css</file>
+        <file>Share/styleSheets/WorkshopEditor.css</file>
+    </qresource>
+</RCC>

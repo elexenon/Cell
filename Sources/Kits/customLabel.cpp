@@ -6,9 +6,12 @@
 //
 // Of source file directory.
 #include "Headers/Kits/customLabel.h"
+#include <QStyleOption>
+#include <QStylePainter>
 
-customLabel::customLabel(QWidget *parent):
-    QLabel(parent)
+customLabel::customLabel(const QString &qss, QWidget *parent):
+    QLabel(parent),
+    BASEQSS(qss)
 {}
 
 const QColor customLabel::color() const
@@ -19,6 +22,10 @@ const QColor customLabel::color() const
 void customLabel::setColor(const QColor color)
 {
     m_color = color;
-    QString qss=QString("QLabel{color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
-    setStyleSheet(qss);
+    setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));
+}
+
+void customLabel::mouseReleaseEvent(QMouseEvent *)
+{
+    emit clicked();
 }

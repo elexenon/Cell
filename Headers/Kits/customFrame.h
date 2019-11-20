@@ -10,7 +10,6 @@
 #ifndef CUSTOMFRAME_H
 #define CUSTOMFRAME_H
 
-#include "cell_util.h" // FRAME_TYPE
 #include <QFrame>
 
 class customFrame : public QFrame
@@ -19,15 +18,17 @@ class customFrame : public QFrame
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-    explicit customFrame(FRAME_TYPE type, QWidget *parent = nullptr);
+    explicit customFrame(const QString &qss, QWidget *parent = nullptr);
     ~customFrame() = default;
 
 public:
     const QColor color() const;
-    void  setColor(const QColor color);
+    void         setColor(const QColor color);
 
 protected:
-    const FRAME_TYPE m_type;
-    QColor m_color;
+    QColor       m_color;
+
+private:
+    const QString BASEQSS;
 };
 #endif

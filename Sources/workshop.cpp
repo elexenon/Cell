@@ -13,8 +13,8 @@
 #include <QPushButton>
 #include <QSplitter>
 #include <QGraphicsDropShadowEffect>
-#include <QSci/qsciscintilla.h>
-#include <QSci/qscilexerpython.h>
+#include <Qsci/qsciscintilla.h>
+#include <Qsci/qscilexerpython.h>
 #include "Headers/Kits/cell_util.h"
 #include "Headers/Kits/qstylesheetloader.hpp"
 #include "Headers/wswelcomedialog.h"
@@ -31,10 +31,10 @@ Workshop::Workshop(COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     dropShadowLine2(new QFrame),
     dropShadowLine3(new QFrame),
     welcomeDialog(new WSWelcomeDialog),
-    menuBar(new customFrame(FRAME_TYPE::_REGULAR, this)),
-    leftBlock(new customFrame(FRAME_TYPE::_REGULAR, this)),
-    rightBlock(new customFrame(FRAME_TYPE::_REGULAR, this)),
-    statusBar(new customFrame(FRAME_TYPE::_REGULAR, this)),
+    menuBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
+    leftBlock(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
+    rightBlock(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
+    statusBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
     mainEditor(new QsciScintilla(this)),
     m_color(COLOR_SCHEME::_BRIGHT)
 {
@@ -121,16 +121,16 @@ void Workshop::InitWorkshop()
     ui->BtnHelp->setFont(QFont("微软雅黑", 10));
 
     TOOLS::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
-                                       QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
+                                      QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
 
     // DropShadow Lines.
     TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                       QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
+                                      QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
 
     // DropShadowEffects.
 
     TOOLS::setDropShadowEffect({eff1,eff2,eff3},{dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                 QPoint(0,1),Qt::black,10);
+                                QPoint(0,1),Qt::black,10);
 
     // Main Editor.
     mainEditor->setFrameShape(QFrame::NoFrame);
@@ -175,8 +175,8 @@ void Workshop::setConnections()
 
 void Workshop::setColorScheme(COLOR_SCHEME mode)
 {
+    if(mode == m_mode) return;
     if(mode == COLOR_SCHEME::_DARK){
-        if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
 
         TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
@@ -185,39 +185,69 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
         TOOLS::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                            QStringLiteral("QLabel{color:rgb(255,255,255);}"));
 
-        TOOLS::setPropertyAnimation({animi_MenuBar}, "color", menuBar->color(), LITERAL::COLOR_OPTION_BLOCK_DARK, 500,
-                             QEasingCurve::InOutCubic, {menuBar}, nullptr);
-        TOOLS::setPropertyAnimation({animi_StatusBar}, "color", statusBar->color(), LITERAL::COLOR_OPTION_BLOCK_DARK, 500,
-                             QEasingCurve::InOutCubic, {statusBar}, nullptr);
+        TOOLS::setPropertyAnimation({animi_MenuBar},
+                                     "color",
+                                     menuBar->color(),
+                                     LITERAL::COLOR_OPTION_BLOCK_DARK,
+                                     500,
+                                     QEasingCurve::InOutCubic,
+                                     {menuBar}, nullptr);
+        TOOLS::setPropertyAnimation({animi_StatusBar},
+                                     "color",
+                                     statusBar->color(),
+                                     LITERAL::COLOR_OPTION_BLOCK_DARK,
+                                     500,
+                                     QEasingCurve::InOutCubic,
+                                     {statusBar}, nullptr);
 
-        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", leftBlock->color(), QColor(70, 70, 70), 500,
-                             QEasingCurve::InOutCubic, {leftBlock,rightBlock}, nullptr);
+        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
+                                     "color",
+                                     leftBlock->color(),
+                                     QColor(70, 70, 70),
+                                     500,
+                                     QEasingCurve::InOutCubic,
+                                     {leftBlock,rightBlock}, nullptr);
     }
     else{
-        if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
 
         TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                           QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
+                                          QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
 
         TOOLS::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
-                                           QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));
+                                          QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));
 
-        TOOLS::setPropertyAnimation({animi_MenuBar}, "color", menuBar->color(), QColor(65,152,197), 500,
-                             QEasingCurve::InOutCubic, {menuBar}, nullptr);
-        TOOLS::setPropertyAnimation({animi_StatusBar}, "color", statusBar->color(), QColor(210,210,210), 500,
-                             QEasingCurve::InOutCubic, {statusBar}, nullptr);
+        TOOLS::setPropertyAnimation({animi_MenuBar},
+                                     "color",
+                                     menuBar->color(),
+                                     QColor(65,152,197),
+                                     500,
+                                     QEasingCurve::InOutCubic,
+                                     {menuBar}, nullptr);
+        TOOLS::setPropertyAnimation({animi_StatusBar},
+                                     "color",
+                                     statusBar->color(),
+                                     QColor(210,210,210),
+                                     500,
+                                     QEasingCurve::InOutCubic,
+                                     {statusBar}, nullptr);
 
-        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock}, "color", leftBlock->color(), QColor(235,235,235), 500,
-                             QEasingCurve::InOutCubic, {leftBlock,rightBlock}, nullptr);
+        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
+                                     "color",
+                                     leftBlock->color(),
+                                     QColor(235,235,235),
+                                     500,
+                                     QEasingCurve::InOutCubic,
+                                     {leftBlock,rightBlock}, nullptr);
     }
 }
 
 void Workshop::updateStatusBar()
 {
     QCursor cursor = mainEditor->cursor();
+#ifdef CELL_DEBUG
     qDebug() << cursor.pos();
-
+#endif
     cntRow->setText("Row: " + QString::number(mainEditor->lines()));
 
     QString tmp = mainEditor->text();
@@ -236,7 +266,7 @@ void Workshop::setColor(const QColor color)
     setStyleSheet(qss);
 }
 
-void Workshop::closeEvent(QCloseEvent *event)
+void Workshop::closeEvent(QCloseEvent*)
 {
     welcomeDialog->close();
 }

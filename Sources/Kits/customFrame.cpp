@@ -5,12 +5,13 @@
 // See accompanying file LICENSE.txt at the root
 //
 // Of source file directory.
-#include "../../Headers/Kits/customFrame.h"
+#include "Headers/Kits/customFrame.h"
+
 #include <QDebug>
 
-customFrame::customFrame(FRAME_TYPE type, QWidget *parent):
-    QFrame(parent)
-   ,m_type(type)
+customFrame::customFrame(const QString &qss, QWidget *parent):
+    QFrame(parent),
+    BASEQSS(qss)
 {}
 
 const QColor customFrame::color() const
@@ -21,16 +22,5 @@ const QColor customFrame::color() const
 void customFrame::setColor(const QColor color)
 {
     m_color = color;
-    QString qss;
-    using F_T = FRAME_TYPE;
-    switch(m_type){
-        case F_T::_OPTIONBLOCK:
-            qss=QString("QFrame{border-radius:5px; background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
-        break;
-
-        case F_T::_REGULAR:
-            qss=QString("QFrame{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue());
-        break;
-    }
-    setStyleSheet(qss);
+    setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));
 }

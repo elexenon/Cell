@@ -10,6 +10,8 @@ CONFIG += c++11
 
 CONFIG += procompile_header
 
+CONFIG += resources_big
+
 PRECOMPILED_HEADER = Stable.h
 
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -17,8 +19,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Sources/Kits/cell_util.cpp \
     Sources/Kits/customDialog.cpp \
+    Sources/Kits/customDynamicButton.cpp \
     Sources/Kits/customFrame.cpp \
     Sources/Kits/customLabel.cpp \
+    Sources/Kits/customStaticButton.cpp \
     Sources/Kits/customWidget.cpp \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
@@ -32,9 +36,11 @@ SOURCES += \
 HEADERS += \
     Headers/Kits/cell_util.h \
     Headers/Kits/customDialog.h \
+    Headers/Kits/customDynamicButton.h \
     Headers/Kits/customFrame.h \
     Headers/Kits/customLabel.h \
     Headers/Kits/qstylesheetloader.hpp \
+    Headers/kits/customStaticButton.h \
     Headers/kits/customWidget.h \
     Headers/mainwindow.h \
     Headers/guidedialog.h \
@@ -56,7 +62,6 @@ FORMS += \
     Forms/mainwindow.ui \
     Forms/guidedialog.ui \
     Forms/homepagewidget.ui \
-    Forms/settingspagewidget.ui \
     Forms/workshop.ui \
     Forms/wswelcomedialog.ui
 
@@ -72,6 +77,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    sources.qrc
+    Fonts.qrc \
+    Images.qrc \
+    StyleSheets.qrc
 
 RC_ICONS = CELL.ico

@@ -28,9 +28,10 @@ QScrollBar::sub-line:vertical {
 	width:10px;
 	subcontrol-position:top;
 }
- 
+/*
 QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical   
 {
     background:#F7F7F7
     border-radius:2px;
 }
+*/

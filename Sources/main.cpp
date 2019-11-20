@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
 
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);
     startUp.setFont(QFont(QStringLiteral("微软雅黑")));
-    startUp.setFont(QFont(QStringLiteral("苹方-简")));
     startUp.show();
     startUp.showMessage(QStringLiteral("装载模块"), Qt::AlignBottom | Qt::AlignHCenter, Qt::white);
     a.processEvents();

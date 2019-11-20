@@ -13,7 +13,9 @@
 customWidget::customWidget(WIDGET_TYPE type, QWidget *parent):
     QWidget(parent),
     m_type(type)
-{}
+{
+    m_color = QColor(247,247,247);
+}
 
 const QColor customWidget::color() const
 {
@@ -23,19 +25,7 @@ const QColor customWidget::color() const
 void customWidget::setColor(const QColor color)
 {
     m_color = color;
-    QString qss=QString("QWidget{background-color:rgb(%1,%2,%3);}").arg(color.red()).arg(color.green()).arg(color.blue());
-    setStyleSheet(qss);
-}
-
-void customWidget::paintEvent(QPaintEvent *event)
-{
-    if(m_type == WIDGET_TYPE::_BASE) return;
-    QStylePainter painter(this);
-    QStyleOption opt;
-    opt.initFrom(this);
-    opt.rect = rect();
-    painter.drawPrimitive(QStyle::PE_Widget, opt);
-    QWidget::paintEvent(event);
+    setStyleSheet(QString("QWidget{background-color:rgb(%1,%2,%3);}").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
 bool customWidget::nativeEvent(const QByteArray &eventType, void *message, long *result)
@@ -48,6 +38,17 @@ bool customWidget::nativeEvent(const QByteArray &eventType, void *message, long 
         }
         default:
             return QWidget::nativeEvent(eventType, message, result);
+    }
+}
+
+void customWidget::paintEvent(QPaintEvent *event)
+{   if(m_type == WIDGET_TYPE::_CHILD){
+        QStylePainter painter(this);
+        QStyleOption opt;
+        opt.initFrom(this);
+        opt.rect = rect();
+        painter.drawPrimitive(QStyle::PE_Widget, opt);
+        QWidget::paintEvent(event);
     }
 }
 

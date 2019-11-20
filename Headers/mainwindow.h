@@ -23,6 +23,10 @@ class QPushButton;
 class QGraphicsOpacityEffect;
 class QPropertyAnimation;
 class customFrame;
+class customStaticButton;
+class customDynamicButton;
+class customLabel;
+class QLabel;
 
 class mainWindow : public customWidget
 {
@@ -32,33 +36,40 @@ public:
     explicit mainWindow(QWidget *parent = nullptr);
     ~mainWindow();
 
-// Pointers.
 private:
     Ui::mainWindow         *ui;
 
-    QList<QPushButton*>    *mainWindowTabBtns;
     QGraphicsOpacityEffect *opacityEffect;
     QPropertyAnimation     *propertyAnimi;
+    QPropertyAnimation     *Btn_NewProject_Function_animi;
+    QPropertyAnimation     *Btn_NewProject_Hint_animi;
 
-    Workshop            *workshop;
-    HomePageWidget      *homePage;
-    SettingsPageWidget  *settingsPage;
-    GuideDialog         *guideDialog;
+    Workshop               *workshop;
+    HomePageWidget         *homePage;
+    SettingsPageWidget     *settingsPage;
+    GuideDialog            *guideDialog;
 
-    customFrame         *frame_titleBar;
+    customFrame            *frame_titleBar;
+    customStaticButton     *Tab_HomePage;
+    customStaticButton     *Tab_Settings;
+    customStaticButton     *Tab_Guide;
+    customDynamicButton    *Btn_NewProject;
+    customDynamicButton    *Btn_OpenProject;
 
+    QLabel                 *Btn_NewProject_Icon;
+    QLabel                 *Btn_NewProject_Function;
+    QLabel                 *Btn_NewProject_Hint;
 
-// Regular members;
 private:
-    QPoint m_startPoint;
-    QPoint m_windowPoint;
-    bool   m_move;
-    PAGE_TYPE currentPage;
+    QPoint       m_startPoint;
+    QPoint       m_windowPoint;
+    bool         m_move;
+    PAGE_TYPE    currentPage;
     COLOR_SCHEME m_mode;
 
 private:
     void InitMainWindow();  
-    void setAllTabsUnchecked();
+    void setEventConnections();
     void startPageSwitchAnimation(PAGE_TYPE nextPage);
     void startFadeInOrOutAnimation(QWidget *target, int duration, FADE_TYPE type);
 
@@ -76,9 +87,9 @@ private slots:
     void setColorScheme(COLOR_SCHEME mode);
     void on_Btn_mini_clicked();
     void on_Btn_close_clicked();
-    void on_Btn_HomePage_clicked();
-    void on_Btn_Settings_clicked();
-    void on_Btn_Guide_clicked();
-    void on_Btn_NewProject_clicked();
+    void Tab_HomePage_clicked();
+    void Tab_Settings_clicked();
+    void Tab_Guide_clicked();
+    void Btn_NewProject_clicked();
 };
 #endif

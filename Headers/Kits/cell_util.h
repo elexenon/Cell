@@ -10,6 +10,9 @@
 
 #include <QMetaType> // Q_DECLARE_METATYPE()
 
+#define CELL_GLOBALANIMIDURATION 500
+#define CELL_GLOBALPAGESWITCHDURATION 200
+
 class QGraphicsDropShadowEffect;
 class QPropertyAnimation;
 class QStyleSheetLoader;

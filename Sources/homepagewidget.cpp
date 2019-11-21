@@ -46,7 +46,7 @@ void HomePageWidget::Init()
     ui->label_sort->setFont(QFont(QStringLiteral("微软雅黑 Light"), 10));
     ui->label_sort->setStyleSheet(QStringLiteral("color:dadada;"));
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_ScrollBar_Bright.css"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
     QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
     verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
 
@@ -62,9 +62,9 @@ void HomePageWidget::setAllGraphBtnsUnchecked()
 
 void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
 {
+    if(mode == m_mode) return;
     using TOOLS::styleSheetLoader;
     if(mode == COLOR_SCHEME::_DARK){
-        if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_DARK;
         TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
@@ -76,7 +76,7 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
 
         ui->scrollAreaWidgetContents_3->setStyleSheet("QWidget{background-color:#1F1E1F;}");
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_ScrollBar_Dark.css"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Dark.css"));
         QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
         verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
 
@@ -87,7 +87,6 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
         ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
     }
     else{
-        if(mode == m_mode) return;
         m_mode = COLOR_SCHEME::_BRIGHT;
         TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
@@ -97,7 +96,7 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
 
         ui->scrollAreaWidgetContents_3->setStyleSheet("QWidget{background-color:rgb(247, 247, 247);}");
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("SettingsPage_ScrollBar_Bright.css"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
         QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
         verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
 

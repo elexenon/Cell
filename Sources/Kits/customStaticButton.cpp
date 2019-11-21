@@ -54,7 +54,7 @@ void customStaticButton::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      startColor,
                                      endColor,
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this},nullptr);
     }else if(mode == COLOR_SCHEME::_BRIGHT){
@@ -71,7 +71,7 @@ void customStaticButton::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      startColor,
                                      endColor,
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
         {this},nullptr);
     }

@@ -189,14 +189,14 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      menuBar->color(),
                                      LITERAL::COLOR_OPTION_BLOCK_DARK,
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {menuBar}, nullptr);
         TOOLS::setPropertyAnimation({animi_StatusBar},
                                      "color",
                                      statusBar->color(),
                                      LITERAL::COLOR_OPTION_BLOCK_DARK,
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {statusBar}, nullptr);
 
@@ -204,7 +204,7 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      leftBlock->color(),
                                      QColor(70, 70, 70),
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {leftBlock,rightBlock}, nullptr);
     }
@@ -221,14 +221,14 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      menuBar->color(),
                                      QColor(65,152,197),
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {menuBar}, nullptr);
         TOOLS::setPropertyAnimation({animi_StatusBar},
                                      "color",
                                      statusBar->color(),
                                      QColor(210,210,210),
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {statusBar}, nullptr);
 
@@ -236,7 +236,7 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      leftBlock->color(),
                                      QColor(235,235,235),
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {leftBlock,rightBlock}, nullptr);
     }

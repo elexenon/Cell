@@ -12,21 +12,15 @@
         <file>Share/styleSheets/MainWindowComboBox.css</file>
         <file>Share/styleSheets/MainWindowGridBtn_Bright.css</file>
         <file>Share/styleSheets/MainWindowGridBtn_Dark.css</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Guide_Bright.css</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Guide_Dark.css</file>
-        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Bright.css</file>
-        <file>Share/styleSheets/MainWindowLeftTab_HomePage_Dark.css</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Settings_Bright.css</file>
-        <file>Share/styleSheets/MainWindowLeftTab_Settings_Dark.css</file>
         <file>Share/styleSheets/MainWindowListBtn_Bright.css</file>
         <file>Share/styleSheets/MainWindowListBtn_Dark.css</file>
         <file>Share/styleSheets/MainWindowMaxBtn_bright.css</file>
         <file>Share/styleSheets/MainWindowMaxBtn_dark.css</file>
         <file>Share/styleSheets/MainWindowMinimizeBtn_bright.css</file>
         <file>Share/styleSheets/MainWindowMinimizeBtn_dark.css</file>
-        <file>Share/styleSheets/SettingsPage_ScrollBar_Bright.css</file>
-        <file>Share/styleSheets/SettingsPage_ScrollBar_Dark.css</file>
         <file>Share/styleSheets/WorkshopDialog_start.css</file>
         <file>Share/styleSheets/WorkshopEditor.css</file>
+        <file>Share/styleSheets/ScrollBar_Bright.css</file>
+        <file>Share/styleSheets/ScrollBar_Dark.css</file>
     </qresource>
 </RCC>

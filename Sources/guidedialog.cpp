@@ -97,7 +97,7 @@ void GuideDialog::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      frame_titleBar->color(),
                                      QColor(44, 44, 45),
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
     }
@@ -109,7 +109,8 @@ void GuideDialog::setColorScheme(COLOR_SCHEME mode)
         TOOLS::setPropertyAnimation({animi_title},
                                      "color",
                                      frame_titleBar->color(),
-                                     QColor(164, 163, 164), 500,
+                                     QColor(164, 163, 164),
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
     }

@@ -8,8 +8,6 @@
 #ifndef CUSTOMDYNAMICBUTTON_H
 #define CUSTOMDYNAMICBUTTON_H
 
-#include <QPushButton>
-#include "cell_util.h"
 #include "customStaticButton.h"
 
 class customDynamicButton : public customStaticButton{
@@ -17,18 +15,17 @@ class customDynamicButton : public customStaticButton{
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
     const QString BASEQSS;
-
 public:
     explicit customDynamicButton(QWidget *parent = nullptr);
     ~customDynamicButton() override = default;
-
-    const QColor        color() const;
-    void                setColor(const QColor color);
 
     void                setBrightModeEnterLeaveColor(const QColor &e,const QColor &l);
     void                setDarkModeEnterLeaveColor(const QColor &e,const QColor &l);
     void                setAnimationDuration(int dur);
     void                Init();
+
+    const QColor        color() const;
+    void                setColor(const QColor color);
 
 protected:
     virtual void        enterEvent(QEvent*) override;

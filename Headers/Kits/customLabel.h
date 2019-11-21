@@ -10,7 +10,6 @@
 #ifndef CUSTOMLABEL_H
 #define CUSTOMLABEL_H
 
-//#include "cell_util.h"
 #include <QLabel>
 
 class customLabel : public QLabel
@@ -18,6 +17,7 @@ class customLabel : public QLabel
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
+    const QString BASEQSS;
 public:
     explicit customLabel(const QString &qss, QWidget *parent = nullptr);
     ~customLabel() = default;
@@ -28,12 +28,5 @@ public:
 
 protected:
     QColor m_color;
-    virtual void mouseReleaseEvent(QMouseEvent*);
-
-private:
-    QString BASEQSS;
-
-signals:
-    void clicked(void);
 };
 #endif // CUSTOMLABEL_H

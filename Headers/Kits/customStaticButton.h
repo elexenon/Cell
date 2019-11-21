@@ -9,7 +9,7 @@
 #define CUSTOMPAGESWITCHBTN_H
 
 #include <QPushButton>
-#include "cell_util.h"
+#include "cell_util.h" // COLOR_SCHEME
 
 class customStaticButton : public QPushButton{
     Q_OBJECT
@@ -20,12 +20,12 @@ public:
     explicit customStaticButton(QWidget *parent = nullptr);
     ~customStaticButton() override = default;
 
-    const QColor        color() const;
-    void                setColor(const QColor color);
-
     void                Init();
     void                setBrightModeCheckedUncheckedColor(const QColor &c, const QColor &u);
     void                setDarkModeCheckedUncheckedColor(const QColor &c, const QColor &u);
+
+    const QColor        color() const;
+    void                setColor(const QColor color);
 
 protected:
     QPropertyAnimation *animi;

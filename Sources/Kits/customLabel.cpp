@@ -24,8 +24,3 @@ void customLabel::setColor(const QColor color)
     m_color = color;
     setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));
 }
-
-void customLabel::mouseReleaseEvent(QMouseEvent *)
-{
-    emit clicked();
-}

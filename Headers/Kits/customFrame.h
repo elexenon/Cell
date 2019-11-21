@@ -17,6 +17,7 @@ class customFrame : public QFrame
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
+    const QString BASEQSS;
 public:
     explicit customFrame(const QString &qss, QWidget *parent = nullptr);
     ~customFrame() = default;
@@ -27,8 +28,5 @@ public:
 
 protected:
     QColor       m_color;
-
-private:
-    const QString BASEQSS;
 };
 #endif

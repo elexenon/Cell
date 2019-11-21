@@ -67,7 +67,7 @@ FORMS += \
 
 INCLUDEPATH += Share/third-part-apis/QScintilla_gpl-2.11.2/Qt4Qt5
 
-LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning\Share\libs\X86\qscintilla2_qt5d.dll
+LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5d.dll
 #LIBS += Share/libs/X86/qscintilla2_qt5.dll
 
 

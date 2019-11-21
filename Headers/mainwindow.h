@@ -8,8 +8,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "Kits/customWidget.h"
-#include "Kits/cell_util.h" // PAGE_TYPE & COLOR_SCHEME & FADE_TYPE
+#include "Kits/customWidget.h" //Also includes "Kits/cell_util.h" : PAGE_TYPE & COLOR_SCHEME & FADE_TYPE
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }

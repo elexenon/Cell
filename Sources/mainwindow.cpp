@@ -13,6 +13,8 @@
 #include <QDebug>
 #include <QTime>
 
+#include <QtGlobal>
+
 #include "Headers/guidedialog.h"
 #include "Headers/homepagewidget.h"
 #include "Headers/settingspagewidget.h"
@@ -63,14 +65,14 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      color(),
                                      LITERAL::MAINWINDOW_BRIGHT,
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      frame_titleBar->color(),
                                      QColor(255,255,255),
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
 
@@ -94,14 +96,14 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      color(),
                                      LITERAL::MAINWINDOW_DARK,
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      frame_titleBar->color(),
                                      QColor(44,44,45),
-                                     500,
+                                     CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
 
@@ -167,7 +169,7 @@ void mainWindow::InitMainWindow()
     Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
     Btn_NewProject->setBrightModeEnterLeaveColor(QColor(15,187,255),QColor(218,218,218));
     Btn_NewProject->setDarkModeEnterLeaveColor(QColor(15,187,255),QColor(70,70,70));
-    Btn_NewProject->setAnimationDuration(500);
+    Btn_NewProject->setAnimationDuration(CELL_GLOBALANIMIDURATION);
     Btn_NewProject->Init();
     Btn_NewProject->setGeometry(40, 331, 251, 81);
 
@@ -191,7 +193,7 @@ void mainWindow::InitMainWindow()
     Btn_OpenProject->setObjectName(QStringLiteral("Btn_OpenProject"));
     Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(15,187,255),QColor(218,218,218));
     Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(15,187,255),QColor(70,70,70));
-    Btn_OpenProject->setAnimationDuration(500);
+    Btn_OpenProject->setAnimationDuration(CELL_GLOBALANIMIDURATION);
     Btn_OpenProject->Init();
     Btn_OpenProject->setGeometry(40, 421, 251, 81);
 
@@ -336,7 +338,7 @@ void mainWindow::startFadeInOrOutAnimation(QWidget *target, int duration, FADE_T
 
 void mainWindow::startPageSwitchAnimation(PAGE_TYPE nextPage)
 {
-    int duration = 200;
+    int duration = CELL_GLOBALPAGESWITCHDURATION;
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(settingsPage);

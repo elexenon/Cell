@@ -11,7 +11,7 @@
 #define GUIDEDIALOG_H
 
 #include "Kits/cell_util.h"    // COLOR_SCHEME
-#include "Kits/customDialog.h" // Derived class
+#include "Kits/customDialog.h"
 
 class QPropertyAnimation;
 class customFrame;

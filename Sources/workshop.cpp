@@ -80,7 +80,7 @@ void Workshop::InitWorkshop()
     lexPY->setFont(QFont(QStringLiteral("Courier New"), 11));
     mainEditor->setLexer(lexPY);
 
-    setConnections();
+    setEventConnections();
 
     leftBlock->setGeometry(0, 39, 370, 732);
     rightBlock->setGeometry(1030, 39, 370, 732);
@@ -168,7 +168,7 @@ void Workshop::InitWorkshop()
                         "import sys\n");
 }
 
-void Workshop::setConnections()
+void Workshop::setEventConnections()
 {
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(updateStatusBar()));
 }
@@ -267,8 +267,7 @@ const QColor Workshop::color() const
 void Workshop::setColor(const QColor color)
 {
     m_color = color;
-    QString qss=QString("background-color:rgb(%1,%2,%3);").arg(color.red()).arg(color.green()).arg(color.blue());
-    setStyleSheet(qss);
+    setStyleSheet(QString("background-color:rgb(%1,%2,%3);").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
 void Workshop::closeEvent(QCloseEvent*)

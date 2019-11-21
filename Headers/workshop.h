@@ -70,7 +70,7 @@ private:
 
 private:
     void InitWorkshop();
-    void setConnections();
+    void setEventConnections();
 
 private slots:
     void setColorScheme(COLOR_SCHEME mode);

@@ -50,7 +50,6 @@ void WSWelcomeDialog::updateProgressBar()
 }
 
 #ifdef Q_OS_WIN32
-// Achieve the window drop shadow effect( Windows ).
 bool WSWelcomeDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     return customDialog::nativeEvent(eventType, message, result);

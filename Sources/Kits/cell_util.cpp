@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QGraphicsEffect>
 #include <QGraphicsDropShadowEffect>
+#include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 
 namespace CELL_UTIL {
@@ -78,7 +79,6 @@ void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,QList<QWidget*
         return;
     }
     int len = animis.size();
-    qDebug() << len;
     for(int i = 0; i < len;i++){
         animis[i] = new QGraphicsDropShadowEffect(modules[i]);
         animis[i]->setOffset(offset);
@@ -118,6 +118,17 @@ void multiModulesOneStyleSheet(QList<QWidget*> modules, QString qss)
 {
     for(auto &e : modules)
         e->setStyleSheet(qss);
+}
+void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,QPropertyAnimation *animi,QWidget *target,
+                             int duration, FADE_TYPE type){
+    int startValue = 0, endValue = 1;
+    if(type == FADE_TYPE::_OUT)
+        qSwap(startValue, endValue);
+    eff = new QGraphicsOpacityEffect(target);
+    eff->setOpacity(startValue);
+    target->setGraphicsEffect(eff);
+    TOOLS::setPropertyAnimation({animi}, "opacity", startValue, endValue, duration,
+                         QEasingCurve::Linear, {nullptr}, eff);
 }
 } // namespace TOOLS{
 } // namespace CELL_UTIL{

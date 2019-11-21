@@ -22,6 +22,7 @@ SOURCES += \
     Sources/Kits/customDynamicButton.cpp \
     Sources/Kits/customFrame.cpp \
     Sources/Kits/customLabel.cpp \
+    Sources/Kits/customNotificationCenter.cpp \
     Sources/Kits/customStaticButton.cpp \
     Sources/Kits/customWidget.cpp \
     Sources/main.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     Headers/Kits/customDynamicButton.h \
     Headers/Kits/customFrame.h \
     Headers/Kits/customLabel.h \
+    Headers/Kits/customNotificationCenter.h \
     Headers/Kits/qstylesheetloader.hpp \
     Headers/kits/customStaticButton.h \
     Headers/kits/customWidget.h \

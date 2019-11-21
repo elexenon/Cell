@@ -26,6 +26,7 @@ class customStaticButton;
 class customDynamicButton;
 class customLabel;
 class QLabel;
+class notificationCenter;
 
 class mainWindow : public customWidget
 {
@@ -39,9 +40,14 @@ private:
     Ui::mainWindow         *ui;
 
     QGraphicsOpacityEffect *opacityEffect;
+
     QPropertyAnimation     *propertyAnimi;
     QPropertyAnimation     *Btn_NewProject_Function_animi;
     QPropertyAnimation     *Btn_NewProject_Hint_animi;
+    QPropertyAnimation     *notifiCenter_animi;
+
+    QGraphicsDropShadowEffect *eff_dse;
+    QGraphicsDropShadowEffect *eff_dse2;
 
     Workshop               *workshop;
     HomePageWidget         *homePage;
@@ -59,10 +65,14 @@ private:
     QLabel                 *Btn_NewProject_Function;
     QLabel                 *Btn_NewProject_Hint;
 
+    notificationCenter     *notificationCenter;
+    QPushButton            *Btn_popUp;
+
 private:
     QPoint       m_startPoint;
     QPoint       m_windowPoint;
     bool         m_move;
+    bool         popUpNotificationCenterAuto;
     PAGE_TYPE    currentPage;
     COLOR_SCHEME m_mode;
 
@@ -70,7 +80,6 @@ private:
     void InitMainWindow();  
     void setEventConnections();
     void startPageSwitchAnimation(PAGE_TYPE nextPage);
-    void startFadeInOrOutAnimation(QWidget *target, int duration, FADE_TYPE type);
 
 protected:
 #ifdef Q_OS_WIN32
@@ -90,5 +99,7 @@ private slots:
     void Tab_Settings_clicked();
     void Tab_Guide_clicked();
     void Btn_NewProject_clicked();
+    void popUpNotificationCenter();
+    void Btn_popUp_clicked();
 };
 #endif

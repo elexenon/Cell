@@ -173,6 +173,11 @@ void Workshop::setConnections()
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(updateStatusBar()));
 }
 
+void Workshop::_constructed()
+{
+    emit constructed();
+}
+
 void Workshop::setColorScheme(COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
@@ -268,5 +273,6 @@ void Workshop::setColor(const QColor color)
 
 void Workshop::closeEvent(QCloseEvent*)
 {
+    emit destoryed();
     welcomeDialog->close();
 }

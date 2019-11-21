@@ -38,6 +38,8 @@ public:
     const QColor color() const;
     void  setColor(const QColor color);
 
+    void _constructed();
+
 private:
     Ui::Workshop *ui;
     QPropertyAnimation *animi_MenuBar;
@@ -76,6 +78,10 @@ private slots:
 
 protected:
     virtual void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void constructed();
+    void destoryed();
 };
 
 #endif // WORKSHOP_H

@@ -12,7 +12,6 @@
 #include <QFontDatabase>
 #include <QDebug>
 #include <QTime>
-
 #include <QtGlobal>
 
 #include "Headers/guidedialog.h"
@@ -25,6 +24,7 @@
 #include "Headers/Kits/customDynamicButton.h"
 #include "Headers/Kits/customLabel.h"
 #include "Headers/Kits/qstylesheetloader.hpp"
+#include "Headers/Kits/customNotificationCenter.h"
 #include "ui_mainwindow.h"
 
 using namespace CELL_UTIL;
@@ -44,6 +44,9 @@ mainWindow::mainWindow(QWidget *parent)
     , Btn_NewProject_Icon(new QLabel(this))
     , Btn_NewProject_Function(new QLabel(this))
     , Btn_NewProject_Hint(new QLabel(this))
+    , notificationCenter(new class notificationCenter(LITERAL::QSS_CUSTOMFRAME_WITH_RADIUS, this))
+    , Btn_popUp(new QPushButton(notificationCenter))
+    , popUpNotificationCenterAuto(true)
     , currentPage(PAGE_TYPE::_HOME)
     , m_mode(COLOR_SCHEME::_BRIGHT)
 {
@@ -75,6 +78,13 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
                                      CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
+        TOOLS::setPropertyAnimation({notifiCenter_animi},
+                                     "color",
+                                     notificationCenter->color(),
+                                     QColor(218,218,218),
+                                     CELL_GLOBALANIMIDURATION,
+                                     QEasingCurve::InOutCubic,
+                                     {notificationCenter}, nullptr);
 
         TOOLS::multiModulesOneStyleSheet({ui->Label_HomePage,ui->Label_Settings,ui->Label_Guide},
                                          QStringLiteral("QLabel{color:rgb(0,0,0);background:transparent;}"));
@@ -106,6 +116,13 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
                                      CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
+        TOOLS::setPropertyAnimation({notifiCenter_animi},
+                                     "color",
+                                     notificationCenter->color(),
+                                     QColor(70,70,70),
+                                     CELL_GLOBALANIMIDURATION,
+                                     QEasingCurve::InOutCubic,
+                                     {notificationCenter}, nullptr);
 
         TOOLS::multiModulesOneStyleSheet({ui->Label_HomePage,ui->Label_Settings,ui->Label_Guide},
                                          QStringLiteral("QLabel{color:rgb(255,255,255);background:transparent;}"));
@@ -167,11 +184,12 @@ void mainWindow::InitMainWindow()
     ui->Label_Guide->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
-    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(15,187,255),QColor(218,218,218));
-    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(15,187,255),QColor(70,70,70));
+    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),QColor(218,218,218));
+    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),QColor(70,70,70));
     Btn_NewProject->setAnimationDuration(CELL_GLOBALANIMIDURATION);
     Btn_NewProject->Init();
     Btn_NewProject->setGeometry(40, 331, 251, 81);
+    Btn_NewProject->setCursor(Qt::PointingHandCursor);
 
     Btn_NewProject_Icon->setObjectName(QStringLiteral("Btn_NewProject_Icon"));
     Btn_NewProject_Icon->setStyleSheet("background:transparent;border-image: url(:/images/Share/images/Btn_NewProject.png);");
@@ -191,17 +209,36 @@ void mainWindow::InitMainWindow()
     Btn_NewProject_Hint->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_OpenProject->setObjectName(QStringLiteral("Btn_OpenProject"));
-    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(15,187,255),QColor(218,218,218));
-    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(15,187,255),QColor(70,70,70));
+    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),QColor(218,218,218));
+    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),QColor(70,70,70));
     Btn_OpenProject->setAnimationDuration(CELL_GLOBALANIMIDURATION);
     Btn_OpenProject->Init();
     Btn_OpenProject->setGeometry(40, 421, 251, 81);
+    Btn_OpenProject->setCursor(Qt::PointingHandCursor);
 
     ui->label_mainWindowIcon->setParent(frame_titleBar);
     ui->label_mainWindowTitle->setParent(frame_titleBar);
     ui->Btn_max->setParent(frame_titleBar);
     ui->Btn_mini->setParent(frame_titleBar);
     ui->Btn_close->setParent(frame_titleBar);
+
+    TOOLS::setDropShadowEffect({eff_dse},
+                               {ui->line},
+                                QPoint(0,1),Qt::black,20);
+
+    TOOLS::setDropShadowEffect({eff_dse2},
+                               {notificationCenter},
+                                QPoint(0,0),Qt::black,10);
+
+    notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
+    notificationCenter->setGeometry(18,740,300,390);
+    notificationCenter->setColor(QColor(218,218,218));
+
+    Btn_popUp->setObjectName(QStringLiteral("Btn_popUp"));
+    Btn_popUp->setFlat(true);
+    Btn_popUp->setCursor(Qt::PointingHandCursor);
+    Btn_popUp->setGeometry(10,1,280,30);
+    Btn_popUp->setStyleSheet(QStringLiteral("background:transparent;border-image: url(:/images/Share/images/Btn_popUp.png);"));
 
     int fontID_Info = QFontDatabase::addApplicationFont(LITERAL::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
@@ -261,6 +298,7 @@ void mainWindow::setEventConnections()
     connect(Tab_Settings, SIGNAL(clicked(bool)), this, SLOT(Tab_Settings_clicked()));
     connect(Tab_Guide, SIGNAL(clicked(bool)), this, SLOT(Tab_Guide_clicked()));
     connect(Btn_NewProject, SIGNAL(clicked(bool)), this, SLOT(Btn_NewProject_clicked()));
+    connect(Btn_popUp, SIGNAL(clicked(bool)), this, SLOT(Btn_popUp_clicked()));
 }
 
 void mainWindow::on_Btn_mini_clicked()
@@ -280,6 +318,9 @@ void mainWindow::on_Btn_close_clicked()
 
 void mainWindow::Tab_HomePage_clicked()
 {
+    if(popUpNotificationCenterAuto)
+        popUpNotificationCenter();
+
     if(currentPage == PAGE_TYPE::_HOME){
         Tab_HomePage->setChecked(true);
         return;
@@ -299,6 +340,9 @@ void mainWindow::Tab_HomePage_clicked()
 
 void mainWindow::Tab_Settings_clicked()
 {
+    if(popUpNotificationCenterAuto)
+        popUpNotificationCenter();
+
     if(currentPage == PAGE_TYPE::_SETTINGS){
         Tab_Settings->setChecked(true);
         return;
@@ -321,20 +365,6 @@ void mainWindow::Tab_Guide_clicked()
 {
     guideDialog->show();
 }
-// This function is to set fade animation for
-//
-// the specified module using "setPropertyAnimation".
-void mainWindow::startFadeInOrOutAnimation(QWidget *target, int duration, FADE_TYPE type)
-{
-    int startValue = 0, endValue = 1;
-    if(type == FADE_TYPE::_OUT)
-        qSwap(startValue, endValue);
-    opacityEffect = new QGraphicsOpacityEffect(target);
-    opacityEffect->setOpacity(startValue);
-    target->setGraphicsEffect(opacityEffect);
-    TOOLS::setPropertyAnimation({propertyAnimi}, "opacity", startValue, endValue, duration,
-                         QEasingCurve::Linear, {nullptr}, opacityEffect);
-}
 
 void mainWindow::startPageSwitchAnimation(PAGE_TYPE nextPage)
 {
@@ -342,11 +372,13 @@ void mainWindow::startPageSwitchAnimation(PAGE_TYPE nextPage)
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(settingsPage);
-        startFadeInOrOutAnimation(settingsPage, duration, FADE_TYPE::_IN);
+        TOOLS::setFadeInOrOutAnimation(opacityEffect,propertyAnimi,
+                                       settingsPage,duration,FADE_TYPE::_IN);
     }else{
         homePage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(homePage);
-        startFadeInOrOutAnimation(homePage, duration, FADE_TYPE::_IN);
+        TOOLS::setFadeInOrOutAnimation(opacityEffect,propertyAnimi,
+                                       homePage,duration,FADE_TYPE::_IN);
     }
 }
 
@@ -386,6 +418,29 @@ void mainWindow::Btn_NewProject_clicked()
     workshop = new Workshop(m_mode);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             workshop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+    connect(workshop, SIGNAL(constructed()),
+            notificationCenter, SLOT(plusCnt()));
+    connect(workshop, SIGNAL(destoryed()),
+            notificationCenter, SLOT(minusCnt()));
+    workshop->_constructed();
     workshop->show();
-    this->on_Btn_mini_clicked();
+    //this->on_Btn_mini_clicked();
+}
+
+void mainWindow::popUpNotificationCenter()
+{
+    QPoint targetPos = (notificationCenter->pos().y()==740 ? QPoint(18,550) : QPoint(18,740));
+    TOOLS::setPropertyAnimation({notifiCenter_animi},
+                                 "pos",
+                                 notificationCenter->pos(),
+                                 targetPos,
+                                 CELL_GLOBALANIMIDURATION,
+                                 QEasingCurve::InOutCubic,
+    {notificationCenter},nullptr);
+}
+
+void mainWindow::Btn_popUp_clicked()
+{
+    popUpNotificationCenterAuto = false;
+    popUpNotificationCenter();
 }

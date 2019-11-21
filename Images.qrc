@@ -31,5 +31,8 @@
         <file>Share/images/WS.png</file>
         <file>Share/images/zoom.png</file>
         <file>Share/images/Btn_NewProject.png</file>
+        <file>Share/images/Mainwindow_LeftButtomLogo.png</file>
+        <file>Share/images/Btn_popUp.png</file>
+        <file>Share/images/WS_process.png</file>
     </qresource>
 </RCC>

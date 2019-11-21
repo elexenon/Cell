@@ -65,6 +65,10 @@ private:
     QLabel                 *Btn_NewProject_Function;
     QLabel                 *Btn_NewProject_Hint;
 
+    QLabel                 *Btn_OpenProject_Icon;
+    QLabel                 *Btn_OpenProject_Function;
+    QLabel                 *Btn_OpenProject_Hint;
+
     notificationCenter     *notificationCenter;
     QPushButton            *Btn_popUp;
 

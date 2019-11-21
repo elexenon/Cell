@@ -122,6 +122,11 @@
      <string>   名称</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>   时间</string>
+    </property>
+   </item>
   </widget>
   <widget class="QScrollArea" name="main_scrollArea">
    <property name="geometry">

@@ -35,6 +35,8 @@ void HomePageWidget::Init()
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowComboBox.css"));
     ui->comboBox_sort->setStyleSheet(styleSheetLoader->styleSheet());
 
+    ui->comboBox_sort->setFont(QFont("Microsoft YaHei UI"));
+
     styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Bright.css"));
     ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
 

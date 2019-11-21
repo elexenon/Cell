@@ -34,5 +34,7 @@
         <file>Share/images/Mainwindow_LeftButtomLogo.png</file>
         <file>Share/images/Btn_popUp.png</file>
         <file>Share/images/WS_process.png</file>
+        <file>Share/images/HomePageComboBoxArrow.png</file>
+        <file>Share/images/Btn_OpenProject.png</file>
     </qresource>
 </RCC>

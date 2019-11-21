@@ -44,6 +44,9 @@ mainWindow::mainWindow(QWidget *parent)
     , Btn_NewProject_Icon(new QLabel(this))
     , Btn_NewProject_Function(new QLabel(this))
     , Btn_NewProject_Hint(new QLabel(this))
+    , Btn_OpenProject_Icon(new QLabel(this))
+    , Btn_OpenProject_Function(new QLabel(this))
+    , Btn_OpenProject_Hint(new QLabel(this))
     , notificationCenter(new class notificationCenter(LITERAL::QSS_CUSTOMFRAME_WITH_RADIUS, this))
     , Btn_popUp(new QPushButton(notificationCenter))
     , popUpNotificationCenterAuto(true)
@@ -89,7 +92,8 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
         TOOLS::multiModulesOneStyleSheet({ui->Label_HomePage,ui->Label_Settings,ui->Label_Guide},
                                          QStringLiteral("QLabel{color:rgb(0,0,0);background:transparent;}"));
 
-        TOOLS::multiModulesOneStyleSheet({Btn_NewProject_Function,Btn_NewProject_Hint},
+        TOOLS::multiModulesOneStyleSheet({Btn_NewProject_Function,Btn_NewProject_Hint,
+                                          Btn_OpenProject_Function,Btn_OpenProject_Hint},
                                          QStringLiteral("background:transparent;color:rgb(70,70,70);"));
 
         styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_bright.css"));
@@ -127,7 +131,8 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
         TOOLS::multiModulesOneStyleSheet({ui->Label_HomePage,ui->Label_Settings,ui->Label_Guide},
                                          QStringLiteral("QLabel{color:rgb(255,255,255);background:transparent;}"));
 
-        TOOLS::multiModulesOneStyleSheet({Btn_NewProject_Function,Btn_NewProject_Hint},
+        TOOLS::multiModulesOneStyleSheet({Btn_NewProject_Function,Btn_NewProject_Hint,
+                                          Btn_OpenProject_Function,Btn_OpenProject_Hint},
                                          QStringLiteral("background:transparent;color:rgb(255,255,255);"));
 
         styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_dark.css"));
@@ -199,7 +204,7 @@ void mainWindow::InitMainWindow()
     Btn_NewProject_Function->setText(tr("创建新项目(N)"));
     Btn_NewProject_Function->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 15));
     Btn_NewProject_Function->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
-    Btn_NewProject_Function->setGeometry(105, 345, Btn_NewProject_Function->width()+60,Btn_NewProject_Function->height());
+    Btn_NewProject_Function->setGeometry(105, 343, Btn_NewProject_Function->width()+60,Btn_NewProject_Function->height());
     Btn_NewProject_Function->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_NewProject_Hint->setText(tr("创建一个空的Cell文档"));
@@ -215,6 +220,23 @@ void mainWindow::InitMainWindow()
     Btn_OpenProject->Init();
     Btn_OpenProject->setGeometry(40, 421, 251, 81);
     Btn_OpenProject->setCursor(Qt::PointingHandCursor);
+
+    Btn_OpenProject_Icon->setObjectName(QStringLiteral("Btn_OpenProject_Icon"));
+    Btn_OpenProject_Icon->setStyleSheet("background:transparent;border-image: url(:/images/Share/images/Btn_OpenProject.png);");
+    Btn_OpenProject_Icon->setGeometry(55,435,35,35);
+    Btn_OpenProject_Icon->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+
+    Btn_OpenProject_Function->setText(tr("打开项目(O)"));
+    Btn_OpenProject_Function->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 15));
+    Btn_OpenProject_Function->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
+    Btn_OpenProject_Function->setGeometry(105, 433, Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
+    Btn_OpenProject_Function->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+
+    Btn_OpenProject_Hint->setText(tr("打开已有的Cell文档。"));
+    Btn_OpenProject_Hint->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 7));
+    Btn_OpenProject_Hint->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
+    Btn_OpenProject_Hint->setGeometry(106, 433+Btn_OpenProject_Function->height(), Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
+    Btn_OpenProject_Hint->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     ui->label_mainWindowIcon->setParent(frame_titleBar);
     ui->label_mainWindowTitle->setParent(frame_titleBar);
@@ -318,7 +340,7 @@ void mainWindow::on_Btn_close_clicked()
 
 void mainWindow::Tab_HomePage_clicked()
 {
-    if(popUpNotificationCenterAuto)
+    if(popUpNotificationCenterAuto && Tab_HomePage->isChecked())
         popUpNotificationCenter();
 
     if(currentPage == PAGE_TYPE::_HOME){
@@ -340,7 +362,7 @@ void mainWindow::Tab_HomePage_clicked()
 
 void mainWindow::Tab_Settings_clicked()
 {
-    if(popUpNotificationCenterAuto)
+    if(popUpNotificationCenterAuto && Tab_Settings->isChecked())
         popUpNotificationCenter();
 
     if(currentPage == PAGE_TYPE::_SETTINGS){

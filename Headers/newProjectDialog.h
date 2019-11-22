@@ -5,3 +5,7 @@
 // See accompanying file LICENSE.txt at the root
 //
 // Of source file directory.
+#ifndef NEWPROJECTDIALOG_H
+#define NEWPROJECTDIALOG_H
+
+#endif // NEWPROJECTDIALOG_H

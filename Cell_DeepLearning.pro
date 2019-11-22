@@ -30,6 +30,7 @@ SOURCES += \
     Sources/mainwindow.cpp \
     Sources/guidedialog.cpp \
     Sources/homepagewidget.cpp \
+    Sources/newProjectDialog.cpp \
     Sources/settingspagewidget.cpp \
     Sources/workshop.cpp \
     Sources/wswelcomedialog.cpp
@@ -48,6 +49,7 @@ HEADERS += \
     Headers/kits/customWidget.h \
     Headers/mainwindow.h \
     Headers/guidedialog.h \
+    Headers/newProjectDialog.h \
     Headers/workshop.h \
     Headers/homepagewidget.h \
     Headers/settingspagewidget.h \

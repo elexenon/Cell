@@ -85,7 +85,7 @@ const QColor customDynamicButton::color() const
     return currColor;
 }
 
-void customDynamicButton::setColor(const QColor color)
+void customDynamicButton::setColor(const QColor &color)
 {
     if(!isChecked()){
         currColor = color;

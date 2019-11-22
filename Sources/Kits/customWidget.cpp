@@ -22,7 +22,7 @@ const QColor customWidget::color() const
     return m_color;
 }
 
-void customWidget::setColor(const QColor color)
+void customWidget::setColor(const QColor &color)
 {
     m_color = color;
     setStyleSheet(QString("QWidget{background-color:rgb(%1,%2,%3);}").arg(color.red()).arg(color.green()).arg(color.blue()));

@@ -28,17 +28,17 @@ enum WIDGET_TYPE{_BASE, _CHILD};
 namespace CELL_UTIL{
 namespace TOOLS{
 extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,
-                                QList<QWidget*> modules,
-                                QPoint offset,
-                                QColor color, int blurRadius);
+                                const QList<QWidget*> &modules,
+                                const QPoint &offset,
+                                const QColor &color, int blurRadius);
 extern void setPropertyAnimation(QList<QPropertyAnimation*> animis,
-                                 QByteArray _property,
-                                 QVariant s_value,
-                                 QVariant e_value, int duration,
+                                 const QByteArray &_property,
+                                 const QVariant &s_value,
+                                 const QVariant &e_value, int duration,
                                  QEasingCurve curve,
-                                 QList<QWidget*> modules,
+                                 const QList<QWidget*> &modules,
                                  QGraphicsEffect *effect = nullptr);
-extern void multiModulesOneStyleSheet(QList<QWidget*> modules, QString qss);
+extern void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss);
 extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,
                                     QPropertyAnimation *animi,
                                     QWidget *target,

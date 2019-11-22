@@ -25,7 +25,7 @@ public:
     void                Init();
 
     const QColor        color() const;
-    void                setColor(const QColor color);
+    void                setColor(const QColor &color);
 
 protected:
     virtual void        enterEvent(QEvent*) override;

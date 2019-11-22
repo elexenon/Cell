@@ -19,7 +19,7 @@ const QColor customFrame::color() const
     return m_color;
 }
 
-void customFrame::setColor(const QColor color)
+void customFrame::setColor(const QColor &color)
 {
     m_color = color;
     setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));

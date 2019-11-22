@@ -19,7 +19,7 @@ const QColor customLabel::color() const
     return m_color;
 }
 
-void customLabel::setColor(const QColor color)
+void customLabel::setColor(const QColor &color)
 {
     m_color = color;
     setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));

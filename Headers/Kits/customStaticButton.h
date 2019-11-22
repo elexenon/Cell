@@ -25,7 +25,7 @@ public:
     void                setDarkModeCheckedUncheckedColor(const QColor &c, const QColor &u);
 
     const QColor        color() const;
-    void                setColor(const QColor color);
+    void                setColor(const QColor &color);
 
 protected:
     QPropertyAnimation *animi;

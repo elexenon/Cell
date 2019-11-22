@@ -23,7 +23,7 @@ public:
 
 public:
     const QColor color() const;
-    void         setColor(const QColor color);
+    void         setColor(const QColor &color);
 
 protected:
     QColor       m_color;

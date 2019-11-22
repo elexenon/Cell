@@ -82,7 +82,7 @@ const QColor customStaticButton::color() const
     return currColor;
 }
 
-void customStaticButton::setColor(const QColor color)
+void customStaticButton::setColor(const QColor &color)
 {
     if(!isChecked()){
         currColor = color;

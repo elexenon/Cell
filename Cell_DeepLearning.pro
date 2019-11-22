@@ -17,6 +17,7 @@ PRECOMPILED_HEADER = Stable.h
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    Sources/Kits/cellProject.cpp \
     Sources/Kits/cell_util.cpp \
     Sources/Kits/customDialog.cpp \
     Sources/Kits/customDynamicButton.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
 
 
 HEADERS += \
+    Headers/Kits/cellProject.h \
     Headers/Kits/cell_util.h \
     Headers/Kits/customDialog.h \
     Headers/Kits/customDynamicButton.h \

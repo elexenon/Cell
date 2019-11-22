@@ -71,7 +71,8 @@ namespace CELL_UTIL{
 namespace TOOLS{
 QStyleSheetLoader *styleSheetLoader = new QStyleSheetLoader(CELL_UTIL::LITERAL::STYLESHEET_DIR);
 
-void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,QList<QWidget*> modules,QPoint offset,QColor color,
+void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,const QList<QWidget*> &modules,
+                         const QPoint &offset,const QColor &color,
                                 int blurRadius)
 {
     if(animis.size() != modules.size()){
@@ -87,8 +88,8 @@ void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,QList<QWidget*
         modules[i]->setGraphicsEffect(animis[i]);
     }
 }
-void setPropertyAnimation(QList<QPropertyAnimation*> animis,QByteArray _property, QVariant s_value, QVariant e_value,
-                                     int duration, QEasingCurve curve, QList<QWidget*> modules, QGraphicsEffect *effect)
+void setPropertyAnimation(QList<QPropertyAnimation*> animis,const QByteArray &_property, const QVariant &s_value,
+                          const QVariant &e_value,int duration, QEasingCurve curve, const QList<QWidget*> &modules, QGraphicsEffect *effect)
 {
     if(animis.size() != modules.size()){
         qDebug() << "The amount of animator is not equal to modules'.";
@@ -114,7 +115,7 @@ void setPropertyAnimation(QList<QPropertyAnimation*> animis,QByteArray _property
         animis[0]->start(QAbstractAnimation::DeleteWhenStopped);
     }
 }
-void multiModulesOneStyleSheet(QList<QWidget*> modules, QString qss)
+void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss)
 {
     for(auto &e : modules)
         e->setStyleSheet(qss);

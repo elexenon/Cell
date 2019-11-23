@@ -1,4 +1,5 @@
 # Cell_DeepLearning
+[中文版本](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/README_CN.md)
 ### A Qt Based Project
 
 This project is distributed under the GPLV3.0 License.

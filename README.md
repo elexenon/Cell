@@ -24,7 +24,7 @@ Almost done,put the two dlls to a protable directory, and add them into cell's p
 
 ## License
 
-The GUN License(<http://www.gnu.org/licenses/gpl-3.0.html>)
+The GNU License(<http://www.gnu.org/licenses/gpl-3.0.html>)
 
 ## Contribution
 

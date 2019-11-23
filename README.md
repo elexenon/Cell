@@ -17,8 +17,8 @@ Go to <https://www.riverbankcomputing.com/software/qscintilla/download> page, an
 
 After unarchiving the QScintilla source package, enter its child directory Qt4Qt5, then double click project file "QScintilla.pro".
 
-Qt will open the QScintilla source automaticly, choose the MinGW 32-bit toolchain, and compile debug version and release version respectively.
+Qt will load the QScintilla source automaticly, choose the MinGW 32-bit toolchain, and compile debug version and release version respectively.
 
 After that, you will get two dynamic link libraries "qscintilla2_qt5.dll" & "qscintilla2_qt5d.dll", they correspond to debug mode and release mode respectively.
 
-Almost done,put the two dlls to a protable directory, and add them into cell's pro file.
+Almost done,put the two dlls to a protable directory, and add them into cell's pro file to compile.

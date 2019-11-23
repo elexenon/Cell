@@ -9,6 +9,8 @@ Note that CELL imports an open-source text editor **QScintilla**, which's a tran
 
 We very appreciate about Riverbank's production, because QScintilla works very well.
 
+---------------
+
 ### Compile
 
 Go to <https://www.riverbankcomputing.com/software/qscintilla/download> page, and download QScintilla for windows.

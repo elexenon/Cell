@@ -16,7 +16,7 @@ using namespace CELL_UTIL;
 HomePageWidget::HomePageWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::HomePageWidget),
-    m_mode(COLOR_SCHEME::_BRIGHT)
+    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     Init();
@@ -62,12 +62,12 @@ void HomePageWidget::setAllGraphBtnsUnchecked()
     ui->Btn_list->setChecked(false);
 }
 
-void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
+void HomePageWidget::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
     using TOOLS::styleSheetLoader;
-    if(mode == COLOR_SCHEME::_DARK){
-        m_mode = COLOR_SCHEME::_DARK;
+    if(mode == CellGlobal::COLOR_SCHEME::_DARK){
+        m_mode = CellGlobal::COLOR_SCHEME::_DARK;
         TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->line->setStyleSheet("QFrame{border:none;background-color:#FFFFFF;"
@@ -89,7 +89,7 @@ void HomePageWidget::setColorScheme(COLOR_SCHEME mode)
         ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
     }
     else{
-        m_mode = COLOR_SCHEME::_BRIGHT;
+        m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
         TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->line->setStyleSheet(QStringLiteral("QFrame{border:none;background-color:#DADADA;max-height : 21px;}"));

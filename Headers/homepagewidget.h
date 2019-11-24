@@ -29,14 +29,14 @@ private:
     Ui::HomePageWidget *ui;
 
 private:
-    COLOR_SCHEME m_mode;
+    CellGlobal::COLOR_SCHEME m_mode;
 
 private:
     void Init();
     void setAllGraphBtnsUnchecked();
 
 private slots:
-    void setColorScheme(COLOR_SCHEME mode);
+    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
     void on_Btn_grid_clicked();
     void on_Btn_list_clicked();
 };

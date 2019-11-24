@@ -121,9 +121,9 @@ void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qs
         e->setStyleSheet(qss);
 }
 void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,QPropertyAnimation *animi,QWidget *target,
-                             int duration, FADE_TYPE type){
+                             int duration, CellGlobal::FADE_TYPE type){
     int startValue = 0, endValue = 1;
-    if(type == FADE_TYPE::_OUT)
+    if(type == CellGlobal::FADE_TYPE::_OUT)
         qSwap(startValue, endValue);
     eff = new QGraphicsOpacityEffect(target);
     eff->setOpacity(startValue);

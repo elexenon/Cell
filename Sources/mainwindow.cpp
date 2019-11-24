@@ -30,7 +30,7 @@
 using namespace CELL_UTIL;
 
 mainWindow::mainWindow(QWidget *parent)
-    : customWidget(WIDGET_TYPE::_BASE, parent)
+    : customWidget(parent)
     , ui(new Ui::mainWindow)
     , workshop(nullptr)
     , homePage(new HomePageWidget)
@@ -50,8 +50,8 @@ mainWindow::mainWindow(QWidget *parent)
     , notificationCenter(new class notificationCenter(LITERAL::QSS_CUSTOMFRAME_WITH_RADIUS, this))
     , Btn_popUp(new QPushButton(notificationCenter))
     , popUpNotificationCenterAuto(true)
-    , currentPage(PAGE_TYPE::_HOME)
-    , m_mode(COLOR_SCHEME::_BRIGHT)
+    , currentPage(CellGlobal::PAGE_TYPE::_HOME)
+    , m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     InitMainWindow();
@@ -61,31 +61,31 @@ mainWindow::~mainWindow()
     delete ui;
 }
 
-void mainWindow::setColorScheme(COLOR_SCHEME mode)
+void mainWindow::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     using TOOLS::styleSheetLoader;
-    if(mode == COLOR_SCHEME::_BRIGHT){
+    if(mode == CellGlobal::COLOR_SCHEME::_BRIGHT){
         if(mode == m_mode) return;
-        m_mode = COLOR_SCHEME::_BRIGHT;
+        m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      color(),
                                      LITERAL::MAINWINDOW_BRIGHT,
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      frame_titleBar->color(),
                                      QColor(255,255,255),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
         TOOLS::setPropertyAnimation({notifiCenter_animi},
                                      "color",
                                      notificationCenter->color(),
                                      QColor(218,218,218),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {notificationCenter}, nullptr);
 
@@ -105,26 +105,26 @@ void mainWindow::setColorScheme(COLOR_SCHEME mode)
     }
     else{
         if(mode == m_mode) return;
-        m_mode = COLOR_SCHEME::_DARK;
+        m_mode = CellGlobal::COLOR_SCHEME::_DARK;
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      color(),
                                      LITERAL::MAINWINDOW_DARK,
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      frame_titleBar->color(),
                                      QColor(44,44,45),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
         TOOLS::setPropertyAnimation({notifiCenter_animi},
                                      "color",
                                      notificationCenter->color(),
                                      QColor(70,70,70),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {notificationCenter}, nullptr);
 
@@ -191,7 +191,7 @@ void mainWindow::InitMainWindow()
     Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
     Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),QColor(218,218,218));
     Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),QColor(70,70,70));
-    Btn_NewProject->setAnimationDuration(CELL_GLOBALANIMIDURATION);
+    Btn_NewProject->setAnimationDuration(CellGlobal::CELL_GLOBALANIMIDURATION);
     Btn_NewProject->Init();
     Btn_NewProject->setGeometry(40, 331, 251, 81);
     Btn_NewProject->setCursor(Qt::PointingHandCursor);
@@ -216,7 +216,7 @@ void mainWindow::InitMainWindow()
     Btn_OpenProject->setObjectName(QStringLiteral("Btn_OpenProject"));
     Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),QColor(218,218,218));
     Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),QColor(70,70,70));
-    Btn_OpenProject->setAnimationDuration(CELL_GLOBALANIMIDURATION);
+    Btn_OpenProject->setAnimationDuration(CellGlobal::CELL_GLOBALANIMIDURATION);
     Btn_OpenProject->Init();
     Btn_OpenProject->setGeometry(40, 421, 251, 81);
     Btn_OpenProject->setCursor(Qt::PointingHandCursor);
@@ -288,12 +288,12 @@ void mainWindow::InitMainWindow()
     setEventConnections();
 
     QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 18 || currentTime.hour() <= 4) && m_mode == COLOR_SCHEME::_BRIGHT){
+    if((currentTime.hour() >= 18 || currentTime.hour() <= 4) && m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT){
         Tab_Settings_clicked();
-        settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_DARK);
-    }else if(currentTime.hour() < 18 && m_mode == COLOR_SCHEME::_DARK){
+        settingsPage->mainWindowSetColorSchemeModeCall(CellGlobal::COLOR_SCHEME::_DARK);
+    }else if(currentTime.hour() < 18 && m_mode == CellGlobal::COLOR_SCHEME::_DARK){
         Tab_Settings_clicked();
-        settingsPage->mainWindowSetColorSchemeModeCall(COLOR_SCHEME::_BRIGHT);
+        settingsPage->mainWindowSetColorSchemeModeCall(CellGlobal::COLOR_SCHEME::_BRIGHT);
     }
 }
 
@@ -343,11 +343,11 @@ void mainWindow::Tab_HomePage_clicked()
     if(popUpNotificationCenterAuto && Tab_HomePage->isChecked())
         popUpNotificationCenter();
 
-    if(currentPage == PAGE_TYPE::_HOME){
+    if(currentPage == CellGlobal::PAGE_TYPE::_HOME){
         Tab_HomePage->setChecked(true);
         return;
     }
-    currentPage = PAGE_TYPE::_HOME;
+    currentPage = CellGlobal::PAGE_TYPE::_HOME;
 
     Tab_Settings->setChecked(false);
     Tab_HomePage->setChecked(true);
@@ -357,7 +357,7 @@ void mainWindow::Tab_HomePage_clicked()
     qDebug()<<"SettingsBtn_checked:"<<Tab_Settings->isChecked();
 #endif
 
-    startPageSwitchAnimation(PAGE_TYPE::_HOME);
+    startPageSwitchAnimation(CellGlobal::PAGE_TYPE::_HOME);
 }
 
 void mainWindow::Tab_Settings_clicked()
@@ -365,12 +365,12 @@ void mainWindow::Tab_Settings_clicked()
     if(popUpNotificationCenterAuto && Tab_Settings->isChecked())
         popUpNotificationCenter();
 
-    if(currentPage == PAGE_TYPE::_SETTINGS){
+    if(currentPage == CellGlobal::PAGE_TYPE::_SETTINGS){
         Tab_Settings->setChecked(true);
         return;
     }
 
-    currentPage = PAGE_TYPE::_SETTINGS;
+    currentPage = CellGlobal::PAGE_TYPE::_SETTINGS;
 
     Tab_HomePage->setChecked(false);
     Tab_Settings->setChecked(true);
@@ -380,7 +380,7 @@ void mainWindow::Tab_Settings_clicked()
     qDebug()<<"SettingsBtn_checked:"<<Tab_Settings->isChecked();
 #endif
 
-    startPageSwitchAnimation(PAGE_TYPE::_SETTINGS);
+    startPageSwitchAnimation(CellGlobal::PAGE_TYPE::_SETTINGS);
 }
 
 void mainWindow::Tab_Guide_clicked()
@@ -388,19 +388,19 @@ void mainWindow::Tab_Guide_clicked()
     guideDialog->show();
 }
 
-void mainWindow::startPageSwitchAnimation(PAGE_TYPE nextPage)
+void mainWindow::startPageSwitchAnimation(CellGlobal::PAGE_TYPE nextPage)
 {
-    int duration = CELL_GLOBALPAGESWITCHDURATION;
-    if(nextPage == PAGE_TYPE::_SETTINGS){
+    int duration = CellGlobal::CELL_GLOBALPAGESWITCHDURATION;
+    if(nextPage == CellGlobal::PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(settingsPage);
         TOOLS::setFadeInOrOutAnimation(opacityEffect,propertyAnimi,
-                                       settingsPage,duration,FADE_TYPE::_IN);
+                                       settingsPage,duration,CellGlobal::FADE_TYPE::_IN);
     }else{
         homePage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(homePage);
         TOOLS::setFadeInOrOutAnimation(opacityEffect,propertyAnimi,
-                                       homePage,duration,FADE_TYPE::_IN);
+                                       homePage,duration,CellGlobal::FADE_TYPE::_IN);
     }
 }
 
@@ -456,7 +456,7 @@ void mainWindow::popUpNotificationCenter()
                                  "pos",
                                  notificationCenter->pos(),
                                  targetPos,
-                                 CELL_GLOBALANIMIDURATION,
+                                 CellGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
     {notificationCenter},nullptr);
 }

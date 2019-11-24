@@ -41,20 +41,20 @@ private:
     void Init();
 
 private:
-    COLOR_SCHEME m_mode;
+    CellGlobal::COLOR_SCHEME m_mode;
 
 protected:
 #ifdef Q_OS_WIN32
     virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 #endif
 
-    virtual void    mousePressEvent(QMouseEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
 
-    virtual void    mouseMoveEvent(QMouseEvent *event);
+    virtual void mouseMoveEvent(QMouseEvent *event);
 
-    virtual void    mouseReleaseEvent(QMouseEvent *event);
+    virtual void mouseReleaseEvent(QMouseEvent *event);
 private slots:
-    void setColorScheme(COLOR_SCHEME);
+    void setColorScheme(CellGlobal::COLOR_SCHEME);
     void on_Btn_close_clicked();
     void on_pushButton_clicked();
 };

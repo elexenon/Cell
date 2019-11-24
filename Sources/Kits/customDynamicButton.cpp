@@ -24,7 +24,7 @@ void customDynamicButton::setDarkModeEnterLeaveColor(const QColor &e, const QCol
 }
 
 void customDynamicButton::Init(){
-    m_colorScheme = COLOR_SCHEME::_BRIGHT;
+    m_colorScheme = CellGlobal::COLOR_SCHEME::_BRIGHT;
     currColor = brightModeLeaveColor;
     if(isCheckable())
         connect(this, SIGNAL(clicked(bool)), this, SLOT(backToCurrColor()));
@@ -36,7 +36,7 @@ void customDynamicButton::Init(){
 
 void customDynamicButton::enterEvent(QEvent*){
     if(!this->isChecked()){
-        QColor enterColor = (m_colorScheme == COLOR_SCHEME::_BRIGHT ? brightModeEnterColor : darkModeEnterColor);
+        QColor enterColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeEnterColor : darkModeEnterColor);
         TOOLS::setPropertyAnimation({animi},
                                      "color",
                                      currColor,
@@ -49,7 +49,7 @@ void customDynamicButton::enterEvent(QEvent*){
 
 void customDynamicButton::leaveEvent(QEvent*){
     if(!this->isChecked()){
-        QColor leaveColor = (m_colorScheme == COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
+        QColor leaveColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
         TOOLS::setPropertyAnimation({animi},
                                      "color",
                                      currColor,
@@ -62,8 +62,8 @@ void customDynamicButton::leaveEvent(QEvent*){
 
 void customDynamicButton::backToCurrColor()
 {
-    currColor = (m_colorScheme == COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
-    QColor checkedColor = (m_colorScheme == COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
+    currColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
+    QColor checkedColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
     setStyleSheet(BASEQSS.arg(currColor.red()).arg(currColor.green()).arg(currColor.blue())
                          .arg(checkedColor.red()).arg(checkedColor.green()).arg(checkedColor.blue()));
 }
@@ -82,7 +82,7 @@ void customDynamicButton::setColor(const QColor &color)
 {
     if(!isChecked()){
         currColor = color;
-        QColor checkedColor = (m_colorScheme == COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
+        QColor checkedColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
         setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue())
                        .arg(checkedColor.red()).arg(checkedColor.green()).arg(checkedColor.blue()));
     }else{

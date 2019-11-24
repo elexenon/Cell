@@ -10,9 +10,8 @@
 #include "Headers/Kits/customWidget.h"
 #include "Headers/Kits/WindWMAPI.h"
 
-customWidget::customWidget(WIDGET_TYPE type, QWidget *parent):
-    QWidget(parent),
-    m_type(type)
+customWidget::customWidget(QWidget *parent):
+    QWidget(parent)
 {
     m_color = QColor(247,247,247);
 }
@@ -38,17 +37,6 @@ bool customWidget::nativeEvent(const QByteArray &eventType, void *message, long 
         }
         default:
             return QWidget::nativeEvent(eventType, message, result);
-    }
-}
-
-void customWidget::paintEvent(QPaintEvent *event)
-{   if(m_type == WIDGET_TYPE::_CHILD){
-        QStylePainter painter(this);
-        QStyleOption opt;
-        opt.initFrom(this);
-        opt.rect = rect();
-        painter.drawPrimitive(QStyle::PE_Widget, opt);
-        QWidget::paintEvent(event);
     }
 }
 

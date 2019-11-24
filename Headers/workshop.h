@@ -31,7 +31,7 @@ class Workshop : public QWidget
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-    explicit Workshop(COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
+    explicit Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
     ~Workshop() override;
 
 public:
@@ -65,15 +65,15 @@ private:
     QLabel           *labelFormat;
     QsciScintilla    *mainEditor;
 
-    QColor m_color;
-    COLOR_SCHEME m_mode;
+    QColor                   m_color;
+    CellGlobal::COLOR_SCHEME m_mode;
 
 private:
     void InitWorkshop();
     void setEventConnections();
 
 private slots:
-    void setColorScheme(COLOR_SCHEME mode);
+    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
     void updateStatusBar();
 
 protected:

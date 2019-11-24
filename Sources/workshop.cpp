@@ -24,7 +24,7 @@
 
 using namespace CELL_UTIL;
 
-Workshop::Workshop(COLOR_SCHEME mainWindow_mode, QWidget *parent) :
+Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Workshop),
     dropShadowLine1(new QFrame),
@@ -36,7 +36,7 @@ Workshop::Workshop(COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     rightBlock(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
     statusBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
     mainEditor(new QsciScintilla(this)),
-    m_color(COLOR_SCHEME::_BRIGHT)
+    m_color(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     InitWorkshop();
@@ -120,7 +120,8 @@ void Workshop::InitWorkshop()
     ui->BtnView->setFont(QFont("微软雅黑", 10));
     ui->BtnHelp->setFont(QFont("微软雅黑", 10));
 
-    TOOLS::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
+    TOOLS::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,
+                                      ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
                                       QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
 
     // DropShadow Lines.
@@ -129,7 +130,8 @@ void Workshop::InitWorkshop()
 
     // DropShadowEffects.
 
-    TOOLS::setDropShadowEffect({eff1,eff2,eff3},{dropShadowLine1,dropShadowLine2,dropShadowLine3},
+    TOOLS::setDropShadowEffect({eff1,eff2,eff3},
+                               {dropShadowLine1,dropShadowLine2,dropShadowLine3},
                                 QPoint(0,1),Qt::black,10);
 
     // Main Editor.
@@ -178,11 +180,11 @@ void Workshop::_constructed()
     emit constructed();
 }
 
-void Workshop::setColorScheme(COLOR_SCHEME mode)
+void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
-    if(mode == COLOR_SCHEME::_DARK){
-        m_mode = COLOR_SCHEME::_DARK;
+    if(mode == CellGlobal::COLOR_SCHEME::_DARK){
+        m_mode = CellGlobal::COLOR_SCHEME::_DARK;
 
         TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
                                            QStringLiteral("QFrame{border:none;background-color:rgb(44,44,45);max-height:1px;}"));
@@ -194,14 +196,14 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      menuBar->color(),
                                      LITERAL::COLOR_OPTION_BLOCK_DARK,
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {menuBar}, nullptr);
         TOOLS::setPropertyAnimation({animi_StatusBar},
                                      "color",
                                      statusBar->color(),
                                      LITERAL::COLOR_OPTION_BLOCK_DARK,
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {statusBar}, nullptr);
 
@@ -209,12 +211,12 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      leftBlock->color(),
                                      QColor(70, 70, 70),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {leftBlock,rightBlock}, nullptr);
     }
     else{
-        m_mode = COLOR_SCHEME::_BRIGHT;
+        m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
 
         TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
                                           QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
@@ -226,14 +228,14 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      menuBar->color(),
                                      QColor(65,152,197),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {menuBar}, nullptr);
         TOOLS::setPropertyAnimation({animi_StatusBar},
                                      "color",
                                      statusBar->color(),
                                      QColor(210,210,210),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {statusBar}, nullptr);
 
@@ -241,7 +243,7 @@ void Workshop::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      leftBlock->color(),
                                      QColor(235,235,235),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {leftBlock,rightBlock}, nullptr);
     }

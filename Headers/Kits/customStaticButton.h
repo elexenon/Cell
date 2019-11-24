@@ -20,25 +20,25 @@ public:
     explicit customStaticButton(QWidget *parent = nullptr);
     ~customStaticButton() override = default;
 
-    void                Init();
-    void                setBrightModeCheckedUncheckedColor(const QColor &c, const QColor &u);
-    void                setDarkModeCheckedUncheckedColor(const QColor &c, const QColor &u);
+    void         Init();
+    void         setBrightModeCheckedUncheckedColor(const QColor &c, const QColor &u);
+    void         setDarkModeCheckedUncheckedColor(const QColor &c, const QColor &u);
 
-    const QColor        color() const;
-    void                setColor(const QColor &color);
+    const QColor color() const;
+    void         setColor(const QColor &color);
 
 protected:
-    QPropertyAnimation *animi;
-    COLOR_SCHEME        m_colorScheme;
+    QPropertyAnimation      *animi;
+    CellGlobal::COLOR_SCHEME m_colorScheme;
 
-    QColor              currColor;
-    QColor              brightModeLeaveColor;
-    QColor              darkModeLeaveColor;
-    QColor              brightModeCheckedColor;
-    QColor              darkModeCheckedColor;
+    QColor currColor;
+    QColor brightModeLeaveColor;
+    QColor darkModeLeaveColor;
+    QColor brightModeCheckedColor;
+    QColor darkModeCheckedColor;
 
 protected slots:
-    void                setColorScheme(COLOR_SCHEME mode);
+    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
 };
 
 #endif // CUSTOMPAGESWITCHBTN_H

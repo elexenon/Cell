@@ -8,7 +8,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "Kits/customWidget.h" //Also includes "Kits/cell_util.h" : PAGE_TYPE & COLOR_SCHEME & FADE_TYPE
+#include "Kits/customWidget.h"
+#include "Kits/cell_util.h"   // PAGE_TYPE & COLOR_SCHEME & FADE_TYPE
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }
@@ -73,17 +74,17 @@ private:
     QPushButton            *Btn_popUp;
 
 private:
-    QPoint       m_startPoint;
-    QPoint       m_windowPoint;
-    bool         m_move;
-    bool         popUpNotificationCenterAuto;
-    PAGE_TYPE    currentPage;
-    COLOR_SCHEME m_mode;
+    QPoint                   m_startPoint;
+    QPoint                   m_windowPoint;
+    bool                     m_move;
+    bool                     popUpNotificationCenterAuto;
+    CellGlobal::PAGE_TYPE    currentPage;
+    CellGlobal::COLOR_SCHEME m_mode;
 
 private:
     void InitMainWindow();  
     void setEventConnections();
-    void startPageSwitchAnimation(PAGE_TYPE nextPage);
+    void startPageSwitchAnimation(CellGlobal::PAGE_TYPE nextPage);
 
 protected:
 #ifdef Q_OS_WIN32
@@ -96,7 +97,7 @@ protected:
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
 private slots:
-    void setColorScheme(COLOR_SCHEME mode);
+    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
     void on_Btn_mini_clicked();
     void on_Btn_close_clicked();
     void Tab_HomePage_clicked();

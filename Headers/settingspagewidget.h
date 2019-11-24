@@ -34,7 +34,7 @@ public:
     explicit SettingsPageWidget(QWidget *parent = nullptr);
     ~SettingsPageWidget() = default;
 
-    void mainWindowSetColorSchemeModeCall(COLOR_SCHEME mode);
+    void mainWindowSetColorSchemeModeCall(CellGlobal::COLOR_SCHEME mode);
 
 private slots:
     void Btn_bright_clicked();
@@ -65,7 +65,7 @@ private:
     QFrame                 *line_color;
 
 private:
-    COLOR_SCHEME m_mode;
+    CellGlobal::COLOR_SCHEME m_mode;
 
 private:
     void   Init();
@@ -74,7 +74,7 @@ private:
     void   setEventConnections();
 
 signals:
-    void enableColorScheme(COLOR_SCHEME mode);
+    void enableColorScheme(CellGlobal::COLOR_SCHEME mode);
 };
 
 #endif // SETTINGSPAGEWIDGET_H

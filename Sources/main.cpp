@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         return 0;
     }
     // This operation is to register our custom property "COLOR_SCHEME".
-    qRegisterMetaType<COLOR_SCHEME>("COLOR_SCHEME");
+    qRegisterMetaType<CellGlobal::COLOR_SCHEME>("COLOR_SCHEME");
 
     QPixmap pixmap(CELL_UTIL::LITERAL::IMG_DIR + QStringLiteral("SplashScreen.png"));
 

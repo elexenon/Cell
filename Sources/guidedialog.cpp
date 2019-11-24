@@ -18,7 +18,7 @@ GuideDialog::GuideDialog(QWidget *parent) :
     customDialog(parent),
     ui(new Ui::GuideDialog),
     frame_titleBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
-    m_mode(COLOR_SCHEME::_BRIGHT)
+    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     Init();
@@ -83,11 +83,11 @@ void GuideDialog::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void GuideDialog::setColorScheme(COLOR_SCHEME mode)
+void GuideDialog::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(m_mode == mode) return;
-    if(mode == COLOR_SCHEME::_DARK){
-        m_mode = COLOR_SCHEME::_DARK;
+    if(mode == CellGlobal::COLOR_SCHEME::_DARK){
+        m_mode = CellGlobal::COLOR_SCHEME::_DARK;
 #ifdef CELL_DEBUG
         qDebug() << "Here";
 #endif
@@ -97,12 +97,12 @@ void GuideDialog::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      frame_titleBar->color(),
                                      QColor(44, 44, 45),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
     }
     else{
-        m_mode = COLOR_SCHEME::_BRIGHT;
+        m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
 
         TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
         ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
@@ -110,7 +110,7 @@ void GuideDialog::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      frame_titleBar->color(),
                                      QColor(164, 163, 164),
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
     }

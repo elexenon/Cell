@@ -10,20 +10,35 @@
 
 #include <QMetaType> // Q_DECLARE_METATYPE()
 
-#define CELL_GLOBALANIMIDURATION 500
-#define CELL_GLOBALPAGESWITCHDURATION 300
-
 class QGraphicsDropShadowEffect;
 class QPropertyAnimation;
 class QStyleSheetLoader;
 class QGraphicsEffect;
 class QGraphicsOpacityEffect;
 
-enum FADE_TYPE{_IN, _OUT};
-enum PAGE_TYPE{_HOME, _SETTINGS};
-enum COLOR_SCHEME{_BRIGHT, _DARK};
-enum FRAME_TYPE{_REGULAR, _OPTIONBLOCK};
-enum WIDGET_TYPE{_BASE, _CHILD};
+class CellGlobal{
+public:
+    enum FADE_TYPE{
+        _IN,
+        _OUT
+    };
+    enum PAGE_TYPE{
+        _HOME,
+        _SETTINGS
+    };
+    enum COLOR_SCHEME{
+        _BRIGHT,
+        _DARK
+    };
+    enum FRAME_TYPE{
+        _REGULAR,
+        _OPTIONBLOCK
+    };
+    enum ANIMIDURATION{
+        CELL_GLOBALANIMIDURATION = 500,
+        CELL_GLOBALPAGESWITCHDURATION = 300
+    };
+};
 
 namespace CELL_UTIL{
 namespace TOOLS{
@@ -43,7 +58,7 @@ extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,
                                     QPropertyAnimation *animi,
                                     QWidget *target,
                                     int duration,
-                                    FADE_TYPE type);
+                                    CellGlobal::FADE_TYPE type);
 extern QStyleSheetLoader *styleSheetLoader;
 } // namespace TOOLS{
 namespace LITERAL{
@@ -64,8 +79,7 @@ extern const QColor       MAINWINDOW_DARK;
 extern const QColor       MAINWINDOW_BRIGHT;
 } // namespace LITERAL{
 } // namespace UTILITY{
-
-Q_DECLARE_METATYPE(COLOR_SCHEME);
+Q_DECLARE_METATYPE(CellGlobal::COLOR_SCHEME);
 
 #endif
 

@@ -11,7 +11,6 @@
 #define CUSTOMWIDGET_H
 
 #include <QWidget>
-#include "cell_util.h" // WIDGET_TYPE
 
 class customWidget : public QWidget
 {
@@ -19,19 +18,17 @@ class customWidget : public QWidget
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-    explicit customWidget(WIDGET_TYPE type, QWidget *parent = nullptr);
+    explicit customWidget(QWidget *parent = nullptr);
 
 public:
     const QColor color() const;
-    void setColor(const QColor &color);
+    void         setColor(const QColor &color);
 
 protected:
     virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
-    virtual void paintEvent(QPaintEvent *event) override;
     void LoadWinStyle(QWidget *obj);
 
 protected:
-    QColor m_color;
-    WIDGET_TYPE m_type;
+    QColor                  m_color;
 };
 #endif

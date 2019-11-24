@@ -24,7 +24,7 @@ void customStaticButton::setDarkModeCheckedUncheckedColor(const QColor &c, const
 }
 
 void customStaticButton::Init(){
-    m_colorScheme = COLOR_SCHEME::_BRIGHT;
+    m_colorScheme = CellGlobal::COLOR_SCHEME::_BRIGHT;
     currColor = brightModeLeaveColor;
     setStyleSheet(BASEQSS.arg(currColor.red()).arg(currColor.green()).arg(currColor.blue())
                   .arg(brightModeCheckedColor.red()).arg(brightModeCheckedColor.green()).arg(brightModeCheckedColor.blue())
@@ -35,13 +35,13 @@ void customStaticButton::Init(){
 #endif
 }
 
-void customStaticButton::setColorScheme(COLOR_SCHEME mode)
+void customStaticButton::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_colorScheme) return;
     QColor startColor;
     QColor endColor;
-    if(mode == COLOR_SCHEME::_DARK){
-        m_colorScheme = COLOR_SCHEME::_DARK;
+    if(mode == CellGlobal::COLOR_SCHEME::_DARK){
+        m_colorScheme = CellGlobal::COLOR_SCHEME::_DARK;
         if(!isChecked()){
             startColor = currColor;
             endColor = darkModeLeaveColor;
@@ -54,11 +54,11 @@ void customStaticButton::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      startColor,
                                      endColor,
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this},nullptr);
-    }else if(mode == COLOR_SCHEME::_BRIGHT){
-        m_colorScheme = COLOR_SCHEME::_BRIGHT;
+    }else if(mode == CellGlobal::COLOR_SCHEME::_BRIGHT){
+        m_colorScheme = CellGlobal::COLOR_SCHEME::_BRIGHT;
         if(!isChecked()){
             startColor = currColor;
             endColor = brightModeLeaveColor;
@@ -71,7 +71,7 @@ void customStaticButton::setColorScheme(COLOR_SCHEME mode)
                                      "color",
                                      startColor,
                                      endColor,
-                                     CELL_GLOBALANIMIDURATION,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
         {this},nullptr);
     }
@@ -86,7 +86,7 @@ void customStaticButton::setColor(const QColor &color)
 {
     if(!isChecked()){
         currColor = color;
-        QColor checkedColor = (m_colorScheme == COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
+        QColor checkedColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
         setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue())
                       .arg(checkedColor.red()).arg(checkedColor.green()).arg(checkedColor.blue())
                       .arg(checkedColor.red()).arg(checkedColor.green()).arg(checkedColor.blue()));

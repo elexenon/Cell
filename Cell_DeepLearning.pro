@@ -73,8 +73,8 @@ FORMS += \
 
 INCLUDEPATH += Share/third-part-apis/QScintilla_gpl-2.11.2/Qt4Qt5
 
-#LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5d.dll
-LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5.dll
+LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5d.dll
+#LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5.dll
 
 
 # Default rules for deployment.

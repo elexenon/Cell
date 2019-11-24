@@ -68,9 +68,9 @@ void notificationCenter::plusCnt()
         label_emptyNotifications->setWindowOpacity(0);
         label_emptyNotifications->hide();
         processBlock->show();
-        TOOLS::setFadeInOrOutAnimation(eff,animi,processBlock,300,FADE_TYPE::_IN);
+        TOOLS::setFadeInOrOutAnimation(eff,animi,processBlock,300,CellGlobal::FADE_TYPE::_IN);
         label_hint->show();
-        TOOLS::setFadeInOrOutAnimation(eff,animi,label_hint,300,FADE_TYPE::_IN);
+        TOOLS::setFadeInOrOutAnimation(eff,animi,label_hint,300,CellGlobal::FADE_TYPE::_IN);
     }
 }
 
@@ -86,7 +86,7 @@ void notificationCenter::minusCnt()
         processBlock->hide();
         label_hint->setWindowOpacity(0);
         label_hint->hide();
-        TOOLS::setFadeInOrOutAnimation(eff,animi,label_emptyNotifications,300,FADE_TYPE::_IN);
+        TOOLS::setFadeInOrOutAnimation(eff,animi,label_emptyNotifications,300,CellGlobal::FADE_TYPE::_IN);
         label_emptyNotifications->show();
     }
 }

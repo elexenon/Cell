@@ -8,11 +8,9 @@
 #include "Headers/kits/customStaticButton.h"
 #include "Headers/Kits/cell_util.h"
 
-using namespace CELL_UTIL;
-
 customStaticButton::customStaticButton(QWidget *parent):
     QPushButton(parent),
-    BASEQSS(LITERAL::QSS_CUSTOMBUTTON_STATIC)
+    BASEQSS(Cell_Const::QSS_CUSTOMBUTTON_STATIC)
 {}
 
 void customStaticButton::setBrightModeCheckedUncheckedColor(const QColor &c, const QColor &u){
@@ -50,7 +48,7 @@ void customStaticButton::setColorScheme(CellGlobal::COLOR_SCHEME mode)
             endColor = darkModeCheckedColor;
             currColor = darkModeLeaveColor;
         }
-        TOOLS::setPropertyAnimation({animi},
+        CellGlobal::setPropertyAnimation({animi},
                                      "color",
                                      startColor,
                                      endColor,
@@ -67,7 +65,7 @@ void customStaticButton::setColorScheme(CellGlobal::COLOR_SCHEME mode)
             endColor = brightModeCheckedColor;
             currColor = brightModeLeaveColor;
         }
-        TOOLS::setPropertyAnimation({animi},
+        CellGlobal::setPropertyAnimation({animi},
                                      "color",
                                      startColor,
                                      endColor,

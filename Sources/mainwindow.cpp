@@ -27,15 +27,13 @@
 #include "Headers/Kits/customNotificationCenter.h"
 #include "ui_mainwindow.h"
 
-using namespace CELL_UTIL;
-
 mainWindow::mainWindow(QWidget *parent)
     : customWidget(parent)
     , ui(new Ui::mainWindow)
     , workshop(nullptr)
     , homePage(new HomePageWidget)
     , settingsPage(new SettingsPageWidget)
-    , frame_titleBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this))
+    , frame_titleBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this))
     , Tab_HomePage(new customStaticButton(this))
     , Tab_Settings(new customStaticButton(this))
     , Tab_Guide(new customStaticButton(this))
@@ -47,7 +45,7 @@ mainWindow::mainWindow(QWidget *parent)
     , Btn_OpenProject_Icon(new QLabel(this))
     , Btn_OpenProject_Function(new QLabel(this))
     , Btn_OpenProject_Hint(new QLabel(this))
-    , notificationCenter(new class notificationCenter(LITERAL::QSS_CUSTOMFRAME_WITH_RADIUS, this))
+    , notificationCenter(new class notificationCenter(Cell_Const::QSS_CUSTOMFRAME_WITH_RADIUS, this))
     , Btn_popUp(new QPushButton(notificationCenter))
     , popUpNotificationCenterAuto(true)
     , currentPage(CellGlobal::PAGE_TYPE::_HOME)
@@ -63,84 +61,83 @@ mainWindow::~mainWindow()
 
 void mainWindow::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
-    using TOOLS::styleSheetLoader;
     if(mode == CellGlobal::COLOR_SCHEME::_BRIGHT){
         if(mode == m_mode) return;
         m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
-        TOOLS::setPropertyAnimation({propertyAnimi},
+        CellGlobal::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      color(),
-                                     LITERAL::GRAYLEVEL247,
+                                     Cell_Const::GRAYLEVEL247,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
-        TOOLS::setPropertyAnimation({propertyAnimi},
+        CellGlobal::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      frame_titleBar->color(),
-                                     LITERAL::GRAYLEVEL255,
+                                     Cell_Const::GRAYLEVEL255,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
-        TOOLS::setPropertyAnimation({notifiCenter_animi},
+        CellGlobal::setPropertyAnimation({notifiCenter_animi},
                                      "color",
                                      notificationCenter->color(),
-                                     LITERAL::GRAYLEVEL218,
+                                     Cell_Const::GRAYLEVEL218,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {notificationCenter}, nullptr);
 
-        TOOLS::multiModulesOneStyleSheet({ui->Label_HomePage,ui->Label_Settings,ui->Label_Guide},
+        CellGlobal::multiModulesOneStyleSheet({ui->Label_HomePage,ui->Label_Settings,ui->Label_Guide},
                                          QStringLiteral("QLabel{color:rgb(0,0,0);background:transparent;}"));
 
-        TOOLS::multiModulesOneStyleSheet({Btn_NewProject_Function,Btn_NewProject_Hint,
+        CellGlobal::multiModulesOneStyleSheet({Btn_NewProject_Function,Btn_NewProject_Hint,
                                           Btn_OpenProject_Function,Btn_OpenProject_Hint},
                                          QStringLiteral("background:transparent;color:rgb(70,70,70);"));
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_bright.css"));
-        ui->Btn_max->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.css"));
-        ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.css"));
-        ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_bright.css"));
+        ui->Btn_max->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.css"));
+        ui->Btn_mini->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.css"));
+        ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
     else{
         if(mode == m_mode) return;
         m_mode = CellGlobal::COLOR_SCHEME::_DARK;
-        TOOLS::setPropertyAnimation({propertyAnimi},
+        CellGlobal::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      color(),
-                                     LITERAL::GRAYLEVEL30,
+                                     Cell_Const::GRAYLEVEL30,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
-        TOOLS::setPropertyAnimation({propertyAnimi},
+        CellGlobal::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      frame_titleBar->color(),
-                                     LITERAL::GRAYLEVEL45,
+                                     Cell_Const::GRAYLEVEL45,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
-        TOOLS::setPropertyAnimation({notifiCenter_animi},
+        CellGlobal::setPropertyAnimation({notifiCenter_animi},
                                      "color",
                                      notificationCenter->color(),
-                                     LITERAL::GRAYLEVEL70,
+                                     Cell_Const::GRAYLEVEL70,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {notificationCenter}, nullptr);
 
-        TOOLS::multiModulesOneStyleSheet({ui->Label_HomePage,ui->Label_Settings,ui->Label_Guide},
+        CellGlobal::multiModulesOneStyleSheet({ui->Label_HomePage,ui->Label_Settings,ui->Label_Guide},
                                          QStringLiteral("QLabel{color:rgb(255,255,255);background:transparent;}"));
 
-        TOOLS::multiModulesOneStyleSheet({Btn_NewProject_Function,Btn_NewProject_Hint,
+        CellGlobal::multiModulesOneStyleSheet({Btn_NewProject_Function,Btn_NewProject_Hint,
                                           Btn_OpenProject_Function,Btn_OpenProject_Hint},
                                          QStringLiteral("background:transparent;color:rgb(255,255,255);"));
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_dark.css"));
-        ui->Btn_max->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_dark.css"));
-        ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_dark.css"));
-        ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMaxBtn_dark.css"));
+        ui->Btn_max->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_dark.css"));
+        ui->Btn_mini->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_dark.css"));
+        ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
 }
 
@@ -159,23 +156,23 @@ void mainWindow::InitMainWindow()
     ui->stackedWidget->setCurrentIndex(1);
 
     Tab_HomePage->setObjectName(QStringLiteral("Tab_HomePage"));
-    Tab_HomePage->setBrightModeCheckedUncheckedColor(LITERAL::GRAYLEVEL218,LITERAL::GRAYLEVEL247);
-    Tab_HomePage->setDarkModeCheckedUncheckedColor(LITERAL::GRAYLEVEL70,LITERAL::GRAYLEVEL30);
+    Tab_HomePage->setBrightModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL218,Cell_Const::GRAYLEVEL247);
+    Tab_HomePage->setDarkModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL70,Cell_Const::GRAYLEVEL30);
     Tab_HomePage->Init();
     Tab_HomePage->setGeometry(40, 101, 251, 31);
     Tab_HomePage->setCheckable(true);
     Tab_HomePage->setChecked(true);
 
     Tab_Settings->setObjectName(QStringLiteral("Tab_Settings"));
-    Tab_Settings->setBrightModeCheckedUncheckedColor(LITERAL::GRAYLEVEL218,LITERAL::GRAYLEVEL247);
-    Tab_Settings->setDarkModeCheckedUncheckedColor(LITERAL::GRAYLEVEL70,LITERAL::GRAYLEVEL30);
+    Tab_Settings->setBrightModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL218,Cell_Const::GRAYLEVEL247);
+    Tab_Settings->setDarkModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL70,Cell_Const::GRAYLEVEL30);
     Tab_Settings->Init();
     Tab_Settings->setGeometry(40, 135, 251, 31);
     Tab_Settings->setCheckable(true);
 
     Tab_Guide->setObjectName(QStringLiteral("Tab_Guide"));
-    Tab_Guide->setBrightModeCheckedUncheckedColor(LITERAL::GRAYLEVEL218,LITERAL::GRAYLEVEL247);
-    Tab_Guide->setDarkModeCheckedUncheckedColor(LITERAL::GRAYLEVEL70,LITERAL::GRAYLEVEL30);
+    Tab_Guide->setBrightModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL218,Cell_Const::GRAYLEVEL247);
+    Tab_Guide->setDarkModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL70,Cell_Const::GRAYLEVEL30);
     Tab_Guide->Init();
     Tab_Guide->setGeometry(40, 169, 251, 31);
 
@@ -189,8 +186,8 @@ void mainWindow::InitMainWindow()
     ui->Label_Guide->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
-    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),LITERAL::GRAYLEVEL218);
-    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),LITERAL::GRAYLEVEL70);
+    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL218);
+    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL70);
     Btn_NewProject->setAnimationDuration(CellGlobal::CELL_GLOBALANIMIDURATION);
     Btn_NewProject->Init();
     Btn_NewProject->setGeometry(40, 331, 251, 81);
@@ -214,8 +211,8 @@ void mainWindow::InitMainWindow()
     Btn_NewProject_Hint->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_OpenProject->setObjectName(QStringLiteral("Btn_OpenProject"));
-    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),LITERAL::GRAYLEVEL218);
-    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),LITERAL::GRAYLEVEL70);
+    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL218);
+    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL70);
     Btn_OpenProject->setAnimationDuration(CellGlobal::CELL_GLOBALANIMIDURATION);
     Btn_OpenProject->Init();
     Btn_OpenProject->setGeometry(40, 421, 251, 81);
@@ -244,17 +241,17 @@ void mainWindow::InitMainWindow()
     ui->Btn_mini->setParent(frame_titleBar);
     ui->Btn_close->setParent(frame_titleBar);
 
-    TOOLS::setDropShadowEffect({eff_dse},
+    CellGlobal::setDropShadowEffect({eff_dse},
                                {ui->line},
                                 QPoint(0,1),Qt::black,20);
 
-    TOOLS::setDropShadowEffect({eff_dse2},
+    CellGlobal::setDropShadowEffect({eff_dse2},
                                {notificationCenter},
                                 QPoint(0,0),Qt::black,10);
 
     notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
     notificationCenter->setGeometry(18,740,300,390);
-    notificationCenter->setColor(LITERAL::GRAYLEVEL218);
+    notificationCenter->setColor(Cell_Const::GRAYLEVEL218);
 
     Btn_popUp->setObjectName(QStringLiteral("Btn_popUp"));
     Btn_popUp->setFlat(true);
@@ -262,22 +259,20 @@ void mainWindow::InitMainWindow()
     Btn_popUp->setGeometry(10,1,280,30);
     Btn_popUp->setStyleSheet(QStringLiteral("background:transparent;border-image: url(:/images/Share/images/Btn_popUp.png);"));
 
-    int fontID_Info = QFontDatabase::addApplicationFont(LITERAL::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
+    int fontID_Info = QFontDatabase::addApplicationFont(Cell_Const::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
-
-    using TOOLS::styleSheetLoader;
 
     QFont font_Info(Info, 14);
     font_Info.setLetterSpacing(QFont::PercentageSpacing, 100);
 
     ui->label_mainWindowTitle->setFont(font_Info);
-    ui->label_mainWindowTitle->setStyleSheet("color:"+LITERAL::COLOR_SPACE_GRAY+";");
+    ui->label_mainWindowTitle->setStyleSheet("color:#798186;");
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.css"));
-    ui->Btn_close->setStyleSheet(styleSheetLoader->styleSheet());
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowCloseBtn_bright.css"));
+    ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.css"));
-    ui->Btn_mini->setStyleSheet(styleSheetLoader->styleSheet());
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowMinimizeBtn_bright.css"));
+    ui->Btn_mini->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
     guideDialog = new GuideDialog(this);
     guideDialog->show();
@@ -394,12 +389,12 @@ void mainWindow::startPageSwitchAnimation(CellGlobal::PAGE_TYPE nextPage)
     if(nextPage == CellGlobal::PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(settingsPage);
-        TOOLS::setFadeInOrOutAnimation(opacityEffect,propertyAnimi,
+        CellGlobal::setFadeInOrOutAnimation(opacityEffect,propertyAnimi,
                                        settingsPage,duration,CellGlobal::FADE_TYPE::_IN);
     }else{
         homePage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(homePage);
-        TOOLS::setFadeInOrOutAnimation(opacityEffect,propertyAnimi,
+        CellGlobal::setFadeInOrOutAnimation(opacityEffect,propertyAnimi,
                                        homePage,duration,CellGlobal::FADE_TYPE::_IN);
     }
 }
@@ -452,7 +447,7 @@ void mainWindow::Btn_NewProject_clicked()
 void mainWindow::popUpNotificationCenter()
 {
     QPoint targetPos = (notificationCenter->pos().y()==740 ? QPoint(18,550) : QPoint(18,740));
-    TOOLS::setPropertyAnimation({notifiCenter_animi},
+    CellGlobal::setPropertyAnimation({notifiCenter_animi},
                                  "pos",
                                  notificationCenter->pos(),
                                  targetPos,

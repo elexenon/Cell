@@ -8,11 +8,9 @@
 #include "Headers/Kits/customDynamicButton.h"
 #include "Headers/Kits/cell_util.h"
 
-using namespace CELL_UTIL;
-
 customDynamicButton::customDynamicButton(QWidget *parent):
     customStaticButton(parent),
-    BASEQSS(LITERAL::QSS_CUSTOMBUTTON_DYNAMIC)
+    BASEQSS(Cell_Const::QSS_CUSTOMBUTTON_DYNAMIC)
 {}
 
 void customDynamicButton::setBrightModeEnterLeaveColor(const QColor &e, const QColor &l){
@@ -37,7 +35,7 @@ void customDynamicButton::Init(){
 void customDynamicButton::enterEvent(QEvent*){
     if(!this->isChecked()){
         QColor enterColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeEnterColor : darkModeEnterColor);
-        TOOLS::setPropertyAnimation({animi},
+        CellGlobal::setPropertyAnimation({animi},
                                      "color",
                                      currColor,
                                      enterColor,
@@ -50,7 +48,7 @@ void customDynamicButton::enterEvent(QEvent*){
 void customDynamicButton::leaveEvent(QEvent*){
     if(!this->isChecked()){
         QColor leaveColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
-        TOOLS::setPropertyAnimation({animi},
+        CellGlobal::setPropertyAnimation({animi},
                                      "color",
                                      currColor,
                                      leaveColor,

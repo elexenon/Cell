@@ -11,7 +11,7 @@
 
 #include <QScrollBar>
 
-using namespace CELL_UTIL;
+using namespace Cell_Const;
 
 HomePageWidget::HomePageWidget(QWidget *parent) :
     QWidget(parent),
@@ -29,31 +29,30 @@ HomePageWidget::~HomePageWidget()
 
 void HomePageWidget::Init()
 {
-    using TOOLS::styleSheetLoader;
     ui->label_welcome->setFont(QFont(QStringLiteral("微软雅黑 Light"), 18));
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowComboBox.css"));
-    ui->comboBox_sort->setStyleSheet(styleSheetLoader->styleSheet());
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowComboBox.css"));
+    ui->comboBox_sort->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
     ui->comboBox_sort->setFont(QFont("Microsoft YaHei UI"));
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Bright.css"));
-    ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Bright.css"));
+    ui->Btn_grid->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Bright.css"));
-    ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Bright.css"));
+    ui->Btn_list->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
     ui->label_recentPJ->setFont(QFont(QStringLiteral("微软雅黑"), 12));
 
     ui->label_sort->setFont(QFont(QStringLiteral("微软雅黑 Light"), 10));
     ui->label_sort->setStyleSheet(QStringLiteral("color:dadada;"));
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
     QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
-    verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
+    verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_bright.css"));
-    ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_bright.css"));
+    ui->frame->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 }
 
 void HomePageWidget::setAllGraphBtnsUnchecked()
@@ -65,47 +64,45 @@ void HomePageWidget::setAllGraphBtnsUnchecked()
 void HomePageWidget::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
-    using TOOLS::styleSheetLoader;
     if(mode == CellGlobal::COLOR_SCHEME::_DARK){
         m_mode = CellGlobal::COLOR_SCHEME::_DARK;
-        TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
+        CellGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->line->setStyleSheet("QFrame{border:none;background-color:#FFFFFF;"
                                 "max-height : 21px;}");
-        using TOOLS::styleSheetLoader;
-        styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_dark.css"));
-        ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_dark.css"));
+        ui->frame->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
         ui->scrollAreaWidgetContents_3->setStyleSheet("QWidget{background-color:#1F1E1F;}");
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Dark.css"));
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Dark.css"));
         QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
-        verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
+        verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Dark.css"));
-        ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Dark.css"));
+        ui->Btn_grid->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Dark.css"));
-        ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Dark.css"));
+        ui->Btn_list->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
     else{
         m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
-        TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
+        CellGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->line->setStyleSheet(QStringLiteral("QFrame{border:none;background-color:#DADADA;max-height : 21px;}"));
-        styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_bright.css"));
-        ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_bright.css"));
+        ui->frame->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
         ui->scrollAreaWidgetContents_3->setStyleSheet("QWidget{background-color:rgb(247, 247, 247);}");
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("ScrollBar_Bright.css"));
         QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
-        verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
+        verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Bright.css"));
-        ui->Btn_grid->setStyleSheet(styleSheetLoader->styleSheet());
-        styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Bright.css"));
-        ui->Btn_list->setStyleSheet(styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowGridBtn_Bright.css"));
+        ui->Btn_grid->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("MainWindowListBtn_Bright.css"));
+        ui->Btn_list->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
 }
 

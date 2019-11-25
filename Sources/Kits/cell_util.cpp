@@ -15,14 +15,12 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 
-namespace CELL_UTIL {
-namespace LITERAL {
+namespace Cell_Const {
 const char* const INSTANCE_IS_ON("Cell Launcher is already running");
 const QString IMG_DIR(":/images/Share/images/");
 const QString FONT_DIR(":/fonts/Share/fonts/");
 const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Share\\styleSheets\\");
 const QString LIB_DIR(":/libs/Share/libs/");
-const QString COLOR_SPACE_GRAY("#798186");
 
 const QColor GRAYLEVEL255(255,255,255);
 const QColor GRAYLEVEL45(45, 45, 45);
@@ -66,16 +64,15 @@ const QString QSS_CUSTOMBUTTON_DYNAMIC(
 "background-color: rgb(%4, %5, %6);"
 "border: 1px solid gray;"
 "}");
-} // namespace LITERAL{
-} // namespace CELL_UTIL{
+} // namespace Cell_Const{
 
-namespace CELL_UTIL{
-namespace TOOLS{
-QStyleSheetLoader *styleSheetLoader = new QStyleSheetLoader(CELL_UTIL::LITERAL::STYLESHEET_DIR);
+namespace CellEntityTools{
+QStyleSheetLoader* const styleSheetLoader(new QStyleSheetLoader(Cell_Const::STYLESHEET_DIR));
+} // namesapce CellEntityTools{
 
+namespace CellGlobal{
 void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,const QList<QWidget*> &modules,
-                         const QPoint &offset,const QColor &color,
-                                int blurRadius)
+                                     const QPoint &offset,const QColor &color,int blurRadius)
 {
     if(animis.size() != modules.size()){
         qDebug() << "The amount of animator is not equal to modules'.";
@@ -90,8 +87,9 @@ void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,const QList<QW
         modules[i]->setGraphicsEffect(animis[i]);
     }
 }
+
 void setPropertyAnimation(QList<QPropertyAnimation*> animis,const QByteArray &_property, const QVariant &s_value,
-                          const QVariant &e_value,int duration, QEasingCurve curve, const QList<QWidget*> &modules, QGraphicsEffect *effect)
+                                      const QVariant &e_value,int duration, QEasingCurve curve, const QList<QWidget*> &modules, QGraphicsEffect *effect)
 {
     if(animis.size() != modules.size()){
         qDebug() << "The amount of animator is not equal to modules'.";
@@ -117,11 +115,13 @@ void setPropertyAnimation(QList<QPropertyAnimation*> animis,const QByteArray &_p
         animis[0]->start(QAbstractAnimation::DeleteWhenStopped);
     }
 }
+
 void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss)
 {
     for(auto &e : modules)
         e->setStyleSheet(qss);
 }
+
 void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,QPropertyAnimation *animi,QWidget *target,
                              int duration, CellGlobal::FADE_TYPE type){
     int startValue = 0, endValue = 1;
@@ -130,8 +130,7 @@ void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,QPropertyAnimation *ani
     eff = new QGraphicsOpacityEffect(target);
     eff->setOpacity(startValue);
     target->setGraphicsEffect(eff);
-    TOOLS::setPropertyAnimation({animi}, "opacity", startValue, endValue, duration,
+    CellGlobal::setPropertyAnimation({animi}, "opacity", startValue, endValue, duration,
                          QEasingCurve::Linear, {nullptr}, eff);
 }
-} // namespace TOOLS{
-} // namespace CELL_UTIL{
+} // namespace CellGlobal{

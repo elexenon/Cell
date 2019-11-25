@@ -12,13 +12,11 @@
 
 #include <QLabel>
 
-using namespace CELL_UTIL;
-
 notificationCenter::notificationCenter(const QString &qss,QWidget *parent):
     customFrame(qss,parent),
-    label_emptyNotifications(new customLabel(LITERAL::QSS_CUSTOMLABEL,this)),    
-    label_hint(new customLabel(LITERAL::QSS_CUSTOMLABEL,this)),
-    processBlock(new customFrame(LITERAL::QSS_CUSTOMFRAME,this)),
+    label_emptyNotifications(new customLabel(Cell_Const::QSS_CUSTOMLABEL,this)),
+    label_hint(new customLabel(Cell_Const::QSS_CUSTOMLABEL,this)),
+    processBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME,this)),
     label_WS(new QLabel(processBlock)),
     label_count(new QLabel(processBlock)),
     workshop_instancesCount(0)
@@ -68,9 +66,9 @@ void notificationCenter::plusCnt()
         label_emptyNotifications->setWindowOpacity(0);
         label_emptyNotifications->hide();
         processBlock->show();
-        TOOLS::setFadeInOrOutAnimation(eff,animi,processBlock,300,CellGlobal::FADE_TYPE::_IN);
+        CellGlobal::setFadeInOrOutAnimation(eff,animi,processBlock,300,CellGlobal::FADE_TYPE::_IN);
         label_hint->show();
-        TOOLS::setFadeInOrOutAnimation(eff,animi,label_hint,300,CellGlobal::FADE_TYPE::_IN);
+        CellGlobal::setFadeInOrOutAnimation(eff,animi,label_hint,300,CellGlobal::FADE_TYPE::_IN);
     }
 }
 
@@ -86,7 +84,7 @@ void notificationCenter::minusCnt()
         processBlock->hide();
         label_hint->setWindowOpacity(0);
         label_hint->hide();
-        TOOLS::setFadeInOrOutAnimation(eff,animi,label_emptyNotifications,300,CellGlobal::FADE_TYPE::_IN);
+        CellGlobal::setFadeInOrOutAnimation(eff,animi,label_emptyNotifications,300,CellGlobal::FADE_TYPE::_IN);
         label_emptyNotifications->show();
     }
 }

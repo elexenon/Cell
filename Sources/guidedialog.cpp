@@ -12,12 +12,10 @@
 #include "Headers/Kits/qstylesheetloader.hpp"
 #include "ui_guidedialog.h"
 
-using namespace CELL_UTIL;
-
 GuideDialog::GuideDialog(QWidget *parent) :
     customDialog(parent),
     ui(new Ui::GuideDialog),
-    frame_titleBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
+    frame_titleBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
@@ -44,13 +42,13 @@ void GuideDialog::Init()
 
     ui->label_getStart->setFont(QFont(QStringLiteral("微软雅黑"), 18));   
     ui->label_learn->setFont(QFont(QStringLiteral("微软雅黑"), 9));
-    TOOLS::multiModulesOneStyleSheet({ui->label_getStart,ui->label_learn},QStringLiteral("QLabel{color:#DCDCDC;background-color: transparent;}"));
+    CellGlobal::multiModulesOneStyleSheet({ui->label_getStart,ui->label_learn},QStringLiteral("QLabel{color:#DCDCDC;background-color: transparent;}"));
 
     ui->checkBox_showUp->setFont(QFont(QStringLiteral("微软雅黑 Light")));
     ui->checkBox_showUp->setStyleSheet(QStringLiteral("QCheckBox{color:#798186;background-color: transparent;}"));
 
-    TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
-    ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
+    ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     ui->Btn_close->setFont(QFont(QStringLiteral("微软雅黑")));
 }
 
@@ -91,12 +89,12 @@ void GuideDialog::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 #ifdef CELL_DEBUG
         qDebug() << "Here";
 #endif
-        TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Dark.css"));
-        ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
-        TOOLS::setPropertyAnimation({animi_title},
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Dark.css"));
+        ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+        CellGlobal::setPropertyAnimation({animi_title},
                                      "color",
                                      frame_titleBar->color(),
-                                     LITERAL::GRAYLEVEL45,
+                                     Cell_Const::GRAYLEVEL45,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
@@ -104,9 +102,9 @@ void GuideDialog::setColorScheme(CellGlobal::COLOR_SCHEME mode)
     else{
         m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
 
-        TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
-        ui->Btn_close->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
-        TOOLS::setPropertyAnimation({animi_title},
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
+        ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+        CellGlobal::setPropertyAnimation({animi_title},
                                      "color",
                                      frame_titleBar->color(),
                                      QColor(164, 163, 164),

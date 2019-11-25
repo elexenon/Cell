@@ -22,8 +22,6 @@
 #include "Headers/workshop.h"
 #include "ui_workshop.h"
 
-using namespace CELL_UTIL;
-
 Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Workshop),
@@ -31,10 +29,10 @@ Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     dropShadowLine2(new QFrame),
     dropShadowLine3(new QFrame),
     welcomeDialog(new WSWelcomeDialog),
-    menuBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
-    leftBlock(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
-    rightBlock(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
-    statusBar(new customFrame(LITERAL::QSS_CUSTOMFRAME, this)),
+    menuBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
+    leftBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
+    rightBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
+    statusBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     mainEditor(new QsciScintilla(this)),
     m_color(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
@@ -120,24 +118,24 @@ void Workshop::InitWorkshop()
     ui->BtnView->setFont(QFont("微软雅黑", 10));
     ui->BtnHelp->setFont(QFont("微软雅黑", 10));
 
-    TOOLS::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,
+    CellGlobal::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,
                                       ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
-                                      QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
+                                          QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
 
     // DropShadow Lines.
-    TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                      QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
+    CellGlobal::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
+                                          QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
 
     // DropShadowEffects.
 
-    TOOLS::setDropShadowEffect({eff1,eff2,eff3},
-                               {dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                QPoint(0,1),Qt::black,10);
+    CellGlobal::setDropShadowEffect({eff1,eff2,eff3},
+                                   {dropShadowLine1,dropShadowLine2,dropShadowLine3},
+                                    QPoint(0,1),Qt::black,10);
 
     // Main Editor.
     mainEditor->setFrameShape(QFrame::NoFrame);
-    TOOLS::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditor.css"));
-    mainEditor->setStyleSheet(TOOLS::styleSheetLoader->styleSheet());
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditor.css"));
+    mainEditor->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     mainEditor->setFont(QFont("Courier New", 11));
     mainEditor->setPaper(QColor(249,250,250));
 
@@ -145,7 +143,7 @@ void Workshop::InitWorkshop()
     mainEditor->setCaretLineBackgroundColor(QColor(240,240,240));
 
     // Two Blocks.
-    TOOLS::multiModulesOneStyleSheet({leftBlock, rightBlock},
+    CellGlobal::multiModulesOneStyleSheet({leftBlock, rightBlock},
                                        QStringLiteral("QFrame{background-color:rgb(235,235,235);}"));
 
     // Labels.
@@ -186,31 +184,31 @@ void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
     if(mode == CellGlobal::COLOR_SCHEME::_DARK){
         m_mode = CellGlobal::COLOR_SCHEME::_DARK;
 
-        TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                           QStringLiteral("QFrame{border:none;background-color:rgb(44,44,45);max-height:1px;}"));
+        CellGlobal::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
+                                               QStringLiteral("QFrame{border:none;background-color:rgb(44,44,45);max-height:1px;}"));
 
-        TOOLS::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
-                                           QStringLiteral("QLabel{color:rgb(255,255,255);}"));
+        CellGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
+                                               QStringLiteral("QLabel{color:rgb(255,255,255);}"));
 
-        TOOLS::setPropertyAnimation({animi_MenuBar},
+        CellGlobal::setPropertyAnimation({animi_MenuBar},
                                      "color",
                                      menuBar->color(),
-                                     LITERAL::GRAYLEVEL45,
+                                     Cell_Const::GRAYLEVEL45,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {menuBar}, nullptr);
-        TOOLS::setPropertyAnimation({animi_StatusBar},
+        CellGlobal::setPropertyAnimation({animi_StatusBar},
                                      "color",
                                      statusBar->color(),
-                                     LITERAL::GRAYLEVEL45,
+                                     Cell_Const::GRAYLEVEL45,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {statusBar}, nullptr);
 
-        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
+        CellGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
                                      "color",
                                      leftBlock->color(),
-                                     LITERAL::GRAYLEVEL70,
+                                     Cell_Const::GRAYLEVEL70,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {leftBlock,rightBlock}, nullptr);
@@ -218,34 +216,34 @@ void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
     else{
         m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
 
-        TOOLS::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
+        CellGlobal::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
                                           QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
 
-        TOOLS::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
+        CellGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                           QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));
 
-        TOOLS::setPropertyAnimation({animi_MenuBar},
-                                     "color",
-                                     menuBar->color(),
-                                     QColor(65,152,197),
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {menuBar}, nullptr);
-        TOOLS::setPropertyAnimation({animi_StatusBar},
-                                     "color",
-                                     statusBar->color(),
-                                     QColor(210,210,210),
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {statusBar}, nullptr);
+        CellGlobal::setPropertyAnimation({animi_MenuBar},
+                                         "color",
+                                         menuBar->color(),
+                                         QColor(65,152,197),
+                                         CellGlobal::CELL_GLOBALANIMIDURATION,
+                                         QEasingCurve::InOutCubic,
+                                         {menuBar}, nullptr);
+        CellGlobal::setPropertyAnimation({animi_StatusBar},
+                                         "color",
+                                         statusBar->color(),
+                                         QColor(210,210,210),
+                                         CellGlobal::CELL_GLOBALANIMIDURATION,
+                                         QEasingCurve::InOutCubic,
+                                         {statusBar}, nullptr);
 
-        TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
-                                     "color",
-                                     leftBlock->color(),
-                                     QColor(235,235,235),
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {leftBlock,rightBlock}, nullptr);
+        CellGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
+                                         "color",
+                                         leftBlock->color(),
+                                         QColor(235,235,235),
+                                         CellGlobal::CELL_GLOBALANIMIDURATION,
+                                         QEasingCurve::InOutCubic,
+                                         {leftBlock,rightBlock}, nullptr);
     }
 }
 

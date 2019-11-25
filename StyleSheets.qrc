@@ -1,12 +1,8 @@
 <RCC>
     <qresource prefix="/styleSheets">
         <file>Share/styleSheets/Editor_ScrollBar.css</file>
-        <file>Share/styleSheets/Frame_OptionBlock_bright.css</file>
-        <file>Share/styleSheets/Frame_OptionBlock_dark.css</file>
         <file>Share/styleSheets/GuideDialogCloseBtn_Bright.css</file>
         <file>Share/styleSheets/GuideDialogCloseBtn_Dark.css</file>
-        <file>Share/styleSheets/GuideDialogIcon_bright.css</file>
-        <file>Share/styleSheets/GuideDialogIcon_dark.css</file>
         <file>Share/styleSheets/MainWindowCloseBtn_bright.css</file>
         <file>Share/styleSheets/MainWindowCloseBtn_dark.css</file>
         <file>Share/styleSheets/MainWindowComboBox.css</file>
@@ -22,5 +18,7 @@
         <file>Share/styleSheets/WorkshopEditor.css</file>
         <file>Share/styleSheets/ScrollBar_Bright.css</file>
         <file>Share/styleSheets/ScrollBar_Dark.css</file>
+        <file>Share/styleSheets/Homepage_OptionBlock_bright.css</file>
+        <file>Share/styleSheets/Homepage_OptionBlock_dark.css</file>
     </qresource>
 </RCC>

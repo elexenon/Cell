@@ -47,15 +47,15 @@ void SettingsPageWidget::mainWindowSetColorSchemeModeCall(CellGlobal::COLOR_SCHE
 
 void SettingsPageWidget::Init()
 {
-    setColor(QColor(255,255,255));
+    setColor(LITERAL::GRAYLEVEL255);
 
     optionBlock1->setObjectName(QStringLiteral("optionBlock1"));
     optionBlock1->setGeometry(45, 20, 881, 151);
-    optionBlock1->setColor(QColor(218,218,218));
+    optionBlock1->setColor(LITERAL::GRAYLEVEL218);
 
     optionBlock2->setObjectName(QStringLiteral("optionBlock2"));
     optionBlock2->setGeometry(45, 220, 881, 151);
-    optionBlock2->setColor(QColor(218,218,218));
+    optionBlock2->setColor(LITERAL::GRAYLEVEL218);
 
     Btn_bright->setObjectName(QStringLiteral("Btn_bright"));
     Btn_bright->setGeometry(150,20,151,101);
@@ -107,7 +107,7 @@ void SettingsPageWidget::modulesChangeToDarkness()  // Color_Scheme_Switch.
     TOOLS::setPropertyAnimation({label_appearence_animi, label_general_animi, label_auto_hint_animi},
                                  "color",
                                  label_appearence->color(),
-                                 QColor(255,255,255),
+                                 LITERAL::GRAYLEVEL255,
                                  CellGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
                                  {label_appearence, label_general, label_auto_hint},nullptr);
@@ -121,14 +121,14 @@ void SettingsPageWidget::modulesChangeToDarkness()  // Color_Scheme_Switch.
     TOOLS::setPropertyAnimation({animi},
                                  "color",
                                  color(),
-                                 QColor(44,44,45),
+                                 LITERAL::GRAYLEVEL45,
                                  CellGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
                                  {this},nullptr);
     TOOLS::setPropertyAnimation({optionBlock1_animi,optionBlock2_animi},
                                  "color",
                                  optionBlock1->color(),
-                                 QColor(70,70,70),
+                                 LITERAL::GRAYLEVEL70,
                                  CellGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
                                  {optionBlock1,optionBlock2},nullptr);
@@ -156,14 +156,14 @@ void SettingsPageWidget::modulesChangeToBrightness()    // Color_Scheme_Switch.
     TOOLS::setPropertyAnimation({animi},
                                  "color",
                                  color(),
-                                 QColor(255,255,255),
+                                 LITERAL::GRAYLEVEL255,
                                  CellGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
                                  {this},nullptr);
     TOOLS::setPropertyAnimation({optionBlock1_animi,optionBlock2_animi},
                                  "color",
                                  optionBlock1->color(),
-                                 QColor(218,218,218),
+                                 LITERAL::GRAYLEVEL218,
                                  CellGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
                                  {optionBlock1,optionBlock2},nullptr);

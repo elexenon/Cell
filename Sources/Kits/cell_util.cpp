@@ -24,10 +24,12 @@ const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\C
 const QString LIB_DIR(":/libs/Share/libs/");
 const QString COLOR_SPACE_GRAY("#798186");
 
-const QColor COLOR_OPTION_BLOCK_DARK(44, 44, 45);
-const QColor COLOR_OPTION_BLOCK_BRIGHT(218, 218, 218);
-const QColor MAINWINDOW_DARK(31, 30, 31);
-const QColor MAINWINDOW_BRIGHT(247, 247, 247);
+const QColor GRAYLEVEL255(255,255,255);
+const QColor GRAYLEVEL45(45, 45, 45);
+const QColor GRAYLEVEL218(218, 218, 218);
+const QColor GRAYLEVEL30(30, 30, 30);
+const QColor GRAYLEVEL247(247, 247, 247);
+const QColor GRAYLEVEL70(70,70,70);
 
 const QString QSS_CUSTOMFRAME_WITH_RADIUS(
 "QFrame{"

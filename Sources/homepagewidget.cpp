@@ -52,7 +52,7 @@ void HomePageWidget::Init()
     QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
     verticalBar->setStyleSheet(styleSheetLoader->styleSheet());
 
-    styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.css"));
+    styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_bright.css"));
     ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
 }
 
@@ -73,7 +73,7 @@ void HomePageWidget::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         ui->line->setStyleSheet("QFrame{border:none;background-color:#FFFFFF;"
                                 "max-height : 21px;}");
         using TOOLS::styleSheetLoader;
-        styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_dark.css"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_dark.css"));
         ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
 
         ui->scrollAreaWidgetContents_3->setStyleSheet("QWidget{background-color:#1F1E1F;}");
@@ -93,7 +93,7 @@ void HomePageWidget::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         TOOLS::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->line->setStyleSheet(QStringLiteral("QFrame{border:none;background-color:#DADADA;max-height : 21px;}"));
-        styleSheetLoader->setStyleSheetName(QStringLiteral("Frame_OptionBlock_bright.css"));
+        styleSheetLoader->setStyleSheetName(QStringLiteral("Homepage_OptionBlock_bright.css"));
         ui->frame->setStyleSheet(styleSheetLoader->styleSheet());
 
         ui->scrollAreaWidgetContents_3->setStyleSheet("QWidget{background-color:rgb(247, 247, 247);}");

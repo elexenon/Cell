@@ -73,10 +73,13 @@ extern const QString      QSS_CUSTOMFRAME;
 extern const QString      QSS_CUSTOMLABEL;
 extern const QString      QSS_CUSTOMBUTTON_STATIC;
 extern const QString      QSS_CUSTOMBUTTON_DYNAMIC;
-extern const QColor       COLOR_OPTION_BLOCK_DARK;
-extern const QColor       COLOR_OPTION_BLOCK_BRIGHT;
-extern const QColor       MAINWINDOW_DARK;
-extern const QColor       MAINWINDOW_BRIGHT;
+
+extern const QColor       GRAYLEVEL255;
+extern const QColor       GRAYLEVEL70;
+extern const QColor       GRAYLEVEL45;
+extern const QColor       GRAYLEVEL218;
+extern const QColor       GRAYLEVEL30;
+extern const QColor       GRAYLEVEL247;
 } // namespace LITERAL{
 } // namespace UTILITY{
 Q_DECLARE_METATYPE(CellGlobal::COLOR_SCHEME);

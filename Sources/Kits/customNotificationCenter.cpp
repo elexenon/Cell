@@ -36,7 +36,7 @@ void notificationCenter::Init()
 
     processBlock->setObjectName(QString::fromUtf8("processBlock"));
     processBlock->setGeometry(15,40,270,80);
-    processBlock->setColor(QColor(255,255,255));
+    processBlock->setColor(Qt::white);
     processBlock->hide();
 
     label_WS->setObjectName(QString::fromUtf8("label_WS"));

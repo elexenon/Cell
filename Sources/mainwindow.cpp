@@ -70,21 +70,21 @@ void mainWindow::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      color(),
-                                     LITERAL::MAINWINDOW_BRIGHT,
+                                     LITERAL::GRAYLEVEL247,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      frame_titleBar->color(),
-                                     QColor(255,255,255),
+                                     LITERAL::GRAYLEVEL255,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
         TOOLS::setPropertyAnimation({notifiCenter_animi},
                                      "color",
                                      notificationCenter->color(),
-                                     QColor(218,218,218),
+                                     LITERAL::GRAYLEVEL218,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {notificationCenter}, nullptr);
@@ -109,21 +109,21 @@ void mainWindow::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      color(),
-                                     LITERAL::MAINWINDOW_DARK,
+                                     LITERAL::GRAYLEVEL30,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
         TOOLS::setPropertyAnimation({propertyAnimi},
                                      "color",
                                      frame_titleBar->color(),
-                                     QColor(44,44,45),
+                                     LITERAL::GRAYLEVEL45,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
         TOOLS::setPropertyAnimation({notifiCenter_animi},
                                      "color",
                                      notificationCenter->color(),
-                                     QColor(70,70,70),
+                                     LITERAL::GRAYLEVEL70,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {notificationCenter}, nullptr);
@@ -150,7 +150,7 @@ void mainWindow::InitMainWindow()
     customWidget::LoadWinStyle(this);    
 
     frame_titleBar->setGeometry(0, 0, 1311, 61);
-    frame_titleBar->setColor(QColor(255, 255, 255));
+    frame_titleBar->setColor(Qt::white);
 
     settingsPage->setAutoFillBackground(true);
 
@@ -159,23 +159,23 @@ void mainWindow::InitMainWindow()
     ui->stackedWidget->setCurrentIndex(1);
 
     Tab_HomePage->setObjectName(QStringLiteral("Tab_HomePage"));
-    Tab_HomePage->setBrightModeCheckedUncheckedColor(QColor(218,218,218),QColor(247,247,247));
-    Tab_HomePage->setDarkModeCheckedUncheckedColor(QColor(70,70,70),QColor(30,31,30));
+    Tab_HomePage->setBrightModeCheckedUncheckedColor(LITERAL::GRAYLEVEL218,LITERAL::GRAYLEVEL247);
+    Tab_HomePage->setDarkModeCheckedUncheckedColor(LITERAL::GRAYLEVEL70,LITERAL::GRAYLEVEL30);
     Tab_HomePage->Init();
     Tab_HomePage->setGeometry(40, 101, 251, 31);
     Tab_HomePage->setCheckable(true);
     Tab_HomePage->setChecked(true);
 
     Tab_Settings->setObjectName(QStringLiteral("Tab_Settings"));
-    Tab_Settings->setBrightModeCheckedUncheckedColor(QColor(218,218,218),QColor(247,247,247));
-    Tab_Settings->setDarkModeCheckedUncheckedColor(QColor(70,70,70),QColor(30,31,30));
+    Tab_Settings->setBrightModeCheckedUncheckedColor(LITERAL::GRAYLEVEL218,LITERAL::GRAYLEVEL247);
+    Tab_Settings->setDarkModeCheckedUncheckedColor(LITERAL::GRAYLEVEL70,LITERAL::GRAYLEVEL30);
     Tab_Settings->Init();
     Tab_Settings->setGeometry(40, 135, 251, 31);
     Tab_Settings->setCheckable(true);
 
     Tab_Guide->setObjectName(QStringLiteral("Tab_Guide"));
-    Tab_Guide->setBrightModeCheckedUncheckedColor(QColor(218,218,218),QColor(247,247,247));
-    Tab_Guide->setDarkModeCheckedUncheckedColor(QColor(70,70,70),QColor(30,31,30));
+    Tab_Guide->setBrightModeCheckedUncheckedColor(LITERAL::GRAYLEVEL218,LITERAL::GRAYLEVEL247);
+    Tab_Guide->setDarkModeCheckedUncheckedColor(LITERAL::GRAYLEVEL70,LITERAL::GRAYLEVEL30);
     Tab_Guide->Init();
     Tab_Guide->setGeometry(40, 169, 251, 31);
 
@@ -189,8 +189,8 @@ void mainWindow::InitMainWindow()
     ui->Label_Guide->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
-    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),QColor(218,218,218));
-    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),QColor(70,70,70));
+    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),LITERAL::GRAYLEVEL218);
+    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),LITERAL::GRAYLEVEL70);
     Btn_NewProject->setAnimationDuration(CellGlobal::CELL_GLOBALANIMIDURATION);
     Btn_NewProject->Init();
     Btn_NewProject->setGeometry(40, 331, 251, 81);
@@ -214,8 +214,8 @@ void mainWindow::InitMainWindow()
     Btn_NewProject_Hint->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_OpenProject->setObjectName(QStringLiteral("Btn_OpenProject"));
-    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),QColor(218,218,218));
-    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),QColor(70,70,70));
+    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),LITERAL::GRAYLEVEL218);
+    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),LITERAL::GRAYLEVEL70);
     Btn_OpenProject->setAnimationDuration(CellGlobal::CELL_GLOBALANIMIDURATION);
     Btn_OpenProject->Init();
     Btn_OpenProject->setGeometry(40, 421, 251, 81);
@@ -254,7 +254,7 @@ void mainWindow::InitMainWindow()
 
     notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
     notificationCenter->setGeometry(18,740,300,390);
-    notificationCenter->setColor(QColor(218,218,218));
+    notificationCenter->setColor(LITERAL::GRAYLEVEL218);
 
     Btn_popUp->setObjectName(QStringLiteral("Btn_popUp"));
     Btn_popUp->setFlat(true);

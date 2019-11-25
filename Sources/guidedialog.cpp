@@ -96,7 +96,7 @@ void GuideDialog::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         TOOLS::setPropertyAnimation({animi_title},
                                      "color",
                                      frame_titleBar->color(),
-                                     QColor(44, 44, 45),
+                                     LITERAL::GRAYLEVEL45,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);

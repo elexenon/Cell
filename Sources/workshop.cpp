@@ -195,14 +195,14 @@ void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         TOOLS::setPropertyAnimation({animi_MenuBar},
                                      "color",
                                      menuBar->color(),
-                                     LITERAL::COLOR_OPTION_BLOCK_DARK,
+                                     LITERAL::GRAYLEVEL45,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {menuBar}, nullptr);
         TOOLS::setPropertyAnimation({animi_StatusBar},
                                      "color",
                                      statusBar->color(),
-                                     LITERAL::COLOR_OPTION_BLOCK_DARK,
+                                     LITERAL::GRAYLEVEL45,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {statusBar}, nullptr);
@@ -210,7 +210,7 @@ void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         TOOLS::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
                                      "color",
                                      leftBlock->color(),
-                                     QColor(70, 70, 70),
+                                     LITERAL::GRAYLEVEL70,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {leftBlock,rightBlock}, nullptr);

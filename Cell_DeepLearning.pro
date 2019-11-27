@@ -10,9 +10,7 @@ CONFIG += c++11
 
 CONFIG += procompile_header
 
-CONFIG += resources_big
-
-PRECOMPILED_HEADER = Stable.h
+PRECOMPILED_HEADER = Headers/Kits/Pch.h
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -37,6 +35,7 @@ SOURCES += \
 
 
 HEADERS += \
+    Headers/Kits/Pch.h \
     Headers/Kits/cellProject.h \
     Headers/Kits/cell_util.h \
     Headers/Kits/customDialog.h \
@@ -54,7 +53,7 @@ HEADERS += \
     Headers/homepagewidget.h \
     Headers/settingspagewidget.h \
     Headers/wswelcomedialog.h \
-    Stable.h
+
 
 win32{
 SOURCES += \
@@ -71,20 +70,25 @@ FORMS += \
     Forms/workshop.ui \
     Forms/wswelcomedialog.ui
 
-INCLUDEPATH += Share/third-part-apis/QScintilla_gpl-2.11.2/Qt4Qt5
-
-LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5d.dll
-#LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5.dll
-
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 RESOURCES += \
     Fonts.qrc \
     Images.qrc \
     StyleSheets.qrc
 
+INCLUDEPATH += Share/third-part-apis/QScintilla_gpl-2.11.2/Qt4Qt5
+
+CONFIG += debug_and_release
+
+# Libs Path has to be an absolute directory.
+CONFIG(debug, debug | release){
+    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5d.dll
+}else{
+    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5.dll
+}
+
 RC_ICONS = CELL.ico
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target

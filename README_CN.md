@@ -8,7 +8,7 @@ Cell_DeepLearning
 
 <https://www.riverbankcomputing.com/software/qscintilla>
 
-我们非常欣赏Riverbank的产品，因为Qscintria的工作得很好。
+我们非常欣赏Riverbank的产品，因为Qscintria工作得很好。
 
 ## 编译
 

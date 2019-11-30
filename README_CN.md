@@ -29,3 +29,8 @@ GNU通用公共许可证 v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
 ## 贡献
 
 如果你有好点子或建议，欢迎提交 issue/pull 请求
+
+## 预览
+
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/brightmode.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/darkmode.png)

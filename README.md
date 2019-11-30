@@ -31,4 +31,4 @@ The GNU License(<http://www.gnu.org/licenses/gpl-3.0.html>)
 If you have any ideas or suggestions, welcome to submit an issue/pull request.
 
 ## Preview
-![image](https://github.com/Fijiisland/Cell_DeepLearning/master/AppPreview/brightmode.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/brightmode.png)

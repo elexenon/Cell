@@ -32,3 +32,4 @@ If you have any ideas or suggestions, welcome to submit an issue/pull request.
 
 ## Preview
 ![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/brightmode.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/darkmode.png)

@@ -42,6 +42,11 @@ const QString QSS_CUSTOMLABEL(
 "QLabel{"
 "color: rgb(%1, %2, %3);"
 "}");
+const QString QSS_CUSTOMLABEL_TRANSPARENT(
+"QLabel{"
+"background:transparent;"
+"color: rgb(%1, %2, %3);"
+"}");
 const QString QSS_CUSTOMBUTTON_STATIC(
 "QPushButton{"
 "background-color: rgb(%1, %2, %3);"

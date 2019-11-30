@@ -17,6 +17,7 @@ extern const QString      LIB_DIR;
 extern const QString      QSS_CUSTOMFRAME_WITH_RADIUS;
 extern const QString      QSS_CUSTOMFRAME;
 extern const QString      QSS_CUSTOMLABEL;
+extern const QString      QSS_CUSTOMLABEL_TRANSPARENT;
 extern const QString      QSS_CUSTOMBUTTON_STATIC;
 extern const QString      QSS_CUSTOMBUTTON_DYNAMIC;
 

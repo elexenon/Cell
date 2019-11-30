@@ -21,7 +21,9 @@ public:
     explicit notificationCenter(const QString &qss,QWidget *parent = nullptr);
     ~notificationCenter() override = default;
 
-    void Init();
+    void     Init();
+    inline
+    unsigned getCurrWorkshopCount(){ return workshop_instancesCount;}
 
 private:
     customLabel *label_emptyNotifications;    

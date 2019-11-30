@@ -55,7 +55,8 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/close1.png);</string>
+    <string notr="true">border-image: url(:/images/Share/images/close1.png);
+</string>
    </property>
    <property name="text">
     <string/>
@@ -65,6 +66,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="Btn_max">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>1210</x>
@@ -74,7 +78,8 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/zoom.png);</string>
+    <string notr="true">border-image: url(:/images/Share/images/zoom.png);
+background:transparent;</string>
    </property>
    <property name="text">
     <string/>
@@ -93,61 +98,14 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Share/images/mini1.png);</string>
+    <string notr="true">border-image: url(:/images/Share/images/mini1.png);
+</string>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="flat">
     <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="Label_HomePage">
-   <property name="geometry">
-    <rect>
-     <x>45</x>
-     <y>101</y>
-     <width>50</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background:transparent</string>
-   </property>
-   <property name="text">
-    <string>主页</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="Label_Settings">
-   <property name="geometry">
-    <rect>
-     <x>45</x>
-     <y>135</y>
-     <width>50</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background:transparent</string>
-   </property>
-   <property name="text">
-    <string>选项</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="Label_Guide">
-   <property name="geometry">
-    <rect>
-     <x>45</x>
-     <y>169</y>
-     <width>50</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background:transparent</string>
-   </property>
-   <property name="text">
-    <string>向导</string>
    </property>
   </widget>
   <widget class="QStackedWidget" name="stackedWidget">

@@ -26,7 +26,6 @@ class customFrame;
 class customStaticButton;
 class customDynamicButton;
 class customLabel;
-class QLabel;
 class notificationCenter;
 
 class mainWindow : public customWidget
@@ -42,10 +41,16 @@ private:
 
     QGraphicsOpacityEffect *opacityEffect;
 
-    QPropertyAnimation     *propertyAnimi;
+    QPropertyAnimation     *this_animi;
+    QPropertyAnimation     *frame_titleBar_animi;
     QPropertyAnimation     *Btn_NewProject_Function_animi;
     QPropertyAnimation     *Btn_NewProject_Hint_animi;
+    QPropertyAnimation     *Btn_OpenProject_Function_animi;
+    QPropertyAnimation     *Btn_OpenProject_Hint_animi;
     QPropertyAnimation     *notifiCenter_animi;
+    QPropertyAnimation     *Label_HomePage_animi;
+    QPropertyAnimation     *Label_Settings_animi;
+    QPropertyAnimation     *Label_Guide_animi;
 
     QGraphicsDropShadowEffect *eff_dse;
     QGraphicsDropShadowEffect *eff_dse2;
@@ -62,13 +67,17 @@ private:
     customDynamicButton    *Btn_NewProject;
     customDynamicButton    *Btn_OpenProject;
 
-    QLabel                 *Btn_NewProject_Icon;
-    QLabel                 *Btn_NewProject_Function;
-    QLabel                 *Btn_NewProject_Hint;
+    customLabel            *Tab_HomePage_Label;
+    customLabel            *Tab_Settings_Label;
+    customLabel            *Tab_Guide_Label;
 
-    QLabel                 *Btn_OpenProject_Icon;
-    QLabel                 *Btn_OpenProject_Function;
-    QLabel                 *Btn_OpenProject_Hint;
+    customLabel            *Btn_NewProject_Icon;
+    customLabel            *Btn_NewProject_Function;
+    customLabel            *Btn_NewProject_Hint;
+
+    customLabel            *Btn_OpenProject_Icon;
+    customLabel            *Btn_OpenProject_Function;
+    customLabel            *Btn_OpenProject_Hint;
 
     notificationCenter     *notificationCenter;
     QPushButton            *Btn_popUp;
@@ -77,7 +86,6 @@ private:
     QPoint                   m_startPoint;
     QPoint                   m_windowPoint;
     bool                     m_move;
-    bool                     popUpNotificationCenterAuto;
     CellGlobal::PAGE_TYPE    currentPage;
     CellGlobal::COLOR_SCHEME m_mode;
 
@@ -106,5 +114,6 @@ private slots:
     void Btn_NewProject_clicked();
     void popUpNotificationCenter();
     void Btn_popUp_clicked();
+    void popUpForWorkShop();
 };
 #endif

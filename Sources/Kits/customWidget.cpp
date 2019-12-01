@@ -24,7 +24,7 @@ const QColor customWidget::color() const
 void customWidget::setColor(const QColor &color)
 {
     m_color = color;
-    setStyleSheet(QString("QWidget{background-color:rgb(%1,%2,%3);}").arg(color.red()).arg(color.green()).arg(color.blue()));
+    setStyleSheet(QString("background-color:rgb(%1,%2,%3);").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
 bool customWidget::nativeEvent(const QByteArray &eventType, void *message, long *result)

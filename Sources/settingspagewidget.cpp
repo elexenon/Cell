@@ -6,7 +6,6 @@
 //
 // Of source file directory.
 #include "Headers/Kits/qstylesheetloader.hpp"
-#include "Headers/Kits/customWidget.h"
 #include "Headers/Kits/customFrame.h"
 #include "Headers/Kits/customLabel.h"
 #include "Headers/settingspagewidget.h"
@@ -84,9 +83,8 @@ void SettingsPageWidget::Init()
     label_auto_hint->setFont(QFont(QStringLiteral("Microsoft YaHei UI")));
 
     line_color->setParent(this);
-    line_color->setGeometry(195, 150, 151, 2);
-    line_color->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(121,129,134);}"));
-    line_color->setFrameShape(QFrame::VLine);
+    line_color->setGeometry(195, 150, 151, 3);
+    line_color->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(255,255,255);}"));
     line_color->setFrameShadow(QFrame::Plain);
 
     label_auto_hint->setStyleSheet(QStringLiteral("QLabel{color:#798186;background-color:rgb(255,255,255);}"));

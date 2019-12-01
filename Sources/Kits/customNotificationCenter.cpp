@@ -14,77 +14,102 @@
 
 notificationCenter::notificationCenter(const QString &qss,QWidget *parent):
     customFrame(qss,parent),
-    label_emptyNotifications(new customLabel(Cell_Const::QSS_CUSTOMLABEL,this)),
-    label_hint(new customLabel(Cell_Const::QSS_CUSTOMLABEL,this)),
-    processBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME,this)),
-    label_WS(new QLabel(processBlock)),
-    label_count(new QLabel(processBlock)),
-    workshop_instancesCount(0)
+    workshop_instancesCount(0),
+    label_ready(new QLabel(this)),
+    label_identifi(new QLabel(this)),
+    label_notifi(new QLabel(this)),
+    hidePos_iden(QPoint(-120,3)),
+    normalPos_iden(QPoint(10,3)),
+    hidePos_ready(QPoint(130,3)),
+    normalPos_ready(QPoint(10,3)),
+    currState(NOTIFI_STATE::_NORMAL)
 {
     Init();
 }
 
 void notificationCenter::Init()
 {
-    label_emptyNotifications->setObjectName(QString::fromUtf8("label_emptyNotifications"));
-    label_emptyNotifications->setText(tr("没有新的通知。"));
-    label_emptyNotifications->setFont(QFont("微软雅黑 Light",18));
-    label_emptyNotifications->setStyleSheet("color:rgb(255,255,255);");
-    label_emptyNotifications->setGeometry(50, 100, label_emptyNotifications->width()+100,label_emptyNotifications->height());
+    label_identifi->setObjectName("label_identifi");
+    label_identifi->setText("WORKSHOP");
+    label_identifi->setFont(QFont ("Microsoft YaHei UI",8,QFont::Bold));
+    label_identifi->setStyleSheet("QLabel{color:rgb(255,255,255);}");
+    label_identifi->setGeometry(-120,3,120,22);
 
-    processBlock->setObjectName(QString::fromUtf8("processBlock"));
-    processBlock->setGeometry(15,40,270,80);
-    processBlock->setColor(Qt::white);
-    processBlock->hide();
+    label_ready->setObjectName("label_ready");
+    label_ready->setText(QString::fromUtf8("就绪"));
+    label_ready->setFont(QFont("Microsoft YaHei UI",9));
+    label_ready->setStyleSheet("QLabel{color:rgb(255,255,255);}");
+    label_ready->setGeometry(10,3,40,22);
+}
 
-    label_WS->setObjectName(QString::fromUtf8("label_WS"));
-    label_WS->setStyleSheet("background:transparent;border-image: url(:/images/Share/images/WS_process.png);");
-    label_WS->setGeometry(20,25,108,30);
-
-    label_count->setObjectName(QString::fromUtf8("label_count"));
-    label_count->setGeometry(220,28,26,26);
-    label_count->setText(QString::number(workshop_instancesCount));
-    label_count->setFont(QFont("Courier New"));
-    label_count->setStyleSheet("QLabel{color:rgb(70,70,70);}");
-
-    label_hint->setObjectName(QString::fromUtf8("label_hint"));
-    label_hint->setText(QString::fromUtf8("当前正在运行WorkShop实例。"));
-    label_hint->setFont(QFont("Microsoft YaHei UI"));
-    label_hint->setStyleSheet("QLabel{background:transparent; color:rgb(247,247,247);}");
-    label_hint->setGeometry(20, 130, 250,20);
-    label_hint->hide();
+void notificationCenter::transCurrState(const NOTIFI_STATE &newState)
+{
+    if(newState == currState) return;
+    currState = newState;
+    const QColor targetColor = (newState == NOTIFI_STATE::_BLUE ? QColor(50,200,230) : Cell_Const::GRAYLEVEL218);
+    CellGlobal::setPropertyAnimation({animi},
+                                     "color",
+                                     color(),
+                                     targetColor,
+                                     800,
+                                     QEasingCurve::InOutCubic,
+                                     {this},nullptr);
 }
 
 void notificationCenter::plusCnt()
 {
+    if(currState != NOTIFI_STATE::_BLUE){
+        transCurrState(NOTIFI_STATE::_BLUE);
+        CellGlobal::setPropertyAnimation({animi},
+                                         "pos",
+                                         label_identifi->pos(),
+                                         normalPos_iden,
+                                         700,
+                                         QEasingCurve::InOutCubic,
+                                         {label_identifi},nullptr);
+        CellGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
+                                            label_ready,700,CellGlobal::FADE_TYPE::_OUT);
+        CellGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
+                                            label_identifi,700,CellGlobal::FADE_TYPE::_IN);
+        CellGlobal::setPropertyAnimation({label_ready_animi_move},
+                                         "pos",
+                                         label_ready->pos(),
+                                         hidePos_ready,
+                                         700,
+                                         QEasingCurve::InOutCubic,
+                                         {label_ready},nullptr);
+    }
     workshop_instancesCount++;
-    label_count->setText(QString::number(workshop_instancesCount));
 #ifdef CELL_DEBUG
     qDebug() << "The amount of workshops: " << workshop_instancesCount;
 #endif
-    if(workshop_instancesCount > 0){
-        label_emptyNotifications->setWindowOpacity(0);
-        label_emptyNotifications->hide();
-        processBlock->show();
-        CellGlobal::setFadeInOrOutAnimation(eff,animi,processBlock,300,CellGlobal::FADE_TYPE::_IN);
-        label_hint->show();
-        CellGlobal::setFadeInOrOutAnimation(eff,animi,label_hint,300,CellGlobal::FADE_TYPE::_IN);
-    }
 }
 
 void notificationCenter::minusCnt()
 {
-    workshop_instancesCount--;
-    label_count->setText(QString::number(workshop_instancesCount));
+    if(--workshop_instancesCount == 0){
+        transCurrState(NOTIFI_STATE::_NORMAL);
+        CellGlobal::setPropertyAnimation({animi},
+                                         "pos",
+                                         label_identifi->pos(),
+                                         hidePos_iden,
+                                         700,
+                                         QEasingCurve::InOutCubic,
+                                         {label_identifi},nullptr);
+        CellGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
+                                            label_ready,700,CellGlobal::FADE_TYPE::_IN);
+        CellGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
+                                            label_identifi,700,CellGlobal::FADE_TYPE::_OUT);
+        CellGlobal::setPropertyAnimation({label_ready_animi_move},
+                                         "pos",
+                                         label_ready->pos(),
+                                         normalPos_ready,
+                                         700,
+                                         QEasingCurve::InOutCubic,
+                                         {label_ready},nullptr);
+
+    }
 #ifdef CELL_DEBUG
     qDebug() << "The amount of workshops: " << workshop_instancesCount;
 #endif
-    if(workshop_instancesCount == 0){
-        processBlock->setWindowOpacity(0);
-        processBlock->hide();
-        label_hint->setWindowOpacity(0);
-        label_hint->hide();
-        CellGlobal::setFadeInOrOutAnimation(eff,animi,label_emptyNotifications,300,CellGlobal::FADE_TYPE::_IN);
-        label_emptyNotifications->show();
-    }
 }

@@ -12,6 +12,7 @@
 #include <QCursor>
 #include <QPushButton>
 #include <QSplitter>
+#include <QVBoxLayout>
 #include <QGraphicsDropShadowEffect>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexerpython.h>
@@ -21,20 +22,20 @@
 #include "Headers/Kits/customFrame.h"
 #include "Headers/workshop.h"
 #include "ui_workshop.h"
+#define CELL_DEBUG
 
 Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Workshop),
-    dropShadowLine1(new QFrame),
-    dropShadowLine2(new QFrame),
-    dropShadowLine3(new QFrame),
     welcomeDialog(new WSWelcomeDialog),
     menuBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     leftBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     rightBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     statusBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     mainEditor(new QsciScintilla(this)),
-    m_color(CellGlobal::COLOR_SCHEME::_BRIGHT)
+    m_color(CellGlobal::COLOR_SCHEME::_BRIGHT),
+    verticalLayout(new QVBoxLayout(this)),
+    splitter(new QSplitter(this))
 {
     ui->setupUi(this);
     InitWorkshop();
@@ -51,10 +52,24 @@ void Workshop::InitWorkshop()
 {
     // Functional.
     setAttribute(Qt::WA_DeleteOnClose);
-    setFixedSize(this->size());
+
+    verticalLayout->setSpacing(0);
+    verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+    verticalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+    verticalLayout->setContentsMargins(0,0,0,0);
+
+    splitter->setObjectName(QStringLiteral("splitter"));
+    splitter->setOrientation(Qt::Horizontal);
+    splitter->setOpaqueResize(true);
+    splitter->setHandleWidth(1);
+    splitter->setChildrenCollapsible(false);
+    splitter->setStyleSheet(QStringLiteral("QSplitter::handle{background-color:grey;}"));
 
     menuBar->setParent(this);
     menuBar->setGeometry(0, 0, 1400, 39);
+    menuBar->setMaximumSize(65535,39);
+
+    verticalLayout->addWidget(menuBar);
 
     ui->BtnFile->setParent(menuBar);
     ui->BtnEdit->setParent(menuBar);
@@ -81,32 +96,33 @@ void Workshop::InitWorkshop()
     setEventConnections();
 
     leftBlock->setGeometry(0, 39, 370, 732);
+    leftBlock->setMinimumSize(200,50);
+
     rightBlock->setGeometry(1030, 39, 370, 732);
+    rightBlock->setMinimumSize(200,50);
 
-    dropShadowLine1->setParent(leftBlock);
-    dropShadowLine1->setGeometry(QRect(0, 0, leftBlock->width(), 1));
-    dropShadowLine1->setFrameShape(QFrame::HLine);
-    dropShadowLine1->setFrameShadow(QFrame::Plain);
+    splitter->addWidget(leftBlock);
+    splitter->addWidget(mainEditor);
+    splitter->addWidget(rightBlock);
+    splitter->setCollapsible(0,true);
+    splitter->setCollapsible(1,false);
+    splitter->setCollapsible(2,true);
 
-    dropShadowLine2->setParent(mainEditor);
-    dropShadowLine2->setGeometry(QRect(0, 0, mainEditor->width(), 1));
-    dropShadowLine2->setFrameShape(QFrame::HLine);
-    dropShadowLine2->setFrameShadow(QFrame::Plain);
+#ifdef CELL_DEBUG
+    qDebug() << splitter->indexOf(mainEditor);
+#endif
 
-    dropShadowLine3->setParent(rightBlock);
-    dropShadowLine3->setGeometry(QRect(0, 0, rightBlock->width(), 1));
-    dropShadowLine3->setFrameShape(QFrame::HLine);
-    dropShadowLine3->setFrameShadow(QFrame::Plain);
+    verticalLayout->addWidget(splitter);
 
     statusBar->setGeometry(0, 771, 1400, 29);
+    statusBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(210,210,210);}"));
+    statusBar->setMaximumSize(65535,29);
+
+    verticalLayout->addWidget(statusBar);
 
     cntRow = new QLabel(statusBar);
     cntChar = new QLabel(statusBar);
     labelFormat = new QLabel(statusBar);
-
-    // Load Style.
-    // Menu Bar.
-    statusBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(210,210,210);}"));
 
     menuBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(65,152,197);}"));
 
@@ -121,17 +137,6 @@ void Workshop::InitWorkshop()
     CellGlobal::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,
                                       ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
                                           QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
-
-    // DropShadow Lines.
-    CellGlobal::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                          QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
-
-    // DropShadowEffects.
-
-    CellGlobal::setDropShadowEffect({eff1,eff2,eff3},
-                                   {dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                    QPoint(0,1),Qt::black,10);
-
     // Main Editor.
     mainEditor->setFrameShape(QFrame::NoFrame);
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditor.css"));
@@ -184,9 +189,6 @@ void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
     if(mode == CellGlobal::COLOR_SCHEME::_DARK){
         m_mode = CellGlobal::COLOR_SCHEME::_DARK;
 
-        CellGlobal::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                               QStringLiteral("QFrame{border:none;background-color:rgb(44,44,45);max-height:1px;}"));
-
         CellGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                                QStringLiteral("QLabel{color:rgb(255,255,255);}"));
 
@@ -215,9 +217,6 @@ void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
     }
     else{
         m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
-
-        CellGlobal::multiModulesOneStyleSheet({dropShadowLine1,dropShadowLine2,dropShadowLine3},
-                                          QStringLiteral("QFrame{border:none;background-color:rgb(65,152,197);max-height:1px;}"));
 
         CellGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                           QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));

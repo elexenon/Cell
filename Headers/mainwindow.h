@@ -27,6 +27,7 @@ class customStaticButton;
 class customDynamicButton;
 class customLabel;
 class notificationCenter;
+class QLabel;
 
 class mainWindow : public customWidget
 {
@@ -53,7 +54,6 @@ private:
     QPropertyAnimation     *Label_Guide_animi;
 
     QGraphicsDropShadowEffect *eff_dse;
-    QGraphicsDropShadowEffect *eff_dse2;
 
     Workshop               *workshop;
     HomePageWidget         *homePage;
@@ -80,7 +80,7 @@ private:
     customLabel            *Btn_OpenProject_Hint;
 
     notificationCenter     *notificationCenter;
-    QPushButton            *Btn_popUp;
+    QPushButton            *Noticenter_Btn_popUp;
 
 private:
     QPoint                   m_startPoint;
@@ -112,8 +112,5 @@ private slots:
     void Tab_Settings_clicked();
     void Tab_Guide_clicked();
     void Btn_NewProject_clicked();
-    void popUpNotificationCenter();
-    void Btn_popUp_clicked();
-    void popUpForWorkShop();
 };
 #endif

@@ -24,6 +24,9 @@ class QStyleSheetLoader;
 class QPropertyAnimation;
 class QGraphicsDropShadowEffect;
 class QFrame;
+class QVBoxLayout;
+class QHBoxLayout;
+class QSplitter;
 
 class Workshop : public QWidget
 {
@@ -47,14 +50,6 @@ private:
     QPropertyAnimation *animi_LeftBlock;
     QPropertyAnimation *animi_RightBlock;
 
-    QGraphicsDropShadowEffect *eff1;
-    QGraphicsDropShadowEffect *eff2;
-    QGraphicsDropShadowEffect *eff3;
-
-    QFrame *dropShadowLine1;
-    QFrame *dropShadowLine2;
-    QFrame *dropShadowLine3;
-
     WSWelcomeDialog  *welcomeDialog;
     customFrame      *menuBar;
     customFrame      *leftBlock;
@@ -67,6 +62,9 @@ private:
 
     QColor                   m_color;
     CellGlobal::COLOR_SCHEME m_mode;
+
+    QVBoxLayout      *verticalLayout;
+    QSplitter        *splitter;
 
 private:
     void InitWorkshop();

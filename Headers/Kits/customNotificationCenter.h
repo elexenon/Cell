@@ -21,22 +21,35 @@ public:
     explicit notificationCenter(const QString &qss,QWidget *parent = nullptr);
     ~notificationCenter() override = default;
 
+    enum NOTIFI_STATE{_NORMAL,_BLUE};
+
     void     Init();
     inline
     unsigned getCurrWorkshopCount(){ return workshop_instancesCount;}
 
 private:
-    customLabel *label_emptyNotifications;    
-    customLabel *label_hint;
-
-    customFrame *processBlock;
-    QLabel      *label_WS;
-    QLabel      *label_count;
-
     unsigned workshop_instancesCount;
 
     QGraphicsOpacityEffect *eff;
-    QPropertyAnimation     *animi;     
+    QGraphicsOpacityEffect *eff2;
+    QPropertyAnimation     *animi;
+    QPropertyAnimation     *label_iden_animi;
+    QPropertyAnimation     *label_ready_animi;
+    QPropertyAnimation     *label_ready_animi_move;
+
+
+    QLabel *label_ready;
+    QLabel *label_identifi;
+    QLabel *label_notifi;
+
+    const QPoint hidePos_iden;
+    const QPoint normalPos_iden;
+    const QPoint hidePos_ready;
+    const QPoint normalPos_ready;
+
+    NOTIFI_STATE currState;
+
+    void transCurrState(const NOTIFI_STATE &newState);
 
 private slots:
     void plusCnt();

@@ -48,8 +48,8 @@ mainWindow::mainWindow(QWidget *parent)
     , Btn_OpenProject_Icon(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
     , Btn_OpenProject_Function(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
     , Btn_OpenProject_Hint(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
-    , notificationCenter(new class notificationCenter(Cell_Const::QSS_CUSTOMFRAME_WITH_RADIUS, this))
-    , Btn_popUp(new QPushButton(notificationCenter))
+    , notificationCenter(new class notificationCenter(Cell_Const::QSS_CUSTOMFRAME, this))
+    //, Noticenter_Btn_popUp(new QPushButton(notificationCenter))
     , currentPage(CellGlobal::PAGE_TYPE::_HOME)
     , m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
@@ -142,6 +142,7 @@ void mainWindow::InitMainWindow()
     this->setWindowFlags(windowFlags() | Qt::FramelessWindowHint);  // Remove Windows' Default Window Frame.
     customWidget::LoadWinStyle(this);    
 
+    frame_titleBar->setObjectName(QStringLiteral("frame_titleBar"));
     frame_titleBar->setGeometry(0, 0, 1311, 61);
     frame_titleBar->setColor(Qt::white);
 
@@ -243,21 +244,19 @@ void mainWindow::InitMainWindow()
 
     CellGlobal::setDropShadowEffect({eff_dse},
                                {ui->line},
-                                QPoint(0,1),Qt::black,20);
+                                QPoint(0,1),QColor(50,200,230),30);
 
     notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
-    notificationCenter->setGeometry(18,740,300,390);
+    notificationCenter->setGeometry(0,742,1400,29);
     notificationCenter->setColor(Cell_Const::GRAYLEVEL218);
 
-    CellGlobal::setDropShadowEffect({eff_dse2},
-                               {notificationCenter},
-                                QPoint(0,0),Qt::black,10);
-
-    Btn_popUp->setObjectName(QStringLiteral("Btn_popUp"));
-    Btn_popUp->setFlat(true);
-    Btn_popUp->setCursor(Qt::PointingHandCursor);
-    Btn_popUp->setGeometry(10,1,280,30);
-    Btn_popUp->setStyleSheet(QStringLiteral("background:transparent;border-image: url(:/images/Share/images/Btn_popUp.png);"));
+    /*
+    Noticenter_Btn_popUp->setObjectName(QStringLiteral("Noticenter_Btn_popUp"));
+    Noticenter_Btn_popUp->setFlat(true);
+    Noticenter_Btn_popUp->setCursor(Qt::PointingHandCursor);
+    Noticenter_Btn_popUp->setGeometry(10,1,280,30);
+    Noticenter_Btn_popUp->setStyleSheet(QStringLiteral("background:transparent;border-image: url(:/images/Share/images/Btn_popUp.png);"));
+    */
 
     int fontID_Info = QFontDatabase::addApplicationFont(Cell_Const::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
@@ -314,7 +313,6 @@ void mainWindow::setEventConnections()
     connect(Tab_Settings, SIGNAL(clicked(bool)), this, SLOT(Tab_Settings_clicked()));
     connect(Tab_Guide, SIGNAL(clicked(bool)), this, SLOT(Tab_Guide_clicked()));
     connect(Btn_NewProject, SIGNAL(clicked(bool)), this, SLOT(Btn_NewProject_clicked()));
-    connect(Btn_popUp, SIGNAL(clicked(bool)), this, SLOT(Btn_popUp_clicked()));
 }
 
 void mainWindow::on_Btn_mini_clicked()
@@ -430,33 +428,8 @@ void mainWindow::Btn_NewProject_clicked()
             workshop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(workshop, SIGNAL(constructed()),
             notificationCenter, SLOT(plusCnt()));
-    connect(workshop, SIGNAL(constructed()),
-            this, SLOT(popUpForWorkShop()));
     connect(workshop, SIGNAL(destoryed()),
             notificationCenter, SLOT(minusCnt()));
     workshop->_constructed();
     workshop->show();
-}
-
-void mainWindow::popUpNotificationCenter()
-{
-    QPoint targetPos = (notificationCenter->pos().y()==740 ? QPoint(18,550) : QPoint(18,740));
-    CellGlobal::setPropertyAnimation({notifiCenter_animi},
-                                 "pos",
-                                 notificationCenter->pos(),
-                                 targetPos,
-                                 CellGlobal::CELL_GLOBALANIMIDURATION,
-                                 QEasingCurve::InOutCubic,
-    {notificationCenter},nullptr);
-}
-
-void mainWindow::Btn_popUp_clicked()
-{
-    popUpNotificationCenter();
-}
-
-void mainWindow::popUpForWorkShop()
-{
-    if(notificationCenter->getCurrWorkshopCount()==1)
-        popUpNotificationCenter();
 }

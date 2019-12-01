@@ -2,7 +2,7 @@ QsciScintilla{
 	border: 0px;
 }
 
-QScrollBar:vertical {
+QsciScintilla::ScrollBar:vertical {
 	background:rgb(218,218,218);
 	width:10px;
 	margin:0px;
@@ -10,27 +10,27 @@ QScrollBar:vertical {
     padding-bottom:9px;
 }
 
-QScrollBar::handle:vertical {
+QsciScintilla::ScrollBar::handle:vertical {
 	background:rgb(218,218,218);
 	border-radius:2px; 
 	min-height:20px;
 }
  
-QScrollBar::add-line:vertical {
+QsciScintilla::ScrollBar::add-line:vertical {
 	background:rgb(218,218,218);
 	height:10px;
 	width:10px;
 	subcontrol-position:bottom;
 }
 
-QScrollBar::sub-line:vertical {
+QsciScintilla::ScrollBar::sub-line:vertical {
 	background:rgb(218,218,218);
 	height:10px;
 	width:10px;
 	subcontrol-position:top;
 }
  
-QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical   
+QsciScintilla::ScrollBar::add-page:vertical,QScrollBar::sub-page:vertical   
 {
     background:rgb(247,247,247);
     border-radius:2px;
@@ -38,7 +38,7 @@ QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical
 
 
 
-QScrollBar:horizontal {
+QsciScintilla::ScrollBar:horizontal {
 	background:rgb(218,218,218);
 	width:10px;
 	margin:0px;
@@ -46,27 +46,27 @@ QScrollBar:horizontal {
     padding-bottom:9px;
 }
 
-QScrollBar::handle:horizontal {
+QsciScintilla::ScrollBar::handle:horizontal {
 	background:rgb(218,218,218);
 	border-radius:2px; 
 	min-height:20px;
 }
  
-QScrollBar::add-line:horizontal {
+QsciScintilla::ScrollBar::add-line:horizontal {
 	background:rgb(218,218,218);
 	height:10px;
 	width:10px;
 	subcontrol-position:bottom;
 }
 
-QScrollBar::sub-line:horizontal {
+QsciScintilla::ScrollBar::sub-line:horizontal {
 	background:rgb(218,218,218);
 	height:10px;
 	width:10px;
 	subcontrol-position:top;
 }
  
-QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal   
+QsciScintilla::ScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal   
 {
     background:rgb(247,247,247);
     border-radius:2px;

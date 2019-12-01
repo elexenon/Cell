@@ -12,7 +12,8 @@
 customLabel::customLabel(const QString &qss, QWidget *parent):
     QLabel(parent),
     BASEQSS(qss)
-{}
+{
+}
 
 const QColor customLabel::color() const
 {

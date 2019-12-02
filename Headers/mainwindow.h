@@ -48,7 +48,6 @@ private:
     QPropertyAnimation     *Btn_NewProject_Hint_animi;
     QPropertyAnimation     *Btn_OpenProject_Function_animi;
     QPropertyAnimation     *Btn_OpenProject_Hint_animi;
-    QPropertyAnimation     *notifiCenter_animi;
     QPropertyAnimation     *Label_HomePage_animi;
     QPropertyAnimation     *Label_Settings_animi;
     QPropertyAnimation     *Label_Guide_animi;

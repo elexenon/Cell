@@ -9,6 +9,7 @@
 #define CUSTOMNOTIFICATIONCENTER_H
 
 #include "customFrame.h"
+#include "cell_util.h"
 
 class customLabel;
 class QPropertyAnimation;
@@ -37,7 +38,6 @@ private:
     QPropertyAnimation     *label_ready_animi;
     QPropertyAnimation     *label_ready_animi_move;
 
-
     QLabel *label_ready;
     QLabel *label_identifi;
     QLabel *label_notifi;
@@ -48,10 +48,12 @@ private:
     const QPoint normalPos_ready;
 
     NOTIFI_STATE currState;
+    CellGlobal::COLOR_SCHEME m_mode;
 
     void transCurrState(const NOTIFI_STATE &newState);
 
 private slots:
+    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
     void plusCnt();
     void minusCnt();
 };

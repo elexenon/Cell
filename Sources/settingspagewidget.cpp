@@ -95,71 +95,43 @@ void SettingsPageWidget::Init()
     setEventConnections();
 }
 
-void SettingsPageWidget::modulesChangeToDarkness()  // Color_Scheme_Switch.
-{   
-    if(m_mode == CellGlobal::COLOR_SCHEME::_DARK) return;
-    m_mode = CellGlobal::COLOR_SCHEME::_DARK;
-
-    CellGlobal::setPropertyAnimation({label_appearence_animi, label_general_animi, label_auto_hint_animi},
-                                     "color",
-                                     label_appearence->color(),
-                                     Cell_Const::GRAYLEVEL255,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {label_appearence, label_general, label_auto_hint},nullptr);
-    CellGlobal::setPropertyAnimation({line_color_animi},
-                                     "pos",
-                                     line_color->pos(),
-                                     QPoint(405, 150),
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {line_color},nullptr);
-    CellGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                     color(),
-                                     Cell_Const::GRAYLEVEL45,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {this},nullptr);
-    CellGlobal::setPropertyAnimation({optionBlock1_animi,optionBlock2_animi},
-                                     "color",
-                                     optionBlock1->color(),
-                                     Cell_Const::GRAYLEVEL70,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {optionBlock1,optionBlock2},nullptr);
-}
-
-void SettingsPageWidget::modulesChangeToBrightness()    // Color_Scheme_Switch.
+void SettingsPageWidget::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
-    if(m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT) return;
-    m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
-
+    if(mode == m_mode) return;
+    m_mode = mode;
+    const QColor thisTargetColor = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    Cell_Const::GRAYLEVEL255 : Cell_Const::GRAYLEVEL45);
+    const QColor labelGroupTargetColor = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    QColor(121,129,134) : Cell_Const::GRAYLEVEL255);
+    const QColor blockGroupTargetColor = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL70);
+    const QPoint lineTargetPos = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                              QPoint(195,150) : QPoint(405,150));
+    CellGlobal::setPropertyAnimation({animi},
+                                     "color",
+                                     color(),
+                                     thisTargetColor,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
+                                     QEasingCurve::InOutCubic,
+                                     {this},nullptr);
     CellGlobal::setPropertyAnimation({label_appearence_animi, label_general_animi, label_auto_hint_animi},
                                      "color",
                                      label_appearence->color(),
-                                     QColor(121,129,134),
+                                     labelGroupTargetColor,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {label_appearence, label_general, label_auto_hint},nullptr);
     CellGlobal::setPropertyAnimation({line_color_animi},
                                      "pos",
                                      line_color->pos(),
-                                     QPoint(195, 150),
+                                     lineTargetPos,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {line_color},nullptr);
-    CellGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                     color(),
-                                     Cell_Const::GRAYLEVEL255,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {this},nullptr);
     CellGlobal::setPropertyAnimation({optionBlock1_animi,optionBlock2_animi},
                                      "color",
                                      optionBlock1->color(),
-                                     Cell_Const::GRAYLEVEL218,
+                                     blockGroupTargetColor,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {optionBlock1,optionBlock2},nullptr);
@@ -173,14 +145,12 @@ void SettingsPageWidget::setEventConnections()
 
 void SettingsPageWidget::Btn_bright_clicked()
 {
-    modulesChangeToBrightness();
-
+    setColorScheme(CellGlobal::COLOR_SCHEME::_BRIGHT);
     emit enableColorScheme(CellGlobal::COLOR_SCHEME::_BRIGHT);
 }
 
 void SettingsPageWidget::Btn_dark_clicked()
 {
-    modulesChangeToDarkness();
-
+    setColorScheme(CellGlobal::COLOR_SCHEME::_DARK);
     emit enableColorScheme(CellGlobal::COLOR_SCHEME::_DARK);
 }

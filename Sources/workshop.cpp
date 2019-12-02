@@ -186,63 +186,43 @@ void Workshop::_constructed()
 void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
+    m_mode = mode;
+    const QColor menuBarTargetPos = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                              QColor(65,152,197) : Cell_Const::GRAYLEVEL45);
+    const QColor statusBarTargetPos = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                              QColor(210,210,210) : Cell_Const::GRAYLEVEL45);
+    const QColor blockTargetPos = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                              QColor(235,235,235) : Cell_Const::GRAYLEVEL70);
+    CellGlobal::setPropertyAnimation({animi_MenuBar},
+                                 "color",
+                                 menuBar->color(),
+                                 menuBarTargetPos,
+                                 CellGlobal::CELL_GLOBALANIMIDURATION,
+                                 QEasingCurve::InOutCubic,
+                                 {menuBar}, nullptr);
+    CellGlobal::setPropertyAnimation({animi_StatusBar},
+                                 "color",
+                                 statusBar->color(),
+                                 statusBarTargetPos,
+                                 CellGlobal::CELL_GLOBALANIMIDURATION,
+                                 QEasingCurve::InOutCubic,
+                                 {statusBar}, nullptr);
+
+    CellGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
+                                 "color",
+                                 leftBlock->color(),
+                                 blockTargetPos,
+                                 CellGlobal::CELL_GLOBALANIMIDURATION,
+                                 QEasingCurve::InOutCubic,
+                                 {leftBlock,rightBlock}, nullptr);
     if(mode == CellGlobal::COLOR_SCHEME::_DARK){
-        m_mode = CellGlobal::COLOR_SCHEME::_DARK;
-
         CellGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
-                                               QStringLiteral("QLabel{color:rgb(255,255,255);}"));
-
-        CellGlobal::setPropertyAnimation({animi_MenuBar},
-                                     "color",
-                                     menuBar->color(),
-                                     Cell_Const::GRAYLEVEL45,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {menuBar}, nullptr);
-        CellGlobal::setPropertyAnimation({animi_StatusBar},
-                                     "color",
-                                     statusBar->color(),
-                                     Cell_Const::GRAYLEVEL45,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {statusBar}, nullptr);
-
-        CellGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
-                                     "color",
-                                     leftBlock->color(),
-                                     Cell_Const::GRAYLEVEL70,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {leftBlock,rightBlock}, nullptr);
+                                               QStringLiteral("QLabel{color:rgb(255,255,255);}"));      
     }
     else{
         m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
-
         CellGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                           QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));
-
-        CellGlobal::setPropertyAnimation({animi_MenuBar},
-                                         "color",
-                                         menuBar->color(),
-                                         QColor(65,152,197),
-                                         CellGlobal::CELL_GLOBALANIMIDURATION,
-                                         QEasingCurve::InOutCubic,
-                                         {menuBar}, nullptr);
-        CellGlobal::setPropertyAnimation({animi_StatusBar},
-                                         "color",
-                                         statusBar->color(),
-                                         QColor(210,210,210),
-                                         CellGlobal::CELL_GLOBALANIMIDURATION,
-                                         QEasingCurve::InOutCubic,
-                                         {statusBar}, nullptr);
-
-        CellGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
-                                         "color",
-                                         leftBlock->color(),
-                                         QColor(235,235,235),
-                                         CellGlobal::CELL_GLOBALANIMIDURATION,
-                                         QEasingCurve::InOutCubic,
-                                         {leftBlock,rightBlock}, nullptr);
     }
 }
 

@@ -84,33 +84,22 @@ void GuideDialog::mouseReleaseEvent(QMouseEvent *event)
 void GuideDialog::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(m_mode == mode) return;
+    m_mode = mode;
+    const QColor targetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? QColor(164,164,164) : Cell_Const::GRAYLEVEL45);
+    CellGlobal::setPropertyAnimation({animi_title},
+                                 "color",
+                                 frame_titleBar->color(),
+                                 targetColor,
+                                 CellGlobal::CELL_GLOBALANIMIDURATION,
+                                 QEasingCurve::InOutCubic,
+                                 {frame_titleBar}, nullptr);
     if(mode == CellGlobal::COLOR_SCHEME::_DARK){
-        m_mode = CellGlobal::COLOR_SCHEME::_DARK;
-#ifdef CELL_DEBUG
-        qDebug() << "Here";
-#endif
         CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Dark.css"));
         ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-        CellGlobal::setPropertyAnimation({animi_title},
-                                     "color",
-                                     frame_titleBar->color(),
-                                     Cell_Const::GRAYLEVEL45,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {frame_titleBar}, nullptr);
     }
     else{
-        m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
-
         CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("GuideDialogCloseBtn_Bright.css"));
         ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-        CellGlobal::setPropertyAnimation({animi_title},
-                                     "color",
-                                     frame_titleBar->color(),
-                                     QColor(164, 163, 164),
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {frame_titleBar}, nullptr);
     }
 }
 

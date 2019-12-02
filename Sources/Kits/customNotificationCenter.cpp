@@ -7,7 +7,6 @@
 // Of source file directory.
 #include "Headers/Kits/customNotificationCenter.h"
 #include "Headers/Kits/customLabel.h"
-#include "Headers/Kits/cell_util.h"
 #define CELL_DEBUG
 
 #include <QLabel>
@@ -22,7 +21,8 @@ notificationCenter::notificationCenter(const QString &qss,QWidget *parent):
     normalPos_iden(QPoint(10,3)),
     hidePos_ready(QPoint(130,3)),
     normalPos_ready(QPoint(10,3)),
-    currState(NOTIFI_STATE::_NORMAL)
+    currState(NOTIFI_STATE::_NORMAL),
+    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
     Init();
 }
@@ -46,14 +46,30 @@ void notificationCenter::transCurrState(const NOTIFI_STATE &newState)
 {
     if(newState == currState) return;
     currState = newState;
-    const QColor targetColor = (newState == NOTIFI_STATE::_BLUE ? QColor(50,200,230) : Cell_Const::GRAYLEVEL218);
+    const QColor targetColor = (newState == NOTIFI_STATE::_BLUE ? QColor(50,200,230) :
+                                (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL70));
     CellGlobal::setPropertyAnimation({animi},
                                      "color",
                                      color(),
                                      targetColor,
                                      800,
                                      QEasingCurve::InOutCubic,
-                                     {this},nullptr);
+    {this},nullptr);
+}
+
+void notificationCenter::setColorScheme(CellGlobal::COLOR_SCHEME mode)
+{
+    if(mode == m_mode) return;
+    m_mode = mode;
+    if(currState == NOTIFI_STATE::_BLUE) return;
+    const QColor targetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL70);
+    CellGlobal::setPropertyAnimation({animi},
+                                     "color",
+                                      color(),
+                                      targetColor,
+                                      CellGlobal::CELL_GLOBALANIMIDURATION,
+                                      QEasingCurve::InOutCubic,
+                                      {this}, nullptr);
 }
 
 void notificationCenter::plusCnt()

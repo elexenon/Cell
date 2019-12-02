@@ -63,78 +63,39 @@ mainWindow::~mainWindow()
 
 void mainWindow::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
-    if(mode == CellGlobal::COLOR_SCHEME::_BRIGHT){
-        if(mode == m_mode) return;
-        m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
-        CellGlobal::setPropertyAnimation({this_animi},
-                                         "color",
-                                         color(),
-                                         Cell_Const::GRAYLEVEL247,
-                                         CellGlobal::CELL_GLOBALANIMIDURATION,
-                                         QEasingCurve::InOutCubic,
-                                         {this}, nullptr);
-        CellGlobal::setPropertyAnimation({frame_titleBar_animi},
-                                         "color",
-                                         frame_titleBar->color(),
-                                         Cell_Const::GRAYLEVEL255,
-                                         CellGlobal::CELL_GLOBALANIMIDURATION,
-                                         QEasingCurve::InOutCubic,
-                                         {frame_titleBar}, nullptr);
-        CellGlobal::setPropertyAnimation({notifiCenter_animi},
-                                         "color",
-                                          notificationCenter->color(),
-                                          Cell_Const::GRAYLEVEL218,
-                                          CellGlobal::CELL_GLOBALANIMIDURATION,
-                                          QEasingCurve::InOutCubic,
-                                          {notificationCenter}, nullptr);
-        CellGlobal::setPropertyAnimation({Btn_NewProject_Function_animi,Btn_NewProject_Hint_animi,
-                                          Btn_OpenProject_Function_animi,Btn_OpenProject_Hint_animi,
-                                          Label_HomePage_animi,Label_Settings_animi,Label_Guide_animi},
-                                          "color",
-                                          Btn_NewProject_Hint->color(),
-                                          Cell_Const::GRAYLEVEL70,
-                                          CellGlobal::CELL_GLOBALANIMIDURATION,
-                                          QEasingCurve::InOutCubic,
-                                          {Btn_NewProject_Function,Btn_NewProject_Hint,
-                                           Btn_OpenProject_Function,Btn_OpenProject_Hint,
-                                           Tab_HomePage_Label,Tab_Settings_Label,Tab_Guide_Label}, nullptr);
-    }
-    else{
-        if(mode == m_mode) return;
-        m_mode = CellGlobal::COLOR_SCHEME::_DARK;
-        CellGlobal::setPropertyAnimation({this_animi},
+    if(mode == m_mode) return;
+    m_mode = mode;
+    const QColor thisTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    Cell_Const::GRAYLEVEL247 : Cell_Const::GRAYLEVEL30);
+    const QColor titleBarTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    Cell_Const::GRAYLEVEL255 : Cell_Const::GRAYLEVEL45);
+    const QColor labelGroupTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    Cell_Const::GRAYLEVEL70 : Cell_Const::GRAYLEVEL255);
+    CellGlobal::setPropertyAnimation({this_animi},
                                      "color",
                                      color(),
-                                     Cell_Const::GRAYLEVEL30,
+                                     thisTargetColor,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
-        CellGlobal::setPropertyAnimation({frame_titleBar_animi},
+    CellGlobal::setPropertyAnimation({frame_titleBar_animi},
                                      "color",
                                      frame_titleBar->color(),
-                                     Cell_Const::GRAYLEVEL45,
+                                     titleBarTargetColor,
                                      CellGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
-        CellGlobal::setPropertyAnimation({notifiCenter_animi},
-                                     "color",
-                                     notificationCenter->color(),
-                                     Cell_Const::GRAYLEVEL70,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {notificationCenter}, nullptr);
-        CellGlobal::setPropertyAnimation({Btn_NewProject_Function_animi,Btn_NewProject_Hint_animi,
+    CellGlobal::setPropertyAnimation({Btn_NewProject_Function_animi,Btn_NewProject_Hint_animi,
                                       Btn_OpenProject_Function_animi,Btn_OpenProject_Hint_animi,
                                       Label_HomePage_animi,Label_Settings_animi,Label_Guide_animi},
                                       "color",
                                       Btn_NewProject_Hint->color(),
-                                      Cell_Const::GRAYLEVEL255,
+                                      labelGroupTargetColor,
                                       CellGlobal::CELL_GLOBALANIMIDURATION,
                                       QEasingCurve::InOutCubic,
                                       {Btn_NewProject_Function,Btn_NewProject_Hint,
-                                      Btn_OpenProject_Function,Btn_OpenProject_Hint,
-                                      Tab_HomePage_Label,Tab_Settings_Label,Tab_Guide_Label}, nullptr);
-    }
+                                       Btn_OpenProject_Function,Btn_OpenProject_Hint,
+                                       Tab_HomePage_Label,Tab_Settings_Label,Tab_Guide_Label}, nullptr);
 }
 
 void mainWindow::InitMainWindow()
@@ -250,14 +211,6 @@ void mainWindow::InitMainWindow()
     notificationCenter->setGeometry(0,742,1400,29);
     notificationCenter->setColor(Cell_Const::GRAYLEVEL218);
 
-    /*
-    Noticenter_Btn_popUp->setObjectName(QStringLiteral("Noticenter_Btn_popUp"));
-    Noticenter_Btn_popUp->setFlat(true);
-    Noticenter_Btn_popUp->setCursor(Qt::PointingHandCursor);
-    Noticenter_Btn_popUp->setGeometry(10,1,280,30);
-    Noticenter_Btn_popUp->setStyleSheet(QStringLiteral("background:transparent;border-image: url(:/images/Share/images/Btn_popUp.png);"));
-    */
-
     int fontID_Info = QFontDatabase::addApplicationFont(Cell_Const::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
 
@@ -291,6 +244,8 @@ void mainWindow::InitMainWindow()
 void mainWindow::setEventConnections()
 {
     // Set connections between SettingsPage & ColorScheme-change-enabled modules.
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            notificationCenter, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             guideDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),

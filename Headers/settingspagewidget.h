@@ -69,8 +69,7 @@ private:
 
 private:
     void   Init();
-    void   modulesChangeToDarkness();
-    void   modulesChangeToBrightness();
+    void   setColorScheme(CellGlobal::COLOR_SCHEME mode);
     void   setEventConnections();
 
 signals:

@@ -31,7 +31,7 @@ protected:
 
     QPropertyAnimation *animi;
 
-protected slots:
+public slots:
     void setColorScheme(CellGlobal::COLOR_SCHEME mode);
 };
 

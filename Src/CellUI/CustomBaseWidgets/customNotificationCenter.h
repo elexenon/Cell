@@ -9,20 +9,18 @@
 #define CUSTOMNOTIFICATIONCENTER_H
 
 #include "customFrame.h"
-#include "../../CellCore/Kits/CellUtility.h"
+#include "customGradientChangeFrame.h"
 
 class customLabel;
 class QPropertyAnimation;
 class QGraphicsOpacityEffect;
 class QLabel;
 
-class notificationCenter : public customFrame{
+class notificationCenter : public customGradientChangeFrame{
     Q_OBJECT
 public:
     explicit notificationCenter(const QString &qss,QWidget *parent = nullptr);
     ~notificationCenter() override = default;
-
-    enum NOTIFI_STATE{_NORMAL,_BLUE};
 
     void     Init();
     inline
@@ -33,7 +31,6 @@ private:
 
     QGraphicsOpacityEffect *eff;
     QGraphicsOpacityEffect *eff2;
-    QPropertyAnimation     *animi;
     QPropertyAnimation     *label_iden_animi;
     QPropertyAnimation     *label_ready_animi;
     QPropertyAnimation     *label_ready_animi_move;
@@ -47,13 +44,7 @@ private:
     const QPoint hidePos_ready;
     const QPoint normalPos_ready;
 
-    NOTIFI_STATE currState;
-    CellGlobal::COLOR_SCHEME m_mode;
-
-    void transCurrState(const NOTIFI_STATE &newState);
-
 private slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
     void plusCnt();
     void minusCnt();
 };

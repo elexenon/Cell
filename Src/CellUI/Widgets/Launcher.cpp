@@ -25,7 +25,8 @@
 #include "../CustomBaseWidgets/customNotificationCenter.h"
 #include "../CustomBaseWidgets/customLabel.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
-#include "ui_launcher.h"
+#include "ui_Launcher.h"
+#define CELL_DEBUG
 
 Launcher::Launcher(QWidget *parent)
     : customWidget(parent)
@@ -297,8 +298,11 @@ void Launcher::Tab_HomePage_clicked()
     Tab_HomePage->setChecked(true);
 
 #ifdef CELL_DEBUG
-    qDebug()<<"HomeBtn_checked:"<<Tab_HomePage->isChecked();
-    qDebug()<<"SettingsBtn_checked:"<<Tab_Settings->isChecked();
+    qDebug() << "--------------------------";
+    qDebug() << "LAUNCHER";
+    qDebug() << "HomeBtn_checked:"     << Tab_HomePage->isChecked();
+    qDebug() << "SettingsBtn_checked:" << Tab_Settings->isChecked();
+    qDebug() << "--------------------------\n";
 #endif
 
     startPageSwitchAnimation(PAGE_TYPE::_HOME);
@@ -317,8 +321,11 @@ void Launcher::Tab_Settings_clicked()
     Tab_Settings->setChecked(true);
 
 #ifdef CELL_DEBUG
-    qDebug()<<"HomeBtn_checked:"<<Tab_HomePage->isChecked();
-    qDebug()<<"SettingsBtn_checked:"<<Tab_Settings->isChecked();
+    qDebug() << "--------------------------";
+    qDebug() << "LAUNCHER";
+    qDebug() << "HomeBtn_checked:"     << Tab_HomePage->isChecked();
+    qDebug() << "SettingsBtn_checked:" << Tab_Settings->isChecked();
+    qDebug() << "--------------------------\n";
 #endif
 
     startPageSwitchAnimation(PAGE_TYPE::_SETTINGS);
@@ -345,13 +352,11 @@ void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
     }
 }
 
-#ifdef Q_OS_WIN32
 bool Launcher::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     return customWidget::nativeEvent(eventType, message, result);
 }
-#endif
-// Mouse drag process.
+
 void Launcher::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && event->y() <= 60){

@@ -18,9 +18,7 @@ WSLoadingDialog::WSLoadingDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
-#ifdef Q_OS_WIN32
     customDialog::LoadWinStyle(this);
-#endif
     setAutoFillBackground(true);
     setModal(true);
 
@@ -49,9 +47,7 @@ void WSLoadingDialog::updateProgressBar()
     }
 }
 
-#ifdef Q_OS_WIN32
 bool WSLoadingDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     return customDialog::nativeEvent(eventType, message, result);
 }
-#endif

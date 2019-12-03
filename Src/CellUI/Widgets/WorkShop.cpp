@@ -14,14 +14,17 @@
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QGraphicsDropShadowEffect>
+#include <QShortcut>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexerpython.h>
+#include "../CustomBaseWidgets/customFrame.h"
+#include "../CustomBaseWidgets/customGradientChangeFrame.h"
+#include "../../CellCore/CellProjectEntity.h"
 #include "../../CellCore/Kits/CellUtility.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "WSLoadingDialog.h"
-#include "../CustomBaseWidgets/customFrame.h"
 #include "WorkShop.h"
-#include "ui_workshop.h"
+#include "ui_WorkShop.h"
 #define CELL_DEBUG
 
 Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
@@ -31,11 +34,14 @@ Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     menuBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     leftBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     rightBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
-    statusBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
+    statusBar(new customGradientChangeFrame(Cell_Const::QSS_CUSTOMFRAME, QColor(74,207,90) ,this)),
     mainEditor(new QsciScintilla(this)),
     m_color(CellGlobal::COLOR_SCHEME::_BRIGHT),
     verticalLayout(new QVBoxLayout(this)),
-    splitter(new QSplitter(this))
+    splitter(new QSplitter(this)),
+    savePath(""),
+    ctrlS(new QShortcut(this)),
+    codeModified(false)
 {
     ui->setupUi(this);
     InitWorkshop();
@@ -46,6 +52,7 @@ Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
 Workshop::~Workshop()
 {
     delete ui;
+    delete PJEntity;
 }
 
 void Workshop::InitWorkshop()
@@ -108,10 +115,6 @@ void Workshop::InitWorkshop()
     splitter->setCollapsible(1,false);
     splitter->setCollapsible(2,true);
 
-#ifdef CELL_DEBUG
-    qDebug() << splitter->indexOf(mainEditor);
-#endif
-
     verticalLayout->addWidget(splitter);
 
     statusBar->setGeometry(0, 771, 1400, 29);
@@ -168,19 +171,26 @@ void Workshop::InitWorkshop()
     loadingDialog->show();
     loadingDialog->progress();
 
-    mainEditor->setText("#!/usr/bin/python\n"
-                        "#conding=utf-8\n"
-                        "import sys\n");
+    code_prev = "#!/usr/bin/python\n"
+           "#conding=utf-8\n"
+           "import sys\n";
+    mainEditor->setText(code_prev);
+
+    ctrlS->setKey(tr("ctrl+s"));
+    ctrlS->setAutoRepeat(false);
 }
 
 void Workshop::setEventConnections()
 {
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(updateStatusBar()));
+    connect(ctrlS, SIGNAL(activated()), this, SLOT(saveFile()));
+    connect(mainEditor, SIGNAL(textChanged()), this, SLOT(checkCodeModifiedState()));
 }
 
 void Workshop::_constructed()
 {
     emit constructed();
+    PJEntity = new CellProjectEntity("newpj",CellProjectEntity::CellProjectEntityType::_WORKSHOP);
 }
 
 void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
@@ -229,13 +239,34 @@ void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 void Workshop::updateStatusBar()
 {
     QCursor cursor = mainEditor->cursor();
-#ifdef CELL_DEBUG
-    qDebug() << cursor.pos();
-#endif
     cntRow->setText("Row: " + QString::number(mainEditor->lines()));
 
     QString tmp = mainEditor->text();
     cntChar->setText("Char: " + QString::number(tmp.length()));
+}
+
+void Workshop::saveFile()
+{
+    //if(savePath!=""){
+        if(!codeModified) return;
+        code_prev = code_curr;
+        statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
+    //}
+}
+
+void Workshop::checkCodeModifiedState()
+{
+    code_prev == (code_curr = mainEditor->text()) ?
+    codeModified = false : codeModified = true;
+    codeModified ?
+        statusBar->transCurrState(customGradientChangeFrame::_SPECIAL):
+        statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
+#ifdef CELL_DEBUG
+    qDebug() << "--------------------------";
+    qDebug() << "CODE EDITOR";
+    qDebug() << "CodeModified: " << codeModified;
+    qDebug() << "--------------------------\n";
+#endif
 }
 
 const QColor Workshop::color() const

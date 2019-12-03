@@ -15,6 +15,7 @@ PRECOMPILED_HEADER = Src/CellCore/Kits/Pch.h
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
     Src/main.cpp \
     Src/CellCore/Kits/CellUtility.cpp \
     Src/CellCore/Kits/WindWMAPI.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customDialog.h \
     Src/CellUI/CustomBaseWidgets/customDynamicButton.h \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
+    Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customStaticButton.h \

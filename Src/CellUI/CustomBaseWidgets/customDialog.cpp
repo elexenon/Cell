@@ -23,7 +23,6 @@ void customDialog::setColor(const QColor &color)
     setStyleSheet(QString("QWidget{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
-#ifdef Q_OS_WIN32
 bool customDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     MSG* msg = reinterpret_cast<MSG*>(message);
@@ -36,16 +35,13 @@ bool customDialog::nativeEvent(const QByteArray &eventType, void *message, long 
             return QWidget::nativeEvent(eventType, message, result);
     }
 }
-#endif
 
 void customDialog::LoadWinStyle(QDialog *obj)
 {
-#ifdef Q_OS_WIN32
     // Achieve the window drop shadow effect.
     HWND hwnd =  (HWND)obj->winId();
     DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
     ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
     const MARGINS shadow = { 1, 1, 1, 1 };
     WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
-#endif
 }

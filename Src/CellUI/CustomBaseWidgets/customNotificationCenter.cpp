@@ -12,7 +12,7 @@
 #include <QLabel>
 
 notificationCenter::notificationCenter(const QString &qss,QWidget *parent):
-    customFrame(qss,parent),
+    customGradientChangeFrame(qss,QColor(50,200,230),parent),
     workshop_instancesCount(0),
     label_ready(new QLabel(this)),
     label_identifi(new QLabel(this)),
@@ -20,9 +20,7 @@ notificationCenter::notificationCenter(const QString &qss,QWidget *parent):
     hidePos_iden(QPoint(-120,3)),
     normalPos_iden(QPoint(10,3)),
     hidePos_ready(QPoint(130,3)),
-    normalPos_ready(QPoint(10,3)),
-    currState(NOTIFI_STATE::_NORMAL),
-    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
+    normalPos_ready(QPoint(10,3))
 {
     Init();
 }
@@ -42,40 +40,10 @@ void notificationCenter::Init()
     label_ready->setGeometry(10,3,40,22);
 }
 
-void notificationCenter::transCurrState(const NOTIFI_STATE &newState)
-{
-    if(newState == currState) return;
-    currState = newState;
-    const QColor targetColor = (newState == NOTIFI_STATE::_BLUE ? QColor(50,200,230) :
-                                (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL70));
-    CellGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                     color(),
-                                     targetColor,
-                                     800,
-                                     QEasingCurve::InOutCubic,
-    {this},nullptr);
-}
-
-void notificationCenter::setColorScheme(CellGlobal::COLOR_SCHEME mode)
-{
-    if(mode == m_mode) return;
-    m_mode = mode;
-    if(currState == NOTIFI_STATE::_BLUE) return;
-    const QColor targetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL70);
-    CellGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                      color(),
-                                      targetColor,
-                                      CellGlobal::CELL_GLOBALANIMIDURATION,
-                                      QEasingCurve::InOutCubic,
-                                      {this}, nullptr);
-}
-
 void notificationCenter::plusCnt()
 {
-    if(currState != NOTIFI_STATE::_BLUE){
-        transCurrState(NOTIFI_STATE::_BLUE);
+    if(currState != GRADIENT_STATE::_SPECIAL){
+        transCurrState(GRADIENT_STATE::_SPECIAL);
         CellGlobal::setPropertyAnimation({animi},
                                          "pos",
                                          label_identifi->pos(),
@@ -97,14 +65,17 @@ void notificationCenter::plusCnt()
     }
     workshop_instancesCount++;
 #ifdef CELL_DEBUG
+    qDebug() << "--------------------------";
+    qDebug() << "NOTIFICATIONCENTER";
     qDebug() << "The amount of workshops: " << workshop_instancesCount;
+    qDebug() << "--------------------------\n";
 #endif
 }
 
 void notificationCenter::minusCnt()
 {
     if(--workshop_instancesCount == 0){
-        transCurrState(NOTIFI_STATE::_NORMAL);
+        transCurrState(GRADIENT_STATE::_NORMAL);
         CellGlobal::setPropertyAnimation({animi},
                                          "pos",
                                          label_identifi->pos(),
@@ -126,6 +97,9 @@ void notificationCenter::minusCnt()
 
     }
 #ifdef CELL_DEBUG
+    qDebug() << "--------------------------";
+    qDebug() << "NOTIFICATIONCENTER";
     qDebug() << "The amount of workshops: " << workshop_instancesCount;
+    qDebug() << "--------------------------\n";
 #endif
 }

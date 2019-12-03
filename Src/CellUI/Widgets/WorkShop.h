@@ -27,6 +27,9 @@ class QFrame;
 class QVBoxLayout;
 class QHBoxLayout;
 class QSplitter;
+class CellProjectEntity;
+class QShortcut;
+class customGradientChangeFrame;
 
 class Workshop : public QWidget
 {
@@ -35,7 +38,7 @@ class Workshop : public QWidget
 
 public:
     explicit Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
-    ~Workshop() override;
+    ~Workshop();
 
 public:
     const QColor color() const;
@@ -50,11 +53,11 @@ private:
     QPropertyAnimation *animi_LeftBlock;
     QPropertyAnimation *animi_RightBlock;
 
-    WSLoadingDialog  *loadingDialog;
-    customFrame      *menuBar;
-    customFrame      *leftBlock;
-    customFrame      *rightBlock;
-    customFrame      *statusBar;
+    WSLoadingDialog                *loadingDialog;
+    customFrame                    *menuBar;
+    customFrame                    *leftBlock;
+    customFrame                    *rightBlock;
+    customGradientChangeFrame      *statusBar;
     QLabel           *cntRow;
     QLabel           *cntChar;
     QLabel           *labelFormat;
@@ -66,6 +69,13 @@ private:
     QVBoxLayout      *verticalLayout;
     QSplitter        *splitter;
 
+    QString            code_prev;
+    QString            code_curr;
+    CellProjectEntity *PJEntity;
+    QString            savePath;
+    QShortcut         *ctrlS;
+    bool               codeModified;
+
 private:
     void InitWorkshop();
     void setEventConnections();
@@ -73,6 +83,8 @@ private:
 private slots:
     void setColorScheme(CellGlobal::COLOR_SCHEME mode);
     void updateStatusBar();
+    void saveFile();
+    void checkCodeModifiedState();
 
 protected:
     virtual void closeEvent(QCloseEvent *event) override;

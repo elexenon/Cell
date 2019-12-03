@@ -11,6 +11,7 @@
 #include <QSharedMemory>
 #include <QMessageBox>
 #include <QSplashScreen>
+#define CELL_DEBUG
 
 int main(int argc, char *argv[])
 {
@@ -38,6 +39,10 @@ int main(int argc, char *argv[])
     w.show();
 
     startUp.finish(&w);
+
+#ifdef CELL_DEBUG
+    qDebug() << "==========Starting Debugging==========";
+#endif
 
     return a.exec();
 }

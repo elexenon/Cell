@@ -27,10 +27,6 @@ void customStaticButton::Init(){
     setStyleSheet(BASEQSS.arg(currColor.red()).arg(currColor.green()).arg(currColor.blue())
                   .arg(brightModeCheckedColor.red()).arg(brightModeCheckedColor.green()).arg(brightModeCheckedColor.blue())
                   .arg(brightModeCheckedColor.red()).arg(brightModeCheckedColor.green()).arg(brightModeCheckedColor.blue()));
-#ifdef CELL_DEBUG
-    qDebug() << styleSheet();
-    qDebug() << currColor;
-#endif
 }
 
 void customStaticButton::setColorScheme(CellGlobal::COLOR_SCHEME mode)

@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>Images/Btn_popUp.png</file>
+        <file>Images/CELL.png</file>
+        <file>Images/CELL_logo_big.png</file>
+        <file>Images/CELL_logo_medium.png</file>
+        <file>Images/CELL_logo_small.png</file>
+        <file>Images/CELL_SLOGAN.png</file>
+        <file>Images/SplashScreen.png</file>
+        <file>Images/WS_process.png</file>
+        <file>Images/Btn_NewProject.png</file>
+        <file>Images/Btn_OpenProject.png</file>
+        <file>Images/CELL_MainIcon.png</file>
+        <file>Images/close.png</file>
+        <file>Images/close1.png</file>
+        <file>Images/close-1.png</file>
+        <file>Images/ColorScheme_BrightMode_BrightBtn.png</file>
+        <file>Images/ColorScheme_BrightMode_DarkBtn.png</file>
+        <file>Images/gpl.png</file>
+        <file>Images/guideBuild.png</file>
+        <file>Images/guideCalcu.png</file>
+        <file>Images/GuideDialogHint.png</file>
+        <file>Images/guidePython.png</file>
+        <file>Images/HomePageComboBoxArrow.png</file>
+        <file>Images/MainWindowGrid1_Bright.png</file>
+        <file>Images/MainWindowGrid1_Dark.png</file>
+        <file>Images/MainWindowGrid2_Bright.png</file>
+        <file>Images/MainWindowGrid2_Dark.png</file>
+        <file>Images/MainWindowList1_Bright.png</file>
+        <file>Images/MainWindowList1_Dark.png</file>
+        <file>Images/MainWindowList2_Bright.png</file>
+        <file>Images/MainWindowList2_Dark.png</file>
+        <file>Images/mini.png</file>
+        <file>Images/mini1.png</file>
+        <file>Images/mini-1.png</file>
+        <file>Images/WS.png</file>
+        <file>Images/zoom.png</file>
+    </qresource>
+</RCC>

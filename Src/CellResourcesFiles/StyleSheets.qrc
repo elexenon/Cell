@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/styleSheets">
+        <file>StyleSheets/LauncherCloseBtn.css</file>
+        <file>StyleSheets/LauncherGuideCloseBtn_Bright.css</file>
+        <file>StyleSheets/LauncherGuideCloseBtn_Dark.css</file>
+        <file>StyleSheets/LauncherHome_OptionBlock_Bright.css</file>
+        <file>StyleSheets/LauncherHome_OptionBlock_Dark.css</file>
+        <file>StyleSheets/LauncherHomeComboBox.css</file>
+        <file>StyleSheets/LauncherHomeGridBtn_Bright.css</file>
+        <file>StyleSheets/LauncherHomeGridBtn_Dark.css</file>
+        <file>StyleSheets/LauncherHomeListBtn_Bright.css</file>
+        <file>StyleSheets/LauncherHomeScrollBar_Bright.css</file>
+        <file>StyleSheets/LauncherHomeScrollBar_Dark.css</file>
+        <file>StyleSheets/LauncherListBtn_Dark.css</file>
+        <file>StyleSheets/LauncherMinimizeBtn.css</file>
+        <file>StyleSheets/LauncherSettings_OptionBlock.css</file>
+        <file>StyleSheets/WorkshopEditor.css</file>
+    </qresource>
+</RCC>

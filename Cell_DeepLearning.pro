@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Cell Launcher
+TARGET = Cell_Launcher
 
 TEMPLATE = app
 
@@ -10,72 +10,64 @@ CONFIG += c++11
 
 CONFIG += procompile_header
 
-PRECOMPILED_HEADER = Headers/Kits/Pch.h
+PRECOMPILED_HEADER = Src/CellCore/Kits/Pch.h
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    Sources/Kits/cellProject.cpp \
-    Sources/Kits/cell_util.cpp \
-    Sources/Kits/customDialog.cpp \
-    Sources/Kits/customDynamicButton.cpp \
-    Sources/Kits/customFrame.cpp \
-    Sources/Kits/customLabel.cpp \
-    Sources/Kits/customNotificationCenter.cpp \
-    Sources/Kits/customStaticButton.cpp \
-    Sources/Kits/customWidget.cpp \
-    Sources/main.cpp \
-    Sources/mainwindow.cpp \
-    Sources/guidedialog.cpp \
-    Sources/homepagewidget.cpp \
-    Sources/newProjectDialog.cpp \
-    Sources/settingspagewidget.cpp \
-    Sources/workshop.cpp \
-    Sources/wswelcomedialog.cpp
+    Src/main.cpp \
+    Src/CellCore/Kits/CellUtility.cpp \
+    Src/CellCore/Kits/WindWMAPI.cpp \
+    Src/CellCore/CellProjectEntity.cpp \
+    Src/CellUI/CustomBaseWidgets/customDialog.cpp \
+    Src/CellUI/CustomBaseWidgets/customDynamicButton.cpp \
+    Src/CellUI/CustomBaseWidgets/customFrame.cpp \
+    Src/CellUI/CustomBaseWidgets/customLabel.cpp \
+    Src/CellUI/CustomBaseWidgets/customNotificationCenter.cpp \
+    Src/CellUI/CustomBaseWidgets/customStaticButton.cpp \
+    Src/CellUI/CustomBaseWidgets/customWidget.cpp \
+    Src/CellUI/Widgets/Launcher.cpp \
+    Src/CellUI/Widgets/LauncherGuideDialog.cpp \
+    Src/CellUI/Widgets/LauncherHomepage.cpp \
+    Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
+    Src/CellUI/Widgets/LauncherSettings.cpp \
+    Src/CellUI/Widgets/WorkShop.cpp \
+    Src/CellUI/Widgets/WSLoadingDialog.cpp
 
 
 HEADERS += \
-    Headers/Kits/Pch.h \
-    Headers/Kits/cellProject.h \
-    Headers/Kits/cell_util.h \
-    Headers/Kits/customDialog.h \
-    Headers/Kits/customDynamicButton.h \
-    Headers/Kits/customFrame.h \
-    Headers/Kits/customLabel.h \
-    Headers/Kits/customNotificationCenter.h \
-    Headers/Kits/qstylesheetloader.hpp \
-    Headers/kits/customStaticButton.h \
-    Headers/kits/customWidget.h \
-    Headers/mainwindow.h \
-    Headers/guidedialog.h \
-    Headers/newProjectDialog.h \
-    Headers/workshop.h \
-    Headers/homepagewidget.h \
-    Headers/settingspagewidget.h \
-    Headers/wswelcomedialog.h \
-
-
-win32{
-SOURCES += \
-    Sources/Kits/WindWMAPI.cpp
-
-HEADERS += \
-    Headers/Kits/WindWMAPI.h
-}
+    Src/CellCore/Kits/CellUtility.h \
+    Src/CellCore/Kits/WindWMAPI.h \
+    Src/CellCore/Kits/StyleSheetLoader.hpp \
+    Src/CellCore/CellProjectEntity.h \
+    Src/CellUI/CustomBaseWidgets/customDialog.h \
+    Src/CellUI/CustomBaseWidgets/customDynamicButton.h \
+    Src/CellUI/CustomBaseWidgets/customFrame.h \
+    Src/CellUI/CustomBaseWidgets/customLabel.h \
+    Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
+    Src/CellUI/CustomBaseWidgets/customStaticButton.h \
+    Src/CellUI/CustomBaseWidgets/customWidget.h \
+    Src/CellUI/Widgets/Launcher.h \
+    Src/CellUI/Widgets/LauncherGuideDialog.h \
+    Src/CellUI/Widgets/LauncherHomepage.h \
+    Src/CellUI/Widgets/LauncherNewPJDialog.h \
+    Src/CellUI/Widgets/LauncherSettings.h \
+    Src/CellUI/Widgets/WorkShop.h \
+    Src/CellUI/Widgets/WSLoadingDialog.h
 
 FORMS += \
-    Forms/mainwindow.ui \
-    Forms/guidedialog.ui \
-    Forms/homepagewidget.ui \
-    Forms/workshop.ui \
-    Forms/wswelcomedialog.ui
+    Src/CellUI/Widgets/Forms/Launcher.ui \
+    Src/CellUI/Widgets/Forms/LauncherGuideDialog.ui \
+    Src/CellUI/Widgets/Forms/LauncherHomepage.ui \
+    Src/CellUI/Widgets/Forms/WorkShop.ui \
+    Src/CellUI/Widgets/Forms/WSLoadingDialog.ui
 
 RESOURCES += \
-    Fonts.qrc \
-    Images.qrc \
-    StyleSheets.qrc
+    Src/CellResourcesFiles/Fonts.qrc \
+    Src/CellResourcesFiles/Images.qrc \
+    Src/CellResourcesFiles/StyleSheets.qrc
 
-INCLUDEPATH += Share/third-part-apis/QScintilla_gpl-2.11.2/Qt4Qt5
+INCLUDEPATH += Src/third-part-apis/QScintilla_gpl-2.11.2/Qt4Qt5
 
 CONFIG += debug_and_release
 

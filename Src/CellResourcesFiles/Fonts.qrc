@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file>Fonts/InfoDisplayWeb W01 Medium.ttf</file>
+    </qresource>
+</RCC>

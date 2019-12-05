@@ -154,7 +154,7 @@ void Launcher::InitLauncher()
     Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
     Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL218);
     Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL70);
-    Btn_NewProject->setAnimationDuration(CellGlobal::CELL_GLOBALANIMIDURATION);
+    Btn_NewProject->setAnimationDuration(300);
     Btn_NewProject->Init();
     Btn_NewProject->setGeometry(40, 331, 251, 81);
     Btn_NewProject->setCursor(Qt::PointingHandCursor);
@@ -176,7 +176,7 @@ void Launcher::InitLauncher()
     Btn_OpenProject->setObjectName(QStringLiteral("Btn_OpenProject"));
     Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL218);
     Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL70);
-    Btn_OpenProject->setAnimationDuration(CellGlobal::CELL_GLOBALANIMIDURATION);
+    Btn_OpenProject->setAnimationDuration(300);
     Btn_OpenProject->Init();
     Btn_OpenProject->setGeometry(40, 421, 251, 81);
     Btn_OpenProject->setCursor(Qt::PointingHandCursor);

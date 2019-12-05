@@ -120,6 +120,7 @@ void Workshop::InitWorkshop()
     statusBar->setGeometry(0, 771, 1400, 29);
     statusBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(210,210,210);}"));
     statusBar->setMaximumSize(65535,29);
+    statusBar->setColor(Cell_Const::GRAYLEVEL218);
 
     verticalLayout->addWidget(statusBar);
 

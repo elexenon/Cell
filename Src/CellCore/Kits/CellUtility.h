@@ -49,7 +49,7 @@ enum FRAME_TYPE{
     _OPTIONBLOCK
 };
 enum ANIMIDURATION{
-    CELL_GLOBALANIMIDURATION = 500,
+    CELL_GLOBALANIMIDURATION = 700,
     CELL_GLOBALPAGESWITCHDURATION = 300
 };
 extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,

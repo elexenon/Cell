@@ -2,6 +2,9 @@ Cell_DeepLearning
 ====
 [中文版本](README_CN.md)
 ## A Qt Based Project
+This is originally a college students' innovation project, then we decided to go further more, to make it stronger.
+
+We're developing a universal deeplearning library,and we call it CELL.As you see, we aim to build a good-interactive user interface.
 
 Note that CELL imports an open-source text editor **QScintilla**, which's a transported version of the original **Scintilla** editor for windows Qt, owned by **Riverbank Computing Limited**, here's their official website:
 

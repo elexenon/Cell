@@ -4,7 +4,7 @@ Cell_DeepLearning
 
 此项目在GPL V3.0许可约束下发布。
 
-注意，CELL引入了一个开源文本编辑器 **QScintria**，它是由原版 **QScintria** 向Windows Qt移植的，以下是他们的官方网站：
+注意，CELL引入了一个开源文本编辑器 **QScintria**，它是由原版 **Scintria** 向Windows Qt移植的，以下是他们的官方网站：
 
 <https://www.riverbankcomputing.com/software/qscintilla>
 

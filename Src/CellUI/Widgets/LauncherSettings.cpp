@@ -47,11 +47,11 @@ void LauncherSettings::Init()
     setColor(Cell_Const::GRAYLEVEL255);
 
     optionBlock1->setObjectName(QStringLiteral("optionBlock1"));
-    optionBlock1->setGeometry(45, 20, 881, 151);
+    optionBlock1->setGeometry(45, 0, 881, 151);
     optionBlock1->setColor(Cell_Const::GRAYLEVEL218);
 
     optionBlock2->setObjectName(QStringLiteral("optionBlock2"));
-    optionBlock2->setGeometry(45, 220, 881, 151);
+    optionBlock2->setGeometry(45, 200, 881, 151);
     optionBlock2->setColor(Cell_Const::GRAYLEVEL218);
 
     Btn_bright->setObjectName(QStringLiteral("Btn_bright"));
@@ -70,20 +70,20 @@ void LauncherSettings::Init()
 
     label_appearence->setGeometry(30, 10, 111, 61);
     label_appearence->setText(tr("外观"));
-    label_appearence->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 16));
+    label_appearence->setFont(QFont(QStringLiteral("微软雅黑 Light"), 16));
     label_appearence->setParent(optionBlock1);
 
     label_general->setGeometry(30, 10, 111, 61);
     label_general->setText(tr("通用"));
-    label_general->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 16));
+    label_general->setFont(QFont(QStringLiteral("微软雅黑 Light"), 16));
     label_general->setParent(optionBlock2);
 
-    label_auto_hint->setGeometry(55, 180, 215, 15);
+    label_auto_hint->setGeometry(55, 160, 215, 15);
     label_auto_hint->setText(tr("将自动在日落后调整为黑暗模式。"));
     label_auto_hint->setFont(QFont(QStringLiteral("Microsoft YaHei UI")));
 
     line_color->setParent(this);
-    line_color->setGeometry(195, 150, 151, 3);
+    line_color->setGeometry(195, 130, 151, 3);
     line_color->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(255,255,255);}"));
     line_color->setFrameShadow(QFrame::Plain);
 
@@ -106,7 +106,7 @@ void LauncherSettings::setColorScheme(CellGlobal::COLOR_SCHEME mode)
     const QColor blockGroupTargetColor = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
                                     Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL70);
     const QPoint lineTargetPos = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
-                              QPoint(195,150) : QPoint(405,150));
+                              QPoint(195,130) : QPoint(405,130));
     CellGlobal::setPropertyAnimation({animi},
                                      "color",
                                      color(),

@@ -17,6 +17,7 @@
 #include <QShortcut>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexerpython.h>
+#include <Qsci/qscilexercpp.h>
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customGradientChangeFrame.h"
 #include "../../CellCore/CellProjectEntity.h"
@@ -96,9 +97,9 @@ void Workshop::InitWorkshop()
     mainEditor->setTabWidth(4);
     mainEditor->setCaretLineVisible(true);
 
-    QsciLexer *lexPY = new QsciLexerPython();
-    lexPY->setFont(QFont(QStringLiteral("Courier New"), 11));
-    mainEditor->setLexer(lexPY);
+    QsciLexer *lexCPP = new QsciLexerCPP();
+    lexCPP->setFont(QFont(QStringLiteral("Courier New"), 11));
+    mainEditor->setLexer(lexCPP);
 
     setEventConnections();
 

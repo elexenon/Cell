@@ -82,7 +82,7 @@ void LauncherHomepage::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeGridBtn_Dark.css"));
         ui->Btn_grid->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeListBtn_Bright.css"));
+        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeListBtn_Dark.css"));
         ui->Btn_list->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
     else{

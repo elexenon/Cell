@@ -15,6 +15,7 @@
 #include <QtGlobal>
 
 #include "LauncherGuideDialog.h"
+#include "launcherNewPJDialog.h"
 #include "LauncherHomepage.h"
 #include "LauncherSettings.h"
 #include "WorkShop.h"
@@ -27,6 +28,7 @@
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "ui_Launcher.h"
 #define CELL_DEBUG
+//#define AUTO_CHANGE
 
 Launcher::Launcher(QWidget *parent)
     : customWidget(parent)
@@ -231,7 +233,7 @@ void Launcher::InitLauncher()
     guideDialog->show();
 
     setEventConnections();
-
+#ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
     if((currentTime.hour() >= 18 || currentTime.hour() <= 4) && m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT){
         Tab_Settings_clicked();
@@ -240,6 +242,7 @@ void Launcher::InitLauncher()
         Tab_Settings_clicked();
         settingsPage->LauncherSetColorSchemeModeCall(CellGlobal::COLOR_SCHEME::_BRIGHT);
     }
+#endif
 }
 
 void Launcher::setEventConnections()
@@ -383,6 +386,8 @@ void Launcher::mouseReleaseEvent(QMouseEvent *event)
 
 void Launcher::Btn_NewProject_clicked()
 {
+    newPJDialog = new LauncherNewPJDialog(this);
+    newPJDialog->show();
     workshop = new Workshop(m_mode);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             workshop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);

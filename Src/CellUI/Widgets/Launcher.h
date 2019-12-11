@@ -16,6 +16,7 @@ namespace Ui { class Launcher; }
 QT_END_NAMESPACE
 
 class LauncherGuideDialog;
+class LauncherNewPJDialog;
 class LauncherHomepage;
 class Workshop;
 class LauncherSettings;
@@ -58,8 +59,9 @@ private:
 
     Workshop               *workshop;
     LauncherHomepage       *homePage;
-    LauncherSettings     *settingsPage;
+    LauncherSettings       *settingsPage;
     LauncherGuideDialog    *guideDialog;
+    LauncherNewPJDialog    *newPJDialog;
 
     customFrame            *frame_titleBar;
     customStaticButton     *Tab_HomePage;

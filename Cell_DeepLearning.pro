@@ -30,10 +30,10 @@ SOURCES += \
     Src/CellUI/Widgets/Launcher.cpp \
     Src/CellUI/Widgets/LauncherGuideDialog.cpp \
     Src/CellUI/Widgets/LauncherHomepage.cpp \
-    Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
     Src/CellUI/Widgets/LauncherSettings.cpp \
     Src/CellUI/Widgets/WorkShop.cpp \
-    Src/CellUI/Widgets/WSLoadingDialog.cpp
+    Src/CellUI/Widgets/WSLoadingDialog.cpp \
+    Src/CellUI/Widgets/launcherNewPJDialog.cpp
 
 
 HEADERS += \
@@ -52,17 +52,18 @@ HEADERS += \
     Src/CellUI/Widgets/Launcher.h \
     Src/CellUI/Widgets/LauncherGuideDialog.h \
     Src/CellUI/Widgets/LauncherHomepage.h \
-    Src/CellUI/Widgets/LauncherNewPJDialog.h \
     Src/CellUI/Widgets/LauncherSettings.h \
     Src/CellUI/Widgets/WorkShop.h \
-    Src/CellUI/Widgets/WSLoadingDialog.h
+    Src/CellUI/Widgets/WSLoadingDialog.h \
+    Src/CellUI/Widgets/launcherNewPJDialog.h
 
 FORMS += \
     Src/CellUI/Widgets/Forms/Launcher.ui \
     Src/CellUI/Widgets/Forms/LauncherGuideDialog.ui \
     Src/CellUI/Widgets/Forms/LauncherHomepage.ui \
     Src/CellUI/Widgets/Forms/WorkShop.ui \
-    Src/CellUI/Widgets/Forms/WSLoadingDialog.ui
+    Src/CellUI/Widgets/Forms/WSLoadingDialog.ui \
+    Src/CellUI/Widgets/Forms/launcherNewPJDialog.ui
 
 RESOURCES += \
     Src/CellResourcesFiles/Fonts.qrc \

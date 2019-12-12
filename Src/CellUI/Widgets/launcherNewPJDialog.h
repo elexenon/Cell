@@ -8,6 +8,7 @@
 
 class customFrame;
 class customLabel;
+class QPropertyAnimation;
 
 namespace Ui {
 class LauncherNewPJDialog;
@@ -25,6 +26,8 @@ private:
     Ui::LauncherNewPJDialog *ui;
 
 private:
+    QPropertyAnimation *label_animi;
+
     customFrame *frame_titleBar;
     customLabel *label_choose;
 
@@ -48,6 +51,8 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent *event);
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
+private slots:
+    void setColorScheme(CellGlobal::COLOR_SCHEME mode)
 };
 
 #endif // LAUNCHERNEWPJDIALOG_H

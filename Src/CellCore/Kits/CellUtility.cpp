@@ -17,36 +17,36 @@
 
 namespace Cell_Const {
 const char* const INSTANCE_IS_ON("Cell Launcher is already running");
-const QString IMG_DIR(":/images/Images/");
-const QString FONT_DIR(":/fonts/Fonts/");
-const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Src\\CellResourcesFiles\\StyleSheets\\");
+constexpr QString IMG_DIR(":/images/Images/");
+constexpr QString FONT_DIR(":/fonts/Fonts/");
+constexpr QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Src\\CellResourcesFiles\\StyleSheets\\");
 
-const QColor GRAYLEVEL255(255,255,255);
-const QColor GRAYLEVEL45(45, 45, 45);
-const QColor GRAYLEVEL218(218, 218, 218);
-const QColor GRAYLEVEL30(30, 30, 30);
-const QColor GRAYLEVEL247(247, 247, 247);
-const QColor GRAYLEVEL70(70,70,70);
+constexpr QColor GRAYLEVEL255(255,255,255);
+constexpr QColor GRAYLEVEL45(45, 45, 45);
+constexpr QColor GRAYLEVEL218(218, 218, 218);
+constexpr QColor GRAYLEVEL30(30, 30, 30);
+constexpr QColor GRAYLEVEL247(247, 247, 247);
+constexpr QColor GRAYLEVEL70(70,70,70);
 
-const QString QSS_CUSTOMFRAME_WITH_RADIUS(
+constexpr QString QSS_CUSTOMFRAME_WITH_RADIUS(
 "QFrame{"
 "border-radius:5px; "
 "background-color: rgb(%1, %2, %3);"
 "}");
-const QString QSS_CUSTOMFRAME(
+constexpr QString QSS_CUSTOMFRAME(
 "QFrame{"
 "background-color: rgb(%1, %2, %3);"
 "}");
-const QString QSS_CUSTOMLABEL(
+constexpr QString QSS_CUSTOMLABEL(
 "QLabel{"
 "color: rgb(%1, %2, %3);"
 "}");
-const QString QSS_CUSTOMLABEL_TRANSPARENT(
+constexpr QString QSS_CUSTOMLABEL_TRANSPARENT(
 "QLabel{"
 "background:transparent;"
 "color: rgb(%1, %2, %3);"
 "}");
-const QString QSS_CUSTOMBUTTON_STATIC(
+constexpr QString QSS_CUSTOMBUTTON_STATIC(
 "QPushButton{"
 "background-color: rgb(%1, %2, %3);"
 "border: 0px solid gray;"
@@ -59,7 +59,7 @@ const QString QSS_CUSTOMBUTTON_STATIC(
 "background-color: rgb(%7, %8, %9);"
 "border: 0px solid gray;"
 "}");
-const QString QSS_CUSTOMBUTTON_DYNAMIC(
+constexpr QString QSS_CUSTOMBUTTON_DYNAMIC(
 "QPushButton{"
 "background-color: rgb(%1, %2, %3);"
 "border: 1px solid gray;"

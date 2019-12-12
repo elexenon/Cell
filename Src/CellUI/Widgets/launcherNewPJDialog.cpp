@@ -29,9 +29,20 @@ void LauncherNewPJDialog::Init()
     frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(164, 163, 164);}"));
 
     label_choose->setObjectName(QStringLiteral("label_choose"));
-    label_choose->setGeometry(10, 50, 100, 50);
+    label_choose->setGeometry(20, 50, 100, 50);
     label_choose->setText(tr("选择一个模板"));
     label_choose->setFont(QFont("微软雅黑 Light",15));
+}
+
+void LauncherNewPJDialog::setColorScheme(CellGlobal::COLOR_SCHEME mode){
+    const QColor labelColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVAL70 : Cell_Const::GRAYLEVAL255);
+    CellGlobal::setPropertyAnimation({label_animi},
+                                     "color",
+                                     label_choose->color(),
+                                     labelColor,
+                                     CellGlobal::CELL_GLOBALANIMIDURATION,
+                                     QEasingCurve::InOutCubic,
+                                     {label_choose}, nullptr);
 }
 
 bool LauncherNewPJDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)

@@ -387,6 +387,12 @@ void Launcher::mouseReleaseEvent(QMouseEvent *event)
 void Launcher::Btn_NewProject_clicked()
 {
     newPJDialog = new LauncherNewPJDialog(this);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            newPJDialog->Tab_WorkShop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            newPJDialog->Tab_Others, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     newPJDialog->show();
     workshop = new Workshop(m_mode);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),

@@ -9,24 +9,25 @@
 #define CELL_UTIL_H
 
 namespace Cell_Const{
-extern const char* const      INSTANCE_IS_ON;
-extern constexpr QString      IMG_DIR;
-extern constexpr QString      FONT_DIR;
-extern constexpr QString      STYLESHEET_DIR;
-extern constexpr QString      LIB_DIR;
-extern constexpr QString      QSS_CUSTOMFRAME_WITH_RADIUS;
-extern constexpr QString      QSS_CUSTOMFRAME;
-extern constexpr QString      QSS_CUSTOMLABEL;
-extern constexpr QString      QSS_CUSTOMLABEL_TRANSPARENT;
-extern constexpr QString      QSS_CUSTOMBUTTON_STATIC;
-extern constexpr QString      QSS_CUSTOMBUTTON_DYNAMIC;
+extern const char* const  INSTANCE_IS_ON;
+extern const QString      IMG_DIR;
+extern const QString      FONT_DIR;
+extern const QString      STYLESHEET_DIR;
+extern const QString      LIB_DIR;
+extern const QString      QSS_CUSTOMFRAME_WITH_RADIUS;
+extern const QString      QSS_CUSTOMFRAME;
+extern const QString      QSS_CUSTOMLABEL;
+extern const QString      QSS_CUSTOMLABEL_BACK;
+extern const QString      QSS_CUSTOMLABEL_TRANSPARENT;
+extern const QString      QSS_CUSTOMBUTTON_STATIC;
+extern const QString      QSS_CUSTOMBUTTON_DYNAMIC;
 
-extern constexpr QColor       GRAYLEVEL255;
-extern constexpr QColor       GRAYLEVEL70;
-extern constexpr QColor       GRAYLEVEL45;
-extern constexpr QColor       GRAYLEVEL218;
-extern constexpr QColor       GRAYLEVEL30;
-extern constexpr QColor       GRAYLEVEL247;
+extern const QColor       GRAYLEVEL255;
+extern const QColor       GRAYLEVEL70;
+extern const QColor       GRAYLEVEL45;
+extern const QColor       GRAYLEVEL218;
+extern const QColor       GRAYLEVEL30;
+extern const QColor       GRAYLEVEL247;
 } // namespace Cell_Const{
 
 class QGraphicsDropShadowEffect;

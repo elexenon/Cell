@@ -9,6 +9,8 @@
 class customFrame;
 class customLabel;
 class QPropertyAnimation;
+class QGraphicsDropShadowEffect;
+class customStaticButton;
 
 namespace Ui {
 class LauncherNewPJDialog;
@@ -22,14 +24,24 @@ public:
     explicit LauncherNewPJDialog(QWidget *parent = nullptr);
     ~LauncherNewPJDialog();
 
+    customStaticButton *Tab_WorkShop;
+    customStaticButton *Tab_Others;
+
 private:
     Ui::LauncherNewPJDialog *ui;
 
 private:
     QPropertyAnimation *label_animi;
+    QPropertyAnimation *animi;
+
+    QGraphicsDropShadowEffect *eff_dse;
 
     customFrame *frame_titleBar;
     customLabel *label_choose;
+    customLabel *label_project;
+    customLabel *label_file;
+    customFrame *frame_project;
+    customFrame *frame_file;
 
     QPoint  m_startPoint;
     QPoint  m_windowPoint;
@@ -52,7 +64,7 @@ protected:
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
 private slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME mode)
+    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
 };
 
 #endif // LAUNCHERNEWPJDIALOG_H

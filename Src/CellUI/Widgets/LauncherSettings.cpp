@@ -25,6 +25,7 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     ,label_auto_hint(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,this))
     ,comboBox_ColorScheme(new QComboBox)
     ,comboBox_Auto(new QComboBox)
+    ,LauncherSettings_line_splitter1(new QFrame(this))
     ,m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
     Init();
@@ -98,12 +99,12 @@ void LauncherSettings::Init()
     label_auto_hint->setColor(Cell_Const::GRAYLEVEL70);
     label_auto_hint->hide();
 
-    line_splitter1 = new QFrame(optionBlock1);
-    line_splitter1->setObjectName(QString::fromUtf8("line_splitter1"));
-    line_splitter1->setGeometry(QRect(10, 115, 861, 1));
-    line_splitter1->setStyleSheet("QFrame{color:rgb(180,180,180);}");
-    line_splitter1->setFrameShadow(QFrame::Plain);
-    line_splitter1->setFrameShape(QFrame::HLine);
+    LauncherSettings_line_splitter1 = new QFrame(optionBlock1);
+    LauncherSettings_line_splitter1->setObjectName(QString::fromUtf8("LauncherSettings_line_splitter1"));
+    LauncherSettings_line_splitter1->setGeometry(QRect(10, 115, 861, 1));
+    LauncherSettings_line_splitter1->setStyleSheet("QFrame{color:rgb(180,180,180);}");
+    LauncherSettings_line_splitter1->setFrameShadow(QFrame::Plain);
+    LauncherSettings_line_splitter1->setFrameShape(QFrame::HLine);
 
     setEventConnections();
 }

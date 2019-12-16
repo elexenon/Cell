@@ -20,9 +20,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>15</y>
-     <width>30</width>
-     <height>31</height>
+     <y>18</y>
+     <width>25</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -35,14 +35,14 @@
   <widget class="QLabel" name="label_LauncherTitle">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>15</y>
+     <x>58</x>
+     <y>14</y>
      <width>221</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>CELL LAUNCHER</string>
+    <string>CELL Launcher</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Btn_close">

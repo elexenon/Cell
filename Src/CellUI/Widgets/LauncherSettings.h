@@ -62,7 +62,7 @@ private:
     QComboBox *comboBox_ColorScheme;
     QComboBox *comboBox_Auto;
 
-    QFrame *line_splitter1;
+    QFrame *LauncherSettings_line_splitter1;
 
 private:
     CellGlobal::COLOR_SCHEME m_mode;

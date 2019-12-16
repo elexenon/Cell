@@ -17,7 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customLine.cpp \
-    Src/CellUI/Widgets/NewPJProjectPage.cpp \
+    Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
+    Src/CellUI/Widgets/NewPJProjectCellPage.cpp \
     Src/main.cpp \
     Src/CellCore/Kits/CellUtility.cpp \
     Src/CellCore/Kits/WindWMAPI.cpp \
@@ -34,8 +35,7 @@ SOURCES += \
     Src/CellUI/Widgets/LauncherHomepage.cpp \
     Src/CellUI/Widgets/LauncherSettings.cpp \
     Src/CellUI/Widgets/WorkShop.cpp \
-    Src/CellUI/Widgets/WSLoadingDialog.cpp \
-    Src/CellUI/Widgets/launcherNewPJDialog.cpp
+    Src/CellUI/Widgets/WSLoadingDialog.cpp
 
 
 HEADERS += \
@@ -56,11 +56,11 @@ HEADERS += \
     Src/CellUI/Widgets/Launcher.h \
     Src/CellUI/Widgets/LauncherGuideDialog.h \
     Src/CellUI/Widgets/LauncherHomepage.h \
+    Src/CellUI/Widgets/LauncherNewPJDialog.h \
     Src/CellUI/Widgets/LauncherSettings.h \
-    Src/CellUI/Widgets/NewPJProjectPage.h \
+    Src/CellUI/Widgets/NewPJProjectCellPage.h \
     Src/CellUI/Widgets/WorkShop.h \
-    Src/CellUI/Widgets/WSLoadingDialog.h \
-    Src/CellUI/Widgets/launcherNewPJDialog.h
+    Src/CellUI/Widgets/WSLoadingDialog.h
 
 FORMS += \
     Src/CellUI/Widgets/Forms/Launcher.ui \

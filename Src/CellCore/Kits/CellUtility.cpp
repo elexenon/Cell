@@ -22,6 +22,7 @@ const QString FONT_DIR(":/fonts/Fonts/");
 const QString STYLESHEET_DIR("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning\\Src\\CellResourcesFiles\\StyleSheets\\");
 
 const QColor GRAYLEVEL255(255,255,255);
+const QColor GRAYLEVEL180(180,180,180);
 const QColor GRAYLEVEL45(45, 45, 45);
 const QColor GRAYLEVEL218(218, 218, 218);
 const QColor GRAYLEVEL30(30, 30, 30);
@@ -62,11 +63,11 @@ const QString QSS_CUSTOMBUTTON_STATIC(
 const QString QSS_CUSTOMBUTTON_DYNAMIC(
 "QPushButton{"
 "background-color: rgb(%1, %2, %3);"
-"border: 1px solid gray;"
+"border: 1px solid rgb(180,180,180);"
 "}"
 "QPushButton:checked{"
 "background-color: rgb(%4, %5, %6);"
-"border: 1px solid gray;"
+"border: 1px solid rgb(180,180,180);"
 "}");
 } // namespace Cell_Const{
 

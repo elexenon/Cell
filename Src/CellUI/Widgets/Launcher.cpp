@@ -15,7 +15,7 @@
 #include <QtGlobal>
 
 #include "LauncherGuideDialog.h"
-#include "launcherNewPJDialog.h"
+#include "LauncherNewPJDialog.h"
 #include "LauncherHomepage.h"
 #include "LauncherSettings.h"
 #include "WorkShop.h"
@@ -28,7 +28,8 @@
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "ui_Launcher.h"
 #define CELL_DEBUG
-#define AUTO_CHANGE
+//#define ENABLE_WORKSHOP
+//#define AUTO_CHANGE
 
 Launcher::Launcher(QWidget *parent)
     : customWidget(parent)
@@ -70,7 +71,7 @@ void Launcher::setColorScheme(CellGlobal::COLOR_SCHEME mode)
     const QColor thisTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
                                     Cell_Const::GRAYLEVEL247 : Cell_Const::GRAYLEVEL30);
     const QColor titleBarTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
-                                    Cell_Const::GRAYLEVEL255 : Cell_Const::GRAYLEVEL45);
+                                    Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL45);
     const QColor labelGroupTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
                                     Cell_Const::GRAYLEVEL70 : Cell_Const::GRAYLEVEL255);
     CellGlobal::setPropertyAnimation({this_animi},
@@ -107,7 +108,7 @@ void Launcher::InitLauncher()
 
     frame_titleBar->setObjectName(QStringLiteral("frame_titleBar"));
     frame_titleBar->setGeometry(0, 0, 1311, 61);
-    frame_titleBar->setColor(Qt::white);
+    frame_titleBar->setColor(QColor(247,247,247));
 
     ui->stackedWidget->insertWidget(1, homePage);
     ui->stackedWidget->insertWidget(2, settingsPage);
@@ -207,7 +208,7 @@ void Launcher::InitLauncher()
 
     CellGlobal::setDropShadowEffect({eff_dse},
                                {ui->line},
-                                QPoint(0,1),QColor(50,200,230),30);
+                                QPoint(0,1),QColor(50,200,255),50);
 
     notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
     notificationCenter->setGeometry(0,742,1400,29);
@@ -389,6 +390,7 @@ void Launcher::Btn_NewProject_clicked()
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     newPJDialog->show();
+#ifdef ENABLE_WORKSHOP
     workshop = new Workshop(m_mode);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             workshop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
@@ -398,4 +400,5 @@ void Launcher::Btn_NewProject_clicked()
             notificationCenter, SLOT(minusCnt()));
     workshop->_constructed();
     workshop->show();
+#endif
 }

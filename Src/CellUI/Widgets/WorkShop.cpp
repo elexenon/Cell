@@ -37,7 +37,7 @@ Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     rightBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
     statusBar(new customGradientChangeFrame(Cell_Const::QSS_CUSTOMFRAME, QColor(74,207,90) ,this)),
     mainEditor(new QsciScintilla(this)),
-    m_color(CellGlobal::COLOR_SCHEME::_BRIGHT),
+    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT),
     verticalLayout(new QVBoxLayout(this)),
     splitter(new QSplitter(this)),
     savePath(""),

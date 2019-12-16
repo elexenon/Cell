@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>800</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,18 +16,30 @@
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>200</x>
      <y>45</y>
      <width>1</width>
-     <height>355</height>
+     <height>405</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(200, 200, 200);</string>
+    <string notr="true">background-color: rgb(180, 180, 180);</string>
    </property>
    <property name="orientation">
     <enum>Qt::Vertical</enum>
    </property>
+  </widget>
+  <widget class="QStackedWidget" name="stackedWidget">
+   <property name="geometry">
+    <rect>
+     <x>201</x>
+     <y>45</y>
+     <width>599</width>
+     <height>405</height>
+    </rect>
+   </property>
+   <widget class="QWidget" name="page"/>
+   <widget class="QWidget" name="page_2"/>
   </widget>
  </widget>
  <resources/>

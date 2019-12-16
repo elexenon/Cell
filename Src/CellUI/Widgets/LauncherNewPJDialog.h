@@ -19,6 +19,9 @@ class QPropertyAnimation;
 class QGraphicsDropShadowEffect;
 class customStaticButton;
 class QStackedWidget;
+class QFrame;
+class customDynamicButton;
+class NewPJProjectCellPage;
 
 namespace Ui {
 class LauncherNewPJDialog;
@@ -42,6 +45,8 @@ private:
     QPropertyAnimation *label_empty_animi;
     QPropertyAnimation *label_cpp_animi;
     QPropertyAnimation *label_py_animi;
+    QPropertyAnimation *label_confirm_animi;
+    QPropertyAnimation *label_cancel_animi;
     QPropertyAnimation *animi;
 
     QGraphicsDropShadowEffect *eff_dse;
@@ -56,15 +61,22 @@ private:
     customLabel *label_choose;
     customLabel *label_project;
     customLabel *label_file;
-    customFrame *frame_project;
-    customFrame *frame_file;
     customLabel *Tab_Cell_Label;
     customLabel *Tab_Others_Label;
     customLabel *Tab_Empty_Label;
     customLabel *Tab_CPP_Label;
     customLabel *Tab_Py_Label;
 
-    QStackedWidget *stackedWidget;
+    QFrame *LauncherNewPJ_line_splitter1;
+    QFrame *LauncherNewPJ_line_splitter2;
+
+    customDynamicButton *Btn_Confirm;
+    customDynamicButton *Btn_Cancel;
+
+    customLabel *Btn_Confirm_label;
+    customLabel *Btn_Cancel_label;
+
+    NewPJProjectCellPage *cellPage;
 
     QList<customStaticButton*> *tabs;
 
@@ -101,6 +113,7 @@ private slots:
     void Tab_Empty_clicked();
     void Tab_CPP_clicked();
     void Tab_Py_clicked();
+    void Btn_Cancel_clicked();
 };
 
 #endif // LAUNCHERNEWPJDIALOG_H

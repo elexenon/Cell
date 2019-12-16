@@ -14,10 +14,6 @@
 public:\
     virtual ~name(){}
 
-#define DeclareDerivedInterface(name,base) _interface name:public base{\
-public:\
-    virtual ~name(){}
-
 #define DeclareInterfaceEnd };
 
 #define implements public

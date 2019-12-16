@@ -38,7 +38,7 @@ void LauncherGuideDialog::Init()
     ui->pushButton->setGeometry(640, 420, ui->pushButton->width(), ui->pushButton->height());
 
     frame_titleBar->setGeometry(0, 0, 781, 51);
-    frame_titleBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(164, 163, 164);}"));
+    frame_titleBar->setColor(Cell_Const::GRAYLEVEL218);
 
     ui->label_getStart->setFont(QFont(QStringLiteral("微软雅黑"), 18));   
     ui->label_learn->setFont(QFont(QStringLiteral("微软雅黑"), 9));
@@ -85,7 +85,7 @@ void LauncherGuideDialog::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(m_mode == mode) return;
     m_mode = mode;
-    const QColor targetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? QColor(164,164,164) : Cell_Const::GRAYLEVEL45);
+    const QColor targetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL45);
     CellGlobal::setPropertyAnimation({animi_title},
                                  "color",
                                  frame_titleBar->color(),

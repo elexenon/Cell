@@ -28,7 +28,7 @@
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "ui_Launcher.h"
 #define CELL_DEBUG
-//#define AUTO_CHANGE
+#define AUTO_CHANGE
 
 Launcher::Launcher(QWidget *parent)
     : customWidget(parent)
@@ -52,7 +52,6 @@ Launcher::Launcher(QWidget *parent)
     , Btn_OpenProject_Function(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
     , Btn_OpenProject_Hint(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
     , notificationCenter(new class notificationCenter(Cell_Const::QSS_CUSTOMFRAME, this))
-    //, Noticenter_Btn_popUp(new QPushButton(notificationCenter))
     , currentPage(PAGE_TYPE::_HOME)
     , m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
 {
@@ -386,13 +385,9 @@ void Launcher::mouseReleaseEvent(QMouseEvent *event)
 
 void Launcher::Btn_NewProject_clicked()
 {
-    newPJDialog = new LauncherNewPJDialog(this);
+    newPJDialog = new LauncherNewPJDialog(m_mode, this);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            newPJDialog->Tab_WorkShop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            newPJDialog->Tab_Others, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     newPJDialog->show();
     workshop = new Workshop(m_mode);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),

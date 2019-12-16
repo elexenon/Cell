@@ -29,6 +29,7 @@ class customDynamicButton;
 class customLabel;
 class notificationCenter;
 class QLabel;
+class customLine;
 
 class Launcher : public customWidget
 {
@@ -56,6 +57,7 @@ private:
     QPropertyAnimation     *Label_HomePage_animi;
     QPropertyAnimation     *Label_Settings_animi;
     QPropertyAnimation     *Label_Guide_animi;
+    QPropertyAnimation     *line_animi;
 
     Workshop               *workshop;
     LauncherHomepage       *homePage;
@@ -83,7 +85,8 @@ private:
     customLabel            *Btn_OpenProject_Hint;
 
     notificationCenter     *notificationCenter;
-    QPushButton            *Noticenter_Btn_popUp;
+
+    customLine             *line_splitter_v;
 
 private:
     QPoint                   m_startPoint;

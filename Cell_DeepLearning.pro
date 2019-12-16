@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
+    Src/CellUI/CustomBaseWidgets/customLine.cpp \
+    Src/CellUI/Widgets/NewPJProjectPage.cpp \
     Src/main.cpp \
     Src/CellCore/Kits/CellUtility.cpp \
     Src/CellCore/Kits/WindWMAPI.cpp \
@@ -38,6 +40,7 @@ SOURCES += \
 
 HEADERS += \
     Src/CellCore/Kits/CellUtility.h \
+    Src/CellCore/Kits/CustomCppInterfaceDefination.h \
     Src/CellCore/Kits/WindWMAPI.h \
     Src/CellCore/Kits/StyleSheetLoader.hpp \
     Src/CellCore/CellProjectEntity.h \
@@ -46,6 +49,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
+    Src/CellUI/CustomBaseWidgets/customLine.h \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customStaticButton.h \
     Src/CellUI/CustomBaseWidgets/customWidget.h \
@@ -53,6 +57,7 @@ HEADERS += \
     Src/CellUI/Widgets/LauncherGuideDialog.h \
     Src/CellUI/Widgets/LauncherHomepage.h \
     Src/CellUI/Widgets/LauncherSettings.h \
+    Src/CellUI/Widgets/NewPJProjectPage.h \
     Src/CellUI/Widgets/WorkShop.h \
     Src/CellUI/Widgets/WSLoadingDialog.h \
     Src/CellUI/Widgets/launcherNewPJDialog.h

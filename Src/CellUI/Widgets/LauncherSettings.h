@@ -16,7 +16,6 @@
 namespace Ui {
 class LauncherSettings;
 }
-class customWidget;
 class QScrollArea;
 class QPropertyAnimation;
 class customFrame;
@@ -26,10 +25,12 @@ class QGraphicsDropShadowEffect;
 class QPushButton;
 class QCheckBox;
 class QGraphicsDropShadowEffect;
+class QComboBox;
 
 class LauncherSettings : public customFrame
 {
     Q_OBJECT
+    static const QString QSS_OPTIONBLOCK;
 public:
     explicit LauncherSettings(QWidget *parent = nullptr);
     ~LauncherSettings() = default;
@@ -41,28 +42,27 @@ private slots:
     void Btn_dark_clicked();
 
 private:
-    QPropertyAnimation     *line_color_animi;
-    QPropertyAnimation     *label_appearence_animi;
-    QPropertyAnimation     *label_general_animi;
-    QPropertyAnimation     *label_auto_hint_animi;
-    QPropertyAnimation     *optionBlock1_animi;
-    QPropertyAnimation     *optionBlock2_animi;
-    QPropertyAnimation     *animi;
+    QPropertyAnimation *label_general_animi;
+    QPropertyAnimation *label_auto_hint_animi;
+    QPropertyAnimation *optionBlock1_animi;
+    QPropertyAnimation *optionBlock2_animi;
+    QPropertyAnimation *animi;
 
     QGraphicsDropShadowEffect *Btn_dark_dse;
     QGraphicsDropShadowEffect *Btn_bright_dse;
 
-    customFrame            *optionBlock1;
-    customFrame            *optionBlock2;
+    customFrame *optionBlock1;
+    customFrame *optionBlock2;
 
-    QPushButton            *Btn_dark;
-    QPushButton            *Btn_bright;
+    customLabel *label_general;
+    customLabel *label_auto_hint;
+    customLabel *label_colorScheme;
+    customLabel *label_auto;
 
-    customLabel            *label_appearence;
-    customLabel            *label_general;
-    customLabel            *label_auto_hint;
+    QComboBox *comboBox_ColorScheme;
+    QComboBox *comboBox_Auto;
 
-    QFrame                 *line_color;
+    QFrame *line_splitter1;
 
 private:
     CellGlobal::COLOR_SCHEME m_mode;

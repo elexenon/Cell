@@ -64,8 +64,8 @@ void LauncherHomepage::setAllGraphBtnsUnchecked()
 void LauncherHomepage::setColorScheme(CellGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
+    m_mode = mode;
     if(mode == CellGlobal::COLOR_SCHEME::_DARK){
-        m_mode = CellGlobal::COLOR_SCHEME::_DARK;
         CellGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->line->setStyleSheet("QFrame{border:none;background-color:#FFFFFF;"
@@ -86,7 +86,6 @@ void LauncherHomepage::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         ui->Btn_list->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
     else{
-        m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
         CellGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->line->setStyleSheet(QStringLiteral("QFrame{border:none;background-color:#DADADA;max-height : 21px;}"));

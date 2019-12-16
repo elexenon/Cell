@@ -1,3 +1,10 @@
+// Copyright 2018-2019 CellTek.
+//
+// Distributed under the GPL License, Version 3.0.
+//
+// See accompanying file LICENSE.txt at the root
+//
+// Of source file directory.
 #ifndef LAUNCHERNEWPJDIALOG_H
 #define LAUNCHERNEWPJDIALOG_H
 
@@ -11,6 +18,7 @@ class customLabel;
 class QPropertyAnimation;
 class QGraphicsDropShadowEffect;
 class customStaticButton;
+class QStackedWidget;
 
 namespace Ui {
 class LauncherNewPJDialog;
@@ -21,20 +29,28 @@ class LauncherNewPJDialog : public customDialog
     Q_OBJECT
 
 public:
-    explicit LauncherNewPJDialog(QWidget *parent = nullptr);
+    explicit LauncherNewPJDialog(CellGlobal::COLOR_SCHEME globalMode,QWidget *parent = nullptr);
     ~LauncherNewPJDialog();
-
-    customStaticButton *Tab_WorkShop;
-    customStaticButton *Tab_Others;
 
 private:
     Ui::LauncherNewPJDialog *ui;
 
 private:
-    QPropertyAnimation *label_animi;
+    QPropertyAnimation *label_choose_animi;
+    QPropertyAnimation *label_cell_animi;
+    QPropertyAnimation *label_others_animi;
+    QPropertyAnimation *label_empty_animi;
+    QPropertyAnimation *label_cpp_animi;
+    QPropertyAnimation *label_py_animi;
     QPropertyAnimation *animi;
 
     QGraphicsDropShadowEffect *eff_dse;
+
+    customStaticButton *Tab_Cell;
+    customStaticButton *Tab_Others;
+    customStaticButton *Tab_Empty;
+    customStaticButton *Tab_CPP;
+    customStaticButton *Tab_Py;
 
     customFrame *frame_titleBar;
     customLabel *label_choose;
@@ -42,6 +58,15 @@ private:
     customLabel *label_file;
     customFrame *frame_project;
     customFrame *frame_file;
+    customLabel *Tab_Cell_Label;
+    customLabel *Tab_Others_Label;
+    customLabel *Tab_Empty_Label;
+    customLabel *Tab_CPP_Label;
+    customLabel *Tab_Py_Label;
+
+    QStackedWidget *stackedWidget;
+
+    QList<customStaticButton*> *tabs;
 
     QPoint  m_startPoint;
     QPoint  m_windowPoint;
@@ -49,6 +74,8 @@ private:
 
 private:
     void Init();
+    void setAllTabsUnchecked();
+    void setEventConnections();
 
 private:
     CellGlobal::COLOR_SCHEME m_mode;
@@ -63,8 +90,17 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent *event);
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
+
+signals:
+    void enableColorScheme(CellGlobal::COLOR_SCHEME mode);
+
 private slots:
     void setColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void Tab_Cell_clicked();
+    void Tab_Others_clicked();
+    void Tab_Empty_clicked();
+    void Tab_CPP_clicked();
+    void Tab_Py_clicked();
 };
 
 #endif // LAUNCHERNEWPJDIALOG_H

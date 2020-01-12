@@ -35,7 +35,7 @@ public:
     explicit LauncherSettings(QWidget *parent = nullptr);
     ~LauncherSettings() = default;
 
-    void LauncherSetColorSchemeModeCall(CellGlobal::COLOR_SCHEME mode);
+    void LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode);
 
 private slots:
     void Btn_bright_clicked();
@@ -65,15 +65,15 @@ private:
     QFrame *LauncherSettings_line_splitter1;
 
 private:
-    CellGlobal::COLOR_SCHEME m_mode;
+    CellUiGlobal::COLOR_SCHEME m_mode;
 
 private:
     void   Init();
-    void   setColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void   setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void   setEventConnections();
 
 signals:
-    void enableColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 };
 
 #endif // LauncherSettings_H

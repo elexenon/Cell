@@ -28,16 +28,16 @@
 #include "ui_WorkShop.h"
 #define CELL_DEBUG
 
-Workshop::Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
+Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Workshop),
     loadingDialog(new WSLoadingDialog),
-    menuBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
-    leftBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
-    rightBlock(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
-    statusBar(new customGradientChangeFrame(Cell_Const::QSS_CUSTOMFRAME, QColor(74,207,90) ,this)),
+    menuBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
+    leftBlock(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
+    rightBlock(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
+    statusBar(new customGradientChangeFrame(CellUiConst::QSS_CUSTOMFRAME, QColor(74,207,90) ,this)),
     mainEditor(new QsciScintilla(this)),
-    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT),
+    m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT),
     verticalLayout(new QVBoxLayout(this)),
     splitter(new QSplitter(this)),
     savePath(""),
@@ -121,7 +121,7 @@ void Workshop::InitWorkshop()
     statusBar->setGeometry(0, 771, 1400, 29);
     statusBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(210,210,210);}"));
     statusBar->setMaximumSize(65535,29);
-    statusBar->setColor(Cell_Const::GRAYLEVEL218);
+    statusBar->setColor(CellUiConst::GRAYLEVEL218);
 
     verticalLayout->addWidget(statusBar);
 
@@ -131,15 +131,15 @@ void Workshop::InitWorkshop()
 
     menuBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(65,152,197);}"));
 
-    ui->BtnFile->setFont(QFont("微软雅黑", 10));
-    ui->BtnEdit->setFont(QFont("微软雅黑", 10));
-    ui->BtnBuild->setFont(QFont("微软雅黑", 10));
-    ui->BtnDebug->setFont(QFont("微软雅黑", 10));
-    ui->BtnKits->setFont(QFont("微软雅黑", 10));
-    ui->BtnView->setFont(QFont("微软雅黑", 10));
-    ui->BtnHelp->setFont(QFont("微软雅黑", 10));
+    ui->BtnFile->setFont(QFont("Microsoft YaHei UI", 10));
+    ui->BtnEdit->setFont(QFont("Microsoft YaHei UI", 10));
+    ui->BtnBuild->setFont(QFont("Microsoft YaHei UI", 10));
+    ui->BtnDebug->setFont(QFont("Microsoft YaHei UI", 10));
+    ui->BtnKits->setFont(QFont("Microsoft YaHei UI", 10));
+    ui->BtnView->setFont(QFont("Microsoft YaHei UI", 10));
+    ui->BtnHelp->setFont(QFont("Microsoft YaHei UI", 10));
 
-    CellGlobal::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,
+    CellUiGlobal::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,
                                       ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
                                           QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
     // Main Editor.
@@ -153,20 +153,20 @@ void Workshop::InitWorkshop()
     mainEditor->setCaretLineBackgroundColor(QColor(240,240,240));
 
     // Two Blocks.
-    CellGlobal::multiModulesOneStyleSheet({leftBlock, rightBlock},
+    CellUiGlobal::multiModulesOneStyleSheet({leftBlock, rightBlock},
                                        QStringLiteral("QFrame{background-color:rgb(235,235,235);}"));
 
     // Labels.
     cntRow->setGeometry(370, 0, cntRow->width(), cntRow->height());
-    cntRow->setFont(QFont(QStringLiteral("微软雅黑 Light")));
+    cntRow->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
     cntRow->setText(QStringLiteral("Row: 0"));
 
     cntChar->setGeometry(450, 0, cntChar->width(), cntChar->height());
-    cntChar->setFont(QFont(QStringLiteral("微软雅黑 Light")));
+    cntChar->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
     cntChar->setText(QStringLiteral("Char: 0"));
 
     labelFormat->setGeometry(1030 - labelFormat->width(), 0, labelFormat->width(), labelFormat->height());
-    labelFormat->setFont(QFont(QStringLiteral("微软雅黑 Light")));
+    labelFormat->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
     labelFormat->setText(QStringLiteral("Format: UTF-8"));
 
     // Functional.
@@ -195,44 +195,43 @@ void Workshop::_constructed()
     PJEntity = new CellProjectEntity("newpj",CellProjectEntity::CellProjectEntityType::_WORKSHOP);
 }
 
-void Workshop::setColorScheme(CellGlobal::COLOR_SCHEME mode)
+void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
     m_mode = mode;
     statusBar->setColorScheme(mode);
-    const QColor menuBarTargetPos = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
-                              QColor(65,152,197) : Cell_Const::GRAYLEVEL45);
-    const QColor blockTargetPos = (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
-                              QColor(235,235,235) : Cell_Const::GRAYLEVEL70);
-    CellGlobal::setPropertyAnimation({animi_MenuBar},
+    const QColor menuBarTargetPos = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
+                              QColor(65,152,197) : CellUiConst::GRAYLEVEL45);
+    const QColor blockTargetPos = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
+                              QColor(235,235,235) : CellUiConst::GRAYLEVEL70);
+    CellUiGlobal::setPropertyAnimation({animi_MenuBar},
                                  "color",
                                  menuBar->color(),
                                  menuBarTargetPos,
-                                 CellGlobal::CELL_GLOBALANIMIDURATION,
+                                 CellUiGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
                                  {menuBar}, nullptr);
 
-    CellGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
+    CellUiGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
                                  "color",
                                  leftBlock->color(),
                                  blockTargetPos,
-                                 CellGlobal::CELL_GLOBALANIMIDURATION,
+                                 CellUiGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
                                  {leftBlock,rightBlock}, nullptr);
-    if(mode == CellGlobal::COLOR_SCHEME::_DARK){
-        CellGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
+    if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
+        CellUiGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                                QStringLiteral("QLabel{color:rgb(255,255,255);}"));      
     }
     else{
-        m_mode = CellGlobal::COLOR_SCHEME::_BRIGHT;
-        CellGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
+        m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
+        CellUiGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
                                           QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));
     }
 }
 
 void Workshop::updateStatusBar()
 {
-    QCursor cursor = mainEditor->cursor();
     cntRow->setText("Row: " + QString::number(mainEditor->lines()));
 
     QString tmp = mainEditor->text();

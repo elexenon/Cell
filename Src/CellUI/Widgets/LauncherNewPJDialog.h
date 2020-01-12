@@ -32,7 +32,7 @@ class LauncherNewPJDialog : public customDialog
     Q_OBJECT
 
 public:
-    explicit LauncherNewPJDialog(CellGlobal::COLOR_SCHEME globalMode,QWidget *parent = nullptr);
+    explicit LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,QWidget *parent = nullptr);
     ~LauncherNewPJDialog();
 
 private:
@@ -90,7 +90,7 @@ private:
     void setEventConnections();
 
 private:
-    CellGlobal::COLOR_SCHEME m_mode;
+    CellUiGlobal::COLOR_SCHEME m_mode;
 
 protected:
 #ifdef Q_OS_WIN32
@@ -104,10 +104,10 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);
 
 signals:
-    void enableColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 
 private slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void Tab_Cell_clicked();
     void Tab_Others_clicked();
     void Tab_Empty_clicked();

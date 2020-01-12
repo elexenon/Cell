@@ -11,12 +11,12 @@
 
 #include <QScrollBar>
 
-using namespace Cell_Const;
+using namespace CellUiConst;
 
 LauncherHomepage::LauncherHomepage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LauncherHomepage),
-    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
+    m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     Init();
@@ -29,7 +29,7 @@ LauncherHomepage::~LauncherHomepage()
 
 void LauncherHomepage::Init()
 {
-    ui->label_welcome->setFont(QFont(QStringLiteral("微软雅黑 Light"), 18));
+    ui->label_welcome->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light"), 18));
 
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeComboBox.css"));
     ui->comboBox_sort->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
@@ -42,9 +42,9 @@ void LauncherHomepage::Init()
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeListBtn_Bright.css"));
     ui->Btn_list->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-    ui->label_recentPJ->setFont(QFont(QStringLiteral("微软雅黑"), 12));
+    ui->label_recentPJ->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 12));
 
-    ui->label_sort->setFont(QFont(QStringLiteral("微软雅黑 Light"), 10));
+    ui->label_sort->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light"), 10));
     ui->label_sort->setStyleSheet(QStringLiteral("color:dadada;"));
 
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeScrollBar_Bright.css"));
@@ -61,12 +61,12 @@ void LauncherHomepage::setAllGraphBtnsUnchecked()
     ui->Btn_list->setChecked(false);
 }
 
-void LauncherHomepage::setColorScheme(CellGlobal::COLOR_SCHEME mode)
+void LauncherHomepage::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
     m_mode = mode;
-    if(mode == CellGlobal::COLOR_SCHEME::_DARK){
-        CellGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
+    if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
+        CellUiGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->line->setStyleSheet("QFrame{border:none;background-color:#FFFFFF;"
                                 "max-height : 21px;}");
@@ -86,7 +86,7 @@ void LauncherHomepage::setColorScheme(CellGlobal::COLOR_SCHEME mode)
         ui->Btn_list->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
     else{
-        CellGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
+        CellUiGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->line->setStyleSheet(QStringLiteral("QFrame{border:none;background-color:#DADADA;max-height : 21px;}"));
         CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHome_OptionBlock_Bright.css"));

@@ -15,8 +15,8 @@
 LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
     customDialog(parent),
     ui(new Ui::LauncherGuideDialog),
-    frame_titleBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this)),
-    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
+    frame_titleBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
+    m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     Init();
@@ -38,18 +38,18 @@ void LauncherGuideDialog::Init()
     ui->pushButton->setGeometry(640, 420, ui->pushButton->width(), ui->pushButton->height());
 
     frame_titleBar->setGeometry(0, 0, 781, 51);
-    frame_titleBar->setColor(Cell_Const::GRAYLEVEL218);
+    frame_titleBar->setColor(CellUiConst::GRAYLEVEL218);
 
-    ui->label_getStart->setFont(QFont(QStringLiteral("微软雅黑"), 18));   
-    ui->label_learn->setFont(QFont(QStringLiteral("微软雅黑"), 9));
-    CellGlobal::multiModulesOneStyleSheet({ui->label_getStart,ui->label_learn},QStringLiteral("QLabel{color:#DCDCDC;background-color: transparent;}"));
+    ui->label_getStart->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 18));
+    ui->label_learn->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 9));
+    CellUiGlobal::multiModulesOneStyleSheet({ui->label_getStart,ui->label_learn},QStringLiteral("QLabel{color:#DCDCDC;background-color: transparent;}"));
 
-    ui->checkBox_showUp->setFont(QFont(QStringLiteral("微软雅黑 Light")));
+    ui->checkBox_showUp->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
     ui->checkBox_showUp->setStyleSheet(QStringLiteral("QCheckBox{color:#798186;background-color: transparent;}"));
 
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherGuideCloseBtn_Bright.css"));
     ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-    ui->Btn_close->setFont(QFont(QStringLiteral("微软雅黑")));
+    ui->Btn_close->setFont(QFont(QStringLiteral("Microsoft YaHei UI")));
 }
 
 bool LauncherGuideDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
@@ -81,19 +81,19 @@ void LauncherGuideDialog::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void LauncherGuideDialog::setColorScheme(CellGlobal::COLOR_SCHEME mode)
+void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(m_mode == mode) return;
     m_mode = mode;
-    const QColor targetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL45);
-    CellGlobal::setPropertyAnimation({animi_title},
+    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL218 : CellUiConst::GRAYLEVEL45);
+    CellUiGlobal::setPropertyAnimation({animi_title},
                                  "color",
                                  frame_titleBar->color(),
                                  targetColor,
-                                 CellGlobal::CELL_GLOBALANIMIDURATION,
+                                 CellUiGlobal::CELL_GLOBALANIMIDURATION,
                                  QEasingCurve::InOutCubic,
                                  {frame_titleBar}, nullptr);
-    if(mode == CellGlobal::COLOR_SCHEME::_DARK){
+    if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
         CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherGuideCloseBtn_Dark.css"));
         ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }

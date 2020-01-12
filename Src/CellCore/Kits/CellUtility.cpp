@@ -15,7 +15,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 
-namespace Cell_Const {
+namespace CellUiConst {
 const char* const INSTANCE_IS_ON("Cell Launcher is already running");
 const QString IMG_DIR(":/images/Images/");
 const QString FONT_DIR(":/fonts/Fonts/");
@@ -69,13 +69,13 @@ const QString QSS_CUSTOMBUTTON_DYNAMIC(
 "background-color: rgb(%4, %5, %6);"
 "border: 1px solid rgb(180,180,180);"
 "}");
-} // namespace Cell_Const{
+} // namespace CellUiConst{
 
 namespace CellEntityTools{
-StyleSheetLoader* const styleSheetLoader(new StyleSheetLoader(Cell_Const::STYLESHEET_DIR));
+StyleSheetLoader* const styleSheetLoader(new StyleSheetLoader(CellUiConst::STYLESHEET_DIR));
 } // namesapce CellEntityTools{
 
-namespace CellGlobal{
+namespace CellUiGlobal{
 void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,const QList<QWidget*> &modules,
                                      const QPoint &offset,const QColor &color,int blurRadius)
 {
@@ -93,7 +93,7 @@ void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,const QList<QW
     }
 }
 
-void setPropertyAnimation(QList<QPropertyAnimation*> animis,const QByteArray &_property, const QVariant &s_value,
+void setPropertyAnimation(QList<QPropertyAnimation*> &&animis,const QByteArray &_property, const QVariant &s_value,
                                       const QVariant &e_value,int duration, QEasingCurve curve, const QList<QWidget*> &modules, QGraphicsEffect *effect)
 {
     if(animis.size() != modules.size()){
@@ -128,14 +128,14 @@ void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qs
 }
 
 void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,QPropertyAnimation *animi,QWidget *target,
-                             int duration, CellGlobal::FADE_TYPE type){
+                             int duration, CellUiGlobal::FADE_TYPE type){
     int startValue = 0, endValue = 1;
-    if(type == CellGlobal::FADE_TYPE::_OUT)
+    if(type == CellUiGlobal::FADE_TYPE::_OUT)
         qSwap(startValue, endValue);
     eff = new QGraphicsOpacityEffect(target);
     eff->setOpacity(startValue);
     target->setGraphicsEffect(eff);
-    CellGlobal::setPropertyAnimation({animi}, "opacity", startValue, endValue, duration,
+    CellUiGlobal::setPropertyAnimation({animi}, "opacity", startValue, endValue, duration,
                          QEasingCurve::Linear, {nullptr}, eff);
 }
-} // namespace CellGlobal{
+} // namespace CellUiGlobal{

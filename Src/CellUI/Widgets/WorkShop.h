@@ -37,7 +37,7 @@ class Workshop : public QWidget
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-    explicit Workshop(CellGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
+    explicit Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
     ~Workshop();
 
 public:
@@ -64,7 +64,7 @@ private:
     QsciScintilla    *mainEditor;
 
     QColor                   m_color;
-    CellGlobal::COLOR_SCHEME m_mode;
+    CellUiGlobal::COLOR_SCHEME m_mode;
 
     QVBoxLayout      *verticalLayout;
     QSplitter        *splitter;
@@ -81,7 +81,7 @@ private:
     void setEventConnections();
 
 private slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void updateStatusBar();
     void saveFile();
     void checkCodeModifiedState();

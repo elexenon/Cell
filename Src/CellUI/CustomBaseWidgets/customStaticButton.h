@@ -29,7 +29,7 @@ public:
 
 protected:
     QPropertyAnimation      *animi;
-    CellGlobal::COLOR_SCHEME m_colorScheme;
+    CellUiGlobal::COLOR_SCHEME m_colorScheme;
 
     QColor currColor;
     QColor brightModeLeaveColor;
@@ -38,7 +38,7 @@ protected:
     QColor darkModeCheckedColor;
 
 protected slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 };
 
 #endif // CUSTOMPAGESWITCHBTN_H

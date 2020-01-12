@@ -16,16 +16,15 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
     QSharedMemory mem("Cell Launcher");
     if(!mem.create(1)){
-        QMessageBox::information(nullptr, QObject::tr("提示:"), QObject::tr(Cell_Const::INSTANCE_IS_ON));
+        QMessageBox::information(nullptr, QObject::tr("提示:"), QObject::tr(CellUiConst::INSTANCE_IS_ON));
         return 0;
     }
     // This operation is to register our custom property "COLOR_SCHEME".
-    qRegisterMetaType<CellGlobal::COLOR_SCHEME>("COLOR_SCHEME");
+    qRegisterMetaType<CellUiGlobal::COLOR_SCHEME>("COLOR_SCHEME");
 
-    QPixmap pixmap(Cell_Const::IMG_DIR + QStringLiteral("SplashScreen.png"));
+    QPixmap pixmap(CellUiConst::IMG_DIR + QStringLiteral("SplashScreen.png"));
 
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);
     startUp.setFont(QFont(QStringLiteral("微软雅黑")));

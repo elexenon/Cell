@@ -44,18 +44,18 @@ void notificationCenter::plusCnt()
 {
     if(currState != GRADIENT_STATE::_SPECIAL){
         transCurrState(GRADIENT_STATE::_SPECIAL);
-        CellGlobal::setPropertyAnimation({animi},
+        CellUiGlobal::setPropertyAnimation({animi},
                                          "pos",
                                          label_identifi->pos(),
                                          normalPos_iden,
                                          700,
                                          QEasingCurve::InOutCubic,
                                          {label_identifi},nullptr);
-        CellGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
-                                            label_ready,700,CellGlobal::FADE_TYPE::_OUT);
-        CellGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
-                                            label_identifi,700,CellGlobal::FADE_TYPE::_IN);
-        CellGlobal::setPropertyAnimation({label_ready_animi_move},
+        CellUiGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
+                                            label_ready,700,CellUiGlobal::FADE_TYPE::_OUT);
+        CellUiGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
+                                            label_identifi,700,CellUiGlobal::FADE_TYPE::_IN);
+        CellUiGlobal::setPropertyAnimation({label_ready_animi_move},
                                          "pos",
                                          label_ready->pos(),
                                          hidePos_ready,
@@ -76,18 +76,18 @@ void notificationCenter::minusCnt()
 {
     if(--workshop_instancesCount == 0){
         transCurrState(GRADIENT_STATE::_NORMAL);
-        CellGlobal::setPropertyAnimation({animi},
+        CellUiGlobal::setPropertyAnimation({animi},
                                          "pos",
                                          label_identifi->pos(),
                                          hidePos_iden,
                                          700,
                                          QEasingCurve::InOutCubic,
                                          {label_identifi},nullptr);
-        CellGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
-                                            label_ready,700,CellGlobal::FADE_TYPE::_IN);
-        CellGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
-                                            label_identifi,700,CellGlobal::FADE_TYPE::_OUT);
-        CellGlobal::setPropertyAnimation({label_ready_animi_move},
+        CellUiGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
+                                            label_ready,700,CellUiGlobal::FADE_TYPE::_IN);
+        CellUiGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
+                                            label_identifi,700,CellUiGlobal::FADE_TYPE::_OUT);
+        CellUiGlobal::setPropertyAnimation({label_ready_animi_move},
                                          "pos",
                                          label_ready->pos(),
                                          normalPos_ready,

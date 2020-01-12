@@ -26,13 +26,13 @@ public:
 
 protected:
     GRADIENT_STATE currState;
-    CellGlobal::COLOR_SCHEME m_mode;
+    CellUiGlobal::COLOR_SCHEME m_mode;
     QColor specialColor;
 
     QPropertyAnimation *animi;
 
 public slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 };
 
 #endif // CUSTOMGRADIENTCHANGEFRAME_H

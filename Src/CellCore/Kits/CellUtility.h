@@ -8,7 +8,7 @@
 #ifndef CELL_UTIL_H
 #define CELL_UTIL_H
 
-namespace Cell_Const{
+namespace CellUiConst{
 extern const char* const  INSTANCE_IS_ON;
 extern const QString      IMG_DIR;
 extern const QString      FONT_DIR;
@@ -29,7 +29,7 @@ extern const QColor       GRAYLEVEL45;
 extern const QColor       GRAYLEVEL218;
 extern const QColor       GRAYLEVEL30;
 extern const QColor       GRAYLEVEL247;
-} // namespace Cell_Const{
+} // namespace CellUiConst{
 
 class QGraphicsDropShadowEffect;
 class QPropertyAnimation;
@@ -37,7 +37,7 @@ class StyleSheetLoader;
 class QGraphicsEffect;
 class QGraphicsOpacityEffect;
 
-namespace CellGlobal{
+namespace CellUiGlobal{
 enum FADE_TYPE{
     _IN,
     _OUT
@@ -54,11 +54,11 @@ enum ANIMIDURATION{
     CELL_GLOBALANIMIDURATION = 700,
     CELL_GLOBALPAGESWITCHDURATION = 300
 };
-extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,
+extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> &&animis,
                                 const QList<QWidget*> &modules,
                                 const QPoint &offset,
                                 const QColor &color, int blurRadius);
-extern void setPropertyAnimation(QList<QPropertyAnimation*> animis,
+extern void setPropertyAnimation(QList<QPropertyAnimation*> &&animis,
                                  const QByteArray &_property,
                                  const QVariant &s_value,
                                  const QVariant &e_value, int duration,
@@ -69,16 +69,16 @@ extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,
                                     QPropertyAnimation *animi,
                                     QWidget *target,
                                     int duration,
-                                    CellGlobal::FADE_TYPE type);
+                                    CellUiGlobal::FADE_TYPE type);
 extern void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss);
-} // namespace CellGlobal{
+} // namespace CellUiGlobal{
 
 namespace CellEntityTools{
 extern StyleSheetLoader * const styleSheetLoader;
 } // namespace CellEntityTools{
 
 #include <QMetaType> // Q_DECLARE_METATYPE()
-Q_DECLARE_METATYPE(CellGlobal::COLOR_SCHEME);
+Q_DECLARE_METATYPE(CellUiGlobal::COLOR_SCHEME);
 
 #endif
 

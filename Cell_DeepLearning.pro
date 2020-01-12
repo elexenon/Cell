@@ -39,6 +39,7 @@ SOURCES += \
 
 
 HEADERS += \
+    Src/CellCore/Kits/AutoResizer.h \
     Src/CellCore/Kits/CellUtility.h \
     Src/CellCore/Kits/CustomCppInterfaceDefination.h \
     Src/CellCore/Kits/WindWMAPI.h \

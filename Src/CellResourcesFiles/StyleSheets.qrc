@@ -17,5 +17,7 @@
         <file>StyleSheets/LauncherSettings_OptionBlock1.css</file>
         <file>StyleSheets/LauncherSettings_OptionBlock2.css</file>
         <file>StyleSheets/LauncherSettings_OptionBlock1_ComboBox.css</file>
+        <file>StyleSheets/NewPJDialogCellPage_OptionBlock1.css</file>
+        <file>StyleSheets/NewPJDialogCellPage_ComboBox1.css</file>
     </qresource>
 </RCC>

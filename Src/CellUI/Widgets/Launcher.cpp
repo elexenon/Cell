@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <QTime>
 #include <QtGlobal>
+#include <QButtonGroup>
 
 #include "LauncherGuideDialog.h"
 #include "LauncherNewPJDialog.h"
@@ -28,8 +29,8 @@
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "ui_Launcher.h"
 #define CELL_DEBUG
-//#define ENABLE_WORKSHOP
-//#define AUTO_CHANGE
+#define ENABLE_WORKSHOP
+#define AUTO_CHANGE
 
 Launcher::Launcher(QWidget *parent)
     : customWidget(parent)
@@ -37,24 +38,25 @@ Launcher::Launcher(QWidget *parent)
     , workshop(nullptr)
     , homePage(new LauncherHomepage)
     , settingsPage(new LauncherSettings)
-    , frame_titleBar(new customFrame(Cell_Const::QSS_CUSTOMFRAME, this))
+    , frame_titleBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this))
     , Tab_HomePage(new customStaticButton(this))
     , Tab_Settings(new customStaticButton(this))
     , Tab_Guide(new customStaticButton(this))
     , Btn_NewProject(new customDynamicButton(this))
     , Btn_OpenProject(new customDynamicButton(this))
-    , Tab_HomePage_Label(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Tab_HomePage))
-    , Tab_Settings_Label(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Tab_Settings))
-    , Tab_Guide_Label(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Tab_Guide))
-    , Btn_NewProject_Icon(new customLabel(Cell_Const::QSS_CUSTOMLABEL,Btn_NewProject))
-    , Btn_NewProject_Function(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_NewProject))
-    , Btn_NewProject_Hint(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_NewProject))
-    , Btn_OpenProject_Icon(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
-    , Btn_OpenProject_Function(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
-    , Btn_OpenProject_Hint(new customLabel(Cell_Const::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
-    , notificationCenter(new class notificationCenter(Cell_Const::QSS_CUSTOMFRAME, this))
+    , Tab_HomePage_Label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Tab_HomePage))
+    , Tab_Settings_Label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Tab_Settings))
+    , Tab_Guide_Label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Tab_Guide))
+    , Btn_NewProject_Icon(new customLabel(CellUiConst::QSS_CUSTOMLABEL,Btn_NewProject))
+    , Btn_NewProject_Function(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_NewProject))
+    , Btn_NewProject_Hint(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_NewProject))
+    , Btn_OpenProject_Icon(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
+    , Btn_OpenProject_Function(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
+    , Btn_OpenProject_Hint(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
+    , notificationCenter(new class notificationCenter(CellUiConst::QSS_CUSTOMFRAME, this))
+    , tabsGroup(new QButtonGroup(this))
     , currentPage(PAGE_TYPE::_HOME)
-    , m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT)
+    , m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     InitLauncher();
@@ -64,37 +66,37 @@ Launcher::~Launcher()
     delete ui;
 }
 
-void Launcher::setColorScheme(CellGlobal::COLOR_SCHEME mode)
+void Launcher::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
     m_mode = mode;
-    const QColor thisTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
-                                    Cell_Const::GRAYLEVEL247 : Cell_Const::GRAYLEVEL30);
-    const QColor titleBarTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
-                                    Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL45);
-    const QColor labelGroupTargetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ?
-                                    Cell_Const::GRAYLEVEL70 : Cell_Const::GRAYLEVEL255);
-    CellGlobal::setPropertyAnimation({this_animi},
+    const QColor thisTargetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    CellUiConst::GRAYLEVEL247 : CellUiConst::GRAYLEVEL30);
+    const QColor titleBarTargetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    CellUiConst::GRAYLEVEL255 : CellUiConst::GRAYLEVEL45);
+    const QColor labelGroupTargetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
+                                    CellUiConst::GRAYLEVEL70 : CellUiConst::GRAYLEVEL255);
+    CellUiGlobal::setPropertyAnimation({this_animi},
                                      "color",
                                      color(),
                                      thisTargetColor,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
+                                     CellUiGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {this}, nullptr);
-    CellGlobal::setPropertyAnimation({frame_titleBar_animi},
+    CellUiGlobal::setPropertyAnimation({frame_titleBar_animi},
                                      "color",
                                      frame_titleBar->color(),
                                      titleBarTargetColor,
-                                     CellGlobal::CELL_GLOBALANIMIDURATION,
+                                     CellUiGlobal::CELL_GLOBALANIMIDURATION,
                                      QEasingCurve::InOutCubic,
                                      {frame_titleBar}, nullptr);
-    CellGlobal::setPropertyAnimation({Btn_NewProject_Function_animi,Btn_NewProject_Hint_animi,
+    CellUiGlobal::setPropertyAnimation({Btn_NewProject_Function_animi,Btn_NewProject_Hint_animi,
                                       Btn_OpenProject_Function_animi,Btn_OpenProject_Hint_animi,
                                       Label_HomePage_animi,Label_Settings_animi,Label_Guide_animi},
                                       "color",
                                       Btn_NewProject_Hint->color(),
                                       labelGroupTargetColor,
-                                      CellGlobal::CELL_GLOBALANIMIDURATION,
+                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
                                       QEasingCurve::InOutCubic,
                                       {Btn_NewProject_Function,Btn_NewProject_Hint,
                                        Btn_OpenProject_Function,Btn_OpenProject_Hint,
@@ -108,15 +110,15 @@ void Launcher::InitLauncher()
 
     frame_titleBar->setObjectName(QStringLiteral("frame_titleBar"));
     frame_titleBar->setGeometry(0, 0, 1311, 61);
-    frame_titleBar->setColor(QColor(247,247,247));
+    frame_titleBar->setColor(CellUiConst::GRAYLEVEL255);
 
     ui->stackedWidget->insertWidget(1, homePage);
     ui->stackedWidget->insertWidget(2, settingsPage);
     ui->stackedWidget->setCurrentIndex(1);
 
     Tab_HomePage->setObjectName(QStringLiteral("Tab_HomePage"));
-    Tab_HomePage->setBrightModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL218,Cell_Const::GRAYLEVEL247);
-    Tab_HomePage->setDarkModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL70,Cell_Const::GRAYLEVEL30);
+    Tab_HomePage->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
+    Tab_HomePage->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
     Tab_HomePage->Init();
     Tab_HomePage->setGeometry(40, 101, 251, 31);
     Tab_HomePage->setCheckable(true);
@@ -125,12 +127,12 @@ void Launcher::InitLauncher()
     Tab_HomePage_Label->setObjectName(QStringLiteral("Tab_HomePage_Label"));
     Tab_HomePage_Label->setText(QStringLiteral("主页"));
     Tab_HomePage_Label->setFont(QFont(QStringLiteral("Microsoft YaHei UI"),10));
-    Tab_HomePage_Label->setColor(Cell_Const::GRAYLEVEL70);
+    Tab_HomePage_Label->setColor(CellUiConst::GRAYLEVEL70);
     Tab_HomePage_Label->setGeometry(5, 0, 50, 31);
 
     Tab_Settings->setObjectName(QStringLiteral("Tab_Settings"));
-    Tab_Settings->setBrightModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL218,Cell_Const::GRAYLEVEL247);
-    Tab_Settings->setDarkModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL70,Cell_Const::GRAYLEVEL30);
+    Tab_Settings->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
+    Tab_Settings->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
     Tab_Settings->Init();
     Tab_Settings->setGeometry(40, 135, 251, 31);
     Tab_Settings->setCheckable(true);
@@ -138,24 +140,28 @@ void Launcher::InitLauncher()
     Tab_Settings_Label->setObjectName(QStringLiteral("Tab_Settings_Label"));
     Tab_Settings_Label->setText(QStringLiteral("选项"));
     Tab_Settings_Label->setFont(QFont(QStringLiteral("Microsoft YaHei UI"),10));
-    Tab_Settings_Label->setColor(Cell_Const::GRAYLEVEL70);
+    Tab_Settings_Label->setColor(CellUiConst::GRAYLEVEL70);
     Tab_Settings_Label->setGeometry(5, 0, 50, 31);
 
     Tab_Guide->setObjectName(QStringLiteral("Tab_Guide"));
-    Tab_Guide->setBrightModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL218,Cell_Const::GRAYLEVEL247);
-    Tab_Guide->setDarkModeCheckedUncheckedColor(Cell_Const::GRAYLEVEL70,Cell_Const::GRAYLEVEL30);
+    Tab_Guide->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
+    Tab_Guide->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
     Tab_Guide->Init();
     Tab_Guide->setGeometry(40, 169, 251, 31);
 
     Tab_Guide_Label->setObjectName(QStringLiteral("Tab_Guide_Label"));
     Tab_Guide_Label->setText(QStringLiteral("向导"));
     Tab_Guide_Label->setFont(QFont(QStringLiteral("Microsoft YaHei UI"),10));
-    Tab_Guide_Label->setColor(Cell_Const::GRAYLEVEL70);
+    Tab_Guide_Label->setColor(CellUiConst::GRAYLEVEL70);
     Tab_Guide_Label->setGeometry(5, 0, 50, 31);
 
+    tabsGroup->addButton(Tab_HomePage);
+    tabsGroup->addButton(Tab_Settings);
+    tabsGroup->setExclusive(true);
+
     Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
-    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL218);
-    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL70);
+    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);
+    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
     Btn_NewProject->setAnimationDuration(300);
     Btn_NewProject->Init();
     Btn_NewProject->setGeometry(40, 331, 251, 81);
@@ -165,19 +171,22 @@ void Launcher::InitLauncher()
     Btn_NewProject_Icon->setStyleSheet("background:transparent;border-image: url(:/images/Images/Btn_NewProject.png);");
     Btn_NewProject_Icon->setGeometry(15,14,35,35);
 
+    QFont t(QStringLiteral("微软雅黑"));
+    t.setPointSize(15);
     Btn_NewProject_Function->setText(tr("创建新项目(N)"));
-    Btn_NewProject_Function->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 15));
+    //Btn_NewProject_Function->setFont(QFont(QStringLiteral("微软雅黑"), 15));
+    Btn_NewProject_Function->setFont(t);
     Btn_NewProject_Function->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
     Btn_NewProject_Function->setGeometry(65, 12, Btn_NewProject_Function->width()+60,Btn_NewProject_Function->height());
 
     Btn_NewProject_Hint->setText(tr("创建一个空的Cell文档"));
-    Btn_NewProject_Hint->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 7));
+    Btn_NewProject_Hint->setFont(QFont(QStringLiteral("微软雅黑"), 7));
     Btn_NewProject_Hint->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
     Btn_NewProject_Hint->setGeometry(66, 12+Btn_NewProject_Function->height(), Btn_NewProject_Hint->width()+60,Btn_NewProject_Hint->height());
 
     Btn_OpenProject->setObjectName(QStringLiteral("Btn_OpenProject"));
-    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL218);
-    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),Cell_Const::GRAYLEVEL70);
+    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);
+    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
     Btn_OpenProject->setAnimationDuration(300);
     Btn_OpenProject->Init();
     Btn_OpenProject->setGeometry(40, 421, 251, 81);
@@ -189,13 +198,13 @@ void Launcher::InitLauncher()
     Btn_OpenProject_Icon->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_OpenProject_Function->setText(tr("打开项目(O)"));
-    Btn_OpenProject_Function->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 15));
+    Btn_OpenProject_Function->setFont(QFont(QStringLiteral("微软雅黑"), 15));
     Btn_OpenProject_Function->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
     Btn_OpenProject_Function->setGeometry(65, 12, Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
     Btn_OpenProject_Function->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     Btn_OpenProject_Hint->setText(tr("打开已有的Cell文档。"));
-    Btn_OpenProject_Hint->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 7));
+    Btn_OpenProject_Hint->setFont(QFont(QStringLiteral("微软雅黑"), 7));
     Btn_OpenProject_Hint->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
     Btn_OpenProject_Hint->setGeometry(66, 12+Btn_OpenProject_Function->height(), Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
     Btn_OpenProject_Hint->setAttribute(Qt::WA_TransparentForMouseEvents, true);
@@ -206,18 +215,15 @@ void Launcher::InitLauncher()
     ui->Btn_mini->setParent(frame_titleBar);
     ui->Btn_close->setParent(frame_titleBar);
 
-    CellGlobal::setDropShadowEffect({eff_dse},
-                               {ui->line},
-                                QPoint(0,1),QColor(50,200,255),50);
-
     notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
     notificationCenter->setGeometry(0,742,1400,29);
-    notificationCenter->setColor(Cell_Const::GRAYLEVEL218);
+    notificationCenter->setColor(CellUiConst::GRAYLEVEL218);
 
-    int fontID_Info = QFontDatabase::addApplicationFont(Cell_Const::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
+    int fontID_Info = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
 
-    QFont font_Info(Info, 14);
+    QFont font_Info(Info);
+    font_Info.setPointSize(14);
     font_Info.setLetterSpacing(QFont::PercentageSpacing, 100);
 
     ui->label_LauncherTitle->setFont(font_Info);
@@ -235,12 +241,12 @@ void Launcher::InitLauncher()
     setEventConnections();
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 18 || currentTime.hour() <= 4) && m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT){
+    if((currentTime.hour() >= 18 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
         Tab_Settings_clicked();
-        settingsPage->LauncherSetColorSchemeModeCall(CellGlobal::COLOR_SCHEME::_DARK);
-    }else if(currentTime.hour() < 18 && m_mode == CellGlobal::COLOR_SCHEME::_DARK){
+        settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_DARK);
+    }else if(currentTime.hour() < 18 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
         Tab_Settings_clicked();
-        settingsPage->LauncherSetColorSchemeModeCall(CellGlobal::COLOR_SCHEME::_BRIGHT);
+        settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
     }
 #endif
 }
@@ -341,17 +347,17 @@ void Launcher::Tab_Guide_clicked()
 
 void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
 {
-    int duration = CellGlobal::CELL_GLOBALPAGESWITCHDURATION;
+    int duration = CellUiGlobal::CELL_GLOBALPAGESWITCHDURATION;
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(settingsPage);
-        CellGlobal::setFadeInOrOutAnimation(opacityEffect,this_animi,
-                                       settingsPage,duration,CellGlobal::FADE_TYPE::_IN);
+        CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,this_animi,
+                                       settingsPage,duration,CellUiGlobal::FADE_TYPE::_IN);
     }else{
         homePage->setWindowOpacity(0);
         ui->stackedWidget->setCurrentWidget(homePage);
-        CellGlobal::setFadeInOrOutAnimation(opacityEffect,this_animi,
-                                       homePage,duration,CellGlobal::FADE_TYPE::_IN);
+        CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,this_animi,
+                                       homePage,duration,CellUiGlobal::FADE_TYPE::_IN);
     }
 }
 

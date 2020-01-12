@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>450</height>
+    <width>900</width>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>250</x>
      <y>45</y>
      <width>1</width>
-     <height>405</height>
+     <height>475</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -32,10 +32,10 @@
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>201</x>
+     <x>251</x>
      <y>45</y>
-     <width>599</width>
-     <height>405</height>
+     <width>649</width>
+     <height>475</height>
     </rect>
    </property>
    <widget class="QWidget" name="page"/>

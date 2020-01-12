@@ -30,6 +30,7 @@ class customLabel;
 class notificationCenter;
 class QLabel;
 class customLine;
+class QButtonGroup;
 
 class Launcher : public customWidget
 {
@@ -45,55 +46,55 @@ public:
 private:
     Ui::Launcher           *ui;
 
-    QGraphicsOpacityEffect *opacityEffect;
+    QGraphicsOpacityEffect    *opacityEffect;
     QGraphicsDropShadowEffect *eff_dse;
 
-    QPropertyAnimation     *this_animi;
-    QPropertyAnimation     *frame_titleBar_animi;
-    QPropertyAnimation     *Btn_NewProject_Function_animi;
-    QPropertyAnimation     *Btn_NewProject_Hint_animi;
-    QPropertyAnimation     *Btn_OpenProject_Function_animi;
-    QPropertyAnimation     *Btn_OpenProject_Hint_animi;
-    QPropertyAnimation     *Label_HomePage_animi;
-    QPropertyAnimation     *Label_Settings_animi;
-    QPropertyAnimation     *Label_Guide_animi;
-    QPropertyAnimation     *line_animi;
+    QPropertyAnimation *this_animi;
+    QPropertyAnimation *frame_titleBar_animi;
+    QPropertyAnimation *Btn_NewProject_Function_animi;
+    QPropertyAnimation *Btn_NewProject_Hint_animi;
+    QPropertyAnimation *Btn_OpenProject_Function_animi;
+    QPropertyAnimation *Btn_OpenProject_Hint_animi;
+    QPropertyAnimation *Label_HomePage_animi;
+    QPropertyAnimation *Label_Settings_animi;
+    QPropertyAnimation *Label_Guide_animi;
+    QPropertyAnimation *line_animi;
 
-    Workshop               *workshop;
-    LauncherHomepage       *homePage;
-    LauncherSettings       *settingsPage;
-    LauncherGuideDialog    *guideDialog;
-    LauncherNewPJDialog    *newPJDialog;
+    Workshop            *workshop;
+    LauncherHomepage    *homePage;
+    LauncherSettings    *settingsPage;
+    LauncherGuideDialog *guideDialog;
+    LauncherNewPJDialog *newPJDialog;
 
-    customFrame            *frame_titleBar;
-    customStaticButton     *Tab_HomePage;
-    customStaticButton     *Tab_Settings;
-    customStaticButton     *Tab_Guide;
-    customDynamicButton    *Btn_NewProject;
-    customDynamicButton    *Btn_OpenProject;
+    customFrame         *frame_titleBar;
+    customStaticButton  *Tab_HomePage;
+    customStaticButton  *Tab_Settings;
+    customStaticButton  *Tab_Guide;
+    customDynamicButton *Btn_NewProject;
+    customDynamicButton *Btn_OpenProject;
 
-    customLabel            *Tab_HomePage_Label;
-    customLabel            *Tab_Settings_Label;
-    customLabel            *Tab_Guide_Label;
+    customLabel *Tab_HomePage_Label;
+    customLabel *Tab_Settings_Label;
+    customLabel *Tab_Guide_Label;
 
-    customLabel            *Btn_NewProject_Icon;
-    customLabel            *Btn_NewProject_Function;
-    customLabel            *Btn_NewProject_Hint;
+    customLabel *Btn_NewProject_Icon;
+    customLabel *Btn_NewProject_Function;
+    customLabel *Btn_NewProject_Hint;
 
-    customLabel            *Btn_OpenProject_Icon;
-    customLabel            *Btn_OpenProject_Function;
-    customLabel            *Btn_OpenProject_Hint;
+    customLabel *Btn_OpenProject_Icon;
+    customLabel *Btn_OpenProject_Function;
+    customLabel *Btn_OpenProject_Hint;
 
-    notificationCenter     *notificationCenter;
+    notificationCenter *notificationCenter;
 
-    customLine             *line_splitter_v;
+    QButtonGroup *tabsGroup;
 
 private:
     QPoint                   m_startPoint;
     QPoint                   m_windowPoint;
     bool                     m_move;
     PAGE_TYPE    currentPage;
-    CellGlobal::COLOR_SCHEME m_mode;
+    CellUiGlobal::COLOR_SCHEME m_mode;
 
 private:
     void InitLauncher();
@@ -111,7 +112,7 @@ protected:
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
 private slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void on_Btn_mini_clicked();
     void on_Btn_close_clicked();
     void Tab_HomePage_clicked();

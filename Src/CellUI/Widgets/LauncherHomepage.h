@@ -29,14 +29,14 @@ private:
     Ui::LauncherHomepage *ui;
 
 private:
-    CellGlobal::COLOR_SCHEME m_mode;
+    CellUiGlobal::COLOR_SCHEME m_mode;
 
 private:
     void Init();
     void setAllGraphBtnsUnchecked();
 
 private slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME mode);
+    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void on_Btn_grid_clicked();
     void on_Btn_list_clicked();
 };

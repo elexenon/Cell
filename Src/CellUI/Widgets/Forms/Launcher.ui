@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>CELL Launcher</string>
+    <string>CELL LAUNCHER</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Btn_close">
@@ -110,10 +110,10 @@ background:transparent;</string>
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>336</x>
+     <x>330</x>
      <y>61</y>
      <width>970</width>
-     <height>681</height>
+     <height>680</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -121,25 +121,6 @@ background:transparent;</string>
    </property>
    <widget class="QWidget" name="page"/>
    <widget class="QWidget" name="page_2"/>
-  </widget>
-  <widget class="Line" name="line">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>771</y>
-     <width>1400</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Plain</enum>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
   </widget>
  </widget>
  <resources/>

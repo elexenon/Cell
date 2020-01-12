@@ -10,7 +10,7 @@
 
 customDynamicButton::customDynamicButton(QWidget *parent):
     customStaticButton(parent),
-    BASEQSS(Cell_Const::QSS_CUSTOMBUTTON_DYNAMIC)
+    BASEQSS(CellUiConst::QSS_CUSTOMBUTTON_DYNAMIC)
 {}
 
 void customDynamicButton::setBrightModeEnterLeaveColor(const QColor &e, const QColor &l){
@@ -22,7 +22,7 @@ void customDynamicButton::setDarkModeEnterLeaveColor(const QColor &e, const QCol
 }
 
 void customDynamicButton::Init(){
-    m_colorScheme = CellGlobal::COLOR_SCHEME::_BRIGHT;
+    m_colorScheme = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
     currColor = brightModeLeaveColor;
     if(isCheckable())
         connect(this, SIGNAL(clicked(bool)), this, SLOT(backToCurrColor()));
@@ -34,8 +34,8 @@ void customDynamicButton::Init(){
 
 void customDynamicButton::enterEvent(QEvent*){
     if(!this->isChecked()){
-        QColor enterColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeEnterColor : darkModeEnterColor);
-        CellGlobal::setPropertyAnimation({animi},
+        QColor enterColor = (m_colorScheme == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightModeEnterColor : darkModeEnterColor);
+        CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                      currColor,
                                      enterColor,
@@ -47,8 +47,8 @@ void customDynamicButton::enterEvent(QEvent*){
 
 void customDynamicButton::leaveEvent(QEvent*){
     if(!this->isChecked()){
-        QColor leaveColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
-        CellGlobal::setPropertyAnimation({animi},
+        QColor leaveColor = (m_colorScheme == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
+        CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                      currColor,
                                      leaveColor,
@@ -60,8 +60,8 @@ void customDynamicButton::leaveEvent(QEvent*){
 
 void customDynamicButton::backToCurrColor()
 {
-    currColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
-    QColor checkedColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
+    currColor = (m_colorScheme == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightModeLeaveColor : darkModeLeaveColor);
+    QColor checkedColor = (m_colorScheme == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
     setStyleSheet(BASEQSS.arg(currColor.red()).arg(currColor.green()).arg(currColor.blue())
                          .arg(checkedColor.red()).arg(checkedColor.green()).arg(checkedColor.blue()));
 }
@@ -80,7 +80,7 @@ void customDynamicButton::setColor(const QColor &color)
 {
     if(!isChecked()){
         currColor = color;
-        QColor checkedColor = (m_colorScheme == CellGlobal::COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
+        QColor checkedColor = (m_colorScheme == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightModeCheckedColor : darkModeCheckedColor);
         setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue())
                        .arg(checkedColor.red()).arg(checkedColor.green()).arg(checkedColor.blue()));
     }else{

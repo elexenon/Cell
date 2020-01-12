@@ -10,7 +10,7 @@
 customGradientChangeFrame::customGradientChangeFrame(const QString &qss,const QColor &specialColor,QWidget *parent):
     customFrame(qss,parent),
     currState(GRADIENT_STATE::_NORMAL),
-    m_mode(CellGlobal::COLOR_SCHEME::_BRIGHT),
+    m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT),
     specialColor(specialColor)
 {}
 
@@ -19,8 +19,8 @@ void customGradientChangeFrame::transCurrState(const customGradientChangeFrame::
     if(newState == currState) return;
     currState = newState;
     const QColor targetColor = (newState == GRADIENT_STATE::_SPECIAL ? specialColor :
-                                (m_mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL70));
-    CellGlobal::setPropertyAnimation({animi},
+                                (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL218 : CellUiConst::GRAYLEVEL70));
+    CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                      color(),
                                      targetColor,
@@ -29,16 +29,16 @@ void customGradientChangeFrame::transCurrState(const customGradientChangeFrame::
     {this},nullptr);
 }
 
-void customGradientChangeFrame::setColorScheme(CellGlobal::COLOR_SCHEME mode){
+void customGradientChangeFrame::setColorScheme(CellUiGlobal::COLOR_SCHEME mode){
     if(mode == m_mode) return;
     m_mode = mode;
     if(currState == GRADIENT_STATE::_SPECIAL) return;
-    const QColor targetColor = (mode == CellGlobal::COLOR_SCHEME::_BRIGHT ? Cell_Const::GRAYLEVEL218 : Cell_Const::GRAYLEVEL70);
-    CellGlobal::setPropertyAnimation({animi},
+    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL218 : CellUiConst::GRAYLEVEL70);
+    CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                       color(),
                                       targetColor,
-                                      CellGlobal::CELL_GLOBALANIMIDURATION,
+                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
                                       QEasingCurve::InOutCubic,
                                       {this}, nullptr);
 }

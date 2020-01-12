@@ -41,7 +41,7 @@ private:
     void Init();
 
 private:
-    CellGlobal::COLOR_SCHEME m_mode;
+    CellUiGlobal::COLOR_SCHEME m_mode;
 
 protected:
 #ifdef Q_OS_WIN32
@@ -54,7 +54,7 @@ protected:
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
 private slots:
-    void setColorScheme(CellGlobal::COLOR_SCHEME);
+    void setColorScheme(CellUiGlobal::COLOR_SCHEME);
     void on_Btn_close_clicked();
     void on_pushButton_clicked();
 };

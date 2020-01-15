@@ -24,6 +24,7 @@ extern const QString      QSS_CUSTOMBUTTON_DYNAMIC;
 
 extern const QColor       GRAYLEVEL255;
 extern const QColor       GRAYLEVEL70;
+extern const QColor       GRAYLEVEL100;
 extern const QColor       GRAYLEVEL180;
 extern const QColor       GRAYLEVEL45;
 extern const QColor       GRAYLEVEL218;

@@ -38,6 +38,12 @@
      <height>41</height>
     </rect>
    </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/Images/MainWindowGrid2_Bright.png);</string>
    </property>
@@ -62,6 +68,12 @@
      <width>51</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/Images/MainWindowList1_Bright.png);</string>

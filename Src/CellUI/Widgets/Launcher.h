@@ -93,6 +93,7 @@ private:
     QPoint                   m_startPoint;
     QPoint                   m_windowPoint;
     bool                     m_move;
+    bool                     isMaxSize = false;
     PAGE_TYPE    currentPage;
     CellUiGlobal::COLOR_SCHEME m_mode;
 
@@ -119,5 +120,6 @@ private slots:
     void Tab_Settings_clicked();
     void Tab_Guide_clicked();
     void Btn_NewProject_clicked();
+    void on_Btn_max_clicked();
 };
 #endif

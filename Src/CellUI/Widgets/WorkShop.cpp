@@ -74,7 +74,6 @@ void Workshop::InitWorkshop()
     splitter->setStyleSheet(QStringLiteral("QSplitter::handle{background-color:grey;}"));
 
     menuBar->setParent(this);
-    menuBar->setGeometry(0, 0, 1400, 39);
     menuBar->setMaximumSize(65535,39);
 
     verticalLayout->addWidget(menuBar);
@@ -103,10 +102,7 @@ void Workshop::InitWorkshop()
 
     setEventConnections();
 
-    leftBlock->setGeometry(0, 39, 370, 732);
     leftBlock->setMinimumSize(200,50);
-
-    rightBlock->setGeometry(1030, 39, 370, 732);
     rightBlock->setMinimumSize(200,50);
 
     splitter->addWidget(leftBlock);
@@ -118,7 +114,6 @@ void Workshop::InitWorkshop()
 
     verticalLayout->addWidget(splitter);
 
-    statusBar->setGeometry(0, 771, 1400, 29);
     statusBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(210,210,210);}"));
     statusBar->setMaximumSize(65535,29);
     statusBar->setColor(CellUiConst::GRAYLEVEL218);
@@ -131,13 +126,13 @@ void Workshop::InitWorkshop()
 
     menuBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(65,152,197);}"));
 
-    ui->BtnFile->setFont(QFont("Microsoft YaHei UI", 10));
-    ui->BtnEdit->setFont(QFont("Microsoft YaHei UI", 10));
-    ui->BtnBuild->setFont(QFont("Microsoft YaHei UI", 10));
-    ui->BtnDebug->setFont(QFont("Microsoft YaHei UI", 10));
-    ui->BtnKits->setFont(QFont("Microsoft YaHei UI", 10));
-    ui->BtnView->setFont(QFont("Microsoft YaHei UI", 10));
-    ui->BtnHelp->setFont(QFont("Microsoft YaHei UI", 10));
+    ui->BtnFile->setFont(QFont("Microsoft YaHei", 10));
+    ui->BtnEdit->setFont(QFont("Microsoft YaHei", 10));
+    ui->BtnBuild->setFont(QFont("Microsoft YaHei", 10));
+    ui->BtnDebug->setFont(QFont("Microsoft YaHei", 10));
+    ui->BtnKits->setFont(QFont("Microsoft YaHei", 10));
+    ui->BtnView->setFont(QFont("Microsoft YaHei", 10));
+    ui->BtnHelp->setFont(QFont("Microsoft YaHei", 10));
 
     CellUiGlobal::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,
                                       ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},

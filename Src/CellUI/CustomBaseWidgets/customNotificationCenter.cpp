@@ -29,13 +29,13 @@ void notificationCenter::Init()
 {
     label_identifi->setObjectName("label_identifi");
     label_identifi->setText("WORKSHOP");
-    label_identifi->setFont(QFont ("Microsoft YaHei UI",8,QFont::Bold));
+    label_identifi->setFont(QFont ("微软雅黑",8,QFont::Bold));
     label_identifi->setStyleSheet("QLabel{color:rgb(255,255,255);}");
     label_identifi->setGeometry(-120,3,120,22);
 
     label_ready->setObjectName("label_ready");
     label_ready->setText(QString::fromUtf8("就绪"));
-    label_ready->setFont(QFont("Microsoft YaHei UI",9));
+    label_ready->setFont(QFont("微软雅黑",9));
     label_ready->setStyleSheet("QLabel{color:rgb(255,255,255);}");
     label_ready->setGeometry(10,3,40,22);
 }

@@ -10,6 +10,8 @@
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 
 #include <QScrollBar>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 using namespace CellUiConst;
 
@@ -29,7 +31,41 @@ LauncherHomepage::~LauncherHomepage()
 
 void LauncherHomepage::Init()
 {
-    ui->label_welcome->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light"), 18));
+    QFont font(QStringLiteral("微软雅黑 Light"));
+    font.setPixelSize(29);
+    ui->label_welcome->setFont(font);
+
+    ui->Btn_grid->setFixedSize(51,41);
+    ui->Btn_list->setFixedSize(51,41);
+
+    QHBoxLayout *HLayout_Row1 = new QHBoxLayout;
+    HLayout_Row1->addStretch(2);
+    HLayout_Row1->addWidget(ui->label_welcome);
+    HLayout_Row1->addStretch(3);
+
+    QHBoxLayout *HLayout_Btns = new QHBoxLayout;
+    HLayout_Btns->addWidget(ui->Btn_grid);
+    HLayout_Btns->addWidget(ui->Btn_list);
+
+    QHBoxLayout *HLayout_Row2 = new QHBoxLayout;
+    HLayout_Row2->addWidget(ui->label_recentPJ);
+    HLayout_Row2->addStretch();
+    HLayout_Row2->addLayout(HLayout_Btns);
+
+    QHBoxLayout *HLayout_Row3 = new QHBoxLayout;
+    HLayout_Row3->addWidget(ui->label_sort);
+    HLayout_Row3->addWidget(ui->line);
+    HLayout_Row3->addWidget(ui->comboBox_sort);
+    HLayout_Row3->addStretch();
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addLayout(HLayout_Row1);
+    mainLayout->addLayout(HLayout_Row2);
+    mainLayout->addLayout(HLayout_Row3);
+    mainLayout->addWidget(ui->main_scrollArea);
+    mainLayout->setContentsMargins(4, 13, 15, 10);
+
+    setLayout(mainLayout);
 
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeComboBox.css"));
     ui->comboBox_sort->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
@@ -42,10 +78,16 @@ void LauncherHomepage::Init()
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeListBtn_Bright.css"));
     ui->Btn_list->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-    ui->label_recentPJ->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 12));
+    font.setPixelSize(19);
+    ui->label_recentPJ->setFont(font);
 
-    ui->label_sort->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light"), 10));
+    font.setPixelSize(17);
+    ui->label_sort->setFont(font);
     ui->label_sort->setStyleSheet(QStringLiteral("color:dadada;"));
+
+    font.setPixelSize(14);
+    ui->comboBox_sort->setFixedWidth(87);
+    ui->comboBox_sort->setFont(font);
 
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeScrollBar_Bright.css"));
     QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();

@@ -14,6 +14,9 @@
 #include <QTime>
 #include <QtGlobal>
 #include <QButtonGroup>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QDesktopWidget>
 
 #include "LauncherGuideDialog.h"
 #include "LauncherNewPJDialog.h"
@@ -109,24 +112,27 @@ void Launcher::InitLauncher()
     customWidget::LoadWinStyle(this);    
 
     frame_titleBar->setObjectName(QStringLiteral("frame_titleBar"));
-    frame_titleBar->setGeometry(0, 0, 1311, 61);
+    frame_titleBar->setFixedHeight(55);
     frame_titleBar->setColor(CellUiConst::GRAYLEVEL255);
 
     ui->stackedWidget->insertWidget(1, homePage);
     ui->stackedWidget->insertWidget(2, settingsPage);
-    ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget->setCurrentIndex(1);   
 
     Tab_HomePage->setObjectName(QStringLiteral("Tab_HomePage"));
     Tab_HomePage->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
     Tab_HomePage->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
     Tab_HomePage->Init();
-    Tab_HomePage->setGeometry(40, 101, 251, 31);
+    Tab_HomePage->setFixedSize(251,31);
     Tab_HomePage->setCheckable(true);
     Tab_HomePage->setChecked(true);
 
+    QFont font(QStringLiteral("Microsoft YaHei UI"));
+    font.setPixelSize(16);
+
     Tab_HomePage_Label->setObjectName(QStringLiteral("Tab_HomePage_Label"));
     Tab_HomePage_Label->setText(QStringLiteral("主页"));
-    Tab_HomePage_Label->setFont(QFont(QStringLiteral("Microsoft YaHei UI"),10));
+    Tab_HomePage_Label->setFont(font);
     Tab_HomePage_Label->setColor(CellUiConst::GRAYLEVEL70);
     Tab_HomePage_Label->setGeometry(5, 0, 50, 31);
 
@@ -134,12 +140,12 @@ void Launcher::InitLauncher()
     Tab_Settings->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
     Tab_Settings->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
     Tab_Settings->Init();
-    Tab_Settings->setGeometry(40, 135, 251, 31);
+    Tab_Settings->setFixedSize(251,31);
     Tab_Settings->setCheckable(true);
 
     Tab_Settings_Label->setObjectName(QStringLiteral("Tab_Settings_Label"));
     Tab_Settings_Label->setText(QStringLiteral("选项"));
-    Tab_Settings_Label->setFont(QFont(QStringLiteral("Microsoft YaHei UI"),10));
+    Tab_Settings_Label->setFont(font);
     Tab_Settings_Label->setColor(CellUiConst::GRAYLEVEL70);
     Tab_Settings_Label->setGeometry(5, 0, 50, 31);
 
@@ -147,11 +153,11 @@ void Launcher::InitLauncher()
     Tab_Guide->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
     Tab_Guide->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
     Tab_Guide->Init();
-    Tab_Guide->setGeometry(40, 169, 251, 31);
+    Tab_Guide->setFixedSize(251,31);
 
     Tab_Guide_Label->setObjectName(QStringLiteral("Tab_Guide_Label"));
     Tab_Guide_Label->setText(QStringLiteral("向导"));
-    Tab_Guide_Label->setFont(QFont(QStringLiteral("Microsoft YaHei UI"),10));
+    Tab_Guide_Label->setFont(font);
     Tab_Guide_Label->setColor(CellUiConst::GRAYLEVEL70);
     Tab_Guide_Label->setGeometry(5, 0, 50, 31);
 
@@ -164,23 +170,24 @@ void Launcher::InitLauncher()
     Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
     Btn_NewProject->setAnimationDuration(300);
     Btn_NewProject->Init();
-    Btn_NewProject->setGeometry(40, 331, 251, 81);
+    Btn_NewProject->setFixedSize(251, 81);
     Btn_NewProject->setCursor(Qt::PointingHandCursor);
 
     Btn_NewProject_Icon->setObjectName(QStringLiteral("Btn_NewProject_Icon"));
     Btn_NewProject_Icon->setStyleSheet("background:transparent;border-image: url(:/images/Images/Btn_NewProject.png);");
     Btn_NewProject_Icon->setGeometry(15,14,35,35);
 
-    QFont t(QStringLiteral("微软雅黑"));
-    t.setPointSize(15);
+    QFont t(QStringLiteral("Microsoft Yahei UI Light"));
+    t.setPixelSize(25);
+
     Btn_NewProject_Function->setText(tr("创建新项目(N)"));
-    //Btn_NewProject_Function->setFont(QFont(QStringLiteral("微软雅黑"), 15));
     Btn_NewProject_Function->setFont(t);
     Btn_NewProject_Function->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
     Btn_NewProject_Function->setGeometry(65, 12, Btn_NewProject_Function->width()+60,Btn_NewProject_Function->height());
 
+    t.setPixelSize(12);
     Btn_NewProject_Hint->setText(tr("创建一个空的Cell文档"));
-    Btn_NewProject_Hint->setFont(QFont(QStringLiteral("微软雅黑"), 7));
+    Btn_NewProject_Hint->setFont(t);
     Btn_NewProject_Hint->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
     Btn_NewProject_Hint->setGeometry(66, 12+Btn_NewProject_Function->height(), Btn_NewProject_Hint->width()+60,Btn_NewProject_Hint->height());
 
@@ -189,7 +196,7 @@ void Launcher::InitLauncher()
     Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
     Btn_OpenProject->setAnimationDuration(300);
     Btn_OpenProject->Init();
-    Btn_OpenProject->setGeometry(40, 421, 251, 81);
+    Btn_OpenProject->setFixedSize(251, 81);
     Btn_OpenProject->setCursor(Qt::PointingHandCursor);
 
     Btn_OpenProject_Icon->setObjectName(QStringLiteral("Btn_OpenProject_Icon"));
@@ -197,17 +204,49 @@ void Launcher::InitLauncher()
     Btn_OpenProject_Icon->setGeometry(15,14,35,35);
     Btn_OpenProject_Icon->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
+    t.setPixelSize(25);
     Btn_OpenProject_Function->setText(tr("打开项目(O)"));
-    Btn_OpenProject_Function->setFont(QFont(QStringLiteral("微软雅黑"), 15));
+    Btn_OpenProject_Function->setFont(t);
     Btn_OpenProject_Function->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
     Btn_OpenProject_Function->setGeometry(65, 12, Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
     Btn_OpenProject_Function->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
+    t.setPixelSize(12);
     Btn_OpenProject_Hint->setText(tr("打开已有的Cell文档。"));
-    Btn_OpenProject_Hint->setFont(QFont(QStringLiteral("微软雅黑"), 7));
+    Btn_OpenProject_Hint->setFont(t);
     Btn_OpenProject_Hint->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
     Btn_OpenProject_Hint->setGeometry(66, 12+Btn_OpenProject_Function->height(), Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
     Btn_OpenProject_Hint->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+
+    QVBoxLayout *VLayout_Tabs = new QVBoxLayout;
+    VLayout_Tabs->addWidget(Tab_HomePage);
+    VLayout_Tabs->addWidget(Tab_Settings);
+    VLayout_Tabs->addWidget(Tab_Guide);
+    VLayout_Tabs->setSpacing(3);
+
+    QVBoxLayout *VLayout_WorkBtns = new QVBoxLayout;
+    VLayout_WorkBtns->addWidget(Btn_NewProject);
+    VLayout_WorkBtns->addWidget(Btn_OpenProject);
+    VLayout_WorkBtns->setSpacing(9);
+
+    QVBoxLayout *VLayout_Left = new QVBoxLayout;
+    VLayout_Left->addLayout(VLayout_Tabs);
+    VLayout_Left->addStretch();
+    VLayout_Left->addLayout(VLayout_WorkBtns);
+    VLayout_Left->setContentsMargins(40, 30, 0, 200);
+
+    QHBoxLayout *HLayout = new QHBoxLayout;
+    HLayout->addLayout(VLayout_Left);
+    HLayout->addWidget(ui->stackedWidget);
+    HLayout->setSpacing(40);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(frame_titleBar);
+    mainLayout->addLayout(HLayout);
+    mainLayout->addWidget(notificationCenter);
+    mainLayout->setMargin(0);
+
+    setLayout(mainLayout);
 
     ui->label_LauncherIcon->setParent(frame_titleBar);
     ui->label_LauncherTitle->setParent(frame_titleBar);
@@ -216,18 +255,40 @@ void Launcher::InitLauncher()
     ui->Btn_close->setParent(frame_titleBar);
 
     notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
-    notificationCenter->setGeometry(0,742,1400,29);
-    notificationCenter->setColor(CellUiConst::GRAYLEVEL218);
+    notificationCenter->setFixedHeight(29);
+    notificationCenter->setColor(CellUiConst::GRAYLEVEL100);
 
     int fontID_Info = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
 
     QFont font_Info(Info);
-    font_Info.setPointSize(14);
-    font_Info.setLetterSpacing(QFont::PercentageSpacing, 100);
+    font_Info.setPixelSize(23);
 
     ui->label_LauncherTitle->setFont(font_Info);
     ui->label_LauncherTitle->setStyleSheet(QStringLiteral("color:#798186;"));
+
+    ui->label_LauncherIcon->setFixedSize(25,24);
+    ui->Btn_max->setFixedSize(19,19);
+    ui->Btn_mini->setFixedSize(19,19);
+    ui->Btn_close->setFixedSize(19,19);
+
+    QHBoxLayout *HLayoutTitleLeft = new QHBoxLayout;
+    HLayoutTitleLeft->addWidget(ui->label_LauncherIcon);
+    HLayoutTitleLeft->addWidget(ui->label_LauncherTitle);
+    HLayoutTitleLeft->setSpacing(13);
+
+    QHBoxLayout *HLayoutTitleRight = new QHBoxLayout;
+    HLayoutTitleRight->addWidget(ui->Btn_max);
+    HLayoutTitleRight->addWidget(ui->Btn_mini);
+    HLayoutTitleRight->addWidget(ui->Btn_close);
+
+    QHBoxLayout *HLayoutTitle = new QHBoxLayout;
+    HLayoutTitle->addLayout(HLayoutTitleLeft);
+    HLayoutTitle->addStretch();
+    HLayoutTitle->addLayout(HLayoutTitleRight);
+    HLayoutTitle->setContentsMargins(20, 0, 15, 0);
+
+    frame_titleBar->setLayout(HLayoutTitle);
 
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherCloseBtn.css"));
     ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
@@ -407,4 +468,24 @@ void Launcher::Btn_NewProject_clicked()
     workshop->_constructed();
     workshop->show();
 #endif
+}
+
+void Launcher::on_Btn_max_clicked()
+{
+    static QSize size;
+    static QPoint point;
+    QDesktopWidget *desktopWidget = QApplication::desktop();
+    QRect rect = desktopWidget->availableGeometry();
+    if(!isMaxSize){
+        isMaxSize = true;
+        size.setWidth(width());
+        size.setHeight(height());
+        point = pos();
+        resize(rect.width(), rect.height());
+        move(0,0);
+    }else{
+        isMaxSize = false;
+        resize(size.width(), size.height());
+        move(point);
+    }
 }

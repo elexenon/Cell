@@ -33,7 +33,7 @@
 #include "ui_Launcher.h"
 #define CELL_DEBUG
 #define ENABLE_WORKSHOP
-#define AUTO_CHANGE
+//#define AUTO_CHANGE
 
 Launcher::Launcher(QWidget *parent)
     : customWidget(parent)

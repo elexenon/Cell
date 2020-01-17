@@ -10,7 +10,10 @@
 
 #include <QWidget>
 
-class CellWinstyleWidget : public QWidget{
+#include "CellWidgetGlobalInterface.h"
+#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
+
+class CellWinstyleWidget : public QWidget, implements CellWidgetGlobalInterface{
 public:
     explicit CellWinstyleWidget(QWidget *parent = nullptr);
 protected:

@@ -15,6 +15,7 @@
 
 class customStaticButton : public QPushButton, implements CellWidgetGlobalInterface{
     Q_OBJECT
+    Q_PROPERTY(QColor color READ color WRITE setColor)
     const QString BASEQSS;
 public:
     explicit customStaticButton(QWidget *parent = nullptr);
@@ -31,7 +32,7 @@ protected:
     QColor darkModeCheckedColor;
 
 protected slots:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 };
 
 #endif // CUSTOMPAGESWITCHBTN_H

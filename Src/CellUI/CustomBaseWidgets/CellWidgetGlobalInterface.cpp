@@ -15,5 +15,5 @@ void CellWidgetGlobalInterface::setColor(const QColor &color)
 void CellWidgetGlobalInterface::setBrightDarkModeColor(const QColor &b, const QColor &d)
 {
     brightmodeColor = b; darkmodeColor = d;
-    setColor(m_color);
+    setColor(brightmodeColor);
 }

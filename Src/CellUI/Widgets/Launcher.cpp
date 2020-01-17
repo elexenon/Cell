@@ -215,10 +215,12 @@ void Launcher::InitLauncher()
     guideDialog->show();
 
     setEventConnections();
+
+    qDebug() << color();
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
     if((currentTime.hour() >= 18 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
-        Tab_Settings_clicked();
+        BtnlistWidget->clickButton(1);
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_DARK);
     }else if(currentTime.hour() < 18 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
         BtnlistWidget->clickButton(1);
@@ -244,6 +246,8 @@ void Launcher::setEventConnections()
             homePage, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             BtnlistWidget, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            frame_titleBar, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
 
     // Set connections for page-switching buttons.
     const customListButton *Tab_HomePage = BtnlistWidget->getButton(0);
@@ -332,6 +336,20 @@ void Launcher::mouseReleaseEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton){
         m_move = false;
     }
+}
+
+void Launcher::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+{
+    if(mode == m_mode) return;
+    m_mode = mode;
+    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
+    CellUiGlobal::setPropertyAnimation({animi},
+                                     "color",
+                                      color(),
+                                      targetColor,
+                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
+                                      QEasingCurve::InOutCubic,
+                                      {this}, nullptr);
 }
 
 void Launcher::Btn_NewProject_clicked()

@@ -17,14 +17,17 @@
 
 class customLabel : public QLabel, implements CellWidgetGlobalInterface
 {
+    friend class customListButton;
     Q_OBJECT
+    Q_PROPERTY(QColor color READ color WRITE setColor)
     const QString BASEQSS;
 public:
     explicit customLabel(const QString &qss, QWidget *parent = nullptr);
     ~customLabel() = default;
 
-public:
     virtual void setColor(const QColor &color) override;
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+
+public slots:
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 };
 #endif // CUSTOMLABEL_H

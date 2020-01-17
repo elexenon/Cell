@@ -72,7 +72,7 @@ void LauncherNewPJDialog::Init()
     BtnListWidget1->setButtonSize(249,40);
     BtnListWidget1->setSpacing(0);
     BtnListWidget1->setFont(font);
-    BtnListWidget1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
+    BtnListWidget1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
 
     BtnListWidget2->addThemeHead("文件");
     BtnListWidget2->addButton("空白文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
@@ -81,7 +81,7 @@ void LauncherNewPJDialog::Init()
     BtnListWidget2->setButtonSize(249,40);
     BtnListWidget2->setSpacing(0);
     BtnListWidget2->setFont(font);
-    BtnListWidget2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
+    BtnListWidget2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
 
     Btn_Confirm->setObjectName(QStringLiteral("Btn_Confirm"));
     Btn_Confirm->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);

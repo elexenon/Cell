@@ -16,14 +16,12 @@
 #include "CellWinstyleWidget.h"
 #include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
 
-class customWidget : public CellWinstyleWidget, implements CellWidgetGlobalInterface
+class customWidget : public CellWinstyleWidget
 {
+    Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
     explicit customWidget(QWidget *parent = nullptr);
 
     virtual void setColor(const QColor &color) override;
-
-protected slots:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 #endif

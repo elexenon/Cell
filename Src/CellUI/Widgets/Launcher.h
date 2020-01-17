@@ -36,6 +36,7 @@ class customButtonListWidget;
 class Launcher : public customWidget
 {
     Q_OBJECT
+    Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
     explicit Launcher(QWidget *parent = nullptr);
     ~Launcher();
@@ -101,6 +102,7 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent *event);
 
     virtual void mouseReleaseEvent(QMouseEvent *event);
+
 private slots:
     void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void on_Btn_mini_clicked();

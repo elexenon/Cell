@@ -17,12 +17,13 @@
 
 class customDialog : public QDialog, implements CellWidgetGlobalInterface
 {
+    Q_OBJECT
+    Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
     explicit customDialog(QWidget *parent = nullptr);
     ~customDialog() = default;
 
     virtual void setColor(const QColor &color) override;
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 
 protected:
     virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;

@@ -110,6 +110,8 @@ void customButtonListWidget::Init()
 void customButtonListWidget::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     customFrame::setColorScheme(mode);
+    if(label_theme!=nullptr)
+        label_theme->setColorScheme(mode);
     for(auto & e : *buttons)
         e->setColorScheme(mode);
 }

@@ -21,7 +21,6 @@ public:
 
 private:
     void Init();
-
     CellUiGlobal::LINE_TYPE shape;
 };
 

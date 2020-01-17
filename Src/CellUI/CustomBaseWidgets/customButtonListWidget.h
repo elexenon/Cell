@@ -39,7 +39,7 @@ public:
 private:
     void Init();
 
-    customLabel              *label_theme;
+    customLabel              *label_theme = nullptr;
     QFrame                   *line_splitter;
     QVBoxLayout              *mainLayout;
     QList<customListButton*> *buttons;

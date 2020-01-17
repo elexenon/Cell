@@ -9,36 +9,29 @@
 #define CUSTOMPAGESWITCHBTN_H
 
 #include <QPushButton>
-#include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
 
-class customStaticButton : public QPushButton{
+#include "CellWidgetGlobalInterface.h"
+#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
+
+class customStaticButton : public QPushButton, implements CellWidgetGlobalInterface{
     Q_OBJECT
-    Q_PROPERTY(QColor color READ color WRITE setColor)
-
     const QString BASEQSS;
 public:
     explicit customStaticButton(QWidget *parent = nullptr);
     ~customStaticButton() override = default;
 
-    void         Init();
     void         setBrightModeCheckedUncheckedColor(const QColor &c, const QColor &u);
     void         setDarkModeCheckedUncheckedColor(const QColor &c, const QColor &u);
-
-    const QColor color() const;
-    void         setColor(const QColor &color);
+    virtual void setColor(const QColor &color) override;
 
 protected:
-    QPropertyAnimation      *animi;
-    CellUiGlobal::COLOR_SCHEME m_colorScheme;
-
-    QColor currColor;
     QColor brightModeLeaveColor;
     QColor darkModeLeaveColor;
     QColor brightModeCheckedColor;
     QColor darkModeCheckedColor;
 
 protected slots:
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 
 #endif // CUSTOMPAGESWITCHBTN_H

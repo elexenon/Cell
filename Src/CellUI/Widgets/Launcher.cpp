@@ -18,6 +18,9 @@
 #include <QHBoxLayout>
 #include <QDesktopWidget>
 
+#include "../CustomBaseWidgets/customListButton.h"
+#include "../CustomBaseWidgets/customButtonListWidget.h"
+
 #include "LauncherGuideDialog.h"
 #include "LauncherNewPJDialog.h"
 #include "LauncherHomepage.h"
@@ -33,7 +36,7 @@
 #include "ui_Launcher.h"
 #define CELL_DEBUG
 #define ENABLE_WORKSHOP
-//#define AUTO_CHANGE
+#define AUTO_CHANGE
 
 Launcher::Launcher(QWidget *parent)
     : customWidget(parent)
@@ -42,14 +45,8 @@ Launcher::Launcher(QWidget *parent)
     , homePage(new LauncherHomepage)
     , settingsPage(new LauncherSettings)
     , frame_titleBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this))
-    , Tab_HomePage(new customStaticButton(this))
-    , Tab_Settings(new customStaticButton(this))
-    , Tab_Guide(new customStaticButton(this))
     , Btn_NewProject(new customDynamicButton(this))
     , Btn_OpenProject(new customDynamicButton(this))
-    , Tab_HomePage_Label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Tab_HomePage))
-    , Tab_Settings_Label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Tab_Settings))
-    , Tab_Guide_Label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Tab_Guide))
     , Btn_NewProject_Icon(new customLabel(CellUiConst::QSS_CUSTOMLABEL,Btn_NewProject))
     , Btn_NewProject_Function(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_NewProject))
     , Btn_NewProject_Hint(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_NewProject))
@@ -57,6 +54,7 @@ Launcher::Launcher(QWidget *parent)
     , Btn_OpenProject_Function(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
     , Btn_OpenProject_Hint(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
     , notificationCenter(new class notificationCenter(CellUiConst::QSS_CUSTOMFRAME, this))
+    , BtnlistWidget(new customButtonListWidget(this))
     , tabsGroup(new QButtonGroup(this))
     , currentPage(PAGE_TYPE::_HOME)
     , m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
@@ -69,107 +67,31 @@ Launcher::~Launcher()
     delete ui;
 }
 
-void Launcher::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
-{
-    if(mode == m_mode) return;
-    m_mode = mode;
-    const QColor thisTargetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
-                                    CellUiConst::GRAYLEVEL247 : CellUiConst::GRAYLEVEL30);
-    const QColor titleBarTargetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
-                                    CellUiConst::GRAYLEVEL255 : CellUiConst::GRAYLEVEL45);
-    const QColor labelGroupTargetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
-                                    CellUiConst::GRAYLEVEL70 : CellUiConst::GRAYLEVEL255);
-    CellUiGlobal::setPropertyAnimation({this_animi},
-                                     "color",
-                                     color(),
-                                     thisTargetColor,
-                                     CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {this}, nullptr);
-    CellUiGlobal::setPropertyAnimation({frame_titleBar_animi},
-                                     "color",
-                                     frame_titleBar->color(),
-                                     titleBarTargetColor,
-                                     CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                     {frame_titleBar}, nullptr);
-    CellUiGlobal::setPropertyAnimation({Btn_NewProject_Function_animi,Btn_NewProject_Hint_animi,
-                                      Btn_OpenProject_Function_animi,Btn_OpenProject_Hint_animi,
-                                      Label_HomePage_animi,Label_Settings_animi,Label_Guide_animi},
-                                      "color",
-                                      Btn_NewProject_Hint->color(),
-                                      labelGroupTargetColor,
-                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                      QEasingCurve::InOutCubic,
-                                      {Btn_NewProject_Function,Btn_NewProject_Hint,
-                                       Btn_OpenProject_Function,Btn_OpenProject_Hint,
-                                       Tab_HomePage_Label,Tab_Settings_Label,Tab_Guide_Label}, nullptr);
-}
-
 void Launcher::InitLauncher()
 {
-    this->setWindowFlags(windowFlags() | Qt::FramelessWindowHint);  // Remove Windows' Default Window Frame.
-    customWidget::LoadWinStyle(this);    
+    setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
+    customWidget::LoadWinStyle(this);
+    setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
 
     frame_titleBar->setObjectName(QStringLiteral("frame_titleBar"));
     frame_titleBar->setFixedHeight(55);
-    frame_titleBar->setColor(CellUiConst::GRAYLEVEL255);
+    frame_titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
 
     ui->stackedWidget->insertWidget(1, homePage);
     ui->stackedWidget->insertWidget(2, settingsPage);
     ui->stackedWidget->setCurrentIndex(1);   
 
-    Tab_HomePage->setObjectName(QStringLiteral("Tab_HomePage"));
-    Tab_HomePage->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
-    Tab_HomePage->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
-    Tab_HomePage->Init();
-    Tab_HomePage->setFixedSize(251,31);
-    Tab_HomePage->setCheckable(true);
-    Tab_HomePage->setChecked(true);
-
-    QFont font(QStringLiteral("Microsoft YaHei UI"));
-    font.setPixelSize(16);
-
-    Tab_HomePage_Label->setObjectName(QStringLiteral("Tab_HomePage_Label"));
-    Tab_HomePage_Label->setText(QStringLiteral("主页"));
-    Tab_HomePage_Label->setFont(font);
-    Tab_HomePage_Label->setColor(CellUiConst::GRAYLEVEL70);
-    Tab_HomePage_Label->setGeometry(5, 0, 50, 31);
-
-    Tab_Settings->setObjectName(QStringLiteral("Tab_Settings"));
-    Tab_Settings->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
-    Tab_Settings->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
-    Tab_Settings->Init();
-    Tab_Settings->setFixedSize(251,31);
-    Tab_Settings->setCheckable(true);
-
-    Tab_Settings_Label->setObjectName(QStringLiteral("Tab_Settings_Label"));
-    Tab_Settings_Label->setText(QStringLiteral("选项"));
-    Tab_Settings_Label->setFont(font);
-    Tab_Settings_Label->setColor(CellUiConst::GRAYLEVEL70);
-    Tab_Settings_Label->setGeometry(5, 0, 50, 31);
-
-    Tab_Guide->setObjectName(QStringLiteral("Tab_Guide"));
-    Tab_Guide->setBrightModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247);
-    Tab_Guide->setDarkModeCheckedUncheckedColor(CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
-    Tab_Guide->Init();
-    Tab_Guide->setFixedSize(251,31);
-
-    Tab_Guide_Label->setObjectName(QStringLiteral("Tab_Guide_Label"));
-    Tab_Guide_Label->setText(QStringLiteral("向导"));
-    Tab_Guide_Label->setFont(font);
-    Tab_Guide_Label->setColor(CellUiConst::GRAYLEVEL70);
-    Tab_Guide_Label->setGeometry(5, 0, 50, 31);
-
-    tabsGroup->addButton(Tab_HomePage);
-    tabsGroup->addButton(Tab_Settings);
-    tabsGroup->setExclusive(true);
+    BtnlistWidget->addButton("主页",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
+    BtnlistWidget->addButton("选项",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
+    BtnlistWidget->addButton("向导",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
+    BtnlistWidget->setButtonCheckable(2,false);
+    BtnlistWidget->setButtonSize(251,31);
+    BtnlistWidget->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
 
     Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
     Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);
     Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
     Btn_NewProject->setAnimationDuration(300);
-    Btn_NewProject->Init();
     Btn_NewProject->setFixedSize(251, 81);
     Btn_NewProject->setCursor(Qt::PointingHandCursor);
 
@@ -195,7 +117,6 @@ void Launcher::InitLauncher()
     Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);
     Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
     Btn_OpenProject->setAnimationDuration(300);
-    Btn_OpenProject->Init();
     Btn_OpenProject->setFixedSize(251, 81);
     Btn_OpenProject->setCursor(Qt::PointingHandCursor);
 
@@ -218,19 +139,13 @@ void Launcher::InitLauncher()
     Btn_OpenProject_Hint->setGeometry(66, 12+Btn_OpenProject_Function->height(), Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
     Btn_OpenProject_Hint->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
-    QVBoxLayout *VLayout_Tabs = new QVBoxLayout;
-    VLayout_Tabs->addWidget(Tab_HomePage);
-    VLayout_Tabs->addWidget(Tab_Settings);
-    VLayout_Tabs->addWidget(Tab_Guide);
-    VLayout_Tabs->setSpacing(3);
-
     QVBoxLayout *VLayout_WorkBtns = new QVBoxLayout;
     VLayout_WorkBtns->addWidget(Btn_NewProject);
     VLayout_WorkBtns->addWidget(Btn_OpenProject);
     VLayout_WorkBtns->setSpacing(9);
 
     QVBoxLayout *VLayout_Left = new QVBoxLayout;
-    VLayout_Left->addLayout(VLayout_Tabs);
+    VLayout_Left->addWidget(BtnlistWidget);
     VLayout_Left->addStretch();
     VLayout_Left->addLayout(VLayout_WorkBtns);
     VLayout_Left->setContentsMargins(40, 30, 0, 200);
@@ -256,7 +171,7 @@ void Launcher::InitLauncher()
 
     notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
     notificationCenter->setFixedHeight(29);
-    notificationCenter->setColor(CellUiConst::GRAYLEVEL100);
+    notificationCenter->setBrightDarkModeColor(CellUiConst::GRAYLEVEL100, CellUiConst::GRAYLEVEL45);
 
     int fontID_Info = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
@@ -306,7 +221,7 @@ void Launcher::InitLauncher()
         Tab_Settings_clicked();
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_DARK);
     }else if(currentTime.hour() < 18 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
-        Tab_Settings_clicked();
+        BtnlistWidget->clickButton(1);
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
     }
 #endif
@@ -314,17 +229,11 @@ void Launcher::InitLauncher()
 
 void Launcher::setEventConnections()
 {
-    // Set connections between SettingsPage & ColorScheme-change-enabled modules.
+    // Set connections between SettingsPage & ColorScheme-change-enabled modules
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             notificationCenter, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             guideDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            Tab_HomePage, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            Tab_Settings, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            Tab_Guide, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             Btn_NewProject, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
@@ -333,8 +242,14 @@ void Launcher::setEventConnections()
             this, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             homePage, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
+            BtnlistWidget, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
 
     // Set connections for page-switching buttons.
+    const customListButton *Tab_HomePage = BtnlistWidget->getButton(0);
+    const customListButton *Tab_Settings = BtnlistWidget->getButton(1);
+    const customListButton *Tab_Guide = BtnlistWidget->getButton(2);
+
     connect(Tab_HomePage, SIGNAL(clicked(bool)), this, SLOT(Tab_HomePage_clicked()));
     connect(Tab_Settings, SIGNAL(clicked(bool)), this, SLOT(Tab_Settings_clicked()));
     connect(Tab_Guide, SIGNAL(clicked(bool)), this, SLOT(Tab_Guide_clicked()));
@@ -343,7 +258,6 @@ void Launcher::setEventConnections()
 
 void Launcher::on_Btn_mini_clicked()
 {
-    // 在macOS下有bug
     if(this->windowState() != Qt::WindowMinimized)
             this->setWindowState(Qt::WindowMinimized);
 }
@@ -358,46 +272,15 @@ void Launcher::on_Btn_close_clicked()
 
 void Launcher::Tab_HomePage_clicked()
 {
-    if(currentPage == PAGE_TYPE::_HOME){
-        Tab_HomePage->setChecked(true);
-        return;
-    }
+    if(currentPage == PAGE_TYPE::_HOME) return;
     currentPage = PAGE_TYPE::_HOME;
-
-    Tab_Settings->setChecked(false);
-    Tab_HomePage->setChecked(true);
-
-#ifdef CELL_DEBUG
-    qDebug() << "--------------------------";
-    qDebug() << "LAUNCHER";
-    qDebug() << "HomeBtn_checked:"     << Tab_HomePage->isChecked();
-    qDebug() << "SettingsBtn_checked:" << Tab_Settings->isChecked();
-    qDebug() << "--------------------------\n";
-#endif
-
     startPageSwitchAnimation(PAGE_TYPE::_HOME);
 }
 
 void Launcher::Tab_Settings_clicked()
 {
-    if(currentPage == PAGE_TYPE::_SETTINGS){
-        Tab_Settings->setChecked(true);
-        return;
-    }
-
+    if(currentPage == PAGE_TYPE::_SETTINGS) return;
     currentPage = PAGE_TYPE::_SETTINGS;
-
-    Tab_HomePage->setChecked(false);
-    Tab_Settings->setChecked(true);
-
-#ifdef CELL_DEBUG
-    qDebug() << "--------------------------";
-    qDebug() << "LAUNCHER";
-    qDebug() << "HomeBtn_checked:"     << Tab_HomePage->isChecked();
-    qDebug() << "SettingsBtn_checked:" << Tab_Settings->isChecked();
-    qDebug() << "--------------------------\n";
-#endif
-
     startPageSwitchAnimation(PAGE_TYPE::_SETTINGS);
 }
 

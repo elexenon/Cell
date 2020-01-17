@@ -37,6 +37,7 @@ class QPropertyAnimation;
 class StyleSheetLoader;
 class QGraphicsEffect;
 class QGraphicsOpacityEffect;
+class QFrame;
 
 namespace CellUiGlobal{
 enum FADE_TYPE{
@@ -51,6 +52,11 @@ enum FRAME_TYPE{
     _REGULAR,
     _OPTIONBLOCK
 };
+enum LINE_TYPE{
+    HLine = 0x0004,
+    VLine = 0x0005,
+};
+
 enum ANIMIDURATION{
     CELL_GLOBALANIMIDURATION = 700,
     CELL_GLOBALPAGESWITCHDURATION = 300
@@ -71,6 +77,7 @@ extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,
                                     QWidget *target,
                                     int duration,
                                     CellUiGlobal::FADE_TYPE type);
+extern QFrame* getLine(CellUiGlobal::LINE_TYPE type);
 extern void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss);
 } // namespace CellUiGlobal{
 

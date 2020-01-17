@@ -29,7 +29,7 @@ LauncherGuideDialog::~LauncherGuideDialog()
 
 void LauncherGuideDialog::Init()
 {
-    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     customDialog::LoadWinStyle(this);
 
     ui->stackedWidget->setAutoFillBackground(true);
@@ -38,7 +38,7 @@ void LauncherGuideDialog::Init()
     ui->pushButton->setGeometry(640, 420, ui->pushButton->width(), ui->pushButton->height());
 
     frame_titleBar->setGeometry(0, 0, 781, 51);
-    frame_titleBar->setColor(CellUiConst::GRAYLEVEL218);
+    frame_titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
 
     ui->label_getStart->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 18));
     ui->label_learn->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 9));
@@ -85,14 +85,7 @@ void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(m_mode == mode) return;
     m_mode = mode;
-    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL218 : CellUiConst::GRAYLEVEL45);
-    CellUiGlobal::setPropertyAnimation({animi_title},
-                                 "color",
-                                 frame_titleBar->color(),
-                                 targetColor,
-                                 CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                 QEasingCurve::InOutCubic,
-                                 {frame_titleBar}, nullptr);
+    frame_titleBar->setColorScheme(mode);
     if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
         CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherGuideCloseBtn_Dark.css"));
         ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());

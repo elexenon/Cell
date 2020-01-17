@@ -31,11 +31,11 @@ class notificationCenter;
 class QLabel;
 class customLine;
 class QButtonGroup;
+class customButtonListWidget;
 
 class Launcher : public customWidget
 {
     Q_OBJECT
-
 public:
     explicit Launcher(QWidget *parent = nullptr);
     ~Launcher();
@@ -55,9 +55,6 @@ private:
     QPropertyAnimation *Btn_NewProject_Hint_animi;
     QPropertyAnimation *Btn_OpenProject_Function_animi;
     QPropertyAnimation *Btn_OpenProject_Hint_animi;
-    QPropertyAnimation *Label_HomePage_animi;
-    QPropertyAnimation *Label_Settings_animi;
-    QPropertyAnimation *Label_Guide_animi;
     QPropertyAnimation *line_animi;
 
     Workshop            *workshop;
@@ -67,15 +64,8 @@ private:
     LauncherNewPJDialog *newPJDialog;
 
     customFrame         *frame_titleBar;
-    customStaticButton  *Tab_HomePage;
-    customStaticButton  *Tab_Settings;
-    customStaticButton  *Tab_Guide;
     customDynamicButton *Btn_NewProject;
     customDynamicButton *Btn_OpenProject;
-
-    customLabel *Tab_HomePage_Label;
-    customLabel *Tab_Settings_Label;
-    customLabel *Tab_Guide_Label;
 
     customLabel *Btn_NewProject_Icon;
     customLabel *Btn_NewProject_Function;
@@ -86,6 +76,7 @@ private:
     customLabel *Btn_OpenProject_Hint;
 
     notificationCenter *notificationCenter;
+    customButtonListWidget *BtnlistWidget;
 
     QButtonGroup *tabsGroup;
 
@@ -103,9 +94,7 @@ private:
     void startPageSwitchAnimation(PAGE_TYPE nextPage);
 
 protected:
-#ifdef Q_OS_WIN32
     virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
-#endif
 
     virtual void mousePressEvent(QMouseEvent *event);
 

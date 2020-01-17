@@ -9,8 +9,6 @@
 
 customGradientChangeFrame::customGradientChangeFrame(const QString &qss,const QColor &specialColor,QWidget *parent):
     customFrame(qss,parent),
-    currState(GRADIENT_STATE::_NORMAL),
-    m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT),
     specialColor(specialColor)
 {}
 
@@ -33,7 +31,7 @@ void customGradientChangeFrame::setColorScheme(CellUiGlobal::COLOR_SCHEME mode){
     if(mode == m_mode) return;
     m_mode = mode;
     if(currState == GRADIENT_STATE::_SPECIAL) return;
-    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL218 : CellUiConst::GRAYLEVEL70);
+    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
     CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                       color(),

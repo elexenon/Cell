@@ -7,7 +7,7 @@
 // Of source file directory.
 #include "customLine.h"
 
-customLine::customLine(const QString &qss, QWidget *parent, const customLine::LINESHAPE &shape):
+customLine::customLine(const QString &qss, QWidget *parent, const CellUiGlobal::LINE_TYPE &shape):
     customFrame(qss,parent),
     shape(shape)
 {
@@ -16,7 +16,7 @@ customLine::customLine(const QString &qss, QWidget *parent, const customLine::LI
 
 void customLine::Init()
 {
-    auto targetShape = (shape == _HORIZONTAL ? QFrame::HLine : QFrame::VLine);
+    auto targetShape = (shape == CellUiGlobal::LINE_TYPE::HLine ? QFrame::HLine : QFrame::VLine);
     setFrameShape(targetShape);
     setFrameShadow(QFrame::Sunken);
 };

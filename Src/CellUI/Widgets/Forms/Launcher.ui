@@ -67,7 +67,7 @@
   </widget>
   <widget class="QPushButton" name="Btn_max">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>

@@ -12,27 +12,21 @@
 
 #include <QDialog>
 
-class customDialog : public QDialog
-{
-    Q_OBJECT
-    Q_PROPERTY(QColor color READ color WRITE setColor)
+#include "CellWidgetGlobalInterface.h"
+#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
 
+class customDialog : public QDialog, implements CellWidgetGlobalInterface
+{
 public:
     explicit customDialog(QWidget *parent = nullptr);
     ~customDialog() = default;
 
-public:
-    const QColor color() const;
-    void         setColor(const QColor &color);
+    virtual void setColor(const QColor &color) override;
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 
 protected:
-    QColor       m_color;
-
-protected:
-#ifdef Q_OS_WIN32
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
-    void LoadWinStyle(QDialog *obj);
-#endif
+    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+    void         LoadWinStyle(QWidget *obj);
 };
 
 

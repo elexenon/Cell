@@ -12,32 +12,25 @@
 
 class customDynamicButton : public customStaticButton{
     Q_OBJECT
-    Q_PROPERTY(QColor color READ color WRITE setColor)
-
     const QString BASEQSS;
 public:
     explicit customDynamicButton(QWidget *parent = nullptr);
     ~customDynamicButton() override = default;
 
-    void                setBrightModeEnterLeaveColor(const QColor &e,const QColor &l);
-    void                setDarkModeEnterLeaveColor(const QColor &e,const QColor &l);
-    void                setAnimationDuration(int dur);
-    void                Init();
+    void         setBrightModeEnterLeaveColor(const QColor &e,const QColor &l);
+    void         setDarkModeEnterLeaveColor(const QColor &e,const QColor &l);
 
-    const QColor        color() const;
-    void                setColor(const QColor &color);
+    inline void  setAnimationDuration(int dur) { animiDuration = dur; }
+    virtual void setColor(const QColor &color) override;
 
 protected:
-    virtual void        enterEvent(QEvent*) override;
-    virtual void        leaveEvent(QEvent*) override;
+    virtual void enterEvent(QEvent*) override;
+    virtual void leaveEvent(QEvent*) override;
 
 private:
-    QColor              brightModeEnterColor;
-    QColor              darkModeEnterColor;
-    int                 animiDuration;
-
-private slots:
-    void                backToCurrColor();
+    QColor brightModeEnterColor;
+    QColor darkModeEnterColor;
+    int    animiDuration;
 };
 
 #endif // CUSTOMDYNAMICBUTTON_H

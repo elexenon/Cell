@@ -12,21 +12,19 @@
 
 #include <QLabel>
 
-class customLabel : public QLabel
+#include "CellWidgetGlobalInterface.h"
+#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
+
+class customLabel : public QLabel, implements CellWidgetGlobalInterface
 {
     Q_OBJECT
-    Q_PROPERTY(QColor color READ color WRITE setColor)
-
     const QString BASEQSS;
 public:
     explicit customLabel(const QString &qss, QWidget *parent = nullptr);
     ~customLabel() = default;
 
 public:
-    const QColor color() const;
-    void         setColor(const QColor &color);
-
-protected:
-    QColor m_color;
+    virtual void setColor(const QColor &color) override;
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 #endif // CUSTOMLABEL_H

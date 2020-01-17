@@ -14,13 +14,22 @@ customFrame::customFrame(const QString &qss, QWidget *parent):
     BASEQSS(qss)
 {}
 
-const QColor customFrame::color() const
-{
-    return m_color;
-}
-
 void customFrame::setColor(const QColor &color)
 {
-    m_color = color;
+    CellWidgetGlobalInterface::setColor(color);
     setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));
+}
+
+void customFrame::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+{
+    if(mode == m_mode) return;
+    m_mode = mode;
+    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
+    CellUiGlobal::setPropertyAnimation({animi},
+                                     "color",
+                                      color(),
+                                      targetColor,
+                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
+                                      QEasingCurve::InOutCubic,
+                                      {this}, nullptr);
 }

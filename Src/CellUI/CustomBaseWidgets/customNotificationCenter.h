@@ -8,10 +8,8 @@
 #ifndef CUSTOMNOTIFICATIONCENTER_H
 #define CUSTOMNOTIFICATIONCENTER_H
 
-#include "customFrame.h"
 #include "customGradientChangeFrame.h"
 
-class customLabel;
 class QPropertyAnimation;
 class QGraphicsOpacityEffect;
 class QLabel;
@@ -22,9 +20,8 @@ public:
     explicit notificationCenter(const QString &qss,QWidget *parent = nullptr);
     ~notificationCenter() override = default;
 
-    void     Init();
-    inline
-    unsigned getCurrWorkshopCount(){ return workshop_instancesCount;}
+    void   Init();
+    inline unsigned getCurrWorkshopCount(){ return workshop_instancesCount;}
 
 private:
     unsigned workshop_instancesCount;

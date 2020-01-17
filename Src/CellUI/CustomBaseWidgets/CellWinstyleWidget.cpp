@@ -1,25 +1,20 @@
-// Copyright 2018-2019 CellTek.
+// Copyright 2018-2020 CellTek.
 //
 // Distributed under the GPL License, Version 3.0.
 //
 // See accompanying file LICENSE.txt at the root
 //
 // Of source file directory.
-#include "customDialog.h"
+#include "../CustomBaseWidgets/CellWinstyleWidget.h"
 #include "../../CellCore/Kits/WindWMAPI.h"
 
-customDialog::customDialog(QWidget *parent):
-    QDialog(parent)
+CellWinstyleWidget::CellWinstyleWidget(QWidget *parent):
+    QWidget(parent)
 {}
 
-void customDialog::setColor(const QColor &color)
+void CellWinstyleWidget::LoadWinStyle(QWidget *obj)
 {
-    CellWidgetGlobalInterface::setColor(color);
-    QDialog::setStyleSheet(QString("QDialog{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue()));
-}
-
-void customDialog::LoadWinStyle(QWidget *obj)
-{
+    // Achieve the window drop shadow effect.
     HWND hwnd =  (HWND)obj->winId();
     DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
     ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
@@ -27,7 +22,7 @@ void customDialog::LoadWinStyle(QWidget *obj)
     WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
 }
 
-bool customDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
+bool CellWinstyleWidget::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     MSG* msg = reinterpret_cast<MSG*>(message);
     switch (msg->message){

@@ -12,23 +12,18 @@
 
 #include <QWidget>
 
-class customWidget : public QWidget
-{
-    Q_OBJECT
-    Q_PROPERTY(QColor color READ color WRITE setColor)
+#include "CellWidgetGlobalInterface.h"
+#include "CellWinstyleWidget.h"
+#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
 
+class customWidget : public CellWinstyleWidget, implements CellWidgetGlobalInterface
+{
 public:
     explicit customWidget(QWidget *parent = nullptr);
 
-public:
-    const QColor color() const;
-    void         setColor(const QColor &color);
+    virtual void setColor(const QColor &color) override;
 
-protected:
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
-    void LoadWinStyle(QWidget *obj);
-
-protected:
-    QColor                  m_color;
+protected slots:
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 #endif

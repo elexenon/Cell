@@ -9,22 +9,20 @@
 #define CUSTOMLINE_H
 
 #include "customFrame.h"
+#include "../../CellCore/Kits/CellUtility.h" // LINE_TYPE
 
 class customLine : public customFrame{
     Q_OBJECT
     const QString BASEQSS;
 public:
-    enum LINESHAPE{
-        _VERTICAL,
-        _HORIZONTAL
-    };
-    explicit customLine(const QString &qss, QWidget *parent = nullptr, const LINESHAPE &shape = _HORIZONTAL);
+    explicit customLine(const QString &qss, QWidget *parent = nullptr,
+                        const CellUiGlobal::LINE_TYPE &shape = CellUiGlobal::LINE_TYPE::HLine);
     ~customLine() = default;
 
 private:
     void Init();
 
-    LINESHAPE shape;
+    CellUiGlobal::LINE_TYPE shape;
 };
 
 

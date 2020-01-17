@@ -9,6 +9,7 @@
 #include "StyleSheetLoader.hpp"
 
 #include <QWidget>
+#include <QFrame>
 #include <QDebug>
 #include <QGraphicsEffect>
 #include <QGraphicsDropShadowEffect>
@@ -138,5 +139,15 @@ void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,QPropertyAnimation *ani
     target->setGraphicsEffect(eff);
     CellUiGlobal::setPropertyAnimation({animi}, "opacity", startValue, endValue, duration,
                          QEasingCurve::Linear, {nullptr}, eff);
+}
+
+QFrame* getLine(CellUiGlobal::LINE_TYPE type){
+    QFrame *tmp = new QFrame;
+    type == CellUiGlobal::LINE_TYPE::HLine ? tmp->setFixedHeight(1)
+                                           : tmp->setFixedWidth(1);
+    tmp->setStyleSheet("QFrame{color:rgb(180,180,180);}");
+    tmp->setFrameShadow(QFrame::Plain);
+    tmp->setFrameShape(static_cast<QFrame::Shape>(type));
+    return tmp;
 }
 } // namespace CellUiGlobal{

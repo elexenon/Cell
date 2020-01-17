@@ -15,8 +15,12 @@ PRECOMPILED_HEADER = Src/CellCore/Kits/Pch.h
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.cpp \
+    Src/CellUI/CustomBaseWidgets/CellWinstyleWidget.cpp \
+    Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customLine.cpp \
+    Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
     Src/CellUI/Widgets/NewPJProjectCellPage.cpp \
     Src/main.cpp \
@@ -45,12 +49,16 @@ HEADERS += \
     Src/CellCore/Kits/WindWMAPI.h \
     Src/CellCore/Kits/StyleSheetLoader.hpp \
     Src/CellCore/CellProjectEntity.h \
+    Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.h \
+    Src/CellUI/CustomBaseWidgets/CellWinstyleWidget.h \
+    Src/CellUI/CustomBaseWidgets/customButtonListWidget.h \
     Src/CellUI/CustomBaseWidgets/customDialog.h \
     Src/CellUI/CustomBaseWidgets/customDynamicButton.h \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
     Src/CellUI/CustomBaseWidgets/customLine.h \
+    Src/CellUI/CustomBaseWidgets/customListButton.h \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customStaticButton.h \
     Src/CellUI/CustomBaseWidgets/customWidget.h \

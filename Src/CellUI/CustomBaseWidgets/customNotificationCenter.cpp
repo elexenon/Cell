@@ -6,10 +6,10 @@
 //
 // Of source file directory.
 #include "customNotificationCenter.h"
-#include "customLabel.h"
-#define CELL_DEBUG
 
 #include <QLabel>
+
+#define CELL_DEBUG
 
 notificationCenter::notificationCenter(const QString &qss,QWidget *parent):
     customGradientChangeFrame(qss,QColor(50,200,230),parent),

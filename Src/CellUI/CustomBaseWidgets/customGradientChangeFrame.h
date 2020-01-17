@@ -9,9 +9,6 @@
 #define CUSTOMGRADIENTCHANGEFRAME_H
 
 #include "customFrame.h"
-#include "../../CellCore/Kits/CellUtility.h"
-
-class QPropertyAnimation;
 
 class customGradientChangeFrame : public customFrame{
     Q_OBJECT
@@ -25,14 +22,11 @@ public:
     void transCurrState(const GRADIENT_STATE &newState);
 
 protected:
-    GRADIENT_STATE currState;
-    CellUiGlobal::COLOR_SCHEME m_mode;
+    GRADIENT_STATE currState = GRADIENT_STATE::_NORMAL;
     QColor specialColor;
 
-    QPropertyAnimation *animi;
-
 public slots:
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 
 #endif // CUSTOMGRADIENTCHANGEFRAME_H

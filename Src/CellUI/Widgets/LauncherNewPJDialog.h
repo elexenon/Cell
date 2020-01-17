@@ -22,6 +22,7 @@ class QStackedWidget;
 class QFrame;
 class customDynamicButton;
 class NewPJProjectCellPage;
+class customButtonListWidget;
 
 namespace Ui {
 class LauncherNewPJDialog;
@@ -40,35 +41,12 @@ private:
 
 private:
     QPropertyAnimation *label_choose_animi;
-    QPropertyAnimation *label_cell_animi;
-    QPropertyAnimation *label_others_animi;
-    QPropertyAnimation *label_empty_animi;
-    QPropertyAnimation *label_cpp_animi;
-    QPropertyAnimation *label_py_animi;
     QPropertyAnimation *label_confirm_animi;
     QPropertyAnimation *label_cancel_animi;
     QPropertyAnimation *animi;
 
-    QGraphicsDropShadowEffect *eff_dse;
-
-    customStaticButton *Tab_Cell;
-    customStaticButton *Tab_Others;
-    customStaticButton *Tab_Empty;
-    customStaticButton *Tab_CPP;
-    customStaticButton *Tab_Py;
-
     customFrame *frame_titleBar;
     customLabel *label_choose;
-    customLabel *label_project;
-    customLabel *label_file;
-    customLabel *Tab_Cell_Label;
-    customLabel *Tab_Others_Label;
-    customLabel *Tab_Empty_Label;
-    customLabel *Tab_CPP_Label;
-    customLabel *Tab_Py_Label;
-
-    QFrame *LauncherNewPJ_line_splitter1;
-    QFrame *LauncherNewPJ_line_splitter2;
 
     customDynamicButton *Btn_Confirm;
     customDynamicButton *Btn_Cancel;
@@ -78,7 +56,10 @@ private:
 
     NewPJProjectCellPage *cellPage;
 
-    QList<customStaticButton*> *tabs;
+    QFrame *VLine_Splitter;
+
+    customButtonListWidget *BtnListWidget1;
+    customButtonListWidget *BtnListWidget2;
 
     QPoint  m_startPoint;
     QPoint  m_windowPoint;
@@ -86,7 +67,6 @@ private:
 
 private:
     void Init();
-    void setAllTabsUnchecked();
     void setEventConnections();
 
 private:

@@ -10,7 +10,7 @@
 
 customStaticButton::customStaticButton(QWidget *parent):
     QPushButton(parent),
-    BASEQSS(CellUiConst::QSS_CUSTOMBUTTON_STATIC)
+    BASEQSS(CellUiConst::QSS_CUSTOMBUTTON_CHECKABLE)
 {}
 
 void customStaticButton::setBrightModeCheckedUncheckedColor(const QColor &c, const QColor &u){

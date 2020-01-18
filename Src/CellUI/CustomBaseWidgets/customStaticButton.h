@@ -32,7 +32,7 @@ protected:
     QColor darkModeCheckedColor;
 
 protected slots:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 
 #endif // CUSTOMPAGESWITCHBTN_H

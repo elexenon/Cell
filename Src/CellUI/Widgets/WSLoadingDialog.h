@@ -9,13 +9,13 @@
 #define WSLoadingDialog_H
 
 #include <QDialog>
-#include "../CustomBaseWidgets/customDialog.h" // Derived class
+#include "../CustomBaseWidgets/customWinstyleDialog.h" // Derived class
 
 namespace Ui {
 class WSLoadingDialog;
 }
 
-class WSLoadingDialog : public customDialog
+class WSLoadingDialog : public customWinstyleDialog
 {
     Q_OBJECT
 
@@ -35,11 +35,6 @@ private:
     QPoint  m_startPoint;
     QPoint  m_windowPoint;
     bool    m_move;
-
-protected:
-#ifdef Q_OS_WIN32
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
-#endif
 
 private slots:
     void updateProgressBar();

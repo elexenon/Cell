@@ -16,35 +16,6 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(247, 247, 247);</string>
   </property>
-  <widget class="QLabel" name="label_LauncherIcon">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>18</y>
-     <width>25</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Images/CELL_MainIcon.png);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_LauncherTitle">
-   <property name="geometry">
-    <rect>
-     <x>58</x>
-     <y>14</y>
-     <width>221</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>CELL LAUNCHER</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="Btn_close">
    <property name="geometry">
     <rect>

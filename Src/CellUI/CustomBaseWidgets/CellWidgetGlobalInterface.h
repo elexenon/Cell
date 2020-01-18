@@ -28,6 +28,11 @@ protected:
     QColor                     brightmodeColor;
     QColor                     darkmodeColor;
     QPropertyAnimation        *animi;
+    QPoint                     m_startPoint;
+    QPoint                     m_windowPoint;
+    bool                       m_move;
+
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) = 0;
 };
 
 #endif // CELLGLOBALWIDGET_H

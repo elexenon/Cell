@@ -9,19 +9,19 @@
 #define LauncherGuideDialog_H
 
 #include "../../CellCore/Kits/CellUtility.h"    // COLOR_SCHEME
-#include "../CustomBaseWidgets/customDialog.h"
+#include "../CustomBaseWidgets/customWinstyleDialog.h"
 
 class QPropertyAnimation;
+class customTitleBar;
 class customFrame;
 
 namespace Ui {
 class LauncherGuideDialog;
 }
 
-class LauncherGuideDialog : public customDialog
+class LauncherGuideDialog : public customWinstyleDialog
 {
     Q_OBJECT
-
 public:
     explicit LauncherGuideDialog(QWidget *parent = nullptr);
     ~LauncherGuideDialog();
@@ -33,30 +33,12 @@ private:
     QPropertyAnimation *animi_title;
 
 private:
-    QPoint  m_startPoint;
-    QPoint  m_windowPoint;
-    bool    m_move;
-
-private:
     void Init();
 
-private:
-    CellUiGlobal::COLOR_SCHEME m_mode;
-
-protected:
-#ifdef Q_OS_WIN32
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
-#endif
-
-    virtual void mousePressEvent(QMouseEvent *event);
-
-    virtual void mouseMoveEvent(QMouseEvent *event);
-
-    virtual void mouseReleaseEvent(QMouseEvent *event);
 private slots:
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME);
-    void on_Btn_close_clicked();
-    void on_pushButton_clicked();
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
+    void    on_Btn_close_clicked();
+    void    on_pushButton_clicked();
 };
 
 #endif // LauncherGuideDialog_H

@@ -10,26 +10,32 @@
 
 namespace CellUiConst{
 extern const char* const  INSTANCE_IS_ON;
-extern const QString      IMG_DIR;
-extern const QString      FONT_DIR;
-extern const QString      STYLESHEET_DIR;
-extern const QString      LIB_DIR;
-extern const QString      QSS_CUSTOMFRAME_WITH_RADIUS;
-extern const QString      QSS_CUSTOMFRAME;
-extern const QString      QSS_CUSTOMLABEL;
-extern const QString      QSS_CUSTOMLABEL_BACK;
-extern const QString      QSS_CUSTOMLABEL_TRANSPARENT;
-extern const QString      QSS_CUSTOMBUTTON_STATIC;
-extern const QString      QSS_CUSTOMBUTTON_DYNAMIC;
 
-extern const QColor       GRAYLEVEL255;
-extern const QColor       GRAYLEVEL70;
-extern const QColor       GRAYLEVEL100;
-extern const QColor       GRAYLEVEL180;
-extern const QColor       GRAYLEVEL45;
-extern const QColor       GRAYLEVEL218;
-extern const QColor       GRAYLEVEL30;
-extern const QColor       GRAYLEVEL247;
+extern const QString IMG_DIR;
+extern const QString FONT_DIR;
+extern const QString STYLESHEET_DIR;
+extern const QString LIB_DIR;
+
+extern const QString QSS_CUSTOMFRAME_WITH_RADIUS;
+extern const QString QSS_CUSTOMFRAME;
+
+extern const QString QSS_CUSTOMLABEL;
+extern const QString QSS_CUSTOMLABEL_BACK;
+extern const QString QSS_CUSTOMLABEL_TRANSPARENT;
+
+extern const QString QSS_CUSTOMBUTTON_STATIC;
+extern const QString QSS_CUSTOMBUTTON_DYNAMIC;
+extern const QString QSS_CUSTOMBUTTON_CHECKABLE;
+
+extern const QColor GRAYLEVEL255;
+extern const QColor GRAYLEVEL70;
+extern const QColor GRAYLEVEL100;
+extern const QColor GRAYLEVEL180;
+extern const QColor GRAYLEVEL45;
+extern const QColor GRAYLEVEL218;
+extern const QColor GRAYLEVEL30;
+extern const QColor GRAYLEVEL247;
+extern const QColor GRAYLEVEL130;
 } // namespace CellUiConst{
 
 class QGraphicsDropShadowEffect;

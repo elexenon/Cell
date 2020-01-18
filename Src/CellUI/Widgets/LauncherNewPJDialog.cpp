@@ -8,7 +8,7 @@
 #include "LauncherNewPJDialog.h"
 #include "ui_launcherNewPJDialog.h"
 
-#include "../CustomBaseWidgets/customFrame.h"
+#include "../CustomBaseWidgets/customTitleBar.h"
 #include "../CustomBaseWidgets/customLabel.h"
 #include "../CustomBaseWidgets/customStaticButton.h"
 #include "../CustomBaseWidgets/customListButton.h"
@@ -20,11 +20,11 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QButtonGroup>
-//#define CELL_DEBUG
+#define CELL_DEBUG
 LauncherNewPJDialog::LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,QWidget *parent) :
-    customDialog(parent),
+    customWinstyleDialog(parent),
     ui(new Ui::LauncherNewPJDialog),
-    frame_titleBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
+    titleBar(new customTitleBar(this)),
     label_choose(new customLabel(CellUiConst::QSS_CUSTOMLABEL, this)),
     Btn_Confirm(new customDynamicButton(this)),
     Btn_Cancel(new customDynamicButton(this)),
@@ -32,8 +32,7 @@ LauncherNewPJDialog::LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,Q
     Btn_Cancel_label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_Cancel)),
     cellPage(new NewPJProjectCellPage),
     BtnListWidget1(new customButtonListWidget(this)),
-    BtnListWidget2(new customButtonListWidget(this)),
-    m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
+    BtnListWidget2(new customButtonListWidget(this))
 {
     ui->setupUi(this);
     Init();
@@ -49,15 +48,15 @@ LauncherNewPJDialog::~LauncherNewPJDialog()
 void LauncherNewPJDialog::Init()
 {
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-    customDialog::LoadWinStyle(this);
+    customWinstyleDialog::LoadWinStyle(this);
     setAttribute(Qt::WA_DeleteOnClose);
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL30);
 
     QFont font(QString::fromUtf8("Microsoft YaHei UI Light"));
-
-    frame_titleBar->setObjectName(QStringLiteral("frame_titleBar"));
-    frame_titleBar->setFixedHeight(45);
-    frame_titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
+    font.setPixelSize(15);
+    titleBar->setFixedHeight(40);
+    titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
+    titleBar->setText(QString::fromUtf8("CELL WORKSTATION"), CellUiConst::GRAYLEVEL70);
 
     font.setPixelSize(25);
     label_choose->setObjectName(QStringLiteral("label_choose"));
@@ -139,7 +138,7 @@ void LauncherNewPJDialog::Init()
     HLayout->setSpacing(0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(frame_titleBar);
+    mainLayout->addWidget(titleBar);
     mainLayout->addLayout(HLayout);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
@@ -156,10 +155,10 @@ void LauncherNewPJDialog::setEventConnections()
 {
     const customListButton* Tab_Cell = BtnListWidget1->getButton(0);
     const customListButton* Tab_Others = BtnListWidget1->getButton(1);
-
     const customListButton* Tab_Empty = BtnListWidget2->getButton(0);
     const customListButton* Tab_CPP = BtnListWidget2->getButton(1);
     const customListButton* Tab_Py = BtnListWidget2->getButton(2);
+
     connect(Tab_Cell, SIGNAL(clicked(bool)), this, SLOT(Tab_Cell_clicked()));
     connect(Tab_Others, SIGNAL(clicked(bool)), this, SLOT(Tab_Others_clicked()));
     connect(Tab_Empty, SIGNAL(clicked(bool)), this, SLOT(Tab_Empty_clicked()));
@@ -178,7 +177,6 @@ void LauncherNewPJDialog::setEventConnections()
 
 void LauncherNewPJDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode){
     if(mode == m_mode) return;
-    m_mode = mode;
     emit enableColorScheme(mode);
 #ifdef CELL_DEBUG
     qDebug() << "--------------------------";
@@ -187,23 +185,8 @@ void LauncherNewPJDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode){
     qDebug() << "MODE: " << m_mode;
     qDebug() << "--------------------------";
 #endif
-    const QColor thisColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL255 : CellUiConst::GRAYLEVEL30);
-    const QColor labelColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL70 : CellUiConst::GRAYLEVEL255);
-    const QColor titleColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL218 : CellUiConst::GRAYLEVEL45);
-    CellUiGlobal::setPropertyAnimation({animi},
-                                 "color",
-                                 this->color(),
-                                 thisColor,
-                                 CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                 QEasingCurve::InOutCubic,
-                                 {this}, nullptr);
-    CellUiGlobal::setPropertyAnimation({animi},
-                                 "color",
-                                 frame_titleBar->color(),
-                                 titleColor,
-                                 CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                 QEasingCurve::InOutCubic,
-                                 {frame_titleBar}, nullptr);
+    customWinstyleDialog::setColorScheme(mode);
+    const QColor labelColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL70 : CellUiConst::GRAYLEVEL255);  
     CellUiGlobal::setPropertyAnimation({label_choose_animi,
                                       label_confirm_animi,label_cancel_animi},
                                      "color",
@@ -243,33 +226,4 @@ void LauncherNewPJDialog::Tab_Py_clicked()
 void LauncherNewPJDialog::Btn_Cancel_clicked()
 {
     this->close();
-}
-
-bool LauncherNewPJDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
-{
-    return customDialog::nativeEvent(eventType, message, result);
-}
-
-void LauncherNewPJDialog::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && event->y() <= 40){
-        m_move = true;
-        m_startPoint = event->globalPos();
-        m_windowPoint = this->frameGeometry().topLeft();
-    }
-}
-
-void LauncherNewPJDialog::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_move && event->buttons() & Qt::LeftButton){
-        QPoint relativePos = event->globalPos() - m_startPoint;
-        this->move(m_windowPoint + relativePos );
-    }
-}
-
-void LauncherNewPJDialog::mouseReleaseEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton){
-        m_move = false;
-    }
 }

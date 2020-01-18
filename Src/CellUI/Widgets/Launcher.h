@@ -8,7 +8,7 @@
 #ifndef Launcher_H
 #define Launcher_H
 
-#include "../CustomBaseWidgets/customWidget.h"
+#include "../CustomBaseWidgets/customWinstyleWidget.h"
 #include "../../CellCore/Kits/CellUtility.h"   // PAGE_TYPE & COLOR_SCHEME & FADE_TYPE
 
 QT_BEGIN_NAMESPACE
@@ -23,7 +23,7 @@ class LauncherSettings;
 class QPushButton;
 class QGraphicsOpacityEffect;
 class QPropertyAnimation;
-class customFrame;
+class customTitleBar;
 class customStaticButton;
 class customDynamicButton;
 class customLabel;
@@ -33,10 +33,9 @@ class customLine;
 class QButtonGroup;
 class customButtonListWidget;
 
-class Launcher : public customWidget
+class Launcher : public customWinstyleWidget
 {
     Q_OBJECT
-    Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
     explicit Launcher(QWidget *parent = nullptr);
     ~Launcher();
@@ -58,13 +57,13 @@ private:
     QPropertyAnimation *Btn_OpenProject_Hint_animi;
     QPropertyAnimation *line_animi;
 
-    Workshop            *workshop;
+    Workshop            *workshop = nullptr;
     LauncherHomepage    *homePage;
     LauncherSettings    *settingsPage;
     LauncherGuideDialog *guideDialog;
-    LauncherNewPJDialog *newPJDialog;
+    LauncherNewPJDialog *newPJDialog = nullptr;
 
-    customFrame         *frame_titleBar;
+    customTitleBar      *titleBar;
     customDynamicButton *Btn_NewProject;
     customDynamicButton *Btn_OpenProject;
 
@@ -82,11 +81,8 @@ private:
     QButtonGroup *tabsGroup;
 
 private:
-    QPoint                   m_startPoint;
-    QPoint                   m_windowPoint;
-    bool                     m_move;
-    bool                     isMaxSize = false;
-    PAGE_TYPE    currentPage;
+    bool                       isMaxSize = false;
+    PAGE_TYPE                  currentPage;
     CellUiGlobal::COLOR_SCHEME m_mode;
 
 private:
@@ -95,16 +91,9 @@ private:
     void startPageSwitchAnimation(PAGE_TYPE nextPage);
 
 protected:
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 
-    virtual void mousePressEvent(QMouseEvent *event);
-
-    virtual void mouseMoveEvent(QMouseEvent *event);
-
-    virtual void mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void on_Btn_mini_clicked();
     void on_Btn_close_clicked();
     void Tab_HomePage_clicked();

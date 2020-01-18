@@ -11,9 +11,9 @@
 #include <QDialog>
 
 #include "../../CellCore/Kits/CellUtility.h"    // COLOR_SCHEME
-#include "../CustomBaseWidgets/customDialog.h"
+#include "../CustomBaseWidgets/customWinstyleDialog.h"
 
-class customFrame;
+class customTitleBar;
 class customLabel;
 class QPropertyAnimation;
 class QGraphicsDropShadowEffect;
@@ -28,7 +28,7 @@ namespace Ui {
 class LauncherNewPJDialog;
 }
 
-class LauncherNewPJDialog : public customDialog
+class LauncherNewPJDialog : public customWinstyleDialog
 {
     Q_OBJECT
 
@@ -43,9 +43,9 @@ private:
     QPropertyAnimation *label_choose_animi;
     QPropertyAnimation *label_confirm_animi;
     QPropertyAnimation *label_cancel_animi;
-    QPropertyAnimation *animi;
 
-    customFrame *frame_titleBar;
+    customTitleBar *titleBar;
+
     customLabel *label_choose;
 
     customDynamicButton *Btn_Confirm;
@@ -61,33 +61,15 @@ private:
     customButtonListWidget *BtnListWidget1;
     customButtonListWidget *BtnListWidget2;
 
-    QPoint  m_startPoint;
-    QPoint  m_windowPoint;
-    bool    m_move;
-
 private:
     void Init();
     void setEventConnections();
-
-private:
-    CellUiGlobal::COLOR_SCHEME m_mode;
-
-protected:
-#ifdef Q_OS_WIN32
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
-#endif
-
-    virtual void mousePressEvent(QMouseEvent *event);
-
-    virtual void mouseMoveEvent(QMouseEvent *event);
-
-    virtual void mouseReleaseEvent(QMouseEvent *event);
 
 signals:
     void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 
 private slots:
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
     void Tab_Cell_clicked();
     void Tab_Others_clicked();
     void Tab_Empty_clicked();

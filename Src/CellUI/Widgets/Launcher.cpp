@@ -18,33 +18,31 @@
 #include <QHBoxLayout>
 #include <QDesktopWidget>
 
-#include "../CustomBaseWidgets/customListButton.h"
-#include "../CustomBaseWidgets/customButtonListWidget.h"
-
 #include "LauncherGuideDialog.h"
 #include "LauncherNewPJDialog.h"
 #include "LauncherHomepage.h"
 #include "LauncherSettings.h"
 #include "WorkShop.h"
 #include "Launcher.h"
-#include "../CustomBaseWidgets/customWidget.h"
-#include "../CustomBaseWidgets/customStaticButton.h"
+#include "../CustomBaseWidgets/customButton.h"
+#include "../CustomBaseWidgets/customListButton.h"
+#include "../CustomBaseWidgets/customButtonListWidget.h"
 #include "../CustomBaseWidgets/customDynamicButton.h"
 #include "../CustomBaseWidgets/customNotificationCenter.h"
 #include "../CustomBaseWidgets/customLabel.h"
+#include "../CustomBaseWidgets/customTitleBar.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "ui_Launcher.h"
 #define CELL_DEBUG
 #define ENABLE_WORKSHOP
-#define AUTO_CHANGE
+//#define AUTO_CHANGE
 
 Launcher::Launcher(QWidget *parent)
-    : customWidget(parent)
+    : customWinstyleWidget(parent)
     , ui(new Ui::Launcher)
-    , workshop(nullptr)
     , homePage(new LauncherHomepage)
     , settingsPage(new LauncherSettings)
-    , frame_titleBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this))
+    , titleBar(new customTitleBar(this))
     , Btn_NewProject(new customDynamicButton(this))
     , Btn_OpenProject(new customDynamicButton(this))
     , Btn_NewProject_Icon(new customLabel(CellUiConst::QSS_CUSTOMLABEL,Btn_NewProject))
@@ -69,13 +67,38 @@ Launcher::~Launcher()
 
 void Launcher::InitLauncher()
 {
-    setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
-    customWidget::LoadWinStyle(this);
+    customWinstyleWidget::LoadWinStyle(this);
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
 
-    frame_titleBar->setObjectName(QStringLiteral("frame_titleBar"));
-    frame_titleBar->setFixedHeight(55);
-    frame_titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
+    customButton *btn1 = new customButton(customButton::TYPE::STATIC, this);
+    btn1->setBrightModeHoverColor(CellUiConst::GRAYLEVEL218);
+    btn1->setDarkModeHoverColor(CellUiConst::GRAYLEVEL130);
+    btn1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
+    btn1->setGeometry(300, 300, 200, 81);
+
+    customButton *btn3 = new customButton(customButton::TYPE::CHECKABLE, this);
+    btn3->setBrightModeCheckedColor(CellUiConst::GRAYLEVEL218);
+    btn3->setDarkModeCheckedColor(CellUiConst::GRAYLEVEL130);
+    btn3->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
+    btn3->setGeometry(500, 300, 200, 81);
+
+    customButton *btn2 = new customButton(customButton::TYPE::DYNAMIC, this);
+    btn2->setBrightModeHoveringColor(QColor(50,200,230));
+    btn2->setDarkModeHoveringColor(QColor(50,200,230));
+    btn2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL180);
+    btn2->setAnimationDuration(300);
+    btn2->setGeometry(700, 300, 200, 81);
+
+    int fontID_Info = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
+    QFont font_Info(QFontDatabase::applicationFontFamilies(fontID_Info).at(0));
+
+    titleBar->setObjectName(QStringLiteral("frame_titleBar"));
+    titleBar->setFixedHeight(55);
+    titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
+    titleBar->setText(QString::fromUtf8("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
+    titleBar->setFont(font_Info, 23);
+    titleBar->setIcon(QString::fromUtf8("CELL_logo_small"), 33, 29);
+    titleBar->setLeftMargin(15);
 
     ui->stackedWidget->insertWidget(1, homePage);
     ui->stackedWidget->insertWidget(2, settingsPage);
@@ -156,54 +179,28 @@ void Launcher::InitLauncher()
     HLayout->setSpacing(40);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(frame_titleBar);
+    mainLayout->addWidget(titleBar);
     mainLayout->addLayout(HLayout);
     mainLayout->addWidget(notificationCenter);
     mainLayout->setMargin(0);
 
     setLayout(mainLayout);
 
-    ui->label_LauncherIcon->setParent(frame_titleBar);
-    ui->label_LauncherTitle->setParent(frame_titleBar);
-    ui->Btn_max->setParent(frame_titleBar);
-    ui->Btn_mini->setParent(frame_titleBar);
-    ui->Btn_close->setParent(frame_titleBar);
-
     notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
     notificationCenter->setFixedHeight(29);
     notificationCenter->setBrightDarkModeColor(CellUiConst::GRAYLEVEL100, CellUiConst::GRAYLEVEL45);
 
-    int fontID_Info = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
-    QString Info = QFontDatabase::applicationFontFamilies(fontID_Info).at(0);
-
-    QFont font_Info(Info);
-    font_Info.setPixelSize(23);
-
-    ui->label_LauncherTitle->setFont(font_Info);
-    ui->label_LauncherTitle->setStyleSheet(QStringLiteral("color:#798186;"));
-
-    ui->label_LauncherIcon->setFixedSize(25,24);
     ui->Btn_max->setFixedSize(19,19);
     ui->Btn_mini->setFixedSize(19,19);
     ui->Btn_close->setFixedSize(19,19);
-
-    QHBoxLayout *HLayoutTitleLeft = new QHBoxLayout;
-    HLayoutTitleLeft->addWidget(ui->label_LauncherIcon);
-    HLayoutTitleLeft->addWidget(ui->label_LauncherTitle);
-    HLayoutTitleLeft->setSpacing(13);
 
     QHBoxLayout *HLayoutTitleRight = new QHBoxLayout;
     HLayoutTitleRight->addWidget(ui->Btn_max);
     HLayoutTitleRight->addWidget(ui->Btn_mini);
     HLayoutTitleRight->addWidget(ui->Btn_close);
+    HLayoutTitleRight->setContentsMargins(0, 0, 12, 0);
 
-    QHBoxLayout *HLayoutTitle = new QHBoxLayout;
-    HLayoutTitle->addLayout(HLayoutTitleLeft);
-    HLayoutTitle->addStretch();
-    HLayoutTitle->addLayout(HLayoutTitleRight);
-    HLayoutTitle->setContentsMargins(20, 0, 15, 0);
-
-    frame_titleBar->setLayout(HLayoutTitle);
+    titleBar->addLayout(HLayoutTitleRight);
 
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherCloseBtn.css"));
     ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
@@ -216,10 +213,9 @@ void Launcher::InitLauncher()
 
     setEventConnections();
 
-    qDebug() << color();
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 18 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
+    if((currentTime.hour() >= 12 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
         BtnlistWidget->clickButton(1);
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_DARK);
     }else if(currentTime.hour() < 18 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
@@ -247,7 +243,7 @@ void Launcher::setEventConnections()
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
             BtnlistWidget, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            frame_titleBar, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+            titleBar, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
 
     // Set connections for page-switching buttons.
     const customListButton *Tab_HomePage = BtnlistWidget->getButton(0);
@@ -309,66 +305,22 @@ void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
     }
 }
 
-bool Launcher::nativeEvent(const QByteArray &eventType, void *message, long *result)
-{
-    return customWidget::nativeEvent(eventType, message, result);
-}
-
-void Launcher::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && event->y() <= 60){
-        m_move = true;
-        m_startPoint = event->globalPos();
-        m_windowPoint = this->frameGeometry().topLeft();
-    }
-}
-
-void Launcher::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_move && event->buttons() & Qt::LeftButton){
-        QPoint relativePos = event->globalPos() - m_startPoint;
-        this->move(m_windowPoint + relativePos );
-    }
-}
-
-void Launcher::mouseReleaseEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton){
-        m_move = false;
-    }
-}
-
-void Launcher::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
-{
-    if(mode == m_mode) return;
-    m_mode = mode;
-    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
-    CellUiGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                      color(),
-                                      targetColor,
-                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                      QEasingCurve::InOutCubic,
-                                      {this}, nullptr);
-}
-
 void Launcher::Btn_NewProject_clicked()
 {
-    newPJDialog = new LauncherNewPJDialog(m_mode, this);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+    if(newPJDialog == nullptr){
+        qDebug() << 1;
+        newPJDialog = new LauncherNewPJDialog(m_mode, this);
+        connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)));
+    }
+    if(workshop == nullptr){
+        workshop = new Workshop(m_mode);
+        connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
+        connect(workshop, SIGNAL(constructed()),notificationCenter, SLOT(plusCnt()));
+        connect(workshop, SIGNAL(destoryed()),notificationCenter, SLOT(minusCnt()));
+    }
     newPJDialog->show();
-#ifdef ENABLE_WORKSHOP
-    workshop = new Workshop(m_mode);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            workshop, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(workshop, SIGNAL(constructed()),
-            notificationCenter, SLOT(plusCnt()));
-    connect(workshop, SIGNAL(destoryed()),
-            notificationCenter, SLOT(minusCnt()));
-    workshop->_constructed();
     workshop->show();
-#endif
+    workshop->_constructed();
 }
 
 void Launcher::on_Btn_max_clicked()

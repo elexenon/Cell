@@ -13,10 +13,9 @@
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 
 LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
-    customDialog(parent),
+    customWinstyleDialog(parent),
     ui(new Ui::LauncherGuideDialog),
-    frame_titleBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
-    m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
+    frame_titleBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this))
 {
     ui->setupUi(this);
     Init();
@@ -29,8 +28,7 @@ LauncherGuideDialog::~LauncherGuideDialog()
 
 void LauncherGuideDialog::Init()
 {
-    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-    customDialog::LoadWinStyle(this);
+    customWinstyleDialog::LoadWinStyle(this);
 
     ui->stackedWidget->setAutoFillBackground(true);
 
@@ -50,35 +48,6 @@ void LauncherGuideDialog::Init()
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherGuideCloseBtn_Bright.css"));
     ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     ui->Btn_close->setFont(QFont(QStringLiteral("Microsoft YaHei UI")));
-}
-
-bool LauncherGuideDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
-{
-    return customDialog::nativeEvent(eventType, message, result);
-}
-
-void LauncherGuideDialog::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && event->y() <= 40){
-        m_move = true;
-        m_startPoint = event->globalPos();
-        m_windowPoint = this->frameGeometry().topLeft();
-    }
-}
-
-void LauncherGuideDialog::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_move && event->buttons() & Qt::LeftButton){
-        QPoint relativePos = event->globalPos() - m_startPoint;
-        this->move(m_windowPoint + relativePos );
-    }
-}
-
-void LauncherGuideDialog::mouseReleaseEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton){
-        m_move = false;
-    }
 }
 
 void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)

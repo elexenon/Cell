@@ -18,4 +18,16 @@ public:\
 
 #define implements public
 
+#define Static_Public    public
+#define Static_Private   private
+#define Static_Protected protected
+
+#define Checkable_Public    public
+#define Checkable_Private   private
+#define Checkable_Protected protected
+
+#define Dynamic_Public    public
+#define Dynamic_Private   private
+#define Dynamic_Protected protected
+
 #endif // CUSTOMCPPINTERFACEDEFINATION_H

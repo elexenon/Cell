@@ -12,13 +12,14 @@
 #include "../../CellCore/Kits/CellUtility.h"
 
 WSLoadingDialog::WSLoadingDialog(QWidget *parent) :
-    customDialog(parent),
+    customWinstyleDialog(parent),
     ui(new Ui::WSLoadingDialog),
     timer(new QTimer)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
-    customDialog::LoadWinStyle(this);
+    setAttribute(Qt::WA_DeleteOnClose);
+    customWinstyleDialog::LoadWinStyle(this);
     setAutoFillBackground(true);
     setModal(true);
 
@@ -45,9 +46,4 @@ void WSLoadingDialog::updateProgressBar()
         delete timer;
         close();
     }
-}
-
-bool WSLoadingDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)
-{
-    return customDialog::nativeEvent(eventType, message, result);
 }

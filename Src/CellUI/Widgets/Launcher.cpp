@@ -24,7 +24,6 @@
 #include "LauncherSettings.h"
 #include "WorkShop.h"
 #include "Launcher.h"
-#include "../CustomBaseWidgets/customButton.h"
 #include "../CustomBaseWidgets/customListButton.h"
 #include "../CustomBaseWidgets/customButtonListWidget.h"
 #include "../CustomBaseWidgets/customDynamicButton.h"
@@ -32,10 +31,12 @@
 #include "../CustomBaseWidgets/customLabel.h"
 #include "../CustomBaseWidgets/customTitleBar.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
+#include "../../../CellDevelopTestStation.h"
 #include "ui_Launcher.h"
 #define CELL_DEBUG
 #define ENABLE_WORKSHOP
 //#define AUTO_CHANGE
+//#define RELEASE_MODE
 
 Launcher::Launcher(QWidget *parent)
     : customWinstyleWidget(parent)
@@ -54,6 +55,9 @@ Launcher::Launcher(QWidget *parent)
     , notificationCenter(new class notificationCenter(CellUiConst::QSS_CUSTOMFRAME, this))
     , BtnlistWidget(new customButtonListWidget(this))
     , tabsGroup(new QButtonGroup(this))
+#ifndef RELEASE_MODE
+    , testForm(new CellDevelopTestStation)
+#endif
     , currentPage(PAGE_TYPE::_HOME)
     , m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
 {
@@ -70,28 +74,11 @@ void Launcher::InitLauncher()
     customWinstyleWidget::LoadWinStyle(this);
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
 
-    customButton *btn1 = new customButton(customButton::TYPE::STATIC, this);
-    btn1->setBrightModeHoverColor(CellUiConst::GRAYLEVEL218);
-    btn1->setDarkModeHoverColor(CellUiConst::GRAYLEVEL130);
-    btn1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
-    btn1->setGeometry(300, 300, 200, 81);
-
-    customButton *btn3 = new customButton(customButton::TYPE::CHECKABLE, this);
-    btn3->setBrightModeCheckedColor(CellUiConst::GRAYLEVEL218);
-    btn3->setDarkModeCheckedColor(CellUiConst::GRAYLEVEL130);
-    btn3->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
-    btn3->setGeometry(500, 300, 200, 81);
-
-    customButton *btn2 = new customButton(customButton::TYPE::DYNAMIC, this);
-    btn2->setBrightModeHoveringColor(QColor(50,200,230));
-    btn2->setDarkModeHoveringColor(QColor(50,200,230));
-    btn2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL180);
-    btn2->setAnimationDuration(300);
-    btn2->setGeometry(700, 300, 200, 81);
-
     int fontID_Info = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QFont font_Info(QFontDatabase::applicationFontFamilies(fontID_Info).at(0));
-
+#ifndef RELEASE_MODE
+    testForm->hide();
+#endif
     titleBar->setObjectName(QStringLiteral("frame_titleBar"));
     titleBar->setFixedHeight(55);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
@@ -108,6 +95,10 @@ void Launcher::InitLauncher()
     BtnlistWidget->addButton("选项",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
     BtnlistWidget->addButton("向导",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
     BtnlistWidget->setButtonCheckable(2,false);
+#ifndef RELEASE_MODE
+    BtnlistWidget->addButton("自定义CONTROLS测试面板",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
+    BtnlistWidget->setButtonCheckable(3,false);
+#endif
     BtnlistWidget->setButtonSize(251,31);
     BtnlistWidget->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
 
@@ -215,10 +206,10 @@ void Launcher::InitLauncher()
 
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 12 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
+    if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
         BtnlistWidget->clickButton(1);
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_DARK);
-    }else if(currentTime.hour() < 18 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
+    }else if(currentTime.hour() < 19 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
         BtnlistWidget->clickButton(1);
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
     }
@@ -228,28 +219,23 @@ void Launcher::InitLauncher()
 void Launcher::setEventConnections()
 {
     // Set connections between SettingsPage & ColorScheme-change-enabled modules
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            notificationCenter, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            guideDialog, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            Btn_NewProject, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            Btn_OpenProject, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            this, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            homePage, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            BtnlistWidget, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),
-            titleBar, SLOT(setColorScheme(COLOR_SCHEME)), Qt::QueuedConnection);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), notificationCenter, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), guideDialog, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), Btn_NewProject, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), Btn_OpenProject, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), this, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), homePage, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), BtnlistWidget, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), titleBar, SLOT(setColorScheme(COLOR_SCHEME)));
 
     // Set connections for page-switching buttons.
     const customListButton *Tab_HomePage = BtnlistWidget->getButton(0);
     const customListButton *Tab_Settings = BtnlistWidget->getButton(1);
     const customListButton *Tab_Guide = BtnlistWidget->getButton(2);
-
+#ifndef RELEASE_MODE
+    const customListButton *Tab_Test  = BtnlistWidget->getButton(3);
+    connect(Tab_Test, SIGNAL(clicked(bool)), this, SLOT(Tab_Test_clicked()));
+#endif
     connect(Tab_HomePage, SIGNAL(clicked(bool)), this, SLOT(Tab_HomePage_clicked()));
     connect(Tab_Settings, SIGNAL(clicked(bool)), this, SLOT(Tab_Settings_clicked()));
     connect(Tab_Guide, SIGNAL(clicked(bool)), this, SLOT(Tab_Guide_clicked()));
@@ -287,6 +273,11 @@ void Launcher::Tab_Settings_clicked()
 void Launcher::Tab_Guide_clicked()
 {
     guideDialog->show();
+}
+
+void Launcher::Tab_Test_clicked()
+{
+    testForm->show();
 }
 
 void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)

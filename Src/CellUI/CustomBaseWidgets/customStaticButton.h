@@ -11,7 +11,7 @@
 #include <QPushButton>
 
 #include "CellWidgetGlobalInterface.h"
-#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
+#include "../../CellCore/Kits/CellGlobalMacros.h"
 
 class customStaticButton : public QPushButton, implements CellWidgetGlobalInterface{
     Q_OBJECT

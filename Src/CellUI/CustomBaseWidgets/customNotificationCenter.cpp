@@ -27,8 +27,8 @@ notificationCenter::notificationCenter(const QString &qss,QWidget *parent):
 
 void notificationCenter::Init()
 {
-    label_identifi->setObjectName("label_identifi");
-    label_identifi->setText("WORKSHOP");
+    label_identifi->setObjectName(CHAR2STR("label_identifi"));
+    label_identifi->setText(CHAR2STR("WORKSHOP"));
     label_identifi->setFont(QFont ("微软雅黑",8,QFont::Bold));
     label_identifi->setStyleSheet("QLabel{color:rgb(255,255,255);}");
     label_identifi->setGeometry(-120,3,120,22);

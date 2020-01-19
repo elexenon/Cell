@@ -13,7 +13,7 @@
 #include <QLabel>
 
 #include "CellWidgetGlobalInterface.h"
-#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
+#include "../../CellCore/Kits/CellGlobalMacros.h"
 
 class customLabel : public QLabel, implements CellWidgetGlobalInterface
 {

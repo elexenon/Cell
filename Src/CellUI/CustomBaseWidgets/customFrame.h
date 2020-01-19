@@ -11,7 +11,7 @@
 
 #include <QFrame>
 #include "CellWidgetGlobalInterface.h"
-#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
+#include "../../CellCore/Kits/CellGlobalMacros.h"
 
 class customFrame : public QFrame, implements CellWidgetGlobalInterface
 {

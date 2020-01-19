@@ -24,11 +24,9 @@ customListButton::customListButton(QWidget *parent, const QString &text) :
 
 void customListButton::Init()
 {
-    QFont font(QString::fromUtf8("Microsoft Yahei UI"));
-    font.setPixelSize(16);
 
-    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-    tag->setFont(font);
+    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);   
+    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 16);
 
     mainLayout->addWidget(tag);
     mainLayout->addStretch();
@@ -45,7 +43,6 @@ void customListButton::setFont(const QFont &font)
 void customListButton::setMargins(int left, int top, int right, int buttom)
 {
     mainLayout->setContentsMargins(left, top, right, buttom);
-    Margins.setRect(left, top, right, buttom);
 }
 
 void customListButton::setText(QString &text)

@@ -11,7 +11,7 @@
 #include <QWidget>
 
 #include "CellWidgetGlobalInterface.h"
-#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
+#include "../../CellCore/Kits/CellGlobalMacros.h"
 
 class customWinstyleWidget : public QWidget, implements CellWidgetGlobalInterface{
     Q_OBJECT

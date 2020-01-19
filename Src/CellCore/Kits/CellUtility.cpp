@@ -7,6 +7,7 @@
 // Of source file directory.
 #include "CellUtility.h"
 #include "StyleSheetLoader.hpp"
+#include "CellGlobalMacros.h"
 
 #include <QWidget>
 #include <QFrame>
@@ -15,6 +16,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
+#include <QLabel>
 
 namespace CellUiConst {
 const char* const INSTANCE_IS_ON("Cell Launcher is already running");
@@ -151,9 +153,17 @@ QFrame* getLine(CellUiGlobal::LINE_TYPE type){
     QFrame *tmp = new QFrame;
     type == CellUiGlobal::LINE_TYPE::HLine ? tmp->setFixedHeight(1)
                                            : tmp->setFixedWidth(1);
-    tmp->setStyleSheet("QFrame{color:rgb(180,180,180);}");
+    tmp->setStyleSheet(CHAR2STR("QFrame{color:rgb(180,180,180);}"));
     tmp->setFrameShadow(QFrame::Plain);
     tmp->setFrameShape(static_cast<QFrame::Shape>(type));
     return tmp;
+}
+
+void setCustomTextLabel(QLabel *label, const QString& fontName, int fontPixelSize, const QString& text){
+    QFont font(fontName);
+    font.setPixelSize(fontPixelSize);
+    label->setFont(font);
+    if(text == " ") return;
+    label->setText(text);
 }
 } // namespace CellUiGlobal{

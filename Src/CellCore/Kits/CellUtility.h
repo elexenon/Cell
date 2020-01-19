@@ -44,6 +44,7 @@ class StyleSheetLoader;
 class QGraphicsEffect;
 class QGraphicsOpacityEffect;
 class QFrame;
+class QLabel;
 
 namespace CellUiGlobal{
 enum FADE_TYPE{
@@ -84,6 +85,7 @@ extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,
                                     int duration,
                                     CellUiGlobal::FADE_TYPE type);
 extern QFrame* getLine(CellUiGlobal::LINE_TYPE type);
+extern void setCustomTextLabel(QLabel *label, const QString& fontName, int fontPixelSize, const QString& text = " ");
 extern void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss);
 } // namespace CellUiGlobal{
 

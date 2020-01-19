@@ -13,7 +13,7 @@
 #include <QDialog>
 
 #include "CellWidgetGlobalInterface.h"
-#include "../../CellCore/Kits/CustomCppInterfaceDefination.h"
+#include "../../CellCore/Kits/CellGlobalMacros.h"
 
 class customWinstyleDialog : public QDialog, implements CellWidgetGlobalInterface
 {

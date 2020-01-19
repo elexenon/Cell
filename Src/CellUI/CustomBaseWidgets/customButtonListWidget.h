@@ -21,11 +21,6 @@ class customButtonListWidget : public customFrame{
 public:
     explicit customButtonListWidget(QWidget *parent = nullptr);
 
-    inline
-    const QRect& layoutMargins() const{ return Margins; }
-    inline
-    const int& layoutSpacing() const{ return Spacing; }
-
     void  addButton(const QString &text, const QColor&, const QColor&, const QColor&, const QColor&);
     const customListButton* getButton(int index = 0);
     void  setButtonSize(int width, int height);
@@ -44,8 +39,6 @@ private:
     QVBoxLayout              *mainLayout;
     QList<customListButton*> *buttons;
     QButtonGroup             *btnGroup;
-    QRect                     Margins;
-    int                       Spacing;
 
 private slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;

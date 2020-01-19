@@ -8,6 +8,7 @@
 #include "../CustomBaseWidgets/customButtonListWidget.h"
 #include "../CustomBaseWidgets/customListButton.h"
 #include "../CustomBaseWidgets/customLabel.h"
+#include "../../CellCore/Kits/CellGlobalMacros.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -60,13 +61,11 @@ void customButtonListWidget::setFont(const QFont &font)
 void customButtonListWidget::setMargins(int left, int top, int right, int buttom)
 {
     mainLayout->setContentsMargins(left, top, right, buttom);
-    Margins.setRect(left, top, right, buttom);
 }
 
 void customButtonListWidget::setSpacing(int spacing)
 {
     mainLayout->setSpacing(spacing);
-    Spacing = spacing;
 }
 
 void customButtonListWidget::clickButton(int index)
@@ -82,14 +81,10 @@ void customButtonListWidget::setButtonCheckable(int index, bool value)
 
 void customButtonListWidget::addThemeHead(const QString& theme)
 {
-    QFont font(QString::fromUtf8("Microsoft Yahei UI"));
-    font.setPixelSize(15);
     label_theme = new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this);
+    CellUiGlobal::setCustomTextLabel(label_theme, CHAR2STR("Microsoft YaHei UI"), 15, theme);
     label_theme->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-    label_theme->setText(theme);
-    label_theme->setFont(font);
     line_splitter = CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine);
-
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(label_theme);
     layout->addStretch();

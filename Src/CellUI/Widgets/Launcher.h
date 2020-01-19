@@ -32,6 +32,7 @@ class QLabel;
 class customLine;
 class QButtonGroup;
 class customButtonListWidget;
+class CellDevelopTestStation;
 
 class Launcher : public customWinstyleWidget
 {
@@ -80,6 +81,8 @@ private:
 
     QButtonGroup *tabsGroup;
 
+    CellDevelopTestStation *testForm;
+
 private:
     bool                       isMaxSize = false;
     PAGE_TYPE                  currentPage;
@@ -99,6 +102,7 @@ private slots:
     void Tab_HomePage_clicked();
     void Tab_Settings_clicked();
     void Tab_Guide_clicked();
+    void Tab_Test_clicked();
     void Btn_NewProject_clicked();
     void on_Btn_max_clicked();
 };

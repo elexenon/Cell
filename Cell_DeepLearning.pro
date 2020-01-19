@@ -15,12 +15,16 @@ PRECOMPILED_HEADER = Src/CellCore/Kits/Pch.h
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    CellDevelopTestStation.cpp \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.cpp \
     Src/CellUI/CustomBaseWidgets/customButton.cpp \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customLine.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
+    Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
+    Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
+    Src/CellUI/CustomBaseWidgets/customOptionBlockSector.cpp \
     Src/CellUI/CustomBaseWidgets/customTitleBar.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.cpp \
@@ -44,9 +48,9 @@ SOURCES += \
 
 
 HEADERS += \
-    Src/CellCore/Kits/AutoResizer.h \
+    CellDevelopTestStation.h \
+    Src/CellCore/Kits/CellGlobalMacros.h \
     Src/CellCore/Kits/CellUtility.h \
-    Src/CellCore/Kits/CustomCppInterfaceDefination.h \
     Src/CellCore/Kits/WindWMAPI.h \
     Src/CellCore/Kits/StyleSheetLoader.hpp \
     Src/CellCore/CellProjectEntity.h \
@@ -60,6 +64,9 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customLine.h \
     Src/CellUI/CustomBaseWidgets/customListButton.h \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
+    Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
+    Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
+    Src/CellUI/CustomBaseWidgets/customOptionBlockSector.h \
     Src/CellUI/CustomBaseWidgets/customStaticButton.h \
     Src/CellUI/CustomBaseWidgets/customTitleBar.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.h \
@@ -74,6 +81,7 @@ HEADERS += \
     Src/CellUI/Widgets/WSLoadingDialog.h
 
 FORMS += \
+    CellDevelopTestStation.ui \
     Src/CellUI/Widgets/Forms/Launcher.ui \
     Src/CellUI/Widgets/Forms/LauncherGuideDialog.ui \
     Src/CellUI/Widgets/Forms/LauncherHomepage.ui \

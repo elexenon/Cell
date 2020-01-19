@@ -8,6 +8,7 @@
 #include "LauncherHomepage.h"
 #include "ui_LauncherHomepage.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
+#include "../CustomBaseWidgets/customOptionBlock.h"
 
 #include <QScrollBar>
 #include <QHBoxLayout>
@@ -65,6 +66,11 @@ void LauncherHomepage::Init()
     mainLayout->addWidget(ui->main_scrollArea);
     mainLayout->setContentsMargins(4, 13, 15, 10);
 
+    customOptionBlock *block = new customOptionBlock(ui->scrollAreaWidgetContents_3, "Projects");
+    block->setFixedSize(881,300);
+
+    //ui->main_scrollArea->setAlignment(Qt::AlignmentFlag::AlignHCenter);
+
     setLayout(mainLayout);
 
     CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHomeComboBox.css"));
@@ -93,8 +99,6 @@ void LauncherHomepage::Init()
     QScrollBar *verticalBar = ui->main_scrollArea->verticalScrollBar();
     verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHome_OptionBlock_Bright.css"));
-    ui->frame->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 }
 
 void LauncherHomepage::setAllGraphBtnsUnchecked()
@@ -112,8 +116,6 @@ void LauncherHomepage::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
                                          QStringLiteral("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
         ui->line->setStyleSheet("QFrame{border:none;background-color:#FFFFFF;"
                                 "max-height : 21px;}");
-        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHome_OptionBlock_Dark.css"));
-        ui->frame->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
         ui->scrollAreaWidgetContents_3->setStyleSheet("QWidget{background-color:#1F1E1F;}");
 
@@ -131,8 +133,6 @@ void LauncherHomepage::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
         CellUiGlobal::multiModulesOneStyleSheet({ui->label_welcome,ui->label_sort,ui->label_recentPJ},
                                          QStringLiteral("QLabel{background-color:#F7F7F7; color:#000000;}"));
         ui->line->setStyleSheet(QStringLiteral("QFrame{border:none;background-color:#DADADA;max-height : 21px;}"));
-        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherHome_OptionBlock_Bright.css"));
-        ui->frame->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
         ui->scrollAreaWidgetContents_3->setStyleSheet("QWidget{background-color:rgb(247, 247, 247);}");
 

@@ -22,7 +22,7 @@ customTitleBar::customTitleBar(QWidget *parent):
     setFixedHeight(50);
 
     QPixmap defaultPixmap;
-    defaultPixmap.load(CellUiConst::IMG_DIR + QString::fromUtf8("CELL_logo_small"));
+    defaultPixmap.load(CellUiConst::IMG_DIR + CHAR2STR("CELL_logo_small"));
     defaultPixmap = defaultPixmap.scaled(height()/2+2, height()/2);
     icon->setPixmap(defaultPixmap);
 
@@ -30,9 +30,9 @@ customTitleBar::customTitleBar(QWidget *parent):
     qDebug() << height()/2;
 #endif
 
-    QFont defaultFont(QString::fromUtf8("Microsoft YaHei UI Light"));
+    QFont defaultFont(CHAR2STR("Microsoft YaHei UI Light"));
     defaultFont.setPixelSize(height()/3);
-    label_title->setText(QString::fromUtf8("Title"));
+    label_title->setText(CHAR2STR("Title"));
     label_title->setFont(defaultFont);
     label_title->setColor(CellUiConst::GRAYLEVEL130);
 

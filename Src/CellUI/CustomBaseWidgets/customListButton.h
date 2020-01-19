@@ -20,11 +20,9 @@ public:
 
     void   setMargins(int left = 0, int top = 0, int right = 0, int buttom = 0);
     void   setText(QString &text);
-    inline const QRect& layoutMargins() { return Margins; }
 
 private:
     QHBoxLayout *mainLayout;
-    QRect        Margins;
     customLabel *tag;
 
 protected:

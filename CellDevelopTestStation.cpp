@@ -140,8 +140,8 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     btn4->setBrightModeCheckedColor(CellUiConst::GRAYLEVEL180);
     btn4->setDarkModeCheckedColor(CellUiConst::BTNHOVERINGCOLOR);
     btn4->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
-    btn4->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("带图标文字和说明的Button"), 23, CHAR2STR("这是一些提示"));
-    btn4->setFixedSize(350, 81);
+    btn4->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已有的Cell文档"));
+    btn4->setFixedSize(250, 81);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(block1);

@@ -8,12 +8,12 @@
 #ifndef CUSTOMLISTBUTTON_H
 #define CUSTOMLISTBUTTON_H
 
-#include "customStaticButton.h"
+#include "customButton.h"
 
 class QHBoxLayout;
 class customLabel;
 
-class customListButton : public customStaticButton{
+class customListButton : public customButton{
 friend class customButtonListWidget;
 public:
     explicit customListButton(QWidget *parent = nullptr, const QString &text = "text");

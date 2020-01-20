@@ -17,10 +17,9 @@ class customTitleBar;
 class customLabel;
 class QPropertyAnimation;
 class QGraphicsDropShadowEffect;
-class customStaticButton;
+class ButtonWithText;
 class QStackedWidget;
 class QFrame;
-class customDynamicButton;
 class NewPJProjectCellPage;
 class customButtonListWidget;
 
@@ -40,19 +39,12 @@ private:
     Ui::LauncherNewPJDialog *ui;
 
 private:
-    QPropertyAnimation *label_choose_animi;
-    QPropertyAnimation *label_confirm_animi;
-    QPropertyAnimation *label_cancel_animi;
-
     customTitleBar *titleBar;
 
     customLabel *label_choose;
 
-    customDynamicButton *Btn_Confirm;
-    customDynamicButton *Btn_Cancel;
-
-    customLabel *Btn_Confirm_label;
-    customLabel *Btn_Cancel_label;
+    ButtonWithText *Btn_Confirm;
+    ButtonWithText *Btn_Cancel;
 
     NewPJProjectCellPage *cellPage;
 

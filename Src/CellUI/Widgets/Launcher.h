@@ -9,7 +9,7 @@
 #define Launcher_H
 
 #include "../CustomBaseWidgets/customWinstyleWidget.h"
-#include "../../CellCore/Kits/CellUtility.h"   // PAGE_TYPE & COLOR_SCHEME & FADE_TYPE
+#include "../../CellCore/Kits/CellUtility.h"   // COLOR_SCHEME & FADE_TYPE
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Launcher; }
@@ -20,19 +20,15 @@ class LauncherNewPJDialog;
 class LauncherHomepage;
 class Workshop;
 class LauncherSettings;
-class QPushButton;
+
 class QGraphicsOpacityEffect;
 class QPropertyAnimation;
 class customTitleBar;
-class customStaticButton;
-class customDynamicButton;
-class customLabel;
 class notificationCenter;
-class QLabel;
-class customLine;
-class QButtonGroup;
 class customButtonListWidget;
 class CellDevelopTestStation;
+
+class ButtonWithIconTextHint;
 
 class Launcher : public customWinstyleWidget
 {
@@ -65,21 +61,12 @@ private:
     LauncherNewPJDialog *newPJDialog = nullptr;
 
     customTitleBar      *titleBar;
-    customDynamicButton *Btn_NewProject;
-    customDynamicButton *Btn_OpenProject;
 
-    customLabel *Btn_NewProject_Icon;
-    customLabel *Btn_NewProject_Function;
-    customLabel *Btn_NewProject_Hint;
-
-    customLabel *Btn_OpenProject_Icon;
-    customLabel *Btn_OpenProject_Function;
-    customLabel *Btn_OpenProject_Hint;
+    ButtonWithIconTextHint *Btn_NewProject;
+    ButtonWithIconTextHint *Btn_OpenProject;
 
     notificationCenter *notificationCenter;
     customButtonListWidget *BtnlistWidget;
-
-    QButtonGroup *tabsGroup;
 
     CellDevelopTestStation *testForm;
 

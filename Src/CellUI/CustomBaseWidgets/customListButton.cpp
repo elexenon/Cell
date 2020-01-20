@@ -14,7 +14,7 @@
 #include <QPropertyAnimation>
 
 customListButton::customListButton(QWidget *parent, const QString &text) :
-    customStaticButton(parent)
+    customButton(customButton::CHECKABLE, parent)
   , mainLayout(new QHBoxLayout)
   , tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
 {
@@ -24,7 +24,6 @@ customListButton::customListButton(QWidget *parent, const QString &text) :
 
 void customListButton::Init()
 {
-
     tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);   
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 16);
 
@@ -52,6 +51,6 @@ void customListButton::setText(QString &text)
 
 void customListButton::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
-    customStaticButton::setColorScheme(mode);
+    customButton::setColorScheme(mode);
     tag->setColorScheme(mode);
 }

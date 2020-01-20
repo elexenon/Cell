@@ -21,10 +21,11 @@ class customButtonListWidget : public customFrame{
 public:
     explicit customButtonListWidget(QWidget *parent = nullptr);
 
-    void  addButton(const QString &text, const QColor&, const QColor&, const QColor&, const QColor&);
+    void  setButtonsBrightDarkModeColor(const QColor &b, const QColor &d);
+    void  addButton(const QString &text, const QColor &b, const QColor &d);
     const customListButton* getButton(int index = 0);
     void  setButtonSize(int width, int height);
-    void  setFont(const QFont& font);
+    void  setBtnFontPixelSize(int size);
     void  setMargins(int left = 0, int top = 0, int right = 0, int buttom = 0);
     void  setSpacing(int spacing);
     void  clickButton(int index);

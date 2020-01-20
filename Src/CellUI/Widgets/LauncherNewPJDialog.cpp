@@ -10,10 +10,9 @@
 
 #include "../CustomBaseWidgets/customTitleBar.h"
 #include "../CustomBaseWidgets/customLabel.h"
-#include "../CustomBaseWidgets/customStaticButton.h"
+#include "../CustomBaseWidgets/ButtonWithText.h"
 #include "../CustomBaseWidgets/customListButton.h"
 #include "../CustomBaseWidgets/customButtonListWidget.h"
-#include "../CustomBaseWidgets/customDynamicButton.h"
 #include "NewPJProjectCellPage.h"
 
 #include <QStackedWidget>
@@ -25,11 +24,9 @@ LauncherNewPJDialog::LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,Q
     customWinstyleDialog(parent),
     ui(new Ui::LauncherNewPJDialog),
     titleBar(new customTitleBar(this)),
-    label_choose(new customLabel(CellUiConst::QSS_CUSTOMLABEL, this)),
-    Btn_Confirm(new customDynamicButton(this)),
-    Btn_Cancel(new customDynamicButton(this)),
-    Btn_Confirm_label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_Confirm)),
-    Btn_Cancel_label(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_Cancel)),
+    label_choose(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this)),
+    Btn_Confirm(new ButtonWithText(customButton::DYNAMIC, this)),
+    Btn_Cancel(new ButtonWithText(customButton::DYNAMIC, this)),
     cellPage(new NewPJProjectCellPage),
     BtnListWidget1(new customButtonListWidget(this)),
     BtnListWidget2(new customButtonListWidget(this))
@@ -52,61 +49,47 @@ void LauncherNewPJDialog::Init()
     setAttribute(Qt::WA_DeleteOnClose);
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL30);
 
-    QFont font(QString::fromUtf8("Microsoft YaHei UI Light"));
-    font.setPixelSize(15);
     titleBar->setFixedHeight(40);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
     titleBar->setText(QString::fromUtf8("CELL WORKSTATION"), CellUiConst::GRAYLEVEL70);
 
-    font.setPixelSize(25);
-    label_choose->setObjectName(QStringLiteral("label_choose"));
-    label_choose->setText(tr("选择一个模板"));
-    label_choose->setFont(font);
+    QFont font(QString::fromUtf8("Microsoft YaHei UI Light"));
+
+    CellUiGlobal::setCustomTextLabel(label_choose, CHAR2STR("Microsoft YaHei UI Light"), 25, CHAR2STR("选择一个模板"));
     label_choose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
 
-    font.setPixelSize(18);
     BtnListWidget1->addThemeHead("项目");
-    BtnListWidget1->addButton("Cell DeepLearning",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
-    BtnListWidget1->addButton("地震预测系统",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
+    BtnListWidget1->addButton("Cell DeepLearning",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    BtnListWidget1->addButton("地震预测系统",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    BtnListWidget1->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
     BtnListWidget1->setButtonSize(249,40);
     BtnListWidget1->setSpacing(0);
-    BtnListWidget1->setFont(font);
+    BtnListWidget1->setBtnFontPixelSize(18);
     BtnListWidget1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
 
     BtnListWidget2->addThemeHead("文件");
-    BtnListWidget2->addButton("空白文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
-    BtnListWidget2->addButton("C++文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
-    BtnListWidget2->addButton("Python文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
+    BtnListWidget2->addButton("空白文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    BtnListWidget2->addButton("C++文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    BtnListWidget2->addButton("Python文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    BtnListWidget2->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
     BtnListWidget2->setButtonSize(249,40);
     BtnListWidget2->setSpacing(0);
-    BtnListWidget2->setFont(font);
+    BtnListWidget2->setBtnFontPixelSize(18);
     BtnListWidget2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
 
-    Btn_Confirm->setObjectName(QStringLiteral("Btn_Confirm"));
-    Btn_Confirm->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);
-    Btn_Confirm->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
+    Btn_Confirm->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    Btn_Confirm->setBrightModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
     Btn_Confirm->setAnimationDuration(300);
+    Btn_Confirm->Init(CHAR2STR("确认"), 14);
     Btn_Confirm->setFixedSize(100, 27);
     Btn_Confirm->setCursor(Qt::PointingHandCursor);
 
-    Btn_Confirm_label->setObjectName(QStringLiteral("Btn_Confirm_label"));
-    Btn_Confirm_label->setGeometry(34, 2, 50, 20);
-    Btn_Confirm_label->setText(tr("确认"));
-    Btn_Confirm_label->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
-    Btn_Confirm_label->setColor(CellUiConst::GRAYLEVEL70);
-
-    Btn_Cancel->setObjectName(QStringLiteral("Btn_Cancel"));
-    Btn_Cancel->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);
-    Btn_Cancel->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
+    Btn_Cancel->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    Btn_Cancel->setBrightModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
     Btn_Cancel->setAnimationDuration(300);
+    Btn_Cancel->Init(CHAR2STR("取消"), 14);
     Btn_Cancel->setFixedSize(100, 27);
     Btn_Cancel->setCursor(Qt::PointingHandCursor);
-
-    Btn_Cancel_label->setObjectName(QStringLiteral("Btn_Cancel_label"));
-    Btn_Cancel_label->setGeometry(34, 2, 50, 20);
-    Btn_Cancel_label->setText(tr("取消"));
-    Btn_Cancel_label->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
-    Btn_Cancel_label->setColor(CellUiConst::GRAYLEVEL70);
 
     QHBoxLayout *HLayout_Bottom = new QHBoxLayout;
     HLayout_Bottom->addWidget(Btn_Confirm);
@@ -186,16 +169,6 @@ void LauncherNewPJDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode){
     qDebug() << "--------------------------";
 #endif
     customWinstyleDialog::setColorScheme(mode);
-    const QColor labelColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL70 : CellUiConst::GRAYLEVEL255);  
-    CellUiGlobal::setPropertyAnimation({label_choose_animi,
-                                      label_confirm_animi,label_cancel_animi},
-                                     "color",
-                                     label_choose->color(),
-                                     labelColor,
-                                     CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                     QEasingCurve::InOutCubic,
-                                    {label_choose,
-                                     Btn_Confirm_label,Btn_Cancel_label}, nullptr);
 }
 
 void LauncherNewPJDialog::Tab_Cell_clicked()

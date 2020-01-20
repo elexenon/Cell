@@ -54,5 +54,5 @@ void ButtonWithIconTextHint::Init(const QString &fileName, int iconWidth, int ic
 
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), fontSize, text);
 
-    CellUiGlobal::setCustomTextLabel(this->hint, CHAR2STR("Microsoft YaHei UI Light"), 13, hint);
+    CellUiGlobal::setCustomTextLabel(this->hint, CHAR2STR("Microsoft YaHei UI Light"), 13, hint + "。");
 }

@@ -23,21 +23,24 @@ customButtonListWidget::customButtonListWidget(QWidget *parent) :
     Init();
 }
 
-void customButtonListWidget::addButton(const QString &text, const QColor& c1, const QColor& c2, const QColor& c3, const QColor& c4)
+void customButtonListWidget::setButtonsBrightDarkModeColor(const QColor &b, const QColor &d)
+{
+    for(auto & e : *buttons)
+        e->setBrightDarkModeColor(b, d);
+}
+
+void customButtonListWidget::addButton(const QString &text, const QColor& b, const QColor& d)
 {
     customListButton *btn = new customListButton(this, text);
-    btn->setBrightModeCheckedUncheckedColor(c1,c2);
-    btn->setDarkModeCheckedUncheckedColor(c3,c4);
-    btn->setCheckable(true);
+    btn->setBrightModeCheckedColor(b);
+    btn->setDarkModeCheckedColor(d);
 
     buttons->append(btn);
     btnGroup->addButton(btn);
     mainLayout->addWidget(btn);
 
-    setColor(c2);
-
-    if(!buttons->first()->isChecked())
-        buttons->first()->setChecked(true);
+    //if(!buttons->first()->isChecked())
+      //  buttons->first()->setChecked(true);
 }
 
 const customListButton* customButtonListWidget::getButton(int index)
@@ -52,8 +55,10 @@ void customButtonListWidget::setButtonSize(int width, int height)
     setFixedWidth(width);
 }
 
-void customButtonListWidget::setFont(const QFont &font)
+void customButtonListWidget::setBtnFontPixelSize(int size)
 {
+    QFont font(CHAR2STR("Microsoft YaHei UI Light"));
+    font.setPixelSize(size);
     for(auto & e : *buttons)
         e->setFont(font);
 }

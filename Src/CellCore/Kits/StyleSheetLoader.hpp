@@ -8,6 +8,7 @@
 #ifndef QSTYLELOADER_H
 #define QSTYLELOADER_H
 #include <QFile>
+
 class StyleSheetLoader
 {
 public:

@@ -5,15 +5,11 @@
 // See accompanying file LICENSE.txt at the root
 //
 // Of source file directory.
-#include <QPushButton>
-#include <QMouseEvent>
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
 #include <QFontDatabase>
 #include <QDebug>
 #include <QTime>
-#include <QtGlobal>
-#include <QButtonGroup>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QDesktopWidget>
@@ -24,11 +20,11 @@
 #include "LauncherSettings.h"
 #include "WorkShop.h"
 #include "Launcher.h"
+#include "../../CellCore/Kits/CellGlobalMacros.h"
 #include "../CustomBaseWidgets/customListButton.h"
+#include "../CustomBaseWidgets/ButtonWithIconTextHint.h"
 #include "../CustomBaseWidgets/customButtonListWidget.h"
-#include "../CustomBaseWidgets/customDynamicButton.h"
 #include "../CustomBaseWidgets/customNotificationCenter.h"
-#include "../CustomBaseWidgets/customLabel.h"
 #include "../CustomBaseWidgets/customTitleBar.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../../../CellDevelopTestStation.h"
@@ -44,17 +40,10 @@ Launcher::Launcher(QWidget *parent)
     , homePage(new LauncherHomepage)
     , settingsPage(new LauncherSettings)
     , titleBar(new customTitleBar(this))
-    , Btn_NewProject(new customDynamicButton(this))
-    , Btn_OpenProject(new customDynamicButton(this))
-    , Btn_NewProject_Icon(new customLabel(CellUiConst::QSS_CUSTOMLABEL,Btn_NewProject))
-    , Btn_NewProject_Function(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_NewProject))
-    , Btn_NewProject_Hint(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_NewProject))
-    , Btn_OpenProject_Icon(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
-    , Btn_OpenProject_Function(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
-    , Btn_OpenProject_Hint(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,Btn_OpenProject))
+    , Btn_NewProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
+    , Btn_OpenProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
     , notificationCenter(new class notificationCenter(CellUiConst::QSS_CUSTOMFRAME, this))
     , BtnlistWidget(new customButtonListWidget(this))
-    , tabsGroup(new QButtonGroup(this))
 #ifndef RELEASE_MODE
     , testForm(new CellDevelopTestStation)
 #endif
@@ -91,67 +80,36 @@ void Launcher::InitLauncher()
     ui->stackedWidget->insertWidget(2, settingsPage);
     ui->stackedWidget->setCurrentIndex(1);   
 
-    BtnlistWidget->addButton("主页",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
-    BtnlistWidget->addButton("选项",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
-    BtnlistWidget->addButton("向导",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
+    BtnlistWidget->addButton("主页",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    BtnlistWidget->addButton("选项",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    BtnlistWidget->addButton("向导",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
     BtnlistWidget->setButtonCheckable(2,false);
 #ifndef RELEASE_MODE
-    BtnlistWidget->addButton("自定义CONTROLS测试面板",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70,CellUiConst::GRAYLEVEL30);
+    BtnlistWidget->addButton("自定义CONTROLS测试面板",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
     BtnlistWidget->setButtonCheckable(3,false);
 #endif
+    BtnlistWidget->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
     BtnlistWidget->setButtonSize(251,31);
     BtnlistWidget->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
 
-    Btn_NewProject->setObjectName(QStringLiteral("Btn_NewProject"));
-    Btn_NewProject->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);
-    Btn_NewProject->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
+    Btn_NewProject->setBrightModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
+    Btn_NewProject->setDarkModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
+    Btn_NewProject->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
     Btn_NewProject->setAnimationDuration(300);
-    Btn_NewProject->setFixedSize(251, 81);
+    Btn_NewProject->Init(CHAR2STR("Btn_NewProject"), 33, 33, CHAR2STR("新建项目(N)"), 23, CHAR2STR("新建一个Cell文档"));
+    Btn_NewProject->setFixedSize(250, 81);
     Btn_NewProject->setCursor(Qt::PointingHandCursor);
 
-    Btn_NewProject_Icon->setObjectName(QStringLiteral("Btn_NewProject_Icon"));
-    Btn_NewProject_Icon->setStyleSheet("background:transparent;border-image: url(:/images/Images/Btn_NewProject.png);");
-    Btn_NewProject_Icon->setGeometry(15,14,35,35);
+    Btn_OpenProject->setBrightModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
+    Btn_OpenProject->setDarkModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
+    Btn_OpenProject->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    Btn_OpenProject->setAnimationDuration(300);
+    Btn_OpenProject->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已知的Cell文档"));
+    Btn_OpenProject->setFixedSize(250, 81);
+    Btn_OpenProject->setCursor(Qt::PointingHandCursor);
 
     QFont t(QStringLiteral("Microsoft Yahei UI Light"));
     t.setPixelSize(25);
-
-    Btn_NewProject_Function->setText(tr("创建新项目(N)"));
-    Btn_NewProject_Function->setFont(t);
-    Btn_NewProject_Function->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
-    Btn_NewProject_Function->setGeometry(65, 12, Btn_NewProject_Function->width()+60,Btn_NewProject_Function->height());
-
-    t.setPixelSize(12);
-    Btn_NewProject_Hint->setText(tr("创建一个空的Cell文档"));
-    Btn_NewProject_Hint->setFont(t);
-    Btn_NewProject_Hint->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
-    Btn_NewProject_Hint->setGeometry(66, 12+Btn_NewProject_Function->height(), Btn_NewProject_Hint->width()+60,Btn_NewProject_Hint->height());
-
-    Btn_OpenProject->setObjectName(QStringLiteral("Btn_OpenProject"));
-    Btn_OpenProject->setBrightModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL218);
-    Btn_OpenProject->setDarkModeEnterLeaveColor(QColor(50,200,230),CellUiConst::GRAYLEVEL70);
-    Btn_OpenProject->setAnimationDuration(300);
-    Btn_OpenProject->setFixedSize(251, 81);
-    Btn_OpenProject->setCursor(Qt::PointingHandCursor);
-
-    Btn_OpenProject_Icon->setObjectName(QStringLiteral("Btn_OpenProject_Icon"));
-    Btn_OpenProject_Icon->setStyleSheet("background:transparent;border-image: url(:/images/Images/Btn_OpenProject.png);");
-    Btn_OpenProject_Icon->setGeometry(15,14,35,35);
-    Btn_OpenProject_Icon->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-
-    t.setPixelSize(25);
-    Btn_OpenProject_Function->setText(tr("打开项目(O)"));
-    Btn_OpenProject_Function->setFont(t);
-    Btn_OpenProject_Function->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
-    Btn_OpenProject_Function->setGeometry(65, 12, Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
-    Btn_OpenProject_Function->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-
-    t.setPixelSize(12);
-    Btn_OpenProject_Hint->setText(tr("打开已有的Cell文档。"));
-    Btn_OpenProject_Hint->setFont(t);
-    Btn_OpenProject_Hint->setStyleSheet(QStringLiteral("background:transparent;color:rgb(70,70,70);"));
-    Btn_OpenProject_Hint->setGeometry(66, 12+Btn_OpenProject_Function->height(), Btn_OpenProject_Function->width()+60,Btn_OpenProject_Function->height());
-    Btn_OpenProject_Hint->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     QVBoxLayout *VLayout_WorkBtns = new QVBoxLayout;
     VLayout_WorkBtns->addWidget(Btn_NewProject);

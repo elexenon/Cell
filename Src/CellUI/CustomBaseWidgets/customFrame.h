@@ -20,7 +20,7 @@ class customFrame : public QFrame, implements CellWidgetGlobalInterface
     const QString BASEQSS;
 public:
     explicit customFrame(const QString &qss, QWidget *parent = nullptr);
-    ~customFrame() = default;
+    virtual ~customFrame() override = default;
 
     virtual void setColor(const QColor &color) override;
 

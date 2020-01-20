@@ -16,11 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     CellDevelopTestStation.cpp \
+    Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.cpp \
+    Src/CellUI/CustomBaseWidgets/ButtonWithIconText.cpp \
+    Src/CellUI/CustomBaseWidgets/ButtonWithIcon.cpp \
+    Src/CellUI/CustomBaseWidgets/ButtonWithText.cpp \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.cpp \
     Src/CellUI/CustomBaseWidgets/customButton.cpp \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
-    Src/CellUI/CustomBaseWidgets/customLine.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
@@ -34,11 +37,9 @@ SOURCES += \
     Src/CellCore/Kits/CellUtility.cpp \
     Src/CellCore/Kits/WindWMAPI.cpp \
     Src/CellCore/CellProjectEntity.cpp \
-    Src/CellUI/CustomBaseWidgets/customDynamicButton.cpp \
     Src/CellUI/CustomBaseWidgets/customFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customLabel.cpp \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.cpp \
-    Src/CellUI/CustomBaseWidgets/customStaticButton.cpp \
     Src/CellUI/Widgets/Launcher.cpp \
     Src/CellUI/Widgets/LauncherGuideDialog.cpp \
     Src/CellUI/Widgets/LauncherHomepage.cpp \
@@ -54,20 +55,21 @@ HEADERS += \
     Src/CellCore/Kits/WindWMAPI.h \
     Src/CellCore/Kits/StyleSheetLoader.hpp \
     Src/CellCore/CellProjectEntity.h \
+    Src/CellUI/CustomBaseWidgets/ButtonWithIcon.h \
+    Src/CellUI/CustomBaseWidgets/ButtonWithIconText.h \
+    Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.h \
+    Src/CellUI/CustomBaseWidgets/ButtonWithText.h \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.h \
     Src/CellUI/CustomBaseWidgets/customButton.h \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.h \
-    Src/CellUI/CustomBaseWidgets/customDynamicButton.h \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
-    Src/CellUI/CustomBaseWidgets/customLine.h \
     Src/CellUI/CustomBaseWidgets/customListButton.h \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockSector.h \
-    Src/CellUI/CustomBaseWidgets/customStaticButton.h \
     Src/CellUI/CustomBaseWidgets/customTitleBar.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.h \

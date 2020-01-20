@@ -50,8 +50,6 @@ void LauncherSettings::Init()
     CellUiGlobal::multiModulesOneStyleSheet({comboBox1, comboBox2, comboBox3, comboBox4},
                                             styleSheetLoader->styleSheet());
 
-    comboBox1->setAutoFillBackground(true);
-
     itemAppear = new customOptionBlockItem;
     itemAppear->setTag("外观");
     itemAppear->setOptionWidget(comboBox1);
@@ -60,7 +58,7 @@ void LauncherSettings::Init()
     itemAuto = new customOptionBlockItem;
     itemAuto->setTag("自动切换");
     itemAuto->setOptionWidget(comboBox2);
-    itemAuto->setHint("在日落时自动切换工作主题");
+    //itemAuto->setHint("在日落时自动切换工作主题");
 
     itemPath = new customOptionBlockItem;
     itemPath->setTag("路径");
@@ -74,16 +72,19 @@ void LauncherSettings::Init()
 
     sector1 = new customOptionBlockSector;
     sector1->addItem(itemAppear);
-    sector1->addItem(itemAuto, true);
+    sector1->addItem(itemAuto);
 
     sector2 = new customOptionBlockSector;
     sector2->addItem(itemPath);
-    sector2->addItem(itemKit, true);
+    sector2->addItem(itemKit);
+
+
 
     blockGeneral = new customOptionBlock(this, CHAR2STR("通用"));
     blockGeneral->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
     blockGeneral->addSector(sector1);
-    blockGeneral->addSector(sector2, true);
+    blockGeneral->addSector(sector2, false);
+    blockGeneral->tidyItemTags();
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);

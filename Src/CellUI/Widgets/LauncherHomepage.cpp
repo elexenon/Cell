@@ -69,6 +69,8 @@ void LauncherHomepage::Init()
     customOptionBlock *block = new customOptionBlock(ui->scrollAreaWidgetContents_3, "Projects");
     block->setFixedSize(881,300);
 
+
+
     //ui->main_scrollArea->setAlignment(Qt::AlignmentFlag::AlignHCenter);
 
     setLayout(mainLayout);

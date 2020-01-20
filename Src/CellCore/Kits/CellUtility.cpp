@@ -33,6 +33,7 @@ const QColor GRAYLEVEL30(30, 30, 30);
 const QColor GRAYLEVEL247(247, 247, 247);
 const QColor GRAYLEVEL70(70,70,70);
 const QColor GRAYLEVEL100(100,100,100);
+const QColor BTNHOVERINGCOLOR(50,200,230);
 
 const QString QSS_CUSTOMFRAME_WITH_RADIUS(
 "QFrame{"
@@ -65,10 +66,32 @@ const QString QSS_CUSTOMBUTTON_CHECKABLE(
 "background-color: rgb(%7, %8, %9);"
 "border: 0px solid gray;"
 "}");
+const QString QSS_CUSTOMBUTTON_CHECKABLE_RADIUS(
+"QPushButton{"
+"background-color: rgb(%1, %2, %3);"
+"border: 0px solid gray;"
+"border-radius:12px;"
+"}"
+"QPushButton:hover{"
+"background-color: rgb(%4, %5, %6);"
+"border: 0px solid gray;"
+"border-radius:12px;"
+"}"
+"QPushButton:checked{"
+"background-color: rgb(%7, %8, %9);"
+"border: 0px solid gray;"
+"border-radius:12px;"
+"}");
 const QString QSS_CUSTOMBUTTON_DYNAMIC(
 "QPushButton{"
 "background-color: rgb(%1, %2, %3);"
 "border: 1px solid rgb(180,180,180);"
+"}");
+const QString QSS_CUSTOMBUTTON_DYNAMIC_RADIUS(
+"QPushButton{"
+"background-color: rgb(%1, %2, %3);"
+"border: 1px solid rgb(180,180,180);"
+"border-radius:12px;"
 "}");
 const QString QSS_CUSTOMBUTTON_STATIC(
 "QPushButton{"
@@ -78,6 +101,17 @@ const QString QSS_CUSTOMBUTTON_STATIC(
 "QPushButton:hover{"
 "background-color:rgb(%4,%5,%6);"
 "border: 1px solid rgb(180,180,180);"
+"}");
+const QString QSS_CUSTOMBUTTON_STATIC_RADIUS(
+"QPushButton{"
+"background-color:rgb(%1,%2,%3);"
+"border: 1px solid rgb(180,180,180);"
+"border-radius:12px;"
+"}"
+"QPushButton:hover{"
+"background-color:rgb(%4,%5,%6);"
+"border: 1px solid rgb(180,180,180);"
+"border-radius:12px;"
 "}");
 } // namespace CellUiConst{
 

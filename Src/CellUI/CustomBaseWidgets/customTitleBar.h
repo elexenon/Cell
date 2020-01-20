@@ -22,7 +22,7 @@ public:
 
     void setText(const QString& text, const QColor& color = Qt::black);
     void setLeftMargin(int value);
-    void setIcon(const QString& fileName, int width, int height);
+    void setIcon(const QString& fileName, int iconWidth, int iconHeight);
     void setHeight(int value);
     void setFont(QFont& font, int size);
     void addWidget(QWidget *obj);

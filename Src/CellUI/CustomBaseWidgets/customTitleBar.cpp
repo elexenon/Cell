@@ -56,11 +56,11 @@ void customTitleBar::setLeftMargin(int value)
     mainLayout->setContentsMargins(value, 0, 0, 0);
 }
 
-void customTitleBar::setIcon(const QString &fileName, int width, int height)
+void customTitleBar::setIcon(const QString &fileName, int iconWidth, int iconHeight)
 {
     QPixmap newPixmap;
     newPixmap.load(CellUiConst::IMG_DIR + fileName);
-    newPixmap = newPixmap.scaled(width, height);
+    newPixmap = newPixmap.scaled(iconWidth, iconHeight);
     icon->setPixmap(newPixmap);
 }
 

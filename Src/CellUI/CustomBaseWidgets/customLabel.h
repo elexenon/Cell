@@ -23,11 +23,11 @@ class customLabel : public QLabel, implements CellWidgetGlobalInterface
     const QString BASEQSS;
 public:
     explicit customLabel(const QString &qss, QWidget *parent = nullptr);
-    ~customLabel() = default;
+    virtual ~customLabel() override = default;
 
     virtual void setColor(const QColor &color) override;
 
 public slots:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 #endif // CUSTOMLABEL_H

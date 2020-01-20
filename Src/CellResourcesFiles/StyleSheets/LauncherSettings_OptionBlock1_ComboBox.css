@@ -3,6 +3,7 @@ QComboBox {
     border-style: solid;
     border-radius:7px;
     border-color: rgb(180,180,180);
+    background-color: rgb(255,255,255);
     padding: 1px 2px 1px 2px;     
 }
 QComboBox::drop-down {

@@ -19,12 +19,11 @@ class customButton : public QPushButton, implements CellWidgetGlobalInterface{
     QString BASEQSS;
 public:
     enum TYPE{
-        STATIC,
-        DYNAMIC,
-        CHECKABLE
+        STATIC,        DYNAMIC,        CHECKABLE,
+        STATIC_RADIUS, DYNAMIC_RADIUS, CHECKABLE_RADIUS
     };
     explicit customButton(TYPE type = STATIC,QWidget *parent = nullptr);
-    ~customButton() override = default;
+    //virtual ~customButton() override = default;
     virtual void setColor(const QColor &color) override;
 
 private:
@@ -53,9 +52,9 @@ Dynamic_Public:
 Dynamic_Protected:
     virtual void enterEvent(QEvent*) override;
     virtual void leaveEvent(QEvent*) override;
-    QColor       brightModeHoveringColor;
-    QColor       darkModeHoveringColor;
-    int          animiDuration;
+    QColor  brightModeHoveringColor;
+    QColor  darkModeHoveringColor;
+    int     animiDuration;
 
 Static_Public:
     inline

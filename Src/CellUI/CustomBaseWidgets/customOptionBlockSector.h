@@ -21,7 +21,7 @@ friend class customOptionBlock;
 public:
     explicit customOptionBlockSector(QWidget *parent = nullptr);
 
-    void addItem(customOptionBlockItem *item, bool over = false);
+    void addItem(customOptionBlockItem *item);
     void adjustItemMargins();
     void setMargins(int left, int top, int right, int bottom);
 

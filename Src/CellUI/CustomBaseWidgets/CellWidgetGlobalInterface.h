@@ -16,7 +16,7 @@ class QPropertyAnimation;
 class CellWidgetGlobalInterface{
 public:
     explicit CellWidgetGlobalInterface() = default;
-    ~CellWidgetGlobalInterface() = default;
+    virtual ~CellWidgetGlobalInterface() = default;
 
     inline const QColor color() const { return m_color; }
     virtual void        setColor(const QColor &color) = 0;

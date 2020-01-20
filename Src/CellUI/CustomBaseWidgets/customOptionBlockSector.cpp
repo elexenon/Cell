@@ -23,16 +23,13 @@ customOptionBlockSector::customOptionBlockSector(QWidget *parent):
     setLayout(mainLayout);
 }
 
-void customOptionBlockSector::addItem(customOptionBlockItem *item, bool over)
+void customOptionBlockSector::addItem(customOptionBlockItem *item)
 {
     if(item->getTagLen() > itemTagMaxLen) itemTagMaxLen = item->getTagLen();
     mainLayout->addWidget(item);
     mainLayout->addStretch();
     itemsList->append(item);
     item->setParent(this);
-
-    if(!over) return;
-
     setFixedHeight((itemsList->length()+1) * 35);
 }
 

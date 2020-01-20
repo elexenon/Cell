@@ -23,6 +23,17 @@ customButton::customButton(customButton::TYPE type, QWidget *parent):
         setCheckable(true);
         BASEQSS = CellUiConst::QSS_CUSTOMBUTTON_CHECKABLE;
         break;
+    case STATIC_RADIUS:
+        BASEQSS = CellUiConst::QSS_CUSTOMBUTTON_STATIC_RADIUS;
+        setFlat(true);
+        break;
+    case DYNAMIC_RADIUS:
+        BASEQSS = CellUiConst::QSS_CUSTOMBUTTON_DYNAMIC_RADIUS;
+        break;
+    case CHECKABLE_RADIUS:
+        BASEQSS = CellUiConst::QSS_CUSTOMBUTTON_CHECKABLE_RADIUS;
+        setCheckable(true);
+        break;
     }
 }
 

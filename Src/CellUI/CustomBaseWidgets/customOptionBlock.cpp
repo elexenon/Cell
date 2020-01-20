@@ -19,17 +19,16 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
     customFrame(CellUiConst::QSS_CUSTOMFRAME, parent),
     mainLayout(new QVBoxLayout),
     mainBlockLayout(new QVBoxLayout),
-    theme(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this)),
     sectorsList(new QList<customOptionBlockSector*>)
 {
-    theme->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-    CellUiGlobal::setCustomTextLabel(theme, CHAR2STR("Microsoft YaHei UI Light"), 15, name);
+    setStyleSheet(CHAR2STR("background-color:transparent"));
 
     mainLayout->setMargin(0);
     mainLayout->setSpacing(3);
-
     mainBlockLayout->setMargin(0);
     mainBlockLayout->setSpacing(0);
+
+    if(name != " ") addThemeTag(name);
 
     using CellEntityTools::styleSheetLoader;
     styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherSettings_OptionBlock11.css"));
@@ -38,36 +37,46 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
     mainBlock->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
     mainBlock->setLayout(mainBlockLayout);
 
-    // Layout For theme tag.
-    QHBoxLayout *HLayout = new QHBoxLayout;
-    HLayout->addWidget(theme);
-    HLayout->addStretch();
-    HLayout->setMargin(0);
-
-    mainLayout->addLayout(HLayout);
     mainLayout->addWidget(mainBlock);
     setLayout(mainLayout);
 }
 
-void customOptionBlock::addSector(customOptionBlockSector *sector, bool over)
+void customOptionBlock::addThemeTag(const QString &name)
+{
+    theme = new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this);
+    theme->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    CellUiGlobal::setCustomTextLabel(theme, CHAR2STR("Microsoft YaHei UI Light"), 15, name);
+
+    QHBoxLayout *themeTagLayout = new QHBoxLayout;
+    themeTagLayout->addWidget(theme);
+    themeTagLayout->addStretch();
+    themeTagLayout->setMargin(0);
+
+    mainLayout->addLayout(themeTagLayout);
+}
+
+void customOptionBlock::addSector(customOptionBlockSector *sector, bool addSplitterLine)
 {
     sectorsList->append(sector);
     mainBlockLayout->addWidget(sector);
     sector->setParent(mainBlock);
 
     blockHeight += sector->height();
+    setFixedHeight(blockHeight + 25);
 
-    if(!over){
-        // Layout For line splitter.
+    if(addSplitterLine){
         QFrame *lineSplitter = CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine);
         QHBoxLayout *layout = new QHBoxLayout;
         layout->setContentsMargins(10, 0, 10, 0);
         layout->addWidget(lineSplitter);
         mainBlockLayout->addLayout(layout);
         blockHeight += 1;
-        return;
+        setFixedHeight(blockHeight + 25);
     }
+}
 
+void customOptionBlock::tidyItemTags()
+{
     int maxTagLen = 0;
     for(auto & sector : *sectorsList)
         if(sector->itemTagMaxLen > maxTagLen) maxTagLen = sector->itemTagMaxLen;
@@ -81,6 +90,4 @@ void customOptionBlock::addSector(customOptionBlockSector *sector, bool over)
                           currItemMargins.top(),currItemMargins.right(),currItemMargins.bottom());
         }
     }
-
-    setFixedHeight(blockHeight + 25);
 }

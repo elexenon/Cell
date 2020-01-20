@@ -17,11 +17,14 @@ class customLabel;
 class customOptionBlock : public customFrame{
     Q_OBJECT
 public:
-    explicit customOptionBlock(QWidget *parent = nullptr, const QString& name = "Block");
+    explicit customOptionBlock(QWidget *parent = nullptr, const QString& name = " ");
 
-    void addSector(customOptionBlockSector *sector, bool over = false);
+    void addSector(customOptionBlockSector *sector, bool addSplitterLine = true);
+    void tidyItemTags();
 
 protected:
+    void addThemeTag(const QString &name);
+
     QVBoxLayout                     *mainLayout;
     QVBoxLayout                     *mainBlockLayout;
     customLabel                     *theme;

@@ -23,6 +23,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.cpp \
     Src/CellUI/CustomBaseWidgets/customButton.cpp \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
+    Src/CellUI/CustomBaseWidgets/customComboBox.cpp \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.h \
     Src/CellUI/CustomBaseWidgets/customButton.h \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.h \
+    Src/CellUI/CustomBaseWidgets/customComboBox.h \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \

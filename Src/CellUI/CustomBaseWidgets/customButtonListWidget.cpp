@@ -38,9 +38,6 @@ void customButtonListWidget::addButton(const QString &text, const QColor& b, con
     buttons->append(btn);
     btnGroup->addButton(btn);
     mainLayout->addWidget(btn);
-
-    //if(!buttons->first()->isChecked())
-      //  buttons->first()->setChecked(true);
 }
 
 const customListButton* customButtonListWidget::getButton(int index)

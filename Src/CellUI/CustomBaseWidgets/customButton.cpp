@@ -55,7 +55,7 @@ void customButton::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 
 void customButton::enterEvent(QEvent *)
 {
-    if(type != DYNAMIC) return;
+    if(!(type == DYNAMIC || type == DYNAMIC_RADIUS)) return;
     QColor enterColor = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightModeHoveringColor : darkModeHoveringColor);
     CellUiGlobal::setPropertyAnimation({animi},
                                  "color",
@@ -67,7 +67,7 @@ void customButton::enterEvent(QEvent *)
 }
 
 void customButton::leaveEvent(QEvent*){
-    if(type != DYNAMIC) return;
+    if(!(type == DYNAMIC || type == DYNAMIC_RADIUS)) return;
     QColor leaveColor = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
     CellUiGlobal::setPropertyAnimation({animi},
                                  "color",
@@ -112,7 +112,7 @@ void customButton::setAnimiStartEndColor(CellUiGlobal::COLOR_SCHEME mode, QColor
 
 void customButton::setColor(const QColor &color)
 {
-    if(type == CHECKABLE)
+    if(type == CHECKABLE || type == CHECKABLE_RADIUS)
     {
         if(!isChecked()){
             CellWidgetGlobalInterface::setColor(color);
@@ -125,12 +125,12 @@ void customButton::setColor(const QColor &color)
                           .arg(color.red()).arg(color.green()).arg(color.blue())
                           .arg(color.red()).arg(color.green()).arg(color.blue()));
     }
-    else if(type == DYNAMIC)
+    else if(type == DYNAMIC || type == DYNAMIC_RADIUS)
     {
         CellWidgetGlobalInterface::setColor(color);
         setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));
     }
-    else if(type == STATIC)
+    else if(type == STATIC || type == STATIC_RADIUS)
     {
         CellWidgetGlobalInterface::setColor(color);
         QColor hoverColor = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightModeHoverColor : darkModeHoverColor);

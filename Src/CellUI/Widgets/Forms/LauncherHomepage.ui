@@ -200,7 +200,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>欢迎使用 Cell WorkStation。</string>
+    <string>欢迎。</string>
    </property>
   </widget>
  </widget>

@@ -40,12 +40,12 @@ Launcher::Launcher(QWidget *parent)
     , homePage(new LauncherHomepage)
     , settingsPage(new LauncherSettings)
     , titleBar(new customTitleBar(this))
-    , Btn_NewProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
-    , Btn_OpenProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
+    , Btn_NewProject(new ButtonWithIconTextHint(customButton::DYNAMIC_RADIUS, this))
+    , Btn_OpenProject(new ButtonWithIconTextHint(customButton::DYNAMIC_RADIUS, this))
     , notificationCenter(new class notificationCenter(CellUiConst::QSS_CUSTOMFRAME, this))
     , BtnlistWidget(new customButtonListWidget(this))
 #ifndef RELEASE_MODE
-    , testForm(new CellDevelopTestStation)
+    , testForm(new CellDevelopTestStation(this))
 #endif
     , currentPage(PAGE_TYPE::_HOME)
     , m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
@@ -91,20 +91,21 @@ void Launcher::InitLauncher()
     BtnlistWidget->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
     BtnlistWidget->setButtonSize(251,31);
     BtnlistWidget->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
+    BtnlistWidget->clickButton(0);
 
-    Btn_NewProject->setBrightModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
-    Btn_NewProject->setDarkModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
+    Btn_NewProject->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
+    Btn_NewProject->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
     Btn_NewProject->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
     Btn_NewProject->setAnimationDuration(300);
-    Btn_NewProject->Init(CHAR2STR("Btn_NewProject"), 33, 33, CHAR2STR("新建项目(N)"), 23, CHAR2STR("新建一个Cell文档"));
+    Btn_NewProject->Init(CHAR2STR("Btn_NewProject"), 33, 33, CHAR2STR("新建项目(N)"), 25, CHAR2STR("新建一个Cell文档"));
     Btn_NewProject->setFixedSize(250, 81);
     Btn_NewProject->setCursor(Qt::PointingHandCursor);
 
-    Btn_OpenProject->setBrightModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
-    Btn_OpenProject->setDarkModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
+    Btn_OpenProject->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
+    Btn_OpenProject->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
     Btn_OpenProject->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
     Btn_OpenProject->setAnimationDuration(300);
-    Btn_OpenProject->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已知的Cell文档"));
+    Btn_OpenProject->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("打开项目(O)"), 25, CHAR2STR("打开已知的Cell文档"));
     Btn_OpenProject->setFixedSize(250, 81);
     Btn_OpenProject->setCursor(Qt::PointingHandCursor);
 

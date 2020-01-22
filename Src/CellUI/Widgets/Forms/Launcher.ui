@@ -14,7 +14,7 @@
    <string>mainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(247, 247, 247);</string>
+   <string notr="true"/>
   </property>
   <widget class="QPushButton" name="Btn_close">
    <property name="geometry">

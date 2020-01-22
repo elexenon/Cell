@@ -66,6 +66,7 @@ void LauncherNewPJDialog::Init()
     BtnListWidget1->setSpacing(0);
     BtnListWidget1->setBtnFontPixelSize(18);
     BtnListWidget1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
+    BtnListWidget1->clickButton(0);
 
     BtnListWidget2->addThemeHead("文件");
     BtnListWidget2->addButton("空白文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
@@ -78,14 +79,14 @@ void LauncherNewPJDialog::Init()
     BtnListWidget2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
 
     Btn_Confirm->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    Btn_Confirm->setBrightModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
+    Btn_Confirm->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
     Btn_Confirm->setAnimationDuration(300);
     Btn_Confirm->Init(CHAR2STR("确认"), 14);
     Btn_Confirm->setFixedSize(100, 27);
     Btn_Confirm->setCursor(Qt::PointingHandCursor);
 
     Btn_Cancel->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    Btn_Cancel->setBrightModeHoveringColor(CellUiConst::BTNHOVERINGCOLOR);
+    Btn_Cancel->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
     Btn_Cancel->setAnimationDuration(300);
     Btn_Cancel->Init(CHAR2STR("取消"), 14);
     Btn_Cancel->setFixedSize(100, 27);

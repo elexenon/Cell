@@ -26,5 +26,7 @@ void ButtonWithIcon::Init(const QString& fileName, int iconWidth, int iconHeight
     QPixmap newPixmap;
     newPixmap.load(CellUiConst::IMG_DIR + fileName);
     newPixmap = newPixmap.scaled(iconWidth, iconHeight);
+
     icon->setPixmap(newPixmap);
+    icon->setStyleSheet(CHAR2STR("QLabel{background:transparent;}"));
 }

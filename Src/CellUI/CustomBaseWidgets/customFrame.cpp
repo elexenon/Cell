@@ -12,7 +12,10 @@
 customFrame::customFrame(const QString &qss, QWidget *parent):
     QFrame(parent),
     BASEQSS(qss)
-{}
+{
+    if(qss == CellUiConst::QSS_CUSTOMFRAME_RADIUS)
+        setObjectName(CHAR2STR("customFrameRadius"));
+}
 
 void customFrame::setColor(const QColor &color)
 {

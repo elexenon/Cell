@@ -58,7 +58,7 @@ void LauncherSettings::Init()
     itemAuto = new customOptionBlockItem;
     itemAuto->setTag("自动切换");
     itemAuto->setOptionWidget(comboBox2);
-    //itemAuto->setHint("在日落时自动切换工作主题");
+    itemAuto->setHint("在日落时自动切换工作主题");
 
     itemPath = new customOptionBlockItem;
     itemPath->setTag("路径");

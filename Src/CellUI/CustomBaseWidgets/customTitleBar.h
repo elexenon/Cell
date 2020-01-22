@@ -29,6 +29,8 @@ public:
     void addLayout(QLayout *obj);
 
 protected:
+    //virtual void mouseDoubleClickEvent(QMouseEvent *event) override;
+
     QHBoxLayout *mainLayout;
     customLabel *label_title;
     QLabel      *icon;

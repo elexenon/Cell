@@ -36,8 +36,8 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::TYPE type, QWidget 
     VLayoutTextHint->addWidget(hint);
     VLayoutTextHint->setAlignment(Qt::AlignmentFlag::AlignLeft);
 
-    mainLayout->setContentsMargins(10, 0, 0, 0);
-    mainLayout->setSpacing(8);
+    mainLayout->setContentsMargins(0, 0, 10, 0);
+    mainLayout->setSpacing(15);
     mainLayout->addLayout(VLayoutIcon);
     mainLayout->addLayout(VLayoutTextHint);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignCenter);
@@ -50,9 +50,11 @@ void ButtonWithIconTextHint::Init(const QString &fileName, int iconWidth, int ic
     QPixmap newPixmap;
     newPixmap.load(CellUiConst::IMG_DIR + fileName);
     newPixmap = newPixmap.scaled(iconWidth, iconHeight);
+
     icon->setPixmap(newPixmap);
+    icon->setStyleSheet(CHAR2STR("QLabel{background:transparent;}"));
 
-    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), fontSize, text);
+    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI"), fontSize, text);
 
-    CellUiGlobal::setCustomTextLabel(this->hint, CHAR2STR("Microsoft YaHei UI Light"), 13, hint + "。");
+    CellUiGlobal::setCustomTextLabel(this->hint, CHAR2STR("Microsoft YaHei UI Light"), 12, hint + "。");
 }

@@ -1,4 +1,4 @@
-// Copyright 2018-2019 CellTek.
+﻿// Copyright 2018-2019 CellTek.
 //
 // Distributed under the GPL License, Version 3.0.
 //
@@ -66,12 +66,11 @@ void LauncherHomepage::Init()
     mainLayout->addWidget(ui->main_scrollArea);
     mainLayout->setContentsMargins(4, 13, 15, 10);
 
-    customOptionBlock *block = new customOptionBlock(ui->scrollAreaWidgetContents_3, "Projects");
+    customOptionBlock *block = new customOptionBlock(nullptr ,"Projects");
     block->setFixedSize(881,300);
-
-
-
-    //ui->main_scrollArea->setAlignment(Qt::AlignmentFlag::AlignHCenter);
+    QVBoxLayout *scrollAreaWidgetLayout = new QVBoxLayout;
+    scrollAreaWidgetLayout->addWidget(block);
+    ui->scrollAreaWidgetContents_3->setLayout(scrollAreaWidgetLayout);
 
     setLayout(mainLayout);
 

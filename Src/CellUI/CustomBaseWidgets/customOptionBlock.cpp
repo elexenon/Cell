@@ -30,10 +30,7 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
 
     if(name != " ") addThemeTag(name);
 
-    using CellEntityTools::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherSettings_OptionBlock11.css"));
-    mainBlock = new customFrame(styleSheetLoader->styleSheet(), this);
-    mainBlock->setObjectName(CHAR2STR("optionMainBlock"));
+    mainBlock = new customFrame(CellUiConst::QSS_CUSTOMFRAME_RADIUS, this);
     mainBlock->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
     mainBlock->setLayout(mainBlockLayout);
 

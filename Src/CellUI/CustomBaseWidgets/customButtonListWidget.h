@@ -21,8 +21,9 @@ class customButtonListWidget : public customFrame{
 public:
     explicit customButtonListWidget(QWidget *parent = nullptr);
 
-    void  setButtonsBrightDarkModeColor(const QColor &b, const QColor &d);
+    void  addThemeHead(const QString& theme = "theme");
     void  addButton(const QString &text, const QColor &b, const QColor &d);
+    void  setButtonsBrightDarkModeColor(const QColor &b, const QColor &d);
     const customListButton* getButton(int index = 0);
     void  setButtonSize(int width, int height);
     void  setBtnFontPixelSize(int size);
@@ -30,7 +31,7 @@ public:
     void  setSpacing(int spacing);
     void  clickButton(int index);
     void  setButtonCheckable(int index, bool value);
-    void  addThemeHead(const QString& theme = "theme");
+
 
 private:
     void Init();

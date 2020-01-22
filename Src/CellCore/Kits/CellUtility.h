@@ -16,7 +16,7 @@ extern const QString FONT_DIR;
 extern const QString STYLESHEET_DIR;
 extern const QString LIB_DIR;
 
-extern const QString QSS_CUSTOMFRAME_WITH_RADIUS;
+extern const QString QSS_CUSTOMFRAME_RADIUS;
 extern const QString QSS_CUSTOMFRAME;
 
 extern const QString QSS_CUSTOMLABEL;

@@ -33,7 +33,9 @@ void ButtonWithIconText::Init(const QString& fileName, int iconWidth, int iconHe
     QPixmap newPixmap;
     newPixmap.load(CellUiConst::IMG_DIR + fileName);
     newPixmap = newPixmap.scaled(iconWidth, iconHeight);
+
     icon->setPixmap(newPixmap);
+    icon->setStyleSheet(CHAR2STR("QLabel{background:transparent;}"));
 
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), fontSize, text);
 }

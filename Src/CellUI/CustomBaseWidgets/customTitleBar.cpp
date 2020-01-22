@@ -34,7 +34,7 @@ customTitleBar::customTitleBar(QWidget *parent):
     defaultFont.setPixelSize(height()/3);
     label_title->setText(CHAR2STR("Title"));
     label_title->setFont(defaultFont);
-    label_title->setColor(CellUiConst::GRAYLEVEL130);
+    label_title->setBrightDarkModeColor(CellUiConst::GRAYLEVEL130, CellUiConst::GRAYLEVEL255);
 
     mainLayout->setContentsMargins(10, 0, 0, 0);
     mainLayout->setSpacing(8);

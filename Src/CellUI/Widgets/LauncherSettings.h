@@ -17,17 +17,11 @@ namespace Ui {
 class LauncherSettings;
 }
 class QPropertyAnimation;
-class customLabel;
-class QFrame;
 class QGraphicsDropShadowEffect;
-class QPushButton;
-class QCheckBox;
-class QGraphicsDropShadowEffect;
-class QComboBox;
 class customOptionBlock;
-class customOptionBlockSector;
 class customOptionBlockItem;
-
+class customComboBox;
+class customButton;
 
 class LauncherSettings : public customFrame
 {
@@ -49,20 +43,23 @@ private:
     QPropertyAnimation *optionBlock1_animi;
     QPropertyAnimation *optionBlock2_animi;
 
-    customOptionBlockItem *itemAppear;
-    customOptionBlockItem *itemAuto;
-    customOptionBlockSector *sector1;
+    // OptionBlock blockGeneral Combination;
+    customOptionBlock       *blockGeneral;
+    customOptionBlockItem   *blockGeneral_ItemAppear;
+    customOptionBlockItem   *blockGeneral_ItemAuto;
+    customOptionBlockItem   *blockGeneral_ItemPath;
+    customOptionBlockItem   *blockGeneral_ItemKit;
 
-    customOptionBlockItem *itemPath;
-    customOptionBlockItem *itemKit;
-    customOptionBlockSector *sector2;
 
-    customOptionBlock *blockGeneral;
+    // ComboBox Appear Combination.
+    customComboBox          *cBoxAppear;
+    customOptionBlockItem   *cBoxAppear_ItemFusion;
+    customButton            *cBoxAppear_BtnFusion;
+    customOptionBlockItem   *cBoxAppear_ItemDark;
+    customButton            *cBoxAppear_BtnDark;
 
-    QComboBox *comboBox1;
-    QComboBox *comboBox2;
-    QComboBox *comboBox3;
-    QComboBox *comboBox4;
+
+
 
 private:
     void   Init();

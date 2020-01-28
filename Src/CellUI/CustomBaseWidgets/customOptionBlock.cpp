@@ -8,7 +8,6 @@
 #include "customOptionBlock.h"
 #include "../../CellCore/Kits/CellUtility.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
-#include "customOptionBlockSector.h"
 #include "customOptionBlockItem.h"
 #include "customLabel.h"
 
@@ -19,7 +18,7 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
     customFrame(CellUiConst::QSS_CUSTOMFRAME, parent),
     mainLayout(new QVBoxLayout),
     mainBlockLayout(new QVBoxLayout),
-    sectorsList(new QList<customOptionBlockSector*>)
+    itemsList(new QList<customOptionBlockItem*>)
 {
     setStyleSheet(CHAR2STR("background-color:transparent"));
 
@@ -52,13 +51,15 @@ void customOptionBlock::addThemeTag(const QString &name)
     mainLayout->addLayout(themeTagLayout);
 }
 
-void customOptionBlock::addSector(customOptionBlockSector *sector, bool addSplitterLine)
+void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLine)
 {
-    sectorsList->append(sector);
-    mainBlockLayout->addWidget(sector);
-    sector->setParent(mainBlock);
+    if(item->tagLen > itemTagMaxLen) itemTagMaxLen = item->tagLen;
 
-    blockHeight += sector->height();
+    itemsList->append(item);
+    mainBlockLayout->addWidget(item);
+    item->setParent(mainBlock);
+
+    blockHeight += item->height();
     setFixedHeight(blockHeight + 25);
 
     if(addSplitterLine){
@@ -72,19 +73,13 @@ void customOptionBlock::addSector(customOptionBlockSector *sector, bool addSplit
     }
 }
 
+void customOptionBlock::setMainBlockBrightDarkModeColor(const QColor &b, const QColor &d)
+{
+    mainBlock->setBrightDarkModeColor(b, d);
+}
+
 void customOptionBlock::tidyItemTags()
 {
-    int maxTagLen = 0;
-    for(auto & sector : *sectorsList)
-        if(sector->itemTagMaxLen > maxTagLen) maxTagLen = sector->itemTagMaxLen;
-
-    for(auto & sector : *sectorsList)
-    for(auto & item : *(sector->itemsList)){
-        int currItemTagLen = item->getTagLen();
-        if(currItemTagLen < maxTagLen){
-            const QMargins currItemMargins = item->getMargins();
-            item->setMargins(item->getMargins().left()+((maxTagLen-currItemTagLen)*18),
-                          currItemMargins.top(),currItemMargins.right(),currItemMargins.bottom());
-        }
-    }
+    for(auto & item : *itemsList)
+        item->setMargin(customOptionBlockItem::_LEFT, (itemTagMaxLen-item->tagLen)*18);
 }

@@ -6,12 +6,12 @@
 #include <QHBoxLayout>
 #include "Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h"
 #include "Src/CellUI/CustomBaseWidgets/customButton.h"
-#include "Src/CellUI/CustomBaseWidgets/customOptionBlockSector.h"
 #include "Src/CellUI/CustomBaseWidgets/customOptionBlock.h"
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithText.h"
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIcon.h"
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIconText.h"
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.h"
+#include "Src/CellUI/CustomBaseWidgets/customComboBox.h"
 
 CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     QWidget(parent),
@@ -51,14 +51,6 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     item3->setOptionWidget(box3);
     item3->setHint("对Cell进行一些事无巨细的超级说明啊大大撒旦");
 
-    customOptionBlockSector *sector = new customOptionBlockSector;
-    sector->addItem(item);
-    sector->addItem(item2);
-    sector->addItem(item3);
-
-
-
-
     customOptionBlockItem *item4 = new customOptionBlockItem;
     item4->setTag("设置");
     item4->setOptionWidget(box4);
@@ -68,13 +60,6 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     item5->setTag("哇哇哇哇哇");
     item5->setOptionWidget(box5);
     item5->setHint("我草泥马马马马马马");
-
-    customOptionBlockSector *sector2 = new customOptionBlockSector;
-    sector2->addItem(item4);
-    sector2->addItem(item5);
-
-
-
 
     customOptionBlockItem *item6 = new customOptionBlockItem;
     item6->setTag("哦空破解");
@@ -101,17 +86,18 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     item10->setOptionWidget(box10);
     item10->setHint("奥德赛大苏打阿德撒旦撒旦你扩散的扩散的三点三看到你撒");
 
-    customOptionBlockSector *sector3 = new customOptionBlockSector;
-    sector3->addItem(item6);
-    sector3->addItem(item7);
-    sector3->addItem(item8);
-    sector3->addItem(item9);
-    sector3->addItem(item10);
-
     customOptionBlock *block1 = new customOptionBlock(this, CHAR2STR("OptionBlock"));
-    block1->addSector(sector);
-    block1->addSector(sector2);
-    block1->addSector(sector3, false);
+    block1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
+    block1->addItem(item);
+    block1->addItem(item2);
+    block1->addItem(item3);
+    block1->addItem(item4);
+    block1->addItem(item5, true);
+    block1->addItem(item6);
+    block1->addItem(item7);
+    block1->addItem(item8);
+    block1->addItem(item9);
+    block1->addItem(item10);
     block1->tidyItemTags();
 
     ButtonWithText *btn1 = new ButtonWithText(customButton::TYPE::STATIC_RADIUS, this);
@@ -143,12 +129,16 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     btn4->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已有的Cell文档"));
     btn4->setFixedSize(250, 81);
 
+    customComboBox *customComBox = new customComboBox(CHAR2STR("FUSION"), this);
+    customComBox->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
+
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(block1);
     layout->addWidget(btn1);
     layout->addWidget(btn2);
     layout->addWidget(btn3);
     layout->addWidget(btn4);
+    layout->addWidget(customComBox);
 
     setLayout(layout);
 }

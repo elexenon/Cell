@@ -66,10 +66,11 @@ void LauncherHomepage::Init()
     mainLayout->addWidget(ui->main_scrollArea);
     mainLayout->setContentsMargins(4, 13, 15, 10);
 
-    customOptionBlock *block = new customOptionBlock(nullptr ,"Projects");
+    customOptionBlock *block = new customOptionBlock(nullptr);
     block->setFixedSize(881,300);
     QVBoxLayout *scrollAreaWidgetLayout = new QVBoxLayout;
     scrollAreaWidgetLayout->addWidget(block);
+    scrollAreaWidgetLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
     ui->scrollAreaWidgetContents_3->setLayout(scrollAreaWidgetLayout);
 
     setLayout(mainLayout);

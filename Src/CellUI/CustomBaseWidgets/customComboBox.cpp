@@ -9,7 +9,7 @@
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "customComboBox.h"
 #include "customLabel.h"
-#include "customButton.h"
+#include "ButtonWithIcon.h"
 #include "customOptionBlock.h"
 
 #include <QHBoxLayout>
@@ -17,15 +17,57 @@
 customComboBox::customComboBox(const QString &state, QWidget *parent):
     customFrame(CellUiConst::QSS_CUSTOMFRAME_RADIUS, parent),
     currState(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this)),
-    trigger(new customButton(customButton::DYNAMIC_RADIUS, this)),
-    optionBlock(new customOptionBlock(this)),
-    mainLayout(new QHBoxLayout)
+    trigger(new ButtonWithIcon(customButton::DYNAMIC_RADIUS, this)),
+    optionBlock(new customOptionBlock),
+    mainLayout(new QHBoxLayout),
+    itemsList(new QList<customOptionBlockItem*>)
 {
-    mainLayout->setContentsMargins(5, 3, 5, 3);
+    setFixedHeight(30);
+    setLayout(mainLayout);
+
+    optionBlock->setMainBlockBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL45);
+
+    CellUiGlobal::setCustomTextLabel(currState, CHAR2STR("Microsoft YaHei UI Light"), 15, state);
+    currState->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+
+    trigger->setFixedSize(35, 22);
+    trigger->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
+    trigger->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
+    trigger->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
+    trigger->setAnimationDuration(200);
+    trigger->setCursor(Qt::PointingHandCursor);
+    trigger->Init(CHAR2STR("popUpIcon.png"), 15, 12);
+
+    mainLayout->setContentsMargins(11, 3, 3, 3);
     mainLayout->addWidget(currState);
     mainLayout->addStretch();
     mainLayout->addWidget(trigger);
+}
 
-    CellUiGlobal::setCustomTextLabel(currState, CHAR2STR("Microsoft YaHei UI Light"), 14, state);
+void customComboBox::setOptionBlockParent(QWidget *parent)
+{
+    optionBlock->setParent(parent);
+}
 
+void customComboBox::addItem(customOptionBlockItem *item, bool addSplitterLine)
+{
+    optionBlock->addItem(item, addSplitterLine);
+}
+
+void customComboBox::tidyItemTags()
+{
+    optionBlock->tidyItemTags();
+}
+
+void customComboBox::setOptionBlockStartEndPos(const QPoint &posS, const QPoint &posE)
+{
+    optionBlockStartPos = posS;
+    optionBlockEndPos = posE;
+    optionBlock->move(posS.x(), posS.y());
+    optionBlock->hide();
+}
+
+void customComboBox::resizeEvent(QResizeEvent *event)
+{
+    optionBlock->setFixedWidth(event->size().width());
 }

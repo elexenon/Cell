@@ -35,5 +35,6 @@
         <file>Images/mini-1.png</file>
         <file>Images/WS.png</file>
         <file>Images/zoom.png</file>
+        <file>Images/popUpIcon.png</file>
     </qresource>
 </RCC>

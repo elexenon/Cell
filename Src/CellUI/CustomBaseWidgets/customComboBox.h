@@ -12,19 +12,30 @@
 
 class QHBoxLayout;
 class customLabel;
-class customButton;
+class ButtonWithIcon;
 class customOptionBlock;
+class customOptionBlockItem;
 
 class customComboBox : public customFrame{
     Q_OBJECT
 public:
     explicit customComboBox(const QString& state, QWidget *parent = nullptr);
+    void     setOptionBlockParent(QWidget* parent);
+    void     addItem(customOptionBlockItem *item,  bool addSplitterLine = true);
+    void     tidyItemTags();
+    void     setOptionBlockStartEndPos(const QPoint &posS, const QPoint &posE);
 
 protected:
-    customLabel       *currState;
-    customButton      *trigger;
-    customOptionBlock *optionBlock;
-    QHBoxLayout       *mainLayout;
+    virtual void resizeEvent(QResizeEvent *event) override;
+
+    QPoint                         optionBlockStartPos;
+    QPoint                         optionBlockEndPos;
+    customLabel                   *currState;
+    ButtonWithIcon                *trigger;
+    customOptionBlock             *optionBlock;
+    QHBoxLayout                   *mainLayout;
+    QList<customOptionBlockItem*> *itemsList;
+
 };
 
 #endif // CUSTOMCOMBOBOX_H

@@ -28,7 +28,6 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
-    Src/CellUI/CustomBaseWidgets/customOptionBlockSector.cpp \
     Src/CellUI/CustomBaseWidgets/customTitleBar.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.cpp \
@@ -71,7 +70,6 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
-    Src/CellUI/CustomBaseWidgets/customOptionBlockSector.h \
     Src/CellUI/CustomBaseWidgets/customTitleBar.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.h \

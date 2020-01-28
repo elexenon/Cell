@@ -10,7 +10,7 @@
 
 #include "customFrame.h"
 
-class customOptionBlockSector;
+class customOptionBlockItem;
 class QVBoxLayout;
 class customLabel;
 
@@ -19,9 +19,9 @@ class customOptionBlock : public customFrame{
 public:
     explicit customOptionBlock(QWidget *parent = nullptr, const QString& name = " ");
 
-    void addSector(customOptionBlockSector *sector, bool addSplitterLine = true);
+    void addItem(customOptionBlockItem *item, bool addSplitterLine = false);
+    void setMainBlockBrightDarkModeColor(const QColor &b, const QColor &d);
     void tidyItemTags();
-
 protected:
     void addThemeTag(const QString &name);
 
@@ -29,9 +29,10 @@ protected:
     QVBoxLayout                     *mainBlockLayout;
     customLabel                     *theme;
     customFrame                     *mainBlock;
-    QList<customOptionBlockSector*> *sectorsList;
+    QList<customOptionBlockItem*>   *itemsList;
 
     int blockHeight = 0;
+    int itemTagMaxLen = 0;
 };
 
 #endif // CUSTOMOPTIONBLOCK_H

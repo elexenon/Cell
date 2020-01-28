@@ -28,6 +28,7 @@
 #include "../CustomBaseWidgets/customTitleBar.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../../../CellDevelopTestStation.h"
+#include "../CustomBaseWidgets/customComboBox.h"
 #include "ui_Launcher.h"
 #define CELL_DEBUG
 #define ENABLE_WORKSHOP
@@ -40,8 +41,8 @@ Launcher::Launcher(QWidget *parent)
     , homePage(new LauncherHomepage)
     , settingsPage(new LauncherSettings)
     , titleBar(new customTitleBar(this))
-    , Btn_NewProject(new ButtonWithIconTextHint(customButton::DYNAMIC_RADIUS, this))
-    , Btn_OpenProject(new ButtonWithIconTextHint(customButton::DYNAMIC_RADIUS, this))
+    , Btn_NewProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
+    , Btn_OpenProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
     , notificationCenter(new class notificationCenter(CellUiConst::QSS_CUSTOMFRAME, this))
     , BtnlistWidget(new customButtonListWidget(this))
 #ifndef RELEASE_MODE

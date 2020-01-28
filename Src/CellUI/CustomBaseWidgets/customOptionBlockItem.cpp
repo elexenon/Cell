@@ -11,15 +11,17 @@
 
 #include <QHBoxLayout>
 
-customOptionBlockItem::customOptionBlockItem(QWidget *parent):
+customOptionBlockItem::customOptionBlockItem(QWidget *parent,  const QString& tag):
     QWidget(parent),
     mainLayout(new QHBoxLayout)
 {
+    setFixedHeight(50);
     setStyleSheet(CHAR2STR("background-color:transparent"));
-    mainLayout->setContentsMargins(60, 0, 0, 0);
+    setLayout(mainLayout);
+    mainLayout->setContentsMargins(48, 0, 0, 0);
     mainLayout->setSpacing(20);
 
-    setLayout(mainLayout);
+    if(tag != " ") setTag(tag);
 }
 
 void customOptionBlockItem::setTag(const QString &text)
@@ -36,7 +38,6 @@ void customOptionBlockItem::setOptionWidget(QWidget *widget)
     optionWidget = widget;
     optionWidget->setParent(this);
     mainLayout->addWidget(optionWidget);
-
     mainLayout->addStretch();
 }
 
@@ -54,6 +55,25 @@ void customOptionBlockItem::setMargins(int left, int top, int right, int bottom)
     mainLayout->setContentsMargins(left,top,right,bottom);
 }
 
+void customOptionBlockItem::setMargin(customOptionBlockItem::MARGIN_DIRE direction, int value)
+{
+    QMargins tmp = mainLayout->contentsMargins();
+    switch (direction) {
+    case _LEFT:
+        setContentsMargins(value, tmp.top(), tmp.right(), tmp.bottom());
+        break;
+    case _RIGHT:
+        setContentsMargins(tmp.left(), tmp.top(), value, tmp.bottom());
+        break;
+    case _TOP:
+        setContentsMargins(tmp.left(), value, tmp.right(), tmp.bottom());
+        break;
+    case _BOTTOM:
+        setContentsMargins(tmp.left(), tmp.top(), tmp.right(), value);
+        break;
+    }
+}
+
 void customOptionBlockItem::setSpacing(int value)
 {
     mainLayout->setSpacing(value);
@@ -67,6 +87,5 @@ const QMargins customOptionBlockItem::getMargins()
 void customOptionBlockItem::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     tag->setColorScheme(mode);
-
     hint->setColorScheme(mode);
 }

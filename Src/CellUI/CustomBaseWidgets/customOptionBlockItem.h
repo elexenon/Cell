@@ -19,7 +19,10 @@ class customOptionBlockItem : public QWidget, implements CellWidgetGlobalInterfa
 friend class customOptionBlock;
     Q_OBJECT
 public:
-    explicit customOptionBlockItem(QWidget *parent = nullptr);
+enum MARGIN_DIRE{
+    _LEFT, _RIGHT, _TOP, _BOTTOM
+};
+    explicit customOptionBlockItem(QWidget *parent = nullptr, const QString& tag = " ");
 
     inline
     int            getTagLen() { return tagLen; }
@@ -27,6 +30,7 @@ public:
     void           setOptionWidget(QWidget* widget);
     void           setHint(const QString& text);
     void           setMargins(int left, int top, int right, int bottom);
+    void           setMargin(MARGIN_DIRE direction, int margin);
     void           setSpacing(int value);
     const QMargins getMargins();
 
@@ -39,7 +43,8 @@ protected:
     QWidget     *optionWidget;
     customLabel *hint;
 
-    int tagLen;
+    int itemHeight = 0;
+    int tagLen     = 0;
 
 public slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;

@@ -47,9 +47,8 @@ private:
     customOptionBlock       *blockGeneral;
     customOptionBlockItem   *blockGeneral_ItemAppear;
     customOptionBlockItem   *blockGeneral_ItemAuto;
-    customOptionBlockItem   *blockGeneral_ItemPath;
-    customOptionBlockItem   *blockGeneral_ItemKit;
 
+    // This is a combination of customOptionBlockSector.
 
     // ComboBox Appear Combination.
     customComboBox          *cBoxAppear;

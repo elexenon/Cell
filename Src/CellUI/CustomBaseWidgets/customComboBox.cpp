@@ -46,7 +46,7 @@ customComboBox::customComboBox(const QString &state, QWidget *parent):
 
 void customComboBox::setOptionBlockParent(QWidget *parent)
 {
-    optionBlock->setParent(parent);
+    //optionBlock->setParent(parent);
 }
 
 void customComboBox::addItem(customOptionBlockItem *item, bool addSplitterLine)
@@ -63,8 +63,12 @@ void customComboBox::setOptionBlockStartEndPos(const QPoint &posS, const QPoint 
 {
     optionBlockStartPos = posS;
     optionBlockEndPos = posE;
+
+    //optionBlock->hide();
+    //optionBlock->setWindowFlags(Qt::Widget);
+    optionBlock->setWindowFlags(Qt::CustomizeWindowHint | Qt::Tool | Qt::FramelessWindowHint);
     optionBlock->move(posS.x(), posS.y());
-    optionBlock->hide();
+    optionBlock->show();
 }
 
 void customComboBox::resizeEvent(QResizeEvent *event)

@@ -64,8 +64,8 @@ void Launcher::InitLauncher()
     customWinstyleWidget::LoadWinStyle(this);
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
 
-    int fontID_Info = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
-    QFont font_Info(QFontDatabase::applicationFontFamilies(fontID_Info).at(0));
+    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
+    QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
 #ifndef RELEASE_MODE
     testForm->hide();
 #endif
@@ -73,7 +73,7 @@ void Launcher::InitLauncher()
     titleBar->setFixedHeight(55);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
     titleBar->setText(QString::fromUtf8("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
-    titleBar->setFont(font_Info, 23);
+    titleBar->setFont(fontInfo, 23);
     titleBar->setIcon(QString::fromUtf8("CELL_logo_small"), 33, 29);
     titleBar->setLeftMargin(15);
 
@@ -166,7 +166,7 @@ void Launcher::InitLauncher()
 
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
+    if((currentTime.hour() >= 16 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
         BtnlistWidget->clickButton(1);
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_DARK);
     }else if(currentTime.hour() < 19 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
@@ -272,6 +272,9 @@ void Launcher::Btn_NewProject_clicked()
     newPJDialog->show();
     workshop->show();
     workshop->_constructed();
+
+    newPJDialog = nullptr;
+    workshop = nullptr;
 }
 
 void Launcher::on_Btn_max_clicked()

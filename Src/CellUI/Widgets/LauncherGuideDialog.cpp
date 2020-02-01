@@ -7,15 +7,18 @@
 // Of source file directory.
 #include <QPropertyAnimation>
 #include <QMouseEvent>
+#include <QVBoxLayout>
+
 #include "ui_LauncherGuideDialog.h"
 #include "LauncherGuideDialog.h"
-#include "../CustomBaseWidgets/customFrame.h"
+#include "../CustomBaseWidgets/customTitleBar.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 
 LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
     customWinstyleDialog(parent),
+    mainLayout(new QVBoxLayout),
     ui(new Ui::LauncherGuideDialog),
-    frame_titleBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this))
+    titleBar(new customTitleBar(this))
 {
     ui->setupUi(this);
     Init();
@@ -29,14 +32,24 @@ LauncherGuideDialog::~LauncherGuideDialog()
 void LauncherGuideDialog::Init()
 {
     customWinstyleDialog::LoadWinStyle(this);
+    setLayout(mainLayout);
+    setFixedHeight(533);
+    mainLayout->setMargin(0);
 
     ui->stackedWidget->setAutoFillBackground(true);
 
     ui->pushButton->setParent(this);
     ui->pushButton->setGeometry(640, 420, ui->pushButton->width(), ui->pushButton->height());
 
-    frame_titleBar->setGeometry(0, 0, 781, 51);
-    frame_titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
+    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
+    QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
+
+    titleBar->setFixedHeight(55);
+    titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
+    titleBar->setText(QString::fromUtf8("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
+    titleBar->setFont(fontInfo, 23);
+    titleBar->setIcon(QString::fromUtf8("CELL_logo_small"), 33, 29);
+    titleBar->setLeftMargin(15);
 
     ui->label_getStart->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 18));
     ui->label_learn->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 9));
@@ -54,7 +67,7 @@ void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(m_mode == mode) return;
     m_mode = mode;
-    frame_titleBar->setColorScheme(mode);
+    //titleBar->setColorScheme(mode);
     if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
         CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherGuideCloseBtn_Dark.css"));
         ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());

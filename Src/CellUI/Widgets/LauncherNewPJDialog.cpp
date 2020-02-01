@@ -51,7 +51,7 @@ void LauncherNewPJDialog::Init()
 
     titleBar->setFixedHeight(40);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
-    titleBar->setText(QString::fromUtf8("CELL WORKSTATION"), CellUiConst::GRAYLEVEL70);
+    titleBar->setText(QString::fromUtf8("新建项目"), CellUiConst::GRAYLEVEL70);
 
     QFont font(QString::fromUtf8("Microsoft YaHei UI Light"));
 

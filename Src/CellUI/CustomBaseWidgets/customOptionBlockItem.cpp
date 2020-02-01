@@ -29,7 +29,7 @@ void customOptionBlockItem::setTag(const QString &text)
     tagLen = text.length();
     tag = new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this);
     tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 18, text);
+    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 17, text);
     mainLayout->addWidget(tag);
 }
 
@@ -45,7 +45,7 @@ void customOptionBlockItem::setHint(const QString &text)
 {
     hint = new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this);
     hint->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-    CellUiGlobal::setCustomTextLabel(hint, CHAR2STR("Microsoft YaHei UI Light"), 14, text+"。");
+    CellUiGlobal::setCustomTextLabel(hint, CHAR2STR("Microsoft YaHei UI Light"), 13, text+"。");
     mainLayout->addWidget(hint);
     mainLayout->addStretch();
 }

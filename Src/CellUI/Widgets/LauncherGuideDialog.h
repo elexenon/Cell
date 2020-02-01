@@ -11,9 +11,8 @@
 #include "../../CellCore/Kits/CellUtility.h"    // COLOR_SCHEME
 #include "../CustomBaseWidgets/customWinstyleDialog.h"
 
-class QPropertyAnimation;
 class customTitleBar;
-class customFrame;
+class QVBoxLayout;
 
 namespace Ui {
 class LauncherGuideDialog;
@@ -27,10 +26,9 @@ public:
     ~LauncherGuideDialog();
 
 private:
-    Ui::LauncherGuideDialog    *ui;
-    customFrame        *frame_titleBar;
-    QPropertyAnimation *animi_main;
-    QPropertyAnimation *animi_title;
+    QVBoxLayout             *mainLayout;
+    Ui::LauncherGuideDialog *ui;
+    customTitleBar          *titleBar;
 
 private:
     void Init();

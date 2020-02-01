@@ -9,11 +9,11 @@
 #include "customLabel.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 ButtonWithText::ButtonWithText(customButton::TYPE type, QWidget *parent):
     customButton(type, parent),
-    mainLayout(new QHBoxLayout),
+    mainLayout(new QVBoxLayout),
     tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
 {
     tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);

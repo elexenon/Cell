@@ -12,6 +12,10 @@
 
 class customLabel;
 class QComboBox;
+class customOptionBlock;
+class customOptionBlockItem;
+class customComboBox;
+class QVBoxLayout;
 
 class NewPJProjectCellPage : public customFrame{
     Q_OBJECT
@@ -20,21 +24,13 @@ public:
     ~NewPJProjectCellPage() override = default;
 
 private:
-    customLabel *label_title;
-
-    customLabel *label_pjConfig;
-    customFrame *optionBlock1;
-    customLabel *label_pjName;
-    QComboBox   *comboBox1;
-    customLabel *label_pjLoc;
-    QComboBox   *comboBox2;
-
-    customLabel *label_kitConfig;
-    customFrame *optionBlock2;
-    customLabel *label_version;
-    QComboBox   *comboBox3;
-    customLabel *label_encode;
-    QComboBox   *comboBox4;
+    QVBoxLayout           *mainLayout;
+    customLabel           *label_title;
+    customOptionBlock     *blockConfig;
+    customOptionBlockItem *blockConfig_Name;
+    customComboBox        *cBoxName;
+    customOptionBlockItem *blockConfig_Loca;
+    customComboBox        *cBoxLoca;
 
 private:
     void Init();

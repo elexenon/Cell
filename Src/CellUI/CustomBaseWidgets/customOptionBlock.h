@@ -19,6 +19,8 @@ class customOptionBlock : public customFrame{
 public:
     explicit customOptionBlock(QWidget *parent = nullptr, const QString& name = " ");
 
+    void addItem(QWidget *optionWidget, const QString& hint, const QString& tag = " ",
+                 bool addSplitterLine = false);
     void addItem(customOptionBlockItem *item, bool addSplitterLine = false);
     void setMainBlockBrightDarkModeColor(const QColor &b, const QColor &d);
     void tidyItemTags();

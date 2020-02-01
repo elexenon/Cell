@@ -22,51 +22,41 @@ class customOptionBlock;
 class customOptionBlockItem;
 class customComboBox;
 class customButton;
+class QVBoxLayout;
 
 class LauncherSettings : public customFrame
 {
     Q_OBJECT
-    static const QString QSS_OPTIONBLOCK;
 public:
     explicit LauncherSettings(QWidget *parent = nullptr);
     ~LauncherSettings() = default;
 
     void LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode);
 
-private slots:
-    void Btn_bright_clicked();
-    void Btn_dark_clicked();
-
-private:
-    QPropertyAnimation *label_general_animi;
-    QPropertyAnimation *label_auto_hint_animi;
-    QPropertyAnimation *optionBlock1_animi;
-    QPropertyAnimation *optionBlock2_animi;
-
-    // OptionBlock blockGeneral Combination;
-    customOptionBlock       *blockGeneral;
-    customOptionBlockItem   *blockGeneral_ItemAppear;
-    customOptionBlockItem   *blockGeneral_ItemAuto;
-
-    // This is a combination of customOptionBlockSector.
-
-    // ComboBox Appear Combination.
-    customComboBox          *cBoxAppear;
-    customOptionBlockItem   *cBoxAppear_ItemFusion;
-    customButton            *cBoxAppear_BtnFusion;
-    customOptionBlockItem   *cBoxAppear_ItemDark;
-    customButton            *cBoxAppear_BtnDark;
-
-
-
-
 private:
     void   Init();
     void   setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void   setEventConnections();
 
+    QVBoxLayout *mainLayout;
+
+    // OptionBlock blockGeneral Combination;
+    customOptionBlock       *blockGeneral;
+    customOptionBlockItem   *blockGeneral_ItemAppear;
+        // ComboBox Appear Combination.
+        customComboBox          *cBoxAppear;
+        customOptionBlockItem   *cBoxAppear_ItemFusion;
+        customButton            *cBoxAppear_BtnFusion;
+        customOptionBlockItem   *cBoxAppear_ItemDark;
+        customButton            *cBoxAppear_BtnDark;
+    customOptionBlockItem   *blockGeneral_ItemAuto;
+
 signals:
     void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+
+private slots:
+    void Btn_bright_clicked();
+    void Btn_dark_clicked();
 };
 
 #endif // LauncherSettings_H

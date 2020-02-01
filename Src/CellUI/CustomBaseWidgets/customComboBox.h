@@ -21,7 +21,7 @@ class customComboBox : public customFrame{
 public:
     explicit customComboBox(const QString& state, QWidget *parent = nullptr);
     void     setOptionBlockParent(QWidget* parent);
-    void     addItem(customOptionBlockItem *item,  bool addSplitterLine = true);
+    void     addItem(customOptionBlockItem *item,  bool addSplitterLine = false);
     void     tidyItemTags();
     void     setOptionBlockStartEndPos(const QPoint &posS, const QPoint &posE);
 

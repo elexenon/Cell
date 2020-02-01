@@ -22,16 +22,15 @@
 
 LauncherSettings::LauncherSettings(QWidget *parent) :
     customFrame(CellUiConst::QSS_CUSTOMFRAME,parent),
+    mainLayout(new QVBoxLayout),
     blockGeneral(new customOptionBlock(this, CHAR2STR("通用"))),
-    blockGeneral_ItemAppear(new customOptionBlockItem),
-    blockGeneral_ItemAuto(new customOptionBlockItem),
-    blockGeneral_ItemPath(new customOptionBlockItem),
-    blockGeneral_ItemKit(new customOptionBlockItem),
+    blockGeneral_ItemAppear(new customOptionBlockItem),  
     cBoxAppear(new customComboBox(CHAR2STR("FUSION"))),
     cBoxAppear_ItemFusion(new customOptionBlockItem),
     cBoxAppear_BtnFusion(new customButton(customButton::DYNAMIC_RADIUS)),
     cBoxAppear_ItemDark(new customOptionBlockItem),
-    cBoxAppear_BtnDark(new customButton(customButton::DYNAMIC_RADIUS))
+    cBoxAppear_BtnDark(new customButton(customButton::DYNAMIC_RADIUS)),
+    blockGeneral_ItemAuto(new customOptionBlockItem)
 {
     Init();
 }
@@ -48,85 +47,53 @@ void LauncherSettings::LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME
 void LauncherSettings::Init()
 {
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL45);
+    mainLayout->setSpacing(0);
+    mainLayout->setContentsMargins(45, 30, 45, 0);
+    mainLayout->addWidget(blockGeneral);
+    mainLayout->addStretch();
+    setLayout(mainLayout);
 
-    /*
     // ComboBox Appear Combination
     cBoxAppear->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
-    cBoxAppear->setOptionBlockParent(this);
-    cBoxAppear->setOptionBlockStartEndPos({186,67}, {186,100});
+    cBoxAppear->addItem(cBoxAppear_ItemFusion, true);
+    cBoxAppear->addItem(cBoxAppear_ItemDark);
+    //cBoxAppear->setOptionBlockParent(this);
+    cBoxAppear->setOptionBlockStartEndPos({186,100}, {186,100});
     cBoxAppear->setFixedWidth(200);
-        // Sector1 Combination
-        cBoxAppear_Sector1->addItem(cBoxAppear_ItemFusion);
-            // Item Fusion Combination
-            cBoxAppear_ItemFusion->setTag(CHAR2STR("融合"));
-            cBoxAppear_ItemFusion->setOptionWidget(cBoxAppear_BtnFusion);
-                cBoxAppear_BtnFusion->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
-                cBoxAppear_BtnFusion->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
-                cBoxAppear_BtnFusion->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL218);
-                cBoxAppear_BtnFusion->setAnimationDuration(300);
-                cBoxAppear_BtnFusion->setFixedSize(60, 30);
-            // Item Fusion Combination
-        // Sector1 Combination
-        // Sector2 Combination.
-        cBoxAppear_Sector2->addItem(cBoxAppear_ItemDark);
-            // Item Dark Combination.
-            cBoxAppear_ItemDark->setTag(CHAR2STR("黑暗"));
-            cBoxAppear_ItemDark->setOptionWidget(cBoxAppear_BtnDark);
-                cBoxAppear_BtnDark->setBrightDarkModeColor(CellUiConst::GRAYLEVEL30, CellUiConst::GRAYLEVEL30);
-                cBoxAppear_BtnDark->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
-                cBoxAppear_BtnDark->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL218);
-                cBoxAppear_BtnDark->setAnimationDuration(300);
-                cBoxAppear_BtnDark->setFixedSize(60, 30);
-            // Item Dark Combination.
-        // Sector2 Combination.
-    cBoxAppear->addSector(cBoxAppear_Sector1, true);
-    cBoxAppear->addSector(cBoxAppear_Sector2, false);
+        // Item Fusion Combination
+        cBoxAppear_ItemFusion->setTag(CHAR2STR("融合"));
+        cBoxAppear_ItemFusion->setOptionWidget(cBoxAppear_BtnFusion);
+            cBoxAppear_BtnFusion->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
+            cBoxAppear_BtnFusion->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
+            cBoxAppear_BtnFusion->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL218);
+            cBoxAppear_BtnFusion->setAnimationDuration(300);
+            cBoxAppear_BtnFusion->setFixedSize(60, 30);
+        // Item Dark Combination.
+        cBoxAppear_ItemDark->setTag(CHAR2STR("黑暗"));
+        cBoxAppear_ItemDark->setOptionWidget(cBoxAppear_BtnDark);
+            cBoxAppear_BtnDark->setBrightDarkModeColor(CellUiConst::GRAYLEVEL30, CellUiConst::GRAYLEVEL30);
+            cBoxAppear_BtnDark->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
+            cBoxAppear_BtnDark->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL218);
+            cBoxAppear_BtnDark->setAnimationDuration(300);
+            cBoxAppear_BtnDark->setFixedSize(60, 30);
     cBoxAppear->tidyItemTags();
-    // ComboBox Appear Combination.
-
 
     // OptionBlock General Combination.
     blockGeneral->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
-    blockGeneral->addSector(blockGeneral_Sector1);
-    blockGeneral->addSector(blockGeneral_Sector2, false);
-        // Sector1 Combination.
-        blockGeneral_Sector1->addItem(blockGeneral_ItemAppear);
-            // Item Appear Combination.
-            blockGeneral_ItemAppear->setTag("外观");
-            blockGeneral_ItemAppear->setOptionWidget(cBoxAppear);
-            blockGeneral_ItemAppear->setHint("调整Cell的工作主题");
-            blockGeneral_Sector1->addItem(blockGeneral_ItemAuto);
-                customComboBox *cBoxAuto = new customComboBox(CHAR2STR("DARK"));
-                cBoxAuto->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
-                cBoxAuto->setFixedWidth(200);
-            // Item Appear Combination.
-            // Item Auto   Combination.
-            blockGeneral_ItemAuto->setTag("自动切换");
-            blockGeneral_ItemAuto->setOptionWidget(cBoxAuto);
-            blockGeneral_ItemAuto->setHint("在日落时自动切换工作主题");
-            // Item Auto   Combination.
-    blockGeneral_ItemPath->setTag("路径");
-    blockGeneral_ItemPath->setHint("设置项目路径");
-
-    blockGeneral_ItemKit->setTag("工具链");
-    blockGeneral_ItemKit->setHint("设置工具链目录");
-
-
-
-    blockGeneral_Sector2->addItem(blockGeneral_ItemPath);
-    blockGeneral_Sector2->addItem(blockGeneral_ItemKit);
-
+        // Item Appear Combination.
+        blockGeneral_ItemAppear->setTag("外观");
+        blockGeneral_ItemAppear->setOptionWidget(cBoxAppear);
+        blockGeneral_ItemAppear->setHint("调整Cell的工作主题");
+            customComboBox *cBoxAuto = new customComboBox(CHAR2STR("是"));
+            cBoxAuto->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
+            cBoxAuto->setFixedWidth(200);
+        // Item Auto   Combination.
+        blockGeneral_ItemAuto->setTag("自动切换");
+        blockGeneral_ItemAuto->setOptionWidget(cBoxAuto);
+        blockGeneral_ItemAuto->setHint("在日落时自动切换工作主题");
+    blockGeneral->addItem(blockGeneral_ItemAppear, true);
+    blockGeneral->addItem(blockGeneral_ItemAuto);
     blockGeneral->tidyItemTags();
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->setSpacing(0);
-    layout->setContentsMargins(45, 30, 45, 0);
-    layout->addWidget(blockGeneral);
-    layout->addStretch();
-
-    setLayout(layout);
-    */
-
 
     setEventConnections();
 }

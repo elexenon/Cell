@@ -11,7 +11,7 @@
 #include "customButton.h"
 
 class customLabel;
-class QHBoxLayout;
+class QVBoxLayout;
 
 class ButtonWithText : public customButton{
     Q_OBJECT
@@ -22,7 +22,7 @@ public:
     void Init(const QString& text = "Button", int fontSize = 18) ;
 
 protected:
-    QHBoxLayout *mainLayout;
+    QVBoxLayout *mainLayout;
     customLabel *tag;
 };
 

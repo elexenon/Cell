@@ -15,9 +15,14 @@
 #include <QVBoxLayout>
 #include <QGraphicsDropShadowEffect>
 #include <QShortcut>
+#include <QMenuBar>
+#include <QTreeView>
+#include <QMenu>
+#include <QScrollBar>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexerpython.h>
 #include <Qsci/qscilexercpp.h>
+
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customGradientChangeFrame.h"
 #include "../../CellCore/CellProjectEntity.h"
@@ -32,7 +37,7 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
     QWidget(parent),
     ui(new Ui::Workshop),
     loadingDialog(new WSLoadingDialog),
-    menuBar(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
+    menuBar(new QMenuBar),
     leftBlock(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
     rightBlock(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
     statusBar(new customGradientChangeFrame(CellUiConst::QSS_CUSTOMFRAME, QColor(74,207,90) ,this)),
@@ -65,6 +70,32 @@ void Workshop::InitWorkshop()
     verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
     verticalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
     verticalLayout->setContentsMargins(0,0,0,0);
+    verticalLayout->addWidget(menuBar);
+
+    using CellEntityTools::styleSheetLoader;
+    styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopMenuBar.css"));
+    menuBar->setStyleSheet(styleSheetLoader->styleSheet());
+    menuBar->setFont(QFont("Microsoft YaHei UI"));
+    menuBar->setFixedHeight(27);
+
+
+    QMenu *fileMenu = new QMenu(menuBar);
+    fileMenu->setTitle("文件(F)");
+    fileMenu->addAction("OpenFile");
+
+    QMenu *editMenu = new QMenu(menuBar);
+    editMenu->setTitle("编辑(E)");
+
+    QMenu *buildMenu = new QMenu(menuBar);
+    buildMenu->setTitle("构建(B)");
+
+    QMenu *helpMenu = new QMenu(menuBar);
+    helpMenu->setTitle("构建(D)");
+
+    menuBar->addMenu(fileMenu);
+    menuBar->addMenu(editMenu);
+    menuBar->addMenu(buildMenu);
+    menuBar->addMenu(helpMenu);
 
     splitter->setObjectName(QStringLiteral("splitter"));
     splitter->setOrientation(Qt::Horizontal);
@@ -73,28 +104,22 @@ void Workshop::InitWorkshop()
     splitter->setChildrenCollapsible(false);
     splitter->setStyleSheet(QStringLiteral("QSplitter::handle{background-color:grey;}"));
 
-    menuBar->setParent(this);
-    menuBar->setMaximumSize(65535,39);
-
-    verticalLayout->addWidget(menuBar);
-
-    ui->BtnFile->setParent(menuBar);
-    ui->BtnEdit->setParent(menuBar);
-    ui->BtnBuild->setParent(menuBar);
-    ui->BtnDebug->setParent(menuBar);
-    ui->BtnKits->setParent(menuBar);
-    ui->BtnView->setParent(menuBar);
-    ui->BtnHelp->setParent(menuBar);
-
-    mainEditor->setGeometry(370, 39, 660 ,732);
     mainEditor->setMarginWidth(0, 62);
     mainEditor->setUtf8(true);
-
+    mainEditor->setMinimumWidth(500);
     mainEditor->setWrapIndentMode(QsciScintilla::WrapIndentFixed);
     mainEditor->setWrapMode(QsciScintilla::WrapNone);
     mainEditor->setWrapVisualFlags(QsciScintilla::WrapFlagByText, QsciScintilla::WrapFlagNone, 0);
     mainEditor->setTabWidth(4);
     mainEditor->setCaretLineVisible(true);
+
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditorVerticalScrollBar.css"));
+    QScrollBar *verticalBar = mainEditor->verticalScrollBar();
+    verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+
+    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditorHorizontalScrollBar.css"));
+    QScrollBar *horizontalBar = mainEditor->horizontalScrollBar();
+    horizontalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
     QsciLexer *lexCPP = new QsciLexerCPP();
     lexCPP->setFont(QFont(QStringLiteral("Courier New"), 11));
@@ -102,8 +127,21 @@ void Workshop::InitWorkshop()
 
     setEventConnections();
 
-    leftBlock->setMinimumSize(200,50);
-    rightBlock->setMinimumSize(200,50);
+    leftBlock->setMinimumWidth(300);
+    QVBoxLayout *leftBlockLayout = new QVBoxLayout;
+    leftBlockLayout->setMargin(0);
+    leftBlockLayout->addStretch(1);
+    leftBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
+    leftBlockLayout->addStretch(25);
+    leftBlock->setLayout(leftBlockLayout);
+
+    rightBlock->setMinimumWidth(300);
+    QVBoxLayout *rightBlockLayout = new QVBoxLayout;
+    rightBlockLayout->setMargin(0);
+    rightBlockLayout->addStretch(1);
+    rightBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
+    rightBlockLayout->addStretch(25);
+    rightBlock->setLayout(rightBlockLayout);
 
     splitter->addWidget(leftBlock);
     splitter->addWidget(mainEditor);
@@ -124,23 +162,8 @@ void Workshop::InitWorkshop()
     cntChar = new QLabel(statusBar);
     labelFormat = new QLabel(statusBar);
 
-    menuBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(65,152,197);}"));
-
-    ui->BtnFile->setFont(QFont("Microsoft YaHei", 10));
-    ui->BtnEdit->setFont(QFont("Microsoft YaHei", 10));
-    ui->BtnBuild->setFont(QFont("Microsoft YaHei", 10));
-    ui->BtnDebug->setFont(QFont("Microsoft YaHei", 10));
-    ui->BtnKits->setFont(QFont("Microsoft YaHei", 10));
-    ui->BtnView->setFont(QFont("Microsoft YaHei", 10));
-    ui->BtnHelp->setFont(QFont("Microsoft YaHei", 10));
-
-    CellUiGlobal::multiModulesOneStyleSheet({ui->BtnFile,ui->BtnEdit,ui->BtnBuild,
-                                      ui->BtnDebug,ui->BtnKits,ui->BtnView,ui->BtnHelp},
-                                          QStringLiteral("QPushButton{color:rgb(255,255,255);background-color:rgb(65,152,197);}"));
     // Main Editor.
     mainEditor->setFrameShape(QFrame::NoFrame);
-    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditor.css"));
-    mainEditor->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     mainEditor->setFont(QFont("Courier New", 11));
     mainEditor->setPaper(QColor(249,250,250));
 
@@ -195,17 +218,8 @@ void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
     if(mode == m_mode) return;
     m_mode = mode;
     statusBar->setColorScheme(mode);
-    const QColor menuBarTargetPos = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
-                              QColor(65,152,197) : CellUiConst::GRAYLEVEL45);
     const QColor blockTargetPos = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
                               QColor(235,235,235) : CellUiConst::GRAYLEVEL70);
-    CellUiGlobal::setPropertyAnimation({animi_MenuBar},
-                                 "color",
-                                 menuBar->color(),
-                                 menuBarTargetPos,
-                                 CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                 QEasingCurve::InOutCubic,
-                                 {menuBar}, nullptr);
 
     CellUiGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
                                  "color",

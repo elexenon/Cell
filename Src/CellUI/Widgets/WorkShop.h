@@ -30,6 +30,7 @@ class QSplitter;
 class CellProjectEntity;
 class QShortcut;
 class customGradientChangeFrame;
+class QMenuBar;
 
 class Workshop : public QWidget
 {
@@ -54,7 +55,7 @@ private:
     QPropertyAnimation *animi_RightBlock;
 
     WSLoadingDialog                *loadingDialog;
-    customFrame                    *menuBar;
+    QMenuBar                       *menuBar;
     customFrame                    *leftBlock;
     customFrame                    *rightBlock;
     customGradientChangeFrame      *statusBar;

@@ -36,5 +36,12 @@
         <file>Images/WS.png</file>
         <file>Images/zoom.png</file>
         <file>Images/popUpIcon.png</file>
+        <file>Images/arrow_down.png</file>
+        <file>Images/arrow_down_selected.png</file>
+        <file>Images/arrow_right.png</file>
+        <file>Images/arrow_right_selected.png</file>
+        <file>Images/icon_files.png</file>
+        <file>Images/icon_toolchain.png</file>
+        <file>Images/icon_warrnings.png</file>
     </qresource>
 </RCC>

@@ -57,7 +57,7 @@ void LauncherSettings::Init()
     cBoxAppear->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
     cBoxAppear->addItem(cBoxAppear_ItemFusion, true);
     cBoxAppear->addItem(cBoxAppear_ItemDark);
-    //cBoxAppear->setOptionBlockParent(this);
+    cBoxAppear->setOptionBlockParent(this);
     cBoxAppear->setOptionBlockStartEndPos({186,100}, {186,100});
     cBoxAppear->setFixedWidth(200);
         // Item Fusion Combination

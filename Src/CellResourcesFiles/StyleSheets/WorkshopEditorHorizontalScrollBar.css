@@ -1,0 +1,28 @@
+QScrollBar:horizontal {
+    background:rgb(240,240,240);
+    border: 0px;
+    height:10px;
+    margin:0px;
+    padding:0px;
+}
+ 
+/* 滑块 */
+QScrollBar::handle:horizontal {
+    background:rgb(205,205,205);
+    border-radius:5px; 
+    min-width:20px;
+}
+ 
+/* 底部块 */
+QScrollBar::add-line:horizontal {
+    background:rgb(205,205,205);
+    width:10px;
+    subcontrol-position:right;
+}
+ 
+/* 顶部块 */
+QScrollBar::sub-line:horizontal {
+    background:rgb(205,205,205);
+    width:10px;
+    subcontrol-position:left;
+}

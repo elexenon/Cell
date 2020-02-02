@@ -34,12 +34,20 @@ void LauncherGuideDialog::Init()
     customWinstyleDialog::LoadWinStyle(this);
     setLayout(mainLayout);
     setFixedHeight(533);
+
     mainLayout->setMargin(0);
+    mainLayout->setSpacing(10);
+    mainLayout->addWidget(titleBar);
+    mainLayout->addWidget(ui->stackedWidget);
+
+    QHBoxLayout *HLayout = new QHBoxLayout;
+    HLayout->addWidget(ui->checkBox_showUp);
+    HLayout->addStretch();
+    HLayout->addWidget(ui->Btn_close);
+
+    mainLayout->addLayout(HLayout);
 
     ui->stackedWidget->setAutoFillBackground(true);
-
-    ui->pushButton->setParent(this);
-    ui->pushButton->setGeometry(640, 420, ui->pushButton->width(), ui->pushButton->height());
 
     int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
     QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
@@ -50,10 +58,6 @@ void LauncherGuideDialog::Init()
     titleBar->setFont(fontInfo, 23);
     titleBar->setIcon(QString::fromUtf8("CELL_logo_small"), 33, 29);
     titleBar->setLeftMargin(15);
-
-    ui->label_getStart->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 18));
-    ui->label_learn->setFont(QFont(QStringLiteral("Microsoft YaHei UI"), 9));
-    CellUiGlobal::multiModulesOneStyleSheet({ui->label_getStart,ui->label_learn},QStringLiteral("QLabel{color:#DCDCDC;background-color: transparent;}"));
 
     ui->checkBox_showUp->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
     ui->checkBox_showUp->setStyleSheet(QStringLiteral("QCheckBox{color:#798186;background-color: transparent;}"));

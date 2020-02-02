@@ -1,0 +1,17 @@
+QMenuBar {
+    background-color: rgb(79,147,184);
+    spacing: 3px; /* spacing between menu bar items */
+}
+
+QMenuBar::item {
+    color: rgb(255,255,255);
+    background: transparent;
+}
+
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+    background: rgb(99,167,204);
+}
+
+QMenuBar::item:pressed {
+    background: rgb(99,167,204);
+}

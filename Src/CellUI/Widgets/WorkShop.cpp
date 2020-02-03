@@ -5,8 +5,6 @@
 // See accompanying file LICENSE.txt at the root
 //
 // Of source file directory.
-#include <QPropertyAnimation>
-#include <QFrame>
 #include <QLabel>
 #include <QDebug>
 #include <QCursor>
@@ -34,20 +32,15 @@
 #define CELL_DEBUG
 
 Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Workshop),
+    customWinstyleWidget(parent),
+    mainLayout(new QVBoxLayout(this)),
     loadingDialog(new WSLoadingDialog),
     menuBar(new QMenuBar),
     leftBlock(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
     rightBlock(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
     statusBar(new customGradientChangeFrame(CellUiConst::QSS_CUSTOMFRAME, QColor(74,207,90) ,this)),
     mainEditor(new QsciScintilla(this)),
-    m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT),
-    verticalLayout(new QVBoxLayout(this)),
-    splitter(new QSplitter(this)),
-    savePath(""),
-    ctrlS(new QShortcut(this)),
-    codeModified(false)
+    ctrlS(new QShortcut(this))
 {
     ui->setupUi(this);
     InitWorkshop();
@@ -64,13 +57,14 @@ Workshop::~Workshop()
 void Workshop::InitWorkshop()
 {
     // Functional.
+    this->resize(1400, 800);
     setAttribute(Qt::WA_DeleteOnClose);
+    setLayout(mainLayout);
 
-    verticalLayout->setSpacing(0);
-    verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-    verticalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
-    verticalLayout->setContentsMargins(0,0,0,0);
-    verticalLayout->addWidget(menuBar);
+    mainLayout->setSpacing(0);
+    mainLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->addWidget(menuBar);
 
     using CellEntityTools::styleSheetLoader;
     styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopMenuBar.css"));
@@ -97,7 +91,7 @@ void Workshop::InitWorkshop()
     menuBar->addMenu(buildMenu);
     menuBar->addMenu(helpMenu);
 
-    splitter->setObjectName(QStringLiteral("splitter"));
+    splitter = new QSplitter(this);
     splitter->setOrientation(Qt::Horizontal);
     splitter->setOpaqueResize(true);
     splitter->setHandleWidth(1);
@@ -128,7 +122,7 @@ void Workshop::InitWorkshop()
     setEventConnections();
 
     leftBlock->setMinimumWidth(300);
-    QVBoxLayout *leftBlockLayout = new QVBoxLayout;
+    QVBoxLayout *leftBlockLayout = new QVBoxLayout(this);
     leftBlockLayout->setMargin(0);
     leftBlockLayout->addStretch(1);
     leftBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
@@ -136,7 +130,7 @@ void Workshop::InitWorkshop()
     leftBlock->setLayout(leftBlockLayout);
 
     rightBlock->setMinimumWidth(300);
-    QVBoxLayout *rightBlockLayout = new QVBoxLayout;
+    QVBoxLayout *rightBlockLayout = new QVBoxLayout(this);
     rightBlockLayout->setMargin(0);
     rightBlockLayout->addStretch(1);
     rightBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
@@ -150,13 +144,13 @@ void Workshop::InitWorkshop()
     splitter->setCollapsible(1,false);
     splitter->setCollapsible(2,true);
 
-    verticalLayout->addWidget(splitter);
+    mainLayout->addWidget(splitter);
 
     statusBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(210,210,210);}"));
     statusBar->setMaximumSize(65535,29);
     statusBar->setColor(CellUiConst::GRAYLEVEL218);
 
-    verticalLayout->addWidget(statusBar);
+    mainLayout->addWidget(statusBar);
 
     cntRow = new QLabel(statusBar);
     cntChar = new QLabel(statusBar);
@@ -215,28 +209,7 @@ void Workshop::_constructed()
 
 void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
-    if(mode == m_mode) return;
-    m_mode = mode;
-    statusBar->setColorScheme(mode);
-    const QColor blockTargetPos = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ?
-                              QColor(235,235,235) : CellUiConst::GRAYLEVEL70);
-
-    CellUiGlobal::setPropertyAnimation({animi_LeftBlock,animi_RightBlock},
-                                 "color",
-                                 leftBlock->color(),
-                                 blockTargetPos,
-                                 CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                 QEasingCurve::InOutCubic,
-                                 {leftBlock,rightBlock}, nullptr);
-    if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
-        CellUiGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
-                                               QStringLiteral("QLabel{color:rgb(255,255,255);}"));      
-    }
-    else{
-        m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
-        CellUiGlobal::multiModulesOneStyleSheet({cntRow,cntChar,labelFormat},
-                                          QStringLiteral("QLabel{color:rgb(0, 0, 0);}"));
-    }
+    CellWidgetGlobalInterface::setColorScheme(mode);
 }
 
 void Workshop::updateStatusBar()
@@ -249,11 +222,9 @@ void Workshop::updateStatusBar()
 
 void Workshop::saveFile()
 {
-    //if(savePath!=""){
-        if(!codeModified) return;
-        code_prev = code_curr;
-        statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
-    //}
+    if(!codeModified) return;
+    code_prev = code_curr;
+    statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
 }
 
 void Workshop::checkCodeModifiedState()
@@ -271,14 +242,9 @@ void Workshop::checkCodeModifiedState()
 #endif
 }
 
-const QColor Workshop::color() const
+void Workshop::setColor(const QColor& color)
 {
-    return m_color;
-}
-
-void Workshop::setColor(const QColor color)
-{
-    m_color = color;
+    CellWidgetGlobalInterface::setColor(color);
     setStyleSheet(QString("background-color:rgb(%1,%2,%3);").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 

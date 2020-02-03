@@ -18,7 +18,6 @@ class WSLoadingDialog;
 class WSLoadingDialog : public customWinstyleDialog
 {
     Q_OBJECT
-
 public:
     explicit WSLoadingDialog(QWidget *parent = nullptr);
     ~WSLoadingDialog();

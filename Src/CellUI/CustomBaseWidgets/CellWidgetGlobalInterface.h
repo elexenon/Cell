@@ -12,6 +12,7 @@
 #include <QWidget>
 
 class QPropertyAnimation;
+class QEasingCurve;
 
 class CellWidgetGlobalInterface{
 public:
@@ -19,18 +20,22 @@ public:
     virtual ~CellWidgetGlobalInterface() = default;
 
     inline const QColor color() const { return m_color; }
+    inline void         setColorAnimiDuration(int value) { this->colorChangeAnimiDuration = value; }
+    inline void         setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
     virtual void        setColor(const QColor &color) = 0;
+    virtual void        setBaseQss(const QString& qss) = 0;
+    virtual void        changeToColor(const QColor& startColor, const QColor& targetColor) = 0;
     void                setBrightDarkModeColor(const QColor& b, const QColor& d);
 
 protected:
     CellUiGlobal::COLOR_SCHEME m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
+    int                        colorChangeAnimiDuration = CellUiGlobal::CELL_GLOBALANIMIDURATION;
+    QEasingCurve               easingCurve = QEasingCurve::InOutCubic;
     QColor                     m_color;
     QColor                     brightmodeColor;
     QColor                     darkmodeColor;
+    QString                    BASEQSS;
     QPropertyAnimation        *animi;
-    QPoint                     m_startPoint;
-    QPoint                     m_windowPoint;
-    bool                       m_move;
 
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) = 0;
 };

@@ -19,7 +19,7 @@ customComboBox::customComboBox(const QString &state, QWidget *parent):
     currState(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this)),
     trigger(new ButtonWithIcon(customButton::DYNAMIC_RADIUS, this)),
     optionBlock(new customOptionBlock),
-    mainLayout(new QHBoxLayout),
+    mainLayout(new QHBoxLayout(this)),
     itemsList(new QList<customOptionBlockItem*>)
 {
     setFixedHeight(30);

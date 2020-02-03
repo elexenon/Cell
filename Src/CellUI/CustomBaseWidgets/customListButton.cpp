@@ -15,7 +15,7 @@
 
 customListButton::customListButton(QWidget *parent, const QString &text) :
     customButton(customButton::CHECKABLE, parent)
-  , mainLayout(new QHBoxLayout)
+  , mainLayout(new QHBoxLayout(this))
   , tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
 {
     tag->setText(text);
@@ -24,14 +24,14 @@ customListButton::customListButton(QWidget *parent, const QString &text) :
 
 void customListButton::Init()
 {
-    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);   
-    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 16);
+    setLayout(mainLayout);
 
     mainLayout->addWidget(tag);
     mainLayout->addStretch();
     mainLayout->setContentsMargins(12, 0, 0, 0);
 
-    setLayout(mainLayout);
+    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);   
+    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 16);    
 }
 
 void customListButton::setFont(const QFont &font)

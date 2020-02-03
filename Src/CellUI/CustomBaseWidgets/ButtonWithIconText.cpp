@@ -14,18 +14,19 @@
 
 ButtonWithIconText::ButtonWithIconText(customButton::TYPE type, QWidget *parent):
     customButton(type, parent),
-    mainLayout(new QHBoxLayout),
+    mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this)),
     tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
 {
-    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    setLayout(mainLayout);
 
     mainLayout->setContentsMargins(10, 0, 0, 0);
     mainLayout->setSpacing(8);
     mainLayout->addWidget(icon);
     mainLayout->addWidget(tag);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
-    setLayout(mainLayout);
+    
+    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
 }
 
 void ButtonWithIconText::Init(const QString& fileName, int iconWidth, int iconHeight, const QString& text, int fontSize)

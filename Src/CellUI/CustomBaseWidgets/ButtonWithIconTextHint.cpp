@@ -16,32 +16,33 @@
 
 ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::TYPE type, QWidget *parent):
     customButton(type, parent),
-    mainLayout(new QHBoxLayout),
+    mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this)),
     tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this)),
     hint(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
 {
-    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-    hint->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-
-    QVBoxLayout *VLayoutIcon = new QVBoxLayout;
-    VLayoutIcon->setMargin(0);
-    VLayoutIcon->addWidget(icon);
-    VLayoutIcon->setAlignment(Qt::AlignmentFlag::AlignTop);
-
-    QVBoxLayout *VLayoutTextHint = new QVBoxLayout;
-    VLayoutTextHint->setMargin(0);
-    VLayoutTextHint->setSpacing(3);
-    VLayoutTextHint->addWidget(tag);
-    VLayoutTextHint->addWidget(hint);
-    VLayoutTextHint->setAlignment(Qt::AlignmentFlag::AlignLeft);
+    setLayout(mainLayout);
 
     mainLayout->setContentsMargins(0, 0, 10, 0);
     mainLayout->setSpacing(15);
     mainLayout->addLayout(VLayoutIcon);
     mainLayout->addLayout(VLayoutTextHint);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignCenter);
-    setLayout(mainLayout);
+    
+    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    hint->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+
+    QVBoxLayout *VLayoutIcon = new QVBoxLayout(this);
+    VLayoutIcon->setMargin(0);
+    VLayoutIcon->addWidget(icon);
+    VLayoutIcon->setAlignment(Qt::AlignmentFlag::AlignTop);
+
+    QVBoxLayout *VLayoutTextHint = new QVBoxLayout(this);
+    VLayoutTextHint->setMargin(0);
+    VLayoutTextHint->setSpacing(3);
+    VLayoutTextHint->addWidget(tag);
+    VLayoutTextHint->addWidget(hint);
+    VLayoutTextHint->setAlignment(Qt::AlignmentFlag::AlignLeft);
 }
 
 void ButtonWithIconTextHint::Init(const QString &fileName, int iconWidth, int iconHeight,

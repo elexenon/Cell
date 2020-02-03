@@ -9,13 +9,9 @@
 
 #include <QDebug>
 
-customFrame::customFrame(const QString &qss, QWidget *parent):
-    QFrame(parent),
-    BASEQSS(qss)
-{
-    if(qss == CellUiConst::QSS_CUSTOMFRAME_RADIUS)
-        setObjectName(CHAR2STR("customFrameRadius"));
-}
+customFrame::customFrame(QWidget *parent):
+    QFrame(parent)
+{}
 
 void customFrame::setColor(const QColor &color)
 {
@@ -23,16 +19,25 @@ void customFrame::setColor(const QColor &color)
     setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
+void customFrame::setBaseQss(const QString& qss)
+{
+    if(qss == CellUiConst::QSS_CUSTOMFRAME_RADIUS)
+        setObjectName(CHAR2STR("customFrameRadius"));
+    CellWidgetGlobalInterface::setBaseQss(qss);
+}
+
+void customFrame::changeToColor(const QColor& startColor, const QColor &targetColor)
+{
+    CellUiGlobal::setPropertyAnimation({animi},
+                                 "color",
+                                 startColor,
+                                 targetColor,
+                                 colorChangeAnimiDuration,
+                                 easingCurve,
+                                 {this},nullptr);
+}
+
 void customFrame::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
-    if(mode == m_mode) return;
-    m_mode = mode;
-    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
-    CellUiGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                      color(),
-                                      targetColor,
-                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                      QEasingCurve::InOutCubic,
-                                      {this}, nullptr);
+    CellWidgetGlobalInterface::setColorScheme(mode);
 }

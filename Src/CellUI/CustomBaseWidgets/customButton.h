@@ -16,15 +16,15 @@
 class customButton : public QPushButton, implements CellWidgetGlobalInterface{
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
-    QString BASEQSS;
 public:
     enum TYPE{
         STATIC,        DYNAMIC,        CHECKABLE,
         STATIC_RADIUS, DYNAMIC_RADIUS, CHECKABLE_RADIUS
     };
-    explicit customButton(TYPE type = STATIC,QWidget *parent = nullptr);
-    //virtual ~customButton() override = default;
+    explicit     customButton(TYPE type = STATIC,QWidget *parent = nullptr);
     virtual void setColor(const QColor &color) override;
+    virtual void setBaseQss(const QString &qss) override;
+    virtual void changeToColor(const QColor& startColor, const QColor &targetColor) override;
 
 private:
     void setAnimiStartEndColor(CellUiGlobal::COLOR_SCHEME mode, QColor&, QColor&);

@@ -8,12 +8,8 @@
 #ifndef WORKSHOP_H
 #define WORKSHOP_H
 
-#include <QWidget>
+#include "../CustomBaseWidgets/customWinstyleWidget.h"
 #include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
-
-namespace Ui {
-class Workshop;
-}
 
 class WSLoadingDialog;
 class QsciScintilla;
@@ -32,7 +28,7 @@ class QShortcut;
 class customGradientChangeFrame;
 class QMenuBar;
 
-class Workshop : public QWidget
+class Workshop : public customWinstyleWidget
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
@@ -42,47 +38,36 @@ public:
     ~Workshop();
 
 public:
-    const QColor color() const;
-    void  setColor(const QColor color);
-
-    void _constructed();
+    virtual void setColor(const QColor& color) override;
+    void         _constructed();
 
 private:
-    Ui::Workshop *ui;
-    QPropertyAnimation *animi_MenuBar;
-    QPropertyAnimation *animi_StatusBar;
-    QPropertyAnimation *animi_LeftBlock;
-    QPropertyAnimation *animi_RightBlock;
+    QVBoxLayout *mainLayout;
 
-    WSLoadingDialog                *loadingDialog;
-    QMenuBar                       *menuBar;
-    customFrame                    *leftBlock;
-    customFrame                    *rightBlock;
-    customGradientChangeFrame      *statusBar;
-    QLabel           *cntRow;
-    QLabel           *cntChar;
-    QLabel           *labelFormat;
-    QsciScintilla    *mainEditor;
+    WSLoadingDialog           *loadingDialog;
+    QMenuBar                  *menuBar;
+    customFrame               *leftBlock;
+    customFrame               *rightBlock;
+    customGradientChangeFrame *statusBar;
+    QsciScintilla             *mainEditor;
 
-    QColor                   m_color;
-    CellUiGlobal::COLOR_SCHEME m_mode;
-
-    QVBoxLayout      *verticalLayout;
-    QSplitter        *splitter;
+    QLabel *cntRow;
+    QLabel *cntChar;
+    QLabel *labelFormat;
 
     QString            code_prev;
     QString            code_curr;
     CellProjectEntity *PJEntity;
     QString            savePath;
     QShortcut         *ctrlS;
-    bool               codeModified;
+    bool               codeModified = false;
 
 private:
     void InitWorkshop();
     void setEventConnections();
 
 private slots:
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
     void updateStatusBar();
     void saveFile();
     void checkCodeModifiedState();

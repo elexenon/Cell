@@ -13,15 +13,16 @@
 
 ButtonWithText::ButtonWithText(customButton::TYPE type, QWidget *parent):
     customButton(type, parent),
-    mainLayout(new QVBoxLayout),
+    mainLayout(new QVBoxLayout(this)),
     tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
 {
-    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    setLayout(mainLayout);
 
     mainLayout->setMargin(0);
     mainLayout->addWidget(tag);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
-    setLayout(mainLayout);
+    
+    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
 }
 
 void ButtonWithText::Init(const QString &text, int fontSize)

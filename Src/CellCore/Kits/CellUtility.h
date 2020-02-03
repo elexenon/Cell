@@ -16,20 +16,6 @@ extern const QString FONT_DIR;
 extern const QString STYLESHEET_DIR;
 extern const QString LIB_DIR;
 
-extern const QString QSS_CUSTOMFRAME_RADIUS;
-extern const QString QSS_CUSTOMFRAME;
-
-extern const QString QSS_CUSTOMLABEL;
-extern const QString QSS_CUSTOMLABEL_TRANSPARENT;
-
-extern const QString QSS_CUSTOMBUTTON_STATIC;
-extern const QString QSS_CUSTOMBUTTON_STATIC_RADIUS;
-extern const QString QSS_CUSTOMBUTTON_DYNAMIC;
-extern const QString QSS_CUSTOMBUTTON_DYNAMIC_RADIUS;
-extern const QString QSS_CUSTOMBUTTON_CHECKABLE;
-extern const QString QSS_CUSTOMBUTTON_CHECKABLE_RADIUS;
-
-
 extern const QColor GRAYLEVEL255;
 extern const QColor GRAYLEVEL70;
 extern const QColor GRAYLEVEL100;
@@ -39,8 +25,7 @@ extern const QColor GRAYLEVEL218;
 extern const QColor GRAYLEVEL30;
 extern const QColor GRAYLEVEL247;
 extern const QColor GRAYLEVEL130;
-
-extern const QColor BTNHOVERINGCOLOR;
+extern const QColor CELLTHEMECOLOR;
 } // namespace CellUiConst{
 
 class QGraphicsDropShadowEffect;

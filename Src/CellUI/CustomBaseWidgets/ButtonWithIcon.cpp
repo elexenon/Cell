@@ -12,13 +12,14 @@
 
 ButtonWithIcon::ButtonWithIcon(customButton::TYPE type, QWidget *parent):
     customButton(type, parent),
-    mainLayout(new QHBoxLayout),
+    mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this))
 {
+    setLayout(mainLayout);
+    
     mainLayout->setMargin(0);
     mainLayout->addWidget(icon);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
-    setLayout(mainLayout);
 }
 
 void ButtonWithIcon::Init(const QString& fileName, int iconWidth, int iconHeight)

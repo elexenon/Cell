@@ -17,12 +17,15 @@ class customFrame : public QFrame, implements CellWidgetGlobalInterface
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
-    const QString BASEQSS;
 public:
-    explicit customFrame(const QString &qss, QWidget *parent = nullptr);
+    explicit customFrame(QWidget *parent = nullptr);
     virtual ~customFrame() override = default;
 
     virtual void setColor(const QColor &color) override;
+
+protected:
+    virtual void setBaseQss(const QString& qss) override;
+    virtual void changeToColor(const QColor& startColor, const QColor &targetColor) override;
 
 public slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;

@@ -32,6 +32,10 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *event) override;
     void         LoadWinStyle(QWidget *obj);
 
+    QPoint m_startPoint;
+    QPoint m_windowPoint;
+    bool   m_move; 
+
 protected slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };

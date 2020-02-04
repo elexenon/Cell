@@ -190,19 +190,6 @@
     </property>
    </widget>
   </widget>
-  <widget class="QLabel" name="label_welcome">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>3</y>
-     <width>521</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>欢迎。</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -17,9 +17,9 @@
 #include <QVBoxLayout>
 
 NewPJProjectCellPage::NewPJProjectCellPage(QWidget *parent):
-    customFrame(CellUiConst::QSS_CUSTOMFRAME,parent)
+    customFrame(customFrame::_REGULAR, parent)
    ,mainLayout(new QVBoxLayout)
-   ,label_title(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT,this))
+   ,label_title(new customLabel(this))
    ,blockConfig(new customOptionBlock(this, CHAR2STR("项目属性")))
    ,blockConfig_Name(new customOptionBlockItem)
    ,cBoxName(new customComboBox(CHAR2STR("Project")))

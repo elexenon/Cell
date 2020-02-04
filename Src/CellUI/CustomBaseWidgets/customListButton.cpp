@@ -16,7 +16,7 @@
 customListButton::customListButton(QWidget *parent, const QString &text) :
     customButton(customButton::CHECKABLE, parent)
   , mainLayout(new QHBoxLayout(this))
-  , tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
+  , tag(new customLabel(this))
 {
     tag->setText(text);
     Init();

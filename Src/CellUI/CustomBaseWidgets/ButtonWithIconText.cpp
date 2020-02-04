@@ -16,7 +16,7 @@ ButtonWithIconText::ButtonWithIconText(customButton::TYPE type, QWidget *parent)
     customButton(type, parent),
     mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this)),
-    tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
+    tag(new customLabel(this))
 {
     setLayout(mainLayout);
 

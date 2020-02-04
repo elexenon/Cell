@@ -14,6 +14,22 @@ customWinstyleWidget::customWinstyleWidget(QWidget *parent):
     setWindowFlags(Qt::FramelessWindowHint);
 }
 
+void customWinstyleWidget::setBaseQss(const QString &qss)
+{
+    (void)qss;
+}
+
+void customWinstyleWidget::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
+{
+    CellUiGlobal::setPropertyAnimation({animi},
+                                     "color",
+                                      startColor,
+                                      targetColor,
+                                      duration,
+                                      easingCurve,
+                                      {this}, nullptr);
+}
+
 void customWinstyleWidget::setColor(const QColor &color)
 {
     CellWidgetGlobalInterface::setColor(color);
@@ -45,16 +61,8 @@ bool customWinstyleWidget::nativeEvent(const QByteArray &eventType, void *messag
 
 void customWinstyleWidget::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
-    if(mode == m_mode) return;
-    m_mode = mode;
-    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
-    CellUiGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                      color(),
-                                      targetColor,
-                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                      QEasingCurve::InOutCubic,
-                                      {this}, nullptr);
+    CellWidgetGlobalInterface::setColorScheme(mode);
+
 }
 
 void customWinstyleWidget::mousePressEvent(QMouseEvent *event)

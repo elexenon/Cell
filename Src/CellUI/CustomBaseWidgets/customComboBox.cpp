@@ -15,8 +15,8 @@
 #include <QHBoxLayout>
 
 customComboBox::customComboBox(const QString &state, QWidget *parent):
-    customFrame(CellUiConst::QSS_CUSTOMFRAME_RADIUS, parent),
-    currState(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this)),
+    customFrame(customFrame::_RADIUS, parent),
+    currState(new customLabel(this)),
     trigger(new ButtonWithIcon(customButton::DYNAMIC_RADIUS, this)),
     optionBlock(new customOptionBlock),
     mainLayout(new QHBoxLayout(this)),
@@ -54,7 +54,7 @@ void customComboBox::addItem(customOptionBlockItem *item, bool addSplitterLine)
     optionBlock->addItem(item, addSplitterLine);
 }
 
-void customComboBox::tidyItemTags()
+void customComboBox::tidyItemTags() const
 {
     optionBlock->tidyItemTags();
 }

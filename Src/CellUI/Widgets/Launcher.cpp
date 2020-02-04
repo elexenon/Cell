@@ -43,7 +43,7 @@ Launcher::Launcher(QWidget *parent)
     , titleBar(new customTitleBar(this))
     , Btn_NewProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
     , Btn_OpenProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
-    , notificationCenter(new class notificationCenter(CellUiConst::QSS_CUSTOMFRAME, this))
+    , notificationCenter(new class notificationCenter(this))
     , BtnlistWidget(new customButtonListWidget(this))
 #ifndef RELEASE_MODE
     , testForm(new CellDevelopTestStation(this))
@@ -64,29 +64,28 @@ void Launcher::InitLauncher()
     customWinstyleWidget::LoadWinStyle(this);
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
 
-    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
+    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + CHAR2STR("InfoDisplayWeb W01 Medium.ttf"));
     QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
 #ifndef RELEASE_MODE
     testForm->hide();
 #endif
-    titleBar->setObjectName(QStringLiteral("frame_titleBar"));
-    titleBar->setFixedHeight(55);
+    titleBar->setFixedHeight(50);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
-    titleBar->setText(QString::fromUtf8("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
+    titleBar->setText(CHAR2STR("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
     titleBar->setFont(fontInfo, 23);
-    titleBar->setIcon(QString::fromUtf8("CELL_logo_small"), 33, 29);
+    titleBar->setIcon(CHAR2STR("CELL_logo_small"), 33, 29);
     titleBar->setLeftMargin(15);
 
     ui->stackedWidget->insertWidget(1, homePage);
     ui->stackedWidget->insertWidget(2, settingsPage);
     ui->stackedWidget->setCurrentIndex(1);   
 
-    BtnlistWidget->addButton("主页",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
-    BtnlistWidget->addButton("选项",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
-    BtnlistWidget->addButton("向导",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    BtnlistWidget->addButton(CHAR2STR("主页"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    BtnlistWidget->addButton(CHAR2STR("选项"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    BtnlistWidget->addButton(CHAR2STR("向导"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
     BtnlistWidget->setButtonCheckable(2,false);
 #ifndef RELEASE_MODE
-    BtnlistWidget->addButton("自定义CONTROLS测试面板",CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    BtnlistWidget->addButton(CHAR2STR("自定义CONTROLS测试面板"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
     BtnlistWidget->setButtonCheckable(3,false);
 #endif
     BtnlistWidget->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
@@ -110,7 +109,7 @@ void Launcher::InitLauncher()
     Btn_OpenProject->setFixedSize(250, 81);
     Btn_OpenProject->setCursor(Qt::PointingHandCursor);
 
-    QFont t(QStringLiteral("Microsoft Yahei UI Light"));
+    QFont t(CHAR2STR("Microsoft Yahei UI Light"));
     t.setPixelSize(25);
 
     QVBoxLayout *VLayout_WorkBtns = new QVBoxLayout;
@@ -137,7 +136,7 @@ void Launcher::InitLauncher()
 
     setLayout(mainLayout);
 
-    notificationCenter->setObjectName(QStringLiteral("notificationCenter"));
+    notificationCenter->setObjectName(CHAR2STR("notificationCenter"));
     notificationCenter->setFixedHeight(29);
     notificationCenter->setBrightDarkModeColor(CellUiConst::GRAYLEVEL100, CellUiConst::GRAYLEVEL45);
 
@@ -153,10 +152,10 @@ void Launcher::InitLauncher()
 
     titleBar->addLayout(HLayoutTitleRight);
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherCloseBtn.css"));
+    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherCloseBtn.css"));
     ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherMinimizeBtn.css"));
+    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherMinimizeBtn.css"));
     ui->Btn_mini->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
     guideDialog = new LauncherGuideDialog(this);
@@ -258,13 +257,14 @@ void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
 
 void Launcher::Btn_NewProject_clicked()
 {
+    newPJDialog = nullptr;
+    workshop = nullptr;
     if(newPJDialog == nullptr){
-        qDebug() << 1;
         newPJDialog = new LauncherNewPJDialog(m_mode, this);
         connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)));
     }
     if(workshop == nullptr){
-        workshop = new Workshop(m_mode);
+        workshop = new Workshop(m_mode, this);
         connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
         connect(workshop, SIGNAL(constructed()),notificationCenter, SLOT(plusCnt()));
         connect(workshop, SIGNAL(destoryed()),notificationCenter, SLOT(minusCnt()));
@@ -272,9 +272,6 @@ void Launcher::Btn_NewProject_clicked()
     newPJDialog->show();
     workshop->show();
     workshop->_constructed();
-
-    newPJDialog = nullptr;
-    workshop = nullptr;
 }
 
 void Launcher::on_Btn_max_clicked()

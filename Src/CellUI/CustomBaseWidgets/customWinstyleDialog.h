@@ -24,6 +24,8 @@ public:
     ~customWinstyleDialog() = default;
 
     virtual void setColor(const QColor &color) override;
+    virtual void setBaseQss(const QString &qss) override;
+    virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
 
 protected:
     virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;

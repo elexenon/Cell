@@ -8,7 +8,9 @@
 #ifndef WORKSHOP_H
 #define WORKSHOP_H
 
-#include "../CustomBaseWidgets/customWinstyleWidget.h"
+#include <QWidget>
+#include "../../CellCore/Kits/CellGlobalMacros.h"
+#include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
 #include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
 
 class WSLoadingDialog;
@@ -28,7 +30,7 @@ class QShortcut;
 class customGradientChangeFrame;
 class QMenuBar;
 
-class Workshop : public customWinstyleWidget
+class Workshop : public QWidget, implements CellWidgetGlobalInterface
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
@@ -39,6 +41,8 @@ public:
 
 public:
     virtual void setColor(const QColor& color) override;
+    virtual void setBaseQss(const QString &qss) override;
+    virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
     void         _constructed();
 
 private:
@@ -57,7 +61,7 @@ private:
 
     QString            code_prev;
     QString            code_curr;
-    CellProjectEntity *PJEntity;
+    CellProjectEntity *PJEntity = nullptr;
     QString            savePath;
     QShortcut         *ctrlS;
     bool               codeModified = false;

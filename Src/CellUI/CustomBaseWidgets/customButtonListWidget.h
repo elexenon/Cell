@@ -24,12 +24,12 @@ public:
     void  addThemeHead(const QString& theme = "theme");
     void  addButton(const QString &text, const QColor &b, const QColor &d);
     void  setButtonsBrightDarkModeColor(const QColor &b, const QColor &d);
-    const customListButton* getButton(int index = 0);
+    const customListButton* getButton(int index = 0) const;
     void  setButtonSize(int width, int height);
     void  setBtnFontPixelSize(int size);
     void  setMargins(int left = 0, int top = 0, int right = 0, int buttom = 0);
     void  setSpacing(int spacing);
-    void  clickButton(int index);
+    void  clickButton(int index) const;
     void  setButtonCheckable(int index, bool value);
 
 

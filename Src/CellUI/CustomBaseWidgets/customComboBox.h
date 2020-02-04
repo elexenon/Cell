@@ -22,7 +22,7 @@ public:
     explicit customComboBox(const QString& state, QWidget *parent = nullptr);
     void     setOptionBlockParent(QWidget* parent);
     void     addItem(customOptionBlockItem *item,  bool addSplitterLine = false);
-    void     tidyItemTags();
+    void     tidyItemTags() const;
     void     setOptionBlockStartEndPos(const QPoint &posS, const QPoint &posE);
 
 protected:

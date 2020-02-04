@@ -24,8 +24,7 @@ enum MARGIN_DIRE{
 };
     explicit customOptionBlockItem(QWidget *parent = nullptr, const QString& tag = " ");
 
-    inline
-    int            getTagLen() { return tagLen; }
+    inline int     getTagLen() { return tagLen; }
     void           setTag(const QString& text);
     void           setOptionWidget(QWidget* widget);
     void           setHint(const QString& text);
@@ -35,8 +34,9 @@ enum MARGIN_DIRE{
     const QMargins getMargins();
 
 protected:
-    inline
-    virtual void setColor(const QColor &color) override { CellWidgetGlobalInterface::setColor(color); }
+    virtual void setColor(const QColor &color) override;
+    virtual void setBaseQss(const QString &qss) override;
+    virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
 
     QHBoxLayout *mainLayout;
     customLabel *tag;

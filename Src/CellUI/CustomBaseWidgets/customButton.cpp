@@ -21,25 +21,25 @@ void customButton::setBaseQss(const QString &qss)
     QString qssFileName;
     switch(type){
     case STATIC:
-        qssFileName = "CustomButtonStatic";
+        qssFileName = "CustomButtonStatic.css";
         setFlat(true);
         break;
     case DYNAMIC:
-        qssFileName = "CustomButtonDynamic";
+        qssFileName = "CustomButtonDynamic.css";
         break;
     case CHECKABLE:
         setCheckable(true);
-        qssFileName = "CustomButtonCheckable";
+        qssFileName = "CustomButtonCheckable.css";
         break;
     case STATIC_RADIUS:
-        qssFileName = "CustomButtonStaticRadius";
+        qssFileName = "CustomButtonStaticRadius.css";
         setFlat(true);
         break;
     case DYNAMIC_RADIUS:
-        qssFileName = "CustomButtonDynamicRadius";
+        qssFileName = "CustomButtonDynamicRadius.css";
         break;
     case CHECKABLE_RADIUS:
-        qssFileName = "CustomButtonCheckableRadius";
+        qssFileName = "CustomButtonCheckableRadius.css";
         setCheckable(true);
         break;
     }
@@ -48,13 +48,13 @@ void customButton::setBaseQss(const QString &qss)
     BASEQSS = styleSheetLoader->styleSheet();
 }
 
-void customButton::changeToColor(const QColor &startColor, const QColor &targetColor)
+void customButton::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
 {
     CellUiGlobal::setPropertyAnimation({animi},
                                  "color",
                                  startColor,
                                  targetColor,
-                                 colorChangeAnimiDuration,
+                                 duration,
                                  easingCurve,
                                  {this},nullptr);
 }
@@ -66,32 +66,20 @@ void customButton::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
     QColor startColor;
     QColor endColor;
     setAnimiStartEndColor(mode, startColor, endColor);
-    changeToColor(startColor, endColor);
+    changeToColor(startColor, endColor, colorSchemeAnimiDuration);
 }
 
 void customButton::enterEvent(QEvent *)
 {
     if(!(type == DYNAMIC || type == DYNAMIC_RADIUS)) return;
     QColor enterColor = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightModeHoveringColor : darkModeHoveringColor);
-    CellUiGlobal::setPropertyAnimation({animi},
-                                 "color",
-                                 color(),
-                                 enterColor,
-                                 animiDuration,
-                                 QEasingCurve::InOutCubic,
-                                 {this},nullptr);
+    changeToColor(m_color, enterColor, hoverAnimiDuration);
 }
 
 void customButton::leaveEvent(QEvent*){
     if(!(type == DYNAMIC || type == DYNAMIC_RADIUS)) return;
     QColor leaveColor = (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
-    CellUiGlobal::setPropertyAnimation({animi},
-                                 "color",
-                                 color(),
-                                 leaveColor,
-                                 animiDuration,
-                                 QEasingCurve::InOutCubic,
-                                 {this},nullptr);
+    changeToColor(m_color, leaveColor, hoverAnimiDuration);
 }
 
 void customButton::setAnimiStartEndColor(CellUiGlobal::COLOR_SCHEME mode, QColor &startColor,

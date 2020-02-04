@@ -29,5 +29,5 @@ void ButtonWithIcon::Init(const QString& fileName, int iconWidth, int iconHeight
     newPixmap = newPixmap.scaled(iconWidth, iconHeight);
 
     icon->setPixmap(newPixmap);
-    icon->setStyleSheet(CHAR2STR("QLabel{background:transparent;}"));
+    icon->setStyleSheet(("QLabel{background:transparent;}"));
 }

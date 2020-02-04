@@ -87,7 +87,6 @@ FORMS += \
     Src/CellUI/Widgets/Forms/Launcher.ui \
     Src/CellUI/Widgets/Forms/LauncherGuideDialog.ui \
     Src/CellUI/Widgets/Forms/LauncherHomepage.ui \
-    Src/CellUI/Widgets/Forms/WorkShop.ui \
     Src/CellUI/Widgets/Forms/WSLoadingDialog.ui \
     Src/CellUI/Widgets/Forms/launcherNewPJDialog.ui
 
@@ -96,7 +95,7 @@ RESOURCES += \
     Src/CellResourcesFiles/Images.qrc \
     Src/CellResourcesFiles/StyleSheets.qrc
 
-INCLUDEPATH += Src/third-part-apis/QScintilla_gpl-2.11.2/Qt4Qt5
+INCLUDEPATH += Src/third-part-apis/QScintilla_gpl-2.11.2/
 
 CONFIG += debug_and_release
 

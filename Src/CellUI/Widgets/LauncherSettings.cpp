@@ -21,7 +21,7 @@
 #define DEBUG
 
 LauncherSettings::LauncherSettings(QWidget *parent) :
-    customFrame(CellUiConst::QSS_CUSTOMFRAME,parent),
+    customFrame(customFrame::_REGULAR, parent),
     mainLayout(new QVBoxLayout(this)),
     blockGeneral(new customOptionBlock(this, CHAR2STR("通用"))),
     blockGeneral_ItemAppear(new customOptionBlockItem),  

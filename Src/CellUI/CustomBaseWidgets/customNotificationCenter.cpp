@@ -11,8 +11,8 @@
 
 #define CELL_DEBUG
 
-notificationCenter::notificationCenter(const QString &qss,QWidget *parent):
-    customGradientChangeFrame(qss,QColor(79,147,184),parent),
+notificationCenter::notificationCenter(QWidget *parent):
+    customGradientChangeFrame(QColor(79,147,184),parent),
     workshop_instancesCount(0),
     label_ready(new QLabel(this)),
     label_identifi(new QLabel(this)),

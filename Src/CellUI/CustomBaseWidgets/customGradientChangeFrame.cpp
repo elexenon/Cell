@@ -7,10 +7,12 @@
 // Of source file directory.
 #include "customGradientChangeFrame.h"
 
-customGradientChangeFrame::customGradientChangeFrame(const QString &qss,const QColor &specialColor,QWidget *parent):
-    customFrame(qss,parent),
+customGradientChangeFrame::customGradientChangeFrame(const QColor &specialColor,QWidget *parent):
+    customFrame(customFrame::_REGULAR, parent),
     specialColor(specialColor)
-{}
+{
+
+}
 
 void customGradientChangeFrame::transCurrState(const customGradientChangeFrame::GRADIENT_STATE &newState)
 {

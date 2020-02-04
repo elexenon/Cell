@@ -18,8 +18,12 @@ class customWinstyleWidget : public QWidget, implements CellWidgetGlobalInterfac
     Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
     explicit     customWinstyleWidget(QWidget *parent = nullptr);
-    virtual void setColor(const QColor &color) override;
+
+    virtual void setBaseQss(const QString &qss) override;
+
 protected:
+    virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
+    virtual void setColor(const QColor &color) override;
     virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
     virtual void mousePressEvent(QMouseEvent *event) override;
     virtual void mouseMoveEvent(QMouseEvent *event) override;

@@ -14,9 +14,9 @@
 //#define CELL_DEBUG
 
 customTitleBar::customTitleBar(QWidget *parent):
-    customFrame(CellUiConst::QSS_CUSTOMFRAME, parent),
+    customFrame(customFrame::_REGULAR, parent),
     mainLayout(new QHBoxLayout),
-    label_title(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this)),
+    label_title(new customLabel(this)),
     icon(new QLabel(this))
 {
     setFixedHeight(50);
@@ -48,7 +48,7 @@ customTitleBar::customTitleBar(QWidget *parent):
 void customTitleBar::setText(const QString &text, const QColor& color)
 {
     label_title->setText(text);
-    label_title->setColor(color);
+    label_title->setBrightDarkModeColor(color, CellUiConst::GRAYLEVEL255);
 }
 
 void customTitleBar::setLeftMargin(int value)

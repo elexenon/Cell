@@ -1,10 +1,10 @@
-// Copyright 2018-2019 CellTek.
+// This Module Declares Universal Values & Functions For Developping.
 //
-// Distributed under the GPL License, Version 3.0.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This File May Be Used Under The Terms Of The GNU General Public License
+// version 3.0 As Published By The Free Software Foundation And Appearing In
+// The File LICENSE Included In The Packaging Of This File.
 #ifndef CELL_UTIL_H
 #define CELL_UTIL_H
 

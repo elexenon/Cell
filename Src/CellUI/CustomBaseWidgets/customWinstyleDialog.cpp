@@ -20,6 +20,22 @@ void customWinstyleDialog::setColor(const QColor &color)
     QDialog::setStyleSheet(QString("QDialog{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
+void customWinstyleDialog::setBaseQss(const QString &qss)
+{
+    (void)qss;
+}
+
+void customWinstyleDialog::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
+{
+    CellUiGlobal::setPropertyAnimation({animi},
+                                     "color",
+                                      startColor,
+                                      targetColor,
+                                      duration,
+                                      easingCurve,
+                                      {this}, nullptr);
+}
+
 void customWinstyleDialog::LoadWinStyle(QWidget *obj)
 {
     HWND hwnd =  (HWND)obj->winId();
@@ -31,16 +47,7 @@ void customWinstyleDialog::LoadWinStyle(QWidget *obj)
 
 void customWinstyleDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
-    if(mode == m_mode) return;
-    m_mode = mode;
-    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
-    CellUiGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                      color(),
-                                      targetColor,
-                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
-                                      QEasingCurve::InOutCubic,
-                                      {this}, nullptr);
+    CellWidgetGlobalInterface::setColorScheme(mode);
 }
 
 bool customWinstyleDialog::nativeEvent(const QByteArray &eventType, void *message, long *result)

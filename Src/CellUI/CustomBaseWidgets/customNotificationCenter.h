@@ -17,7 +17,7 @@ class QLabel;
 class notificationCenter : public customGradientChangeFrame{
     Q_OBJECT
 public:
-    explicit notificationCenter(const QString &qss,QWidget *parent = nullptr);
+    explicit notificationCenter(QWidget *parent = nullptr);
     ~notificationCenter() override = default;
 
     void   Init();

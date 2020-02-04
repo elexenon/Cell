@@ -15,7 +15,7 @@
 #include <QHBoxLayout>
 
 customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
-    customFrame(CellUiConst::QSS_CUSTOMFRAME, parent),
+    customFrame(customFrame::_REGULAR, parent),
     mainLayout(new QVBoxLayout),
     mainBlockLayout(new QVBoxLayout),
     itemsList(new QList<customOptionBlockItem*>)
@@ -29,7 +29,7 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
 
     if(name != " ") addThemeTag(name);
 
-    mainBlock = new customFrame(CellUiConst::QSS_CUSTOMFRAME_RADIUS, this);
+    mainBlock = new customFrame(customFrame::_RADIUS, this);
     mainBlock->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
     mainBlock->setLayout(mainBlockLayout);
 
@@ -39,7 +39,7 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
 
 void customOptionBlock::addThemeTag(const QString &name)
 {
-    theme = new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this);
+    theme = new customLabel(this);
     theme->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
     CellUiGlobal::setCustomTextLabel(theme, CHAR2STR("Microsoft YaHei UI Light"), 15, name);
 

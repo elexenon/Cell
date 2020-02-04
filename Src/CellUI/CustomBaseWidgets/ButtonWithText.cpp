@@ -14,7 +14,7 @@
 ButtonWithText::ButtonWithText(customButton::TYPE type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QVBoxLayout(this)),
-    tag(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this))
+    tag(new customLabel(this))
 {
     setLayout(mainLayout);
 

@@ -24,7 +24,7 @@ LauncherNewPJDialog::LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,Q
     customWinstyleDialog(parent),
     ui(new Ui::LauncherNewPJDialog),
     titleBar(new customTitleBar(this)),
-    label_choose(new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this)),
+    label_choose(new customLabel(this)),
     Btn_Confirm(new ButtonWithText(customButton::DYNAMIC, this)),
     Btn_Cancel(new ButtonWithText(customButton::DYNAMIC, this)),
     cellPage(new NewPJProjectCellPage),

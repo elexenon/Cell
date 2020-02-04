@@ -13,9 +13,11 @@
 #include <QWidget>
 #include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
 
-namespace Ui {
-class LauncherHomepage;
-}
+class QVBoxLayout;
+class QLabel;
+class QPushButton;
+class QScrollArea;
+class QComboBox;
 
 class LauncherHomepage : public QWidget
 {
@@ -23,15 +25,20 @@ class LauncherHomepage : public QWidget
 
 public:
     explicit LauncherHomepage(QWidget *parent = nullptr);
-    ~LauncherHomepage();
+    ~LauncherHomepage() = default;
 
 private:
-    Ui::LauncherHomepage *ui;
+    QVBoxLayout *mainLayout;
+    QScrollArea *scrollArea;
+    QPushButton *BtnGrid;
+    QPushButton *BtnList;
+    QLabel      *labelRecentPJ;
+    QLabel      *labelSort;
+    QFrame      *splitterLine;
+    QComboBox   *cBoxSort;
 
-private:
-    CellUiGlobal::COLOR_SCHEME m_mode;
+    CellUiGlobal::COLOR_SCHEME m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
 
-private:
     void Init();
     void setAllGraphBtnsUnchecked();
 

@@ -20,16 +20,16 @@ public:
     virtual ~CellWidgetGlobalInterface() = default;
 
     inline const QColor color() const { return m_color; }
-    inline void         setColorAnimiDuration(int value) { this->colorChangeAnimiDuration = value; }
+    inline void         setColorAnimiDuration(int value) { this->colorSchemeAnimiDuration = value; }
     inline void         setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
     virtual void        setColor(const QColor &color) = 0;
     virtual void        setBaseQss(const QString& qss) = 0;
-    virtual void        changeToColor(const QColor& startColor, const QColor& targetColor) = 0;
+    virtual void        changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
     void                setBrightDarkModeColor(const QColor& b, const QColor& d);
 
 protected:
     CellUiGlobal::COLOR_SCHEME m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
-    int                        colorChangeAnimiDuration = CellUiGlobal::CELL_GLOBALANIMIDURATION;
+    int                        colorSchemeAnimiDuration = CellUiGlobal::CELL_GLOBALANIMIDURATION;
     QEasingCurve               easingCurve = QEasingCurve::InOutCubic;
     QColor                     m_color;
     QColor                     brightmodeColor;

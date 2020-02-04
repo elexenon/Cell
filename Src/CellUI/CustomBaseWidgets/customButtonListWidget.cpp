@@ -15,7 +15,7 @@
 #include <QButtonGroup>
 
 customButtonListWidget::customButtonListWidget(QWidget *parent) :
-    customFrame(CellUiConst::QSS_CUSTOMFRAME, parent)
+    customFrame(customFrame::_REGULAR, parent)
   , mainLayout(new QVBoxLayout(this))
   , buttons(new QList<customListButton*>)
   , btnGroup(new QButtonGroup(this))
@@ -40,7 +40,7 @@ void customButtonListWidget::addButton(const QString &text, const QColor& b, con
     mainLayout->addWidget(btn);
 }
 
-const customListButton* customButtonListWidget::getButton(int index)
+const customListButton* customButtonListWidget::getButton(int index) const
 {
     return buttons->at(index);
 }
@@ -70,7 +70,7 @@ void customButtonListWidget::setSpacing(int spacing)
     mainLayout->setSpacing(spacing);
 }
 
-void customButtonListWidget::clickButton(int index)
+void customButtonListWidget::clickButton(int index) const
 {
     buttons->at(index)->click();
 }
@@ -83,7 +83,7 @@ void customButtonListWidget::setButtonCheckable(int index, bool value)
 
 void customButtonListWidget::addThemeHead(const QString& theme)
 {
-    label_theme = new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this);
+    label_theme = new customLabel(this);
     CellUiGlobal::setCustomTextLabel(label_theme, CHAR2STR("Microsoft YaHei UI"), 15, theme);
     label_theme->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
     line_splitter = CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine);

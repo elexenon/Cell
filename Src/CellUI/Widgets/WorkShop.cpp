@@ -32,17 +32,17 @@
 #define CELL_DEBUG
 
 Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
-    customWinstyleWidget(parent),
+    QWidget(parent),
     mainLayout(new QVBoxLayout(this)),
     loadingDialog(new WSLoadingDialog),
     menuBar(new QMenuBar),
-    leftBlock(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
-    rightBlock(new customFrame(CellUiConst::QSS_CUSTOMFRAME, this)),
-    statusBar(new customGradientChangeFrame(CellUiConst::QSS_CUSTOMFRAME, QColor(74,207,90) ,this)),
+    leftBlock(new customFrame(customFrame::_REGULAR, this)),
+    rightBlock(new customFrame(customFrame::_REGULAR, this)),
+    statusBar(new customGradientChangeFrame(QColor(74,207,90) ,this)),
     mainEditor(new QsciScintilla(this)),
     ctrlS(new QShortcut(this))
 {
-    ui->setupUi(this);
+    setWindowFlag(Qt::Window);
     InitWorkshop();
     if(m_mode != mainWindow_mode)
         setColorScheme(mainWindow_mode);
@@ -50,8 +50,8 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
 
 Workshop::~Workshop()
 {
-    delete ui;
-    delete PJEntity;
+    if(PJEntity != nullptr)
+        delete PJEntity;
 }
 
 void Workshop::InitWorkshop()
@@ -59,7 +59,6 @@ void Workshop::InitWorkshop()
     // Functional.
     this->resize(1400, 800);
     setAttribute(Qt::WA_DeleteOnClose);
-    setLayout(mainLayout);
 
     mainLayout->setSpacing(0);
     mainLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
@@ -67,7 +66,7 @@ void Workshop::InitWorkshop()
     mainLayout->addWidget(menuBar);
 
     using CellEntityTools::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopMenuBar.css"));
+    styleSheetLoader->setStyleSheetName(CHAR2STR("WorkshopMenuBar.css"));
     menuBar->setStyleSheet(styleSheetLoader->styleSheet());
     menuBar->setFont(QFont("Microsoft YaHei UI"));
     menuBar->setFixedHeight(27);
@@ -91,12 +90,12 @@ void Workshop::InitWorkshop()
     menuBar->addMenu(buildMenu);
     menuBar->addMenu(helpMenu);
 
-    splitter = new QSplitter(this);
+    QSplitter *splitter = new QSplitter(this);
     splitter->setOrientation(Qt::Horizontal);
     splitter->setOpaqueResize(true);
     splitter->setHandleWidth(1);
     splitter->setChildrenCollapsible(false);
-    splitter->setStyleSheet(QStringLiteral("QSplitter::handle{background-color:grey;}"));
+    splitter->setStyleSheet(CHAR2STR("QSplitter::handle{background-color:grey;}"));
 
     mainEditor->setMarginWidth(0, 62);
     mainEditor->setUtf8(true);
@@ -106,23 +105,28 @@ void Workshop::InitWorkshop()
     mainEditor->setWrapVisualFlags(QsciScintilla::WrapFlagByText, QsciScintilla::WrapFlagNone, 0);
     mainEditor->setTabWidth(4);
     mainEditor->setCaretLineVisible(true);
+    mainEditor->setFrameShape(QFrame::NoFrame);
+    mainEditor->setFont(QFont("Courier New", 11));
+    mainEditor->setPaper(QColor(249,250,250));
+    mainEditor->setMarginsBackgroundColor(QColor(240,240,240));
+    mainEditor->setCaretLineBackgroundColor(QColor(240,240,240));
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditorVerticalScrollBar.css"));
+    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("WorkshopEditorVerticalScrollBar.css"));
     QScrollBar *verticalBar = mainEditor->verticalScrollBar();
     verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("WorkshopEditorHorizontalScrollBar.css"));
+    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("WorkshopEditorHorizontalScrollBar.css"));
     QScrollBar *horizontalBar = mainEditor->horizontalScrollBar();
     horizontalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
     QsciLexer *lexCPP = new QsciLexerCPP();
-    lexCPP->setFont(QFont(QStringLiteral("Courier New"), 11));
+    lexCPP->setFont(QFont(CHAR2STR("Courier New"), 10));
     mainEditor->setLexer(lexCPP);
 
     setEventConnections();
 
     leftBlock->setMinimumWidth(300);
-    QVBoxLayout *leftBlockLayout = new QVBoxLayout(this);
+    QVBoxLayout *leftBlockLayout = new QVBoxLayout;
     leftBlockLayout->setMargin(0);
     leftBlockLayout->addStretch(1);
     leftBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
@@ -130,7 +134,7 @@ void Workshop::InitWorkshop()
     leftBlock->setLayout(leftBlockLayout);
 
     rightBlock->setMinimumWidth(300);
-    QVBoxLayout *rightBlockLayout = new QVBoxLayout(this);
+    QVBoxLayout *rightBlockLayout = new QVBoxLayout;
     rightBlockLayout->setMargin(0);
     rightBlockLayout->addStretch(1);
     rightBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
@@ -146,7 +150,7 @@ void Workshop::InitWorkshop()
 
     mainLayout->addWidget(splitter);
 
-    statusBar->setStyleSheet(QStringLiteral("QFrame{background-color:rgb(210,210,210);}"));
+    statusBar->setStyleSheet(CHAR2STR("QFrame{background-color:rgb(210,210,210);}"));
     statusBar->setMaximumSize(65535,29);
     statusBar->setColor(CellUiConst::GRAYLEVEL218);
 
@@ -156,30 +160,22 @@ void Workshop::InitWorkshop()
     cntChar = new QLabel(statusBar);
     labelFormat = new QLabel(statusBar);
 
-    // Main Editor.
-    mainEditor->setFrameShape(QFrame::NoFrame);
-    mainEditor->setFont(QFont("Courier New", 11));
-    mainEditor->setPaper(QColor(249,250,250));
-
-    mainEditor->setMarginsBackgroundColor(QColor(240,240,240));
-    mainEditor->setCaretLineBackgroundColor(QColor(240,240,240));
-
     // Two Blocks.
     CellUiGlobal::multiModulesOneStyleSheet({leftBlock, rightBlock},
-                                       QStringLiteral("QFrame{background-color:rgb(235,235,235);}"));
+                                       CHAR2STR("QFrame{background-color:rgb(235,235,235);}"));
 
     // Labels.
     cntRow->setGeometry(370, 0, cntRow->width(), cntRow->height());
-    cntRow->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
-    cntRow->setText(QStringLiteral("Row: 0"));
+    cntRow->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
+    cntRow->setText(CHAR2STR("Row: 0"));
 
     cntChar->setGeometry(450, 0, cntChar->width(), cntChar->height());
-    cntChar->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
-    cntChar->setText(QStringLiteral("Char: 0"));
+    cntChar->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
+    cntChar->setText(CHAR2STR("Char: 0"));
 
     labelFormat->setGeometry(1030 - labelFormat->width(), 0, labelFormat->width(), labelFormat->height());
-    labelFormat->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
-    labelFormat->setText(QStringLiteral("Format: UTF-8"));
+    labelFormat->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
+    labelFormat->setText(CHAR2STR("Format: UTF-8"));
 
     // Functional.
     loadingDialog->show();
@@ -246,6 +242,22 @@ void Workshop::setColor(const QColor& color)
 {
     CellWidgetGlobalInterface::setColor(color);
     setStyleSheet(QString("background-color:rgb(%1,%2,%3);").arg(color.red()).arg(color.green()).arg(color.blue()));
+}
+
+void Workshop::setBaseQss(const QString &qss)
+{
+    (void)qss;
+}
+
+void Workshop::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
+{
+    CellUiGlobal::setPropertyAnimation({animi},
+                                 "color",
+                                 startColor,
+                                 targetColor,
+                                 duration,
+                                 easingCurve,
+                                 {this},nullptr);
 }
 
 void Workshop::closeEvent(QCloseEvent*)

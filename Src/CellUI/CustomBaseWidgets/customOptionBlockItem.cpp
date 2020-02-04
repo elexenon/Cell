@@ -27,7 +27,7 @@ customOptionBlockItem::customOptionBlockItem(QWidget *parent,  const QString& ta
 void customOptionBlockItem::setTag(const QString &text)
 {
     tagLen = text.length();
-    tag = new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this);
+    tag = new customLabel(this);
     tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 17, text);
     mainLayout->addWidget(tag);
@@ -43,7 +43,7 @@ void customOptionBlockItem::setOptionWidget(QWidget *widget)
 
 void customOptionBlockItem::setHint(const QString &text)
 {
-    hint = new customLabel(CellUiConst::QSS_CUSTOMLABEL_TRANSPARENT, this);
+    hint = new customLabel(this);
     hint->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
     CellUiGlobal::setCustomTextLabel(hint, CHAR2STR("Microsoft YaHei UI Light"), 13, text+"。");
     mainLayout->addWidget(hint);
@@ -82,6 +82,23 @@ void customOptionBlockItem::setSpacing(int value)
 const QMargins customOptionBlockItem::getMargins()
 {
     return mainLayout->contentsMargins();
+}
+
+void customOptionBlockItem::setColor(const QColor &color)
+{
+    CellWidgetGlobalInterface::setColor(color);
+}
+
+void customOptionBlockItem::setBaseQss(const QString &qss)
+{
+    (void)qss;
+}
+
+void customOptionBlockItem::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
+{
+    (void)startColor;
+    (void)targetColor;
+    (void)duration;
 }
 
 void customOptionBlockItem::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)

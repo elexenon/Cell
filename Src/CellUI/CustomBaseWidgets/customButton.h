@@ -24,7 +24,7 @@ public:
     explicit     customButton(TYPE type = STATIC,QWidget *parent = nullptr);
     virtual void setColor(const QColor &color) override;
     virtual void setBaseQss(const QString &qss) override;
-    virtual void changeToColor(const QColor& startColor, const QColor &targetColor) override;
+    virtual void changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
 
 private:
     void setAnimiStartEndColor(CellUiGlobal::COLOR_SCHEME mode, QColor&, QColor&);
@@ -48,13 +48,13 @@ Dynamic_Public:
     inline
     void setDarkModeHoveringColor(const QColor &color)   { darkModeHoveringColor = color; }
     inline
-    void setAnimationDuration(int dur) { animiDuration = dur; }
+    void setAnimationDuration(int dur) { hoverAnimiDuration = dur; }
 Dynamic_Protected:
     virtual void enterEvent(QEvent*) override;
     virtual void leaveEvent(QEvent*) override;
     QColor  brightModeHoveringColor;
     QColor  darkModeHoveringColor;
-    int     animiDuration;
+    int     hoverAnimiDuration = 300;
 
 Static_Public:
     inline

@@ -49,22 +49,22 @@ void LauncherGuideDialog::Init()
 
     ui->stackedWidget->setAutoFillBackground(true);
 
-    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + QStringLiteral("InfoDisplayWeb W01 Medium.ttf"));
+    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + CHAR2STR("InfoDisplayWeb W01 Medium.ttf"));
     QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
 
-    titleBar->setFixedHeight(55);
+    titleBar->setFixedHeight(50);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
-    titleBar->setText(QString::fromUtf8("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
+    titleBar->setText(CHAR2STR("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
     titleBar->setFont(fontInfo, 23);
-    titleBar->setIcon(QString::fromUtf8("CELL_logo_small"), 33, 29);
+    titleBar->setIcon(CHAR2STR("CELL_logo_small"), 33, 29);
     titleBar->setLeftMargin(15);
 
-    ui->checkBox_showUp->setFont(QFont(QStringLiteral("Microsoft YaHei UI Light")));
-    ui->checkBox_showUp->setStyleSheet(QStringLiteral("QCheckBox{color:#798186;background-color: transparent;}"));
+    ui->checkBox_showUp->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
+    ui->checkBox_showUp->setStyleSheet(CHAR2STR("QCheckBox{color:#798186;background-color: transparent;}"));
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherGuideCloseBtn_Bright.css"));
+    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherGuideCloseBtn_Bright.css"));
     ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-    ui->Btn_close->setFont(QFont(QStringLiteral("Microsoft YaHei UI")));
+    ui->Btn_close->setFont(QFont(CHAR2STR("Microsoft YaHei UI")));
 }
 
 void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
@@ -73,11 +73,11 @@ void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
     m_mode = mode;
     //titleBar->setColorScheme(mode);
     if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
-        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherGuideCloseBtn_Dark.css"));
+        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherGuideCloseBtn_Dark.css"));
         ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
     else{
-        CellEntityTools::styleSheetLoader->setStyleSheetName(QStringLiteral("LauncherGuideCloseBtn_Bright.css"));
+        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherGuideCloseBtn_Bright.css"));
         ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
     }
 }

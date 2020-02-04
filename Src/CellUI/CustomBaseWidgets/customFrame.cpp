@@ -6,12 +6,16 @@
 //
 // Of source file directory.
 #include "customFrame.h"
+#include "../../CellCore/Kits/StyleSheetLoader.hpp"
 
 #include <QDebug>
 
-customFrame::customFrame(QWidget *parent):
-    QFrame(parent)
-{}
+customFrame::customFrame(CUSTOMFRAME_TYPE type, QWidget *parent):
+    QFrame(parent),
+    m_type(type)
+{
+    setBaseQss("");
+}
 
 void customFrame::setColor(const QColor &color)
 {
@@ -21,18 +25,22 @@ void customFrame::setColor(const QColor &color)
 
 void customFrame::setBaseQss(const QString& qss)
 {
-    if(qss == CellUiConst::QSS_CUSTOMFRAME_RADIUS)
-        setObjectName(CHAR2STR("customFrameRadius"));
-    CellWidgetGlobalInterface::setBaseQss(qss);
+    (void)qss;
+    setObjectName(CHAR2STR("customFrameRadius"));
+    QString qssFileName = (m_type == CUSTOMFRAME_TYPE::_REGULAR ? "CustomFrame.css" : "CustomFrameRadius.css");
+
+    using CellEntityTools::styleSheetLoader;
+    styleSheetLoader->setStyleSheetName(qssFileName);
+    CellWidgetGlobalInterface::setBaseQss(styleSheetLoader->styleSheet());
 }
 
-void customFrame::changeToColor(const QColor& startColor, const QColor &targetColor)
+void customFrame::changeToColor(const QColor& startColor, const QColor &targetColor, int duration)
 {
     CellUiGlobal::setPropertyAnimation({animi},
                                  "color",
                                  startColor,
                                  targetColor,
-                                 colorChangeAnimiDuration,
+                                 duration,
                                  easingCurve,
                                  {this},nullptr);
 }

@@ -13,7 +13,7 @@
 class customGradientChangeFrame : public customFrame{
     Q_OBJECT
 public:
-    explicit customGradientChangeFrame(const QString &qss,const QColor &specialColor,QWidget *parent = nullptr);
+    explicit customGradientChangeFrame(const QColor &specialColor,QWidget *parent = nullptr);
     virtual ~customGradientChangeFrame() override = default;
     enum GRADIENT_STATE{
         _NORMAL,

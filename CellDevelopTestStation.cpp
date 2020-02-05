@@ -33,9 +33,6 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     QComboBox *box9 = new QComboBox;
     QComboBox *box10 = new QComboBox;
 
-
-
-
     customOptionBlockItem *item = new customOptionBlockItem;
     item->setTag("的的黑洞啊实打实啊都是大大阿德撒旦");
     item->setOptionWidget(box);

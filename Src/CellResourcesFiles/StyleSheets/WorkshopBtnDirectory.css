@@ -1,0 +1,8 @@
+QPushButton{
+	border-image: url(:/images/Images/iconDirectory.png);
+	background:transparent;
+}
+QPushButton:checked{
+	border-image: url(:/images/Images/iconDirectoryChecked.png);
+	background:transparent;
+}

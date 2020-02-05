@@ -49,10 +49,10 @@ Launcher::Launcher(QWidget *parent)
     , testForm(new CellDevelopTestStation(this))
 #endif
     , currentPage(PAGE_TYPE::_HOME)
-    , m_mode(CellUiGlobal::COLOR_SCHEME::_BRIGHT)
 {
     ui->setupUi(this);
     InitLauncher();
+    setEventConnections();
 }
 Launcher::~Launcher()
 {
@@ -160,9 +160,6 @@ void Launcher::InitLauncher()
 
     guideDialog = new LauncherGuideDialog(this);
     guideDialog->show();
-
-    setEventConnections();
-
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
     if((currentTime.hour() >= 16 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
@@ -178,7 +175,7 @@ void Launcher::InitLauncher()
 void Launcher::setEventConnections()
 {
     // Set connections between SettingsPage & ColorScheme-change-enabled modules
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), notificationCenter, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, &LauncherSettings::enableColorScheme, notificationCenter, &notificationCenter::setColorScheme);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), guideDialog, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), Btn_NewProject, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), Btn_OpenProject, SLOT(setColorScheme(COLOR_SCHEME)));

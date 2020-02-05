@@ -29,6 +29,8 @@ class CellProjectEntity;
 class QShortcut;
 class customGradientChangeFrame;
 class QMenuBar;
+class QTreeView;
+class QStackedWidget;
 
 class Workshop : public QWidget, implements CellWidgetGlobalInterface
 {
@@ -54,6 +56,11 @@ private:
     customFrame               *rightBlock;
     customGradientChangeFrame *statusBar;
     QsciScintilla             *mainEditor;
+    QStackedWidget            *leftStackedWidget;
+    QTreeView                 *treeView;
+    QPushButton               *btnDirectory;
+    QPushButton               *btnWarning;
+    QPushButton               *btnToolChain;
 
     QLabel *cntRow;
     QLabel *cntChar;
@@ -67,14 +74,18 @@ private:
     bool               codeModified = false;
 
 private:
-    void InitWorkshop();
+    void initWorkshop();
     void setEventConnections();
+    void initTreeView();
 
 private slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
     void updateStatusBar();
     void saveFile();
     void checkCodeModifiedState();
+    void btnDirectoryClicked();
+    void btnWarrningClicked();
+    void btnToolChainClicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event) override;

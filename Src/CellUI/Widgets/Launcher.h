@@ -73,7 +73,6 @@ private:
 private:
     bool                       isMaxSize = false;
     PAGE_TYPE                  currentPage;
-    CellUiGlobal::COLOR_SCHEME m_mode;
 
 private:
     void InitLauncher();

@@ -18,6 +18,8 @@ class QLabel;
 class QPushButton;
 class QScrollArea;
 class QComboBox;
+class QTableView;
+class QStackedWidget;
 
 class LauncherHomepage : public QWidget
 {
@@ -28,24 +30,25 @@ public:
     ~LauncherHomepage() = default;
 
 private:
-    QVBoxLayout *mainLayout;
-    QScrollArea *scrollArea;
-    QPushButton *BtnGrid;
-    QPushButton *BtnList;
-    QLabel      *labelRecentPJ;
-    QLabel      *labelSort;
-    QFrame      *splitterLine;
-    QComboBox   *cBoxSort;
+    QVBoxLayout    *mainLayout;
+    QStackedWidget *stackedWidget;
+    QTableView     *tableView;
+    QScrollArea    *scrollArea;
+    QPushButton    *btnGrid;
+    QPushButton    *btnList;
+    QLabel         *iconRecentPJ;
+    QLabel         *labelRecentPJ;
 
     CellUiGlobal::COLOR_SCHEME m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
 
     void Init();
-    void setAllGraphBtnsUnchecked();
+    void setEventConnections();
+    void initTableView();
 
 private slots:
     void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
-    void on_Btn_grid_clicked();
-    void on_Btn_list_clicked();
+    void Btn_grid_clicked();
+    void Btn_list_clicked();
 };
 
 #endif // LauncherHomepage_H

@@ -75,8 +75,9 @@ extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,
                                     int duration,
                                     CellUiGlobal::FADE_TYPE type);
 extern QFrame* getLine(CellUiGlobal::LINE_TYPE type);
-extern void setCustomTextLabel(QLabel *label, const QString& fontName, int fontPixelSize, const QString& text = " ");
-extern void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss);
+extern void    setCustomTextLabel(QLabel *label, const QString& fontName, int fontPixelSize, const QString& text = " ");
+extern void    multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss);
+extern QFont   getFont(const QString &fontName, int pixelSize);
 } // namespace CellUiGlobal{
 
 namespace CellEntityTools{

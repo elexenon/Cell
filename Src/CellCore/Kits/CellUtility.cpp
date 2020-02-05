@@ -33,7 +33,7 @@ const QColor GRAYLEVEL30(30, 30, 30);
 const QColor GRAYLEVEL247(247, 247, 247);
 const QColor GRAYLEVEL70(70,70,70);
 const QColor GRAYLEVEL100(100,100,100);
-const QColor BTNHOVERINGCOLOR(79,147,184);
+const QColor CELLTHEMECOLOR(79,147,184);
 } // namespace CellUiConst{
 
 namespace CellEntityTools{
@@ -120,5 +120,11 @@ void setCustomTextLabel(QLabel *label, const QString& fontName, int fontPixelSiz
     label->setFont(font);
     if(text == " ") return;
     label->setText(text);
+}
+
+QFont getFont(const QString &fontName, int pixelSize){
+    QFont tmp(fontName);
+    tmp.setPixelSize(pixelSize);
+    return tmp;
 }
 } // namespace CellUiGlobal{

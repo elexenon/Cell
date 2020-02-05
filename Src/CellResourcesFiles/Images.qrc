@@ -40,8 +40,12 @@
         <file>Images/arrow_down_selected.png</file>
         <file>Images/arrow_right.png</file>
         <file>Images/arrow_right_selected.png</file>
-        <file>Images/icon_files.png</file>
-        <file>Images/icon_toolchain.png</file>
-        <file>Images/icon_warrnings.png</file>
+        <file>Images/iconDirectory.png</file>
+        <file>Images/iconDirectoryChecked.png</file>
+        <file>Images/iconToolChain.png</file>
+        <file>Images/iconToolChainChecked.png</file>
+        <file>Images/iconWarrnings.png</file>
+        <file>Images/iconWarrningsChecked.png</file>
+        <file>Images/iconRecentPJ.png</file>
     </qresource>
 </RCC>

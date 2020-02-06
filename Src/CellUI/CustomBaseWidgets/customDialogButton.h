@@ -13,28 +13,18 @@
 class QHBoxLayout;
 class customLabel;
 class ButtonWithIcon;
-class customOptionBlock;
-class customOptionBlockItem;
 
-class customComboBox : public customFrame{
+class customDialogButton : public customFrame{
     Q_OBJECT
 public:
-    explicit customComboBox(const QString& state, QWidget *parent = nullptr);
-    void     setOptionBlockParent(QWidget* parent);
-    void     addItem(customOptionBlockItem *item,  bool addSplitterLine = false);
-    void     tidyItemTags() const;
-    void     setOptionBlockStartEndPos(const QPoint &posS, const QPoint &posE);
+    explicit customDialogButton(const QString& state, QWidget *parent = nullptr);
+    inline
+    const ButtonWithIcon* getTrigger() { return trigger;}
 
 protected:
-    virtual void resizeEvent(QResizeEvent *event) override;
-
-    QPoint                         optionBlockStartPos;
-    QPoint                         optionBlockEndPos;
     customLabel                   *currState;
     ButtonWithIcon                *trigger;
-    customOptionBlock             *optionBlock;
     QHBoxLayout                   *mainLayout;
-    QList<customOptionBlockItem*> *itemsList;
 
 };
 

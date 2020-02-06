@@ -11,15 +11,24 @@
 class CellProjectEntity{
 public:
     enum CellProjectEntityType{
-        _WORKSHOP
+        _CELLDEEPLEARNING, _PREDICTEARTHQUAKE,
+        _CPP             , _PYTHON,
+        _EMPTY
     };
-    explicit CellProjectEntity(const QString &name, const CellProjectEntityType &type);
+    explicit CellProjectEntity();
     ~CellProjectEntity() = default;
+
+    inline void setName(const QString &name) { this->name = name; }
+    inline void setPath(const QString &path) { this->path = path; }
+    inline void setType(const CellProjectEntityType &type) { this->type = type; }
+    inline void setsize(const QString &size) { this->size = size; }
+    inline void setModifiedTime(const QString &time) { this->modifiedTime = time; }
 private:
     CellProjectEntityType type;
-    QString name;
-    QString creationTime;   
-    QString code;
+    QString               name;
+    QString               modifiedTime;
+    QString               path;
+    QString               size;
 };
 
 #endif // CELLPROJECT_H

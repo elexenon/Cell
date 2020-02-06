@@ -14,8 +14,11 @@ class customLabel;
 class QComboBox;
 class customOptionBlock;
 class customOptionBlockItem;
-class customComboBox;
+class customDialogButton;
 class QVBoxLayout;
+class customLineEdit;
+class ButtonWithIcon;
+class CellProjectEntity;
 
 class NewPJProjectCellPage : public customFrame{
     Q_OBJECT
@@ -28,13 +31,24 @@ private:
     customLabel           *label_title;
     customOptionBlock     *blockConfig;
     customOptionBlockItem *blockConfig_Name;
-    customComboBox        *cBoxName;
+    customLineEdit        *lineEditName;
     customOptionBlockItem *blockConfig_Loca;
-    customComboBox        *cBoxLoca;
+    customDialogButton    *dialogButton;
+    ButtonWithIcon        *buttonForward;
+
+    QString path;
+    QString name;
 
 private:
     void Init();
     void setEventConnections();
+
+signals:
+    void setProjectDone(const QString &name, const QString &path);
+
+private slots:
+    void BtnNameClicked();
+    void BtnForwardClicked();
 };
 
 #endif // NEWPJPROJECTPAGE_H

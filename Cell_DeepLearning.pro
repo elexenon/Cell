@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     CellDevelopTestStation.cpp \
+    Src/CellCore/CellSqlManager.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconText.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIcon.cpp \
@@ -23,8 +24,9 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.cpp \
     Src/CellUI/CustomBaseWidgets/customButton.cpp \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
-    Src/CellUI/CustomBaseWidgets/customComboBox.cpp \
+    Src/CellUI/CustomBaseWidgets/customDialogButton.cpp \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
+    Src/CellUI/CustomBaseWidgets/customLineEdit.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
@@ -50,6 +52,7 @@ SOURCES += \
 
 HEADERS += \
     CellDevelopTestStation.h \
+    Src/CellCore/CellSqlManager.h \
     Src/CellCore/Kits/CellGlobalMacros.h \
     Src/CellCore/Kits/CellUtility.h \
     Src/CellCore/Kits/WindWMAPI.h \
@@ -62,10 +65,11 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.h \
     Src/CellUI/CustomBaseWidgets/customButton.h \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.h \
-    Src/CellUI/CustomBaseWidgets/customComboBox.h \
+    Src/CellUI/CustomBaseWidgets/customDialogButton.h \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
+    Src/CellUI/CustomBaseWidgets/customLineEdit.h \
     Src/CellUI/CustomBaseWidgets/customListButton.h \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
@@ -94,11 +98,13 @@ RESOURCES += \
     Src/CellResourcesFiles/Images.qrc \
     Src/CellResourcesFiles/StyleSheets.qrc
 
-INCLUDEPATH += Src/third-part-apis/QScintilla_gpl-2.11.2/
+INCLUDEPATH += Src/third-part-apis/QScintilla_gpl-2.11.2/ \
+               Src/third-part-apis/Sqlite3/
 
 CONFIG += debug_and_release
 
 # Libs Path has to be an absolute directory.
+LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\sqlite3.dll
 CONFIG(debug, debug | release){
     LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5d.dll
 }else{

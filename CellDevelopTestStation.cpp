@@ -11,7 +11,7 @@
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIcon.h"
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIconText.h"
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.h"
-#include "Src/CellUI/CustomBaseWidgets/customComboBox.h"
+#include "Src/CellUI/CustomBaseWidgets/customDialogButton.h"
 
 CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     QWidget(parent),
@@ -126,8 +126,8 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     btn4->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已有的Cell文档"));
     btn4->setFixedSize(250, 81);
 
-    customComboBox *customComBox = new customComboBox(CHAR2STR("FUSION"), this);
-    customComBox->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
+    customDialogButton *customDB = new customDialogButton(CHAR2STR("FUSION"), this);
+    customDB->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(block1);
@@ -135,7 +135,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     layout->addWidget(btn2);
     layout->addWidget(btn3);
     layout->addWidget(btn4);
-    layout->addWidget(customComBox);
+    layout->addWidget(customDB);
 
     setLayout(layout);
 }

@@ -9,6 +9,7 @@
 #include "ui_LauncherHomepage.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../CustomBaseWidgets/customOptionBlock.h"
+#include "../../CellCore/CellSqlManager.h"
 
 #include <QScrollBar>
 #include <QHBoxLayout>
@@ -22,7 +23,7 @@
 #include <QTableView>
 #include <QStackedWidget>
 #include <QStandardItem>
-#include <qstandarditemmodel.h>
+#include <QStandardItemModel>
 
 using namespace CellUiConst;
 
@@ -111,31 +112,30 @@ void LauncherHomepage::setEventConnections()
 
 void LauncherHomepage::initTableView()
 {
+    // Set The Header Of Standard Item Model.
     QStringList headersList;
     headersList << CHAR2STR("名称") << CHAR2STR("修改时间") << CHAR2STR("大小") << CHAR2STR("类型");
     QStandardItemModel *itemModel = new QStandardItemModel;
     itemModel->setHorizontalHeaderLabels(headersList);
-    itemModel->setItem(0, 0, new QStandardItem("流体模拟"));
-    itemModel->setItem(0, 1, new QStandardItem("2020-01-28"));
-    itemModel->setItem(0, 2, new QStandardItem("758Kb"));
-    itemModel->setItem(0, 3, new QStandardItem("Cell DeepLearning"));
-    itemModel->setItem(1, 0, new QStandardItem("基于Cell DeepLearning的地震预测系统"));
-    itemModel->setItem(1, 1, new QStandardItem("2020-01-31"));
-    itemModel->setItem(1, 2, new QStandardItem("1.5MB"));
-    itemModel->setItem(1, 3, new QStandardItem("Cell DeepLearning"));
-    itemModel->setItem(2, 0, new QStandardItem("Identity Cat Photos"));
-    itemModel->setItem(2, 1, new QStandardItem("2020-02-05"));
-    itemModel->setItem(2, 2, new QStandardItem("109Kb"));
-    itemModel->setItem(2, 3, new QStandardItem("Cell DeepLearning"));
-    itemModel->setItem(3, 0, new QStandardItem("噪声分析"));
-    itemModel->setItem(3, 1, new QStandardItem("2020-01-09"));
-    itemModel->setItem(3, 2, new QStandardItem("2.9MB"));
-    itemModel->setItem(3, 3, new QStandardItem("Cell DeepLearning"));
 
+    // Start Sql.
+    CellSqlManager recentPJSql;
+    recentPJSql.setDbPath("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\build-Cell_DeepLearning-Desktop_Qt_5_12_6_MinGW_32_bit-Debug\\debug\\CellDB.db");
+    const QStringList *tuple = nullptr;
+    while(!(tuple = recentPJSql.fetchRecentPJ())->isEmpty()){
+        QList<QStandardItem*> itemList;
+        for(int i = 0;i < 5;i ++){
+            // Project Path Is Not Useful In Table View.
+            if(i == 3) continue;
+            itemList.append(new QStandardItem(tuple->at(i)));
+        }
+        itemModel->appendRow(itemList);
+    }
+
+    // Set TableView.
     using CellEntityTools::styleSheetLoader;
     styleSheetLoader->setStyleSheetName(CHAR2STR("TreeViewBrightMode.css"));
     tableView->setStyleSheet(styleSheetLoader->styleSheet());
-
     tableView->setFrameShape(QFrame::NoFrame);
     tableView->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
     tableView->setAlternatingRowColors(true);

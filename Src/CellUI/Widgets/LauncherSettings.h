@@ -20,7 +20,7 @@ class QPropertyAnimation;
 class QGraphicsDropShadowEffect;
 class customOptionBlock;
 class customOptionBlockItem;
-class customComboBox;
+class customDialogButton;
 class customButton;
 class QVBoxLayout;
 
@@ -44,11 +44,7 @@ private:
     customOptionBlock       *blockGeneral;
     customOptionBlockItem   *blockGeneral_ItemAppear;
         // ComboBox Appear Combination.
-        customComboBox          *cBoxAppear;
-        customOptionBlockItem   *cBoxAppear_ItemFusion;
-        customButton            *cBoxAppear_BtnFusion;
-        customOptionBlockItem   *cBoxAppear_ItemDark;
-        customButton            *cBoxAppear_BtnDark;
+        customDialogButton          *cBoxAppear;
     customOptionBlockItem   *blockGeneral_ItemAuto;
 
 signals:

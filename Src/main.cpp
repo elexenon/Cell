@@ -11,12 +11,12 @@
 #include <QSharedMemory>
 #include <QMessageBox>
 #include <QSplashScreen>
+#include <iostream>
 #define CELL_DEBUG
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
     /*
     QSharedMemory mem("Cell Launcher");
     if(!mem.create(1)){
@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
         return 0;
     }
     */
-
     // This operation is to register our custom property "COLOR_SCHEME".
     qRegisterMetaType<CellUiGlobal::COLOR_SCHEME>("COLOR_SCHEME");
 

@@ -35,5 +35,6 @@ public:\
 
 
 #define CHAR2STR(arg) (QStringLiteral(arg))
+#define CMPCHAR(arg) (QLatin1String(arg))
 
 #endif // CELLGLOBALMACROS_H

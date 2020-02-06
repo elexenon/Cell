@@ -47,5 +47,6 @@
         <file>Images/iconWarrnings.png</file>
         <file>Images/iconWarrningsChecked.png</file>
         <file>Images/iconRecentPJ.png</file>
+        <file>Images/iconForward.png</file>
     </qresource>
 </RCC>

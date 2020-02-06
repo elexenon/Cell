@@ -7,25 +7,21 @@
 // Of source file directory.
 #include "../../CellCore/Kits/CellUtility.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
-#include "customComboBox.h"
+#include "customDialogButton.h"
 #include "customLabel.h"
 #include "ButtonWithIcon.h"
 #include "customOptionBlock.h"
 
 #include <QHBoxLayout>
 
-customComboBox::customComboBox(const QString &state, QWidget *parent):
+customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     customFrame(customFrame::_RADIUS, parent),
     currState(new customLabel(this)),
     trigger(new ButtonWithIcon(customButton::DYNAMIC_RADIUS, this)),
-    optionBlock(new customOptionBlock),
-    mainLayout(new QHBoxLayout(this)),
-    itemsList(new QList<customOptionBlockItem*>)
+    mainLayout(new QHBoxLayout(this))
 {
     setFixedHeight(30);
     setLayout(mainLayout);
-
-    optionBlock->setMainBlockBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL45);
 
     CellUiGlobal::setCustomTextLabel(currState, CHAR2STR("Microsoft YaHei UI Light"), 15, state);
     currState->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
@@ -42,34 +38,4 @@ customComboBox::customComboBox(const QString &state, QWidget *parent):
     mainLayout->addWidget(currState);
     mainLayout->addStretch();
     mainLayout->addWidget(trigger);
-}
-
-void customComboBox::setOptionBlockParent(QWidget *parent)
-{
-    optionBlock->setParent(parent);
-}
-
-void customComboBox::addItem(customOptionBlockItem *item, bool addSplitterLine)
-{
-    optionBlock->addItem(item, addSplitterLine);
-}
-
-void customComboBox::tidyItemTags() const
-{
-    optionBlock->tidyItemTags();
-}
-
-void customComboBox::setOptionBlockStartEndPos(const QPoint &posS, const QPoint &posE)
-{
-    optionBlockStartPos = posS;
-    optionBlockEndPos = posE;
-
-    //optionBlock->hide();
-    optionBlock->move(posS.x(), posS.y());
-    optionBlock->show();
-}
-
-void customComboBox::resizeEvent(QResizeEvent *event)
-{
-    optionBlock->setFixedWidth(event->size().width());
 }

@@ -294,7 +294,7 @@ void Workshop::initTreeView()
 void Workshop::_constructed()
 {
     emit constructed();
-    PJEntity = new CellProjectEntity("newpj",CellProjectEntity::CellProjectEntityType::_WORKSHOP);
+    PJEntity = new CellProjectEntity("newpj",CellProjectEntity::CellProjectEntityType::_CELLDEEPLEARNING);
 }
 
 void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)

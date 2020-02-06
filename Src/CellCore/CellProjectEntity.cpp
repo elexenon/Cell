@@ -9,18 +9,8 @@
 #include "CellProjectEntity.h"
 #define CELL_DEBUG
 
-CellProjectEntity::CellProjectEntity(const QString &name, const CellProjectEntity::CellProjectEntityType &type):
-    type(type),
-    name(name)
+CellProjectEntity::CellProjectEntity()
 {
     QDateTime curr = QDateTime::currentDateTime();
-    creationTime = curr.toString("yyyy-MM-dd");
-#ifdef CELL_DEBUG
-    qDebug() << "--------------------------";
-    qDebug() << "NEW PROJECT";
-    qDebug() << "ProjectName:" << name;
-    qDebug() << "ProjectType:" << type;
-    qDebug() << "CreationTime:" << creationTime;
-    qDebug() << "--------------------------\n";
-#endif
+    modifiedTime = curr.toString("yyyy-MM-dd");
 }

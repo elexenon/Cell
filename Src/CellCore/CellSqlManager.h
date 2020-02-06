@@ -1,0 +1,4 @@
+#ifndef CELLSQLMANAGER_H
+#define CELLSQLMANAGER_H
+
+#endif // CELLSQLMANAGER_H

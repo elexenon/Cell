@@ -1,0 +1,4 @@
+#ifndef CUSTOMLINEEDIT_H
+#define CUSTOMLINEEDIT_H
+
+#endif // CUSTOMLINEEDIT_H

@@ -19,6 +19,7 @@ ButtonWithIconText::ButtonWithIconText(customButton::TYPE type, QWidget *parent)
     tag(new customLabel(this))
 {
     setLayout(mainLayout);
+    setCursor(Qt::PointingHandCursor);
 
     mainLayout->setContentsMargins(10, 0, 0, 0);
     mainLayout->setSpacing(8);

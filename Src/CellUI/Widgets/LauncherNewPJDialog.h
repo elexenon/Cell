@@ -12,6 +12,7 @@
 
 #include "../../CellCore/Kits/CellUtility.h"    // COLOR_SCHEME
 #include "../CustomBaseWidgets/customWinstyleDialog.h"
+#include "../../CellCore/CellProjectEntity.h"
 
 class customTitleBar;
 class customLabel;
@@ -43,31 +44,36 @@ private:
 
     customLabel *label_choose;
 
-    ButtonWithText *Btn_Confirm;
-    ButtonWithText *Btn_Cancel;
+    ButtonWithText *btnConfirm;
+    ButtonWithText *btnCancel;
 
     NewPJProjectCellPage *cellPage;
 
-    QFrame *VLine_Splitter;
+    QFrame *VLineSplitter;
 
-    customButtonListWidget *BtnListWidget1;
-    customButtonListWidget *BtnListWidget2;
+    customButtonListWidget *btnListWidget1;
+    customButtonListWidget *btnListWidget2;
+
+    CellProjectEntity *currEntity;
 
 private:
     void Init();
-    void setEventConnections();
+    void judgeValidProject();
+    virtual void setEventConnections() override;
 
 signals:
     void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    void projectSettled(CellProjectEntity entity);
 
 private slots:
+    inline
+    void btnCancelClicked() { this->close(); }
+    void btnConfirmClicked();
+    void btnListWidget1Clicked(int id);
+    void btnListWidget2Clicked(int id);
+    void setName(const QString &name);
+    void setPath(const QString &path);
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
-    void Tab_Cell_clicked();
-    void Tab_Others_clicked();
-    void Tab_Empty_clicked();
-    void Tab_CPP_clicked();
-    void Tab_Py_clicked();
-    void Btn_Cancel_clicked();
 };
 
 #endif // LAUNCHERNEWPJDIALOG_H

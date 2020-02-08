@@ -21,7 +21,8 @@ public:
     ~notificationCenter() override = default;
 
     void   Init();
-    inline unsigned getCurrWorkshopCount(){ return workshop_instancesCount;}
+    inline
+    unsigned getCurrWorkshopCount(){ return workshop_instancesCount;}
 
 private:
     unsigned workshop_instancesCount;

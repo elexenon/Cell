@@ -16,9 +16,11 @@ public:
         :loader(new QFile)
         ,DIR(DIR)
     {}
+    inline
     void setStyleSheetName(const QString &name){
         fileName = name;
     }
+    inline
     const QString styleSheet() const{
         loader->setFileName(DIR + fileName);
         loader->open(QFile::ReadOnly);

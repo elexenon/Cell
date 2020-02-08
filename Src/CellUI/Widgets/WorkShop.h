@@ -68,7 +68,6 @@ private:
 
     QString            code_prev;
     QString            code_curr;
-    CellProjectEntity *PJEntity = nullptr;
     QString            savePath;
     QShortcut         *ctrlS;
     bool               codeModified = false;

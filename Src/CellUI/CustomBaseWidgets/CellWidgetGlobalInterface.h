@@ -19,13 +19,16 @@ public:
     explicit CellWidgetGlobalInterface() = default;
     virtual ~CellWidgetGlobalInterface() = default;
 
-    inline const QColor color() const { return m_color; }
-    inline void         setColorAnimiDuration(int value) { this->colorSchemeAnimiDuration = value; }
-    inline void         setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
-    virtual void        setColor(const QColor &color) = 0;
-    virtual void        setBaseQss(const QString& qss) = 0;
-    virtual void        changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
-    void                setBrightDarkModeColor(const QColor& b, const QColor& d);
+    inline
+    const QColor color() const { return m_color; }
+    inline
+    void         setColorAnimiDuration(int value) { this->colorSchemeAnimiDuration = value; }
+    inline
+    void         setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
+    virtual void setColor(const QColor &color) = 0;
+    virtual void setBaseQss(const QString& qss) = 0;
+    virtual void changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
+    void         setBrightDarkModeColor(const QColor& b, const QColor& d);
 
 protected:
     CellUiGlobal::COLOR_SCHEME m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
@@ -38,6 +41,7 @@ protected:
     QPropertyAnimation        *animi;
 
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) = 0;
+    virtual void setEventConnections();
 };
 
 #endif // CELLGLOBALWIDGET_H

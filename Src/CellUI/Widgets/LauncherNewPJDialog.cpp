@@ -19,17 +19,20 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QButtonGroup>
-#define CELL_DEBUG
+#include <QTextStream>
+#define DEBUG
+
 LauncherNewPJDialog::LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,QWidget *parent) :
     customWinstyleDialog(parent),
     ui(new Ui::LauncherNewPJDialog),
     titleBar(new customTitleBar(this)),
     label_choose(new customLabel(this)),
-    Btn_Confirm(new ButtonWithText(customButton::DYNAMIC, this)),
-    Btn_Cancel(new ButtonWithText(customButton::DYNAMIC, this)),
+    btnConfirm(new ButtonWithText(customButton::DYNAMIC, this)),
+    btnCancel(new ButtonWithText(customButton::DYNAMIC, this)),
     cellPage(new NewPJProjectCellPage),
-    BtnListWidget1(new customButtonListWidget(this)),
-    BtnListWidget2(new customButtonListWidget(this))
+    btnListWidget1(new customButtonListWidget(this)),
+    btnListWidget2(new customButtonListWidget(this)),
+    currEntity(new CellProjectEntity)
 {
     ui->setupUi(this);
     Init();
@@ -40,6 +43,7 @@ LauncherNewPJDialog::LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,Q
 LauncherNewPJDialog::~LauncherNewPJDialog()
 {
     delete ui;
+    delete currEntity;
 }
 
 void LauncherNewPJDialog::Init()
@@ -51,50 +55,51 @@ void LauncherNewPJDialog::Init()
 
     titleBar->setFixedHeight(40);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
-    titleBar->setText(QString::fromUtf8("新建项目"), CellUiConst::GRAYLEVEL70);
+    titleBar->setText(CHAR2STR("新建项目"), CellUiConst::GRAYLEVEL70);
 
     QFont font(QString::fromUtf8("Microsoft YaHei UI Light"));
 
     CellUiGlobal::setCustomTextLabel(label_choose, CHAR2STR("Microsoft YaHei UI Light"), 25, CHAR2STR("选择一个模板"));
     label_choose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
 
-    BtnListWidget1->addThemeHead("项目");
-    BtnListWidget1->addButton("Cell DeepLearning",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
-    BtnListWidget1->addButton("地震预测系统",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
-    BtnListWidget1->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
-    BtnListWidget1->setButtonSize(249,40);
-    BtnListWidget1->setSpacing(0);
-    BtnListWidget1->setBtnFontPixelSize(18);
-    BtnListWidget1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
-    BtnListWidget1->clickButton(0);
+    btnListWidget1->addThemeHead(CHAR2STR("项目"));
+    btnListWidget1->addButton(CHAR2STR("Cell DeepLearning"),CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    btnListWidget1->addButton(CHAR2STR("地震预测系统"),CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    btnListWidget1->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
+    btnListWidget1->setButtonSize(249,40);
+    btnListWidget1->setSpacing(0);
+    btnListWidget1->setBtnFontPixelSize(18);
+    btnListWidget1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
+    btnListWidget1->clickButton(0);
 
-    BtnListWidget2->addThemeHead("文件");
-    BtnListWidget2->addButton("空白文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
-    BtnListWidget2->addButton("C++文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
-    BtnListWidget2->addButton("Python文件",CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
-    BtnListWidget2->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
-    BtnListWidget2->setButtonSize(249,40);
-    BtnListWidget2->setSpacing(0);
-    BtnListWidget2->setBtnFontPixelSize(18);
-    BtnListWidget2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
+    btnListWidget2->addThemeHead(CHAR2STR("文件"));
+    btnListWidget2->addButton(CHAR2STR("空白文件"),CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    btnListWidget2->addButton(CHAR2STR("C++"),CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    btnListWidget2->addButton(CHAR2STR("Python"),CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL70);
+    btnListWidget2->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
+    btnListWidget2->setButtonSize(249,40);
+    btnListWidget2->setSpacing(0);
+    btnListWidget2->setBtnFontPixelSize(18);
+    btnListWidget2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL30);
 
-    Btn_Confirm->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    Btn_Confirm->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    Btn_Confirm->setAnimationDuration(300);
-    Btn_Confirm->Init(CHAR2STR("确认"), 14);
-    Btn_Confirm->setFixedSize(100, 27);
-    Btn_Confirm->setCursor(Qt::PointingHandCursor);
+    btnConfirm->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL70);
+    btnConfirm->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
+    btnConfirm->setAnimationDuration(300);
+    btnConfirm->Init(CHAR2STR("确认"), 14);
+    btnConfirm->setFixedSize(100, 27);
+    btnConfirm->setCursor(Qt::PointingHandCursor);
+    btnConfirm->setEnabled(false);
 
-    Btn_Cancel->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    Btn_Cancel->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    Btn_Cancel->setAnimationDuration(300);
-    Btn_Cancel->Init(CHAR2STR("取消"), 14);
-    Btn_Cancel->setFixedSize(100, 27);
-    Btn_Cancel->setCursor(Qt::PointingHandCursor);
+    btnCancel->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL70);
+    btnCancel->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
+    btnCancel->setAnimationDuration(300);
+    btnCancel->Init(CHAR2STR("取消"), 14);
+    btnCancel->setFixedSize(100, 27);
+    btnCancel->setCursor(Qt::PointingHandCursor);
 
     QHBoxLayout *HLayout_Bottom = new QHBoxLayout;
-    HLayout_Bottom->addWidget(Btn_Confirm);
-    HLayout_Bottom->addWidget(Btn_Cancel);
+    HLayout_Bottom->addWidget(btnConfirm);
+    HLayout_Bottom->addWidget(btnCancel);
     HLayout_Bottom->setSpacing(17);
     HLayout_Bottom->setMargin(0);
 
@@ -105,18 +110,18 @@ void LauncherNewPJDialog::Init()
     QVBoxLayout *VLayout_left = new QVBoxLayout;
     VLayout_left->addLayout(HLayout_Top);
     VLayout_left->addStretch();
-    VLayout_left->addWidget(BtnListWidget1);
-    VLayout_left->addWidget(BtnListWidget2);
+    VLayout_left->addWidget(btnListWidget1);
+    VLayout_left->addWidget(btnListWidget2);
     VLayout_left->addStretch();
     VLayout_left->addLayout(HLayout_Bottom);
     VLayout_left->setContentsMargins(0, 20, 0, 11);
     VLayout_left->setSpacing(20);
 
-    VLine_Splitter = CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::VLine);
+    VLineSplitter = CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::VLine);
 
     QHBoxLayout *HLayout = new QHBoxLayout;
     HLayout->addLayout(VLayout_left);
-    HLayout->addWidget(VLine_Splitter);
+    HLayout->addWidget(VLineSplitter);
     HLayout->addWidget(ui->stackedWidget);
     HLayout->setMargin(0);
     HLayout->setSpacing(0);
@@ -137,67 +142,89 @@ void LauncherNewPJDialog::Init()
 
 void LauncherNewPJDialog::setEventConnections()
 {
-    const customListButton* Tab_Cell = BtnListWidget1->getButton(0);
-    const customListButton* Tab_Others = BtnListWidget1->getButton(1);
-    const customListButton* Tab_Empty = BtnListWidget2->getButton(0);
-    const customListButton* Tab_CPP = BtnListWidget2->getButton(1);
-    const customListButton* Tab_Py = BtnListWidget2->getButton(2);
+    connect(btnListWidget1, SIGNAL(clicked(int)), this, SLOT(btnListWidget1Clicked(int)));
+    connect(btnListWidget2, SIGNAL(clicked(int)), this, SLOT(btnListWidget2Clicked(int)));
 
-    connect(Tab_Cell, SIGNAL(clicked(bool)), this, SLOT(Tab_Cell_clicked()));
-    connect(Tab_Others, SIGNAL(clicked(bool)), this, SLOT(Tab_Others_clicked()));
-    connect(Tab_Empty, SIGNAL(clicked(bool)), this, SLOT(Tab_Empty_clicked()));
-    connect(Tab_CPP, SIGNAL(clicked(bool)), this, SLOT(Tab_CPP_clicked()));
-    connect(Tab_Py, SIGNAL(clicked(bool)), this, SLOT(Tab_Py_clicked()));
-    connect(Btn_Cancel, SIGNAL(clicked(bool)), this, SLOT(Btn_Cancel_clicked()));
+    connect(cellPage, &NewPJProjectCellPage::pathSettled, this, &LauncherNewPJDialog::setPath);
+    connect(cellPage, &NewPJProjectCellPage::nameSettled, this, &LauncherNewPJDialog::setName);
 
-    connect(this, SIGNAL(enableColorScheme(COLOR_SCHEME)),Tab_Cell, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(this, SIGNAL(enableColorScheme(COLOR_SCHEME)),Tab_Others, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(this, SIGNAL(enableColorScheme(COLOR_SCHEME)),Tab_Empty, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(this, SIGNAL(enableColorScheme(COLOR_SCHEME)),Tab_CPP, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(this, SIGNAL(enableColorScheme(COLOR_SCHEME)),Tab_Py, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(this, SIGNAL(enableColorScheme(COLOR_SCHEME)),Btn_Confirm, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(this, SIGNAL(enableColorScheme(COLOR_SCHEME)),Btn_Cancel, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(btnCancel, &QPushButton::clicked, this, &LauncherNewPJDialog::btnCancelClicked);
+    connect(btnConfirm, &QPushButton::clicked, this, &LauncherNewPJDialog::btnConfirmClicked);
 }
 
 void LauncherNewPJDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode){
     if(mode == m_mode) return;
     emit enableColorScheme(mode);
-#ifdef CELL_DEBUG
-    qDebug() << "--------------------------";
-    qDebug() << "NEWPJDIALOG";
-    qDebug() << "setColorScheme()";
-    qDebug() << "MODE: " << m_mode;
-    qDebug() << "--------------------------";
-#endif
     customWinstyleDialog::setColorScheme(mode);
 }
 
-void LauncherNewPJDialog::Tab_Cell_clicked()
+void LauncherNewPJDialog::btnListWidget1Clicked(int id)
 {
+#ifdef DEBUG
+    qDebug() << "btnListWidget1 Clicked::Tab::" << id;
+#endif
+    btnListWidget1->setExlusive(true);
+    btnListWidget2->setExlusive(false);
+    auto list = btnListWidget2->getButtons();
+    for(auto & e : *list)
+        e->setChecked(false);
 
+    switch(id){
+    case 0:
+        currEntity->setType(CellProjectEntity::_CELLDEEPLEARNING);
+        break;
+    case 1:
+        currEntity->setType(CellProjectEntity::_PREDICTEARTHQUAKE);
+        break;
+    }
 }
 
-void LauncherNewPJDialog::Tab_Others_clicked()
+void LauncherNewPJDialog::btnListWidget2Clicked(int id)
 {
+#ifdef DEBUG
+    qDebug() << "btnListWidget2 Clicked::Tab::" << id;
+#endif
+    btnListWidget2->setExlusive(true);
+    btnListWidget1->setExlusive(false);
+    auto list = btnListWidget1->getButtons();
+    for(auto & e : *list)
+        e->setChecked(false);
 
+    switch(id){
+    case 0:
+        currEntity->setType(CellProjectEntity::_EMPTY);
+        break;
+    case 1:
+        currEntity->setType(CellProjectEntity::_CPP);
+        break;
+    case 2:
+        currEntity->setType(CellProjectEntity::_PYTHON);
+        break;
+    }
 }
 
-void LauncherNewPJDialog::Tab_Empty_clicked()
+void LauncherNewPJDialog::setName(const QString &name)
 {
-
+    currEntity->setName(name);
+    judgeValidProject();
 }
 
-void LauncherNewPJDialog::Tab_CPP_clicked()
+void LauncherNewPJDialog::setPath(const QString &path)
 {
-
+    currEntity->setPath(path);
+    judgeValidProject();
 }
 
-void LauncherNewPJDialog::Tab_Py_clicked()
+void LauncherNewPJDialog::btnConfirmClicked()
 {
-
-}
-
-void LauncherNewPJDialog::Btn_Cancel_clicked()
-{
+    emit projectSettled(*currEntity);
     this->close();
+}
+
+void LauncherNewPJDialog::judgeValidProject()
+{
+    if(currEntity->name() != CMPSTR("") && currEntity->path() != CMPSTR(""))
+        btnConfirm->setEnabled(true);
+    else
+        btnConfirm->setEnabled(false);
 }

@@ -17,6 +17,7 @@ ButtonWithText::ButtonWithText(customButton::TYPE type, QWidget *parent):
     tag(new customLabel(this))
 {
     setLayout(mainLayout);
+    setCursor(Qt::PointingHandCursor);
 
     mainLayout->setMargin(0);
     mainLayout->addWidget(tag);

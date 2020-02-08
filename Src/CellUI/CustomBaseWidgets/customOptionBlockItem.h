@@ -24,7 +24,8 @@ enum MARGIN_DIRE{
 };
     explicit customOptionBlockItem(QWidget *parent = nullptr, const QString& tag = " ");
 
-    inline int     getTagLen() { return tagLen; }
+    inline
+    int            getTagLen() { return tagLen; }
     void           setTag(const QString& text);
     void           setOptionWidget(QWidget* widget);
     void           setHint(const QString& text);

@@ -13,6 +13,11 @@ void CellWidgetGlobalInterface::setBrightDarkModeColor(const QColor &b, const QC
     setColor(brightmodeColor);
 }
 
+void CellWidgetGlobalInterface::setEventConnections()
+{
+
+}
+
 void CellWidgetGlobalInterface::setColor(const QColor &color)
 {
     m_color = color;

@@ -21,6 +21,8 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::TYPE type, QWidget 
     tag(new customLabel(this)),
     hint(new customLabel(this))
 {
+    setCursor(Qt::PointingHandCursor);
+
     tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
     hint->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
 

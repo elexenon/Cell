@@ -34,16 +34,21 @@ protected slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 
 Checkable_Public:
-    inline void setBrightModeCheckedColor(const QColor &color) { brightModeCheckedColor = color; }
-    inline void setDarkModeCheckedColor(const QColor &color)   { darkModeCheckedColor = color; }
+    inline
+    void setBrightModeCheckedColor(const QColor &color) { brightModeCheckedColor = color; }
+    inline
+    void setDarkModeCheckedColor(const QColor &color)   { darkModeCheckedColor = color; }
 Checkable_Protected:
     QColor brightModeCheckedColor;
     QColor darkModeCheckedColor;
 
 Dynamic_Public:
-    inline void setBrightModeHoveringColor(const QColor &color) { brightModeHoveringColor = color; }
-    inline void setDarkModeHoveringColor(const QColor &color)   { darkModeHoveringColor = color; }
-    inline void setAnimationDuration(int dur) { hoverAnimiDuration = dur; }
+    inline
+    void setBrightModeHoveringColor(const QColor &color) { brightModeHoveringColor = color; }
+    inline
+    void setDarkModeHoveringColor(const QColor &color)   { darkModeHoveringColor = color; }
+    inline
+    void setAnimationDuration(int dur) { hoverAnimiDuration = dur; }
 Dynamic_Protected:
     virtual void enterEvent(QEvent*) override;
     virtual void leaveEvent(QEvent*) override;
@@ -52,8 +57,10 @@ Dynamic_Protected:
     int     hoverAnimiDuration = 300;
 
 Static_Public:
-    inline void setBrightModeHoverColor(const QColor& color) { brightModeHoverColor = color; }
-    inline void setDarkModeHoverColor(const QColor& color)   { darkModeHoverColor = color; }
+    inline
+    void setBrightModeHoverColor(const QColor& color) { brightModeHoverColor = color; }
+    inline
+    void setDarkModeHoverColor(const QColor& color)   { darkModeHoverColor = color; }
 Static_Protected:
     QColor brightModeHoverColor;
     QColor darkModeHoverColor;

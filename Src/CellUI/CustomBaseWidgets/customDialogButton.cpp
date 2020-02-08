@@ -38,4 +38,16 @@ customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     mainLayout->addWidget(currState);
     mainLayout->addStretch();
     mainLayout->addWidget(trigger);
+
+    setEventConnections();
+}
+
+void customDialogButton::setText(const QString &text)
+{
+    currState->setText(text);
+}
+
+void customDialogButton::setEventConnections()
+{
+    connect(trigger, &QPushButton::clicked, this, &customDialogButton::triggerClicked);
 }

@@ -16,6 +16,7 @@ ButtonWithIcon::ButtonWithIcon(customButton::TYPE type, QWidget *parent):
     icon(new QLabel(this))
 {
     setLayout(mainLayout);
+    setCursor(Qt::PointingHandCursor);
     
     mainLayout->setMargin(0);
     mainLayout->addWidget(icon);

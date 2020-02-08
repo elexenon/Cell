@@ -1,7 +1,0 @@
-QFrame#optionBlock2{
-	border-width: 1px;
-	border-style: solid;
-	border-color: rgb(180,180,180);
-	border-radius:5px;
-	background-color: rgb(%1, %2, %3);
-}

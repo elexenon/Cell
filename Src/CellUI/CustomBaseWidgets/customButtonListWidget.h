@@ -22,7 +22,7 @@ public:
     explicit customButtonListWidget(QWidget *parent = nullptr);
 
     void  addThemeHead(const QString& theme = "theme");
-    void  addButton(const QString &text, const QColor &b, const QColor &d);
+    void  addButton(const QString &text, const QColor &b, const QColor &d, int index = -1);
     void  setButtonsBrightDarkModeColor(const QColor &b, const QColor &d);
     const customListButton* getButton(int index = 0) const;
     void  setButtonSize(int width, int height);
@@ -31,7 +31,11 @@ public:
     void  setSpacing(int spacing);
     void  clickButton(int index) const;
     void  setButtonCheckable(int index, bool value);
+    void  setExlusive(bool value = true);
+    void  setEventConnections();
 
+    inline
+    const QList<customListButton*>* getButtons() { return buttons; }
 
 private:
     void Init();
@@ -42,8 +46,15 @@ private:
     QList<customListButton*> *buttons;
     QButtonGroup             *btnGroup;
 
+    int buttonIndex = 0;
+
+signals:
+    void clicked(int id);
+
 private slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    inline
+    void btnGroupClicked(int id) { emit clicked(id); }
 };
 
 #endif // CUSTOMBUTTONLISTWIDGET_H

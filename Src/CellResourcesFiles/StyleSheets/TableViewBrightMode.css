@@ -1,0 +1,47 @@
+QTableView {
+    alternate-background-color: rgb(235,235,235);
+    selection-background-color: rgb(79, 147, 184); 
+}
+QScrollBar:vertical {
+	background:rgb(218,218,218);
+	width:8px;
+	margin:0px, 0px, 0px, 0px;
+	padding-top:9px;   
+    padding-bottom:9px;
+}
+ 
+/* 滑块 */
+QScrollBar::handle:vertical {
+	background:rgb(79, 147, 184);
+	border-radius:5px; 
+	min-height:20px;
+}
+ 
+/* 底部箭头 */
+QScrollBar::add-line:vertical {
+	background:rgb(79, 147, 184);
+	height:10px;
+	width:10px;
+	subcontrol-position:bottom;
+}
+ 
+/* 顶部箭头 */
+QScrollBar::sub-line:vertical {
+	background:rgb(79, 147, 184);
+	height:10px;
+	width:10px;
+	subcontrol-position:top;
+}
+/*
+QHeaderView::section {
+    background-color: rgb(247, 247, 247);
+    border: 0px;
+}
+QHeaderView::section:hover {
+    background-color: rgb(79, 147, 184);
+    border: 0px;
+}
+QHeaderView::section:checked {
+    background-color: rgb(247, 247, 247);
+    border: 0px;
+}*/

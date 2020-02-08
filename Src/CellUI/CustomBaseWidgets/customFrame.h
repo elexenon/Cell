@@ -29,6 +29,7 @@ public:
 protected:
     virtual void setBaseQss(const QString& qss) override;
     virtual void changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
+    virtual void setEventConnections() override;
 
 private:
     CUSTOMFRAME_TYPE m_type;

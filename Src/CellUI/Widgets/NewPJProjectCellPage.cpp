@@ -13,7 +13,6 @@
 #include "../CustomBaseWidgets/customOptionBlockItem.h"
 #include "../CustomBaseWidgets/customDialogButton.h"
 #include "../CustomBaseWidgets/customLineEdit.h"
-#include "../CustomBaseWidgets/ButtonWithIcon.h"
 #include "../../CellCore/CellProjectEntity.h"
 
 #include <QComboBox>
@@ -30,7 +29,6 @@ NewPJProjectCellPage::NewPJProjectCellPage(QWidget *parent):
    ,lineEditName(new customLineEdit)
    ,blockConfig_Loca(new customOptionBlockItem)
    ,dialogButton(new customDialogButton(CHAR2STR("Location")))
-   ,buttonForward(new ButtonWithIcon(customButton::STATIC, this))
 {
     Init();
     setEventConnections();
@@ -41,22 +39,11 @@ void NewPJProjectCellPage::Init()
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
     setLayout(mainLayout);
 
-    buttonForward->setBrightModeHoverColor(CellUiConst::GRAYLEVEL218);
-    buttonForward->setDarkModeHoverColor(CellUiConst::GRAYLEVEL180);
-    buttonForward->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL45);
-    buttonForward->Init(CHAR2STR("iconForward"), 20, 15);
-    buttonForward->setFixedSize(50, 35);
-
-    QHBoxLayout *HLayoutButtom = new QHBoxLayout;
-    HLayoutButtom->addWidget(buttonForward);
-    HLayoutButtom->setAlignment(Qt::AlignmentFlag::AlignRight);
-
     mainLayout->setContentsMargins(50, 20, 50, 10);
     mainLayout->addWidget(label_title);
-    mainLayout->addStretch(1);
+    mainLayout->addStretch(2);
     mainLayout->addWidget(blockConfig);
     mainLayout->addStretch(6);
-    mainLayout->addLayout(HLayoutButtom);
 
     using CellEntityTools::styleSheetLoader;
 
@@ -84,22 +71,22 @@ void NewPJProjectCellPage::Init()
 
 void NewPJProjectCellPage::setEventConnections()
 {
-    const ButtonWithIcon* btn = dialogButton->getTrigger();
-    connect(btn, &QPushButton::clicked, this, &NewPJProjectCellPage::BtnNameClicked);
+    connect(dialogButton, &customDialogButton::clicked, this, &NewPJProjectCellPage::btnPathClicked);
+    connect(lineEditName, &QLineEdit::textChanged,      this, &NewPJProjectCellPage::lineEditChanged);
 }
 
-void NewPJProjectCellPage::BtnNameClicked()
+void NewPJProjectCellPage::btnPathClicked()
 {
     path = QFileDialog::getExistingDirectory(this,
                                              CHAR2STR("选择目录"),
                                              CHAR2STR("C:\\"),
                                              QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    qDebug() << CHAR2STR("Choose Path:") << path;
+
+    dialogButton->setText(path);
+    emit pathSettled(path);
 }
 
-void NewPJProjectCellPage::BtnForwardClicked()
+void NewPJProjectCellPage::lineEditChanged(const QString &text)
 {
-    name = lineEditName->text().trimmed();
-    emit setProjectDone(name, path);
-    qDebug() << CHAR2STR("Project Name:") << name;
+    emit nameSettled(text);
 }

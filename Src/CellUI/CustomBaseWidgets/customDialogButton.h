@@ -20,12 +20,22 @@ public:
     explicit customDialogButton(const QString& state, QWidget *parent = nullptr);
     inline
     const ButtonWithIcon* getTrigger() { return trigger;}
+    void  setText(const QString &text);
+
+private:
+    virtual void setEventConnections() override;
 
 protected:
     customLabel                   *currState;
     ButtonWithIcon                *trigger;
     QHBoxLayout                   *mainLayout;
 
+signals:
+    void clicked();
+
+private slots:
+    inline
+    void triggerClicked() { emit clicked(); }
 };
 
 #endif // CUSTOMCOMBOBOX_H

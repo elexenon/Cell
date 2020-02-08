@@ -14,6 +14,8 @@
 #include <QHBoxLayout>
 #include <QButtonGroup>
 
+#define DEBUG
+
 customButtonListWidget::customButtonListWidget(QWidget *parent) :
     customFrame(customFrame::_REGULAR, parent)
   , mainLayout(new QVBoxLayout(this))
@@ -21,6 +23,7 @@ customButtonListWidget::customButtonListWidget(QWidget *parent) :
   , btnGroup(new QButtonGroup(this))
 {
     Init();
+    setEventConnections();
 }
 
 void customButtonListWidget::setButtonsBrightDarkModeColor(const QColor &b, const QColor &d)
@@ -29,14 +32,17 @@ void customButtonListWidget::setButtonsBrightDarkModeColor(const QColor &b, cons
         e->setBrightDarkModeColor(b, d);
 }
 
-void customButtonListWidget::addButton(const QString &text, const QColor& b, const QColor& d)
+void customButtonListWidget::addButton(const QString &text, const QColor& b, const QColor& d, int index)
 {
+    if(index == -1)
+        index = buttonIndex++;
+
     customListButton *btn = new customListButton(this, text);
     btn->setBrightModeCheckedColor(b);
     btn->setDarkModeCheckedColor(d);
 
     buttons->append(btn);
-    btnGroup->addButton(btn);
+    btnGroup->addButton(btn, index);
     mainLayout->addWidget(btn);
 }
 
@@ -79,6 +85,16 @@ void customButtonListWidget::setButtonCheckable(int index, bool value)
 {
     auto e = buttons->at(index);
     e->setCheckable(value);
+}
+
+void customButtonListWidget::setExlusive(bool value)
+{
+    btnGroup->setExclusive(value);
+}
+
+void customButtonListWidget::setEventConnections()
+{
+    connect(btnGroup, SIGNAL(buttonClicked(int)), this, SLOT(btnGroupClicked(int)));
 }
 
 void customButtonListWidget::addThemeHead(const QString& theme)

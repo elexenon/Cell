@@ -11,13 +11,7 @@
         <file>StyleSheets/LauncherHomeListBtn_Bright.css</file>
         <file>StyleSheets/LauncherHomeScrollBar_Bright.css</file>
         <file>StyleSheets/LauncherHomeScrollBar_Dark.css</file>
-        <file>StyleSheets/LauncherMinimizeBtn.css</file>
         <file>StyleSheets/WorkshopEditor.css</file>
         <file>StyleSheets/LauncherHomeListBtn_Dark.css</file>
-        <file>StyleSheets/LauncherSettings_OptionBlock1.css</file>
-        <file>StyleSheets/LauncherSettings_OptionBlock2.css</file>
-        <file>StyleSheets/LauncherSettings_OptionBlock1_ComboBox.css</file>
-        <file>StyleSheets/NewPJDialogCellPage_OptionBlock1.css</file>
-        <file>StyleSheets/NewPJDialogCellPage_ComboBox1.css</file>
     </qresource>
 </RCC>

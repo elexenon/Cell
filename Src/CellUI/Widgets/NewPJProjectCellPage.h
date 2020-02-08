@@ -17,7 +17,6 @@ class customOptionBlockItem;
 class customDialogButton;
 class QVBoxLayout;
 class customLineEdit;
-class ButtonWithIcon;
 class CellProjectEntity;
 
 class NewPJProjectCellPage : public customFrame{
@@ -34,21 +33,21 @@ private:
     customLineEdit        *lineEditName;
     customOptionBlockItem *blockConfig_Loca;
     customDialogButton    *dialogButton;
-    ButtonWithIcon        *buttonForward;
 
     QString path;
     QString name;
 
 private:
     void Init();
-    void setEventConnections();
+    virtual void setEventConnections() override;
 
 signals:
-    void setProjectDone(const QString &name, const QString &path);
+    void pathSettled(const QString &path);
+    void nameSettled(const QString &name);
 
 private slots:
-    void BtnNameClicked();
-    void BtnForwardClicked();
+    void btnPathClicked();
+    void lineEditChanged(const QString &text);
 };
 
 #endif // NEWPJPROJECTPAGE_H

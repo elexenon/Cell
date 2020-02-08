@@ -10,10 +10,7 @@
 
 #include "../CustomBaseWidgets/customWinstyleWidget.h"
 #include "../../CellCore/Kits/CellUtility.h"   // COLOR_SCHEME & FADE_TYPE
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class Launcher; }
-QT_END_NAMESPACE
+#include "../../CellCore/CellProjectEntity.h"
 
 class LauncherGuideDialog;
 class LauncherNewPJDialog;
@@ -22,13 +19,13 @@ class Workshop;
 class LauncherSettings;
 
 class QGraphicsOpacityEffect;
-class QPropertyAnimation;
 class customTitleBar;
 class notificationCenter;
 class customButtonListWidget;
 class CellDevelopTestStation;
-
+class ButtonWithIcon;
 class ButtonWithIconTextHint;
+class QStackedWidget;
 
 class Launcher : public customWinstyleWidget
 {
@@ -41,18 +38,7 @@ public:
         _SETTINGS
     };
 private:
-    Ui::Launcher           *ui;
-
-    QGraphicsOpacityEffect    *opacityEffect;
-    QGraphicsDropShadowEffect *eff_dse;
-
-    QPropertyAnimation *this_animi;
-    QPropertyAnimation *frame_titleBar_animi;
-    QPropertyAnimation *Btn_NewProject_Function_animi;
-    QPropertyAnimation *Btn_NewProject_Hint_animi;
-    QPropertyAnimation *Btn_OpenProject_Function_animi;
-    QPropertyAnimation *Btn_OpenProject_Hint_animi;
-    QPropertyAnimation *line_animi;
+    QGraphicsOpacityEffect *opacityEffect;
 
     Workshop            *workshop = nullptr;
     LauncherHomepage    *homePage;
@@ -60,36 +46,43 @@ private:
     LauncherGuideDialog *guideDialog;
     LauncherNewPJDialog *newPJDialog = nullptr;
 
-    customTitleBar      *titleBar;
+    customTitleBar *titleBar;
+    ButtonWithIcon *btnMini;
+    ButtonWithIcon *btnMax;
+    ButtonWithIcon *btnClose;
 
-    ButtonWithIconTextHint *Btn_NewProject;
-    ButtonWithIconTextHint *Btn_OpenProject;
+    QStackedWidget *stackedWidget;
+
+    ButtonWithIconTextHint *btnNewPJ;
+    ButtonWithIconTextHint *btnOpenPJ;
 
     notificationCenter *notificationCenter;
-    customButtonListWidget *BtnlistWidget;
+
+    customButtonListWidget *btnListWidget;
 
     CellDevelopTestStation *testForm;
 
 private:
-    bool                       isMaxSize = false;
-    PAGE_TYPE                  currentPage;
+    bool      isMaxSize = false;
+    PAGE_TYPE currentPage;
 
 private:
     void InitLauncher();
-    void setEventConnections();
+    virtual void setEventConnections() override;
     void startPageSwitchAnimation(PAGE_TYPE nextPage);
 
 protected:
 
 
 private slots:
-    void on_Btn_mini_clicked();
-    void on_Btn_close_clicked();
-    void Tab_HomePage_clicked();
-    void Tab_Settings_clicked();
-    void Tab_Guide_clicked();
-    void Tab_Test_clicked();
-    void Btn_NewProject_clicked();
-    void on_Btn_max_clicked();
+    void btnMiniClicked();
+    void btnMaxClicked();
+    void btnCloseClicked();
+    void tabHomeClicked();
+    void tabSettingsClicked();
+    void tabGuideClicked();
+    void tabTestClicked();
+    void btnNewClicked();
+    void launchWorkShop(CellProjectEntity entity);
 };
 #endif

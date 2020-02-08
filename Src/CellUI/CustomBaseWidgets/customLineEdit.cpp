@@ -16,6 +16,7 @@ customLineEdit::customLineEdit(QWidget *parent):
 void customLineEdit::init()
 {
     setColorScheme(CellUiGlobal::_BRIGHT);
+    setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
 }
 
 void customLineEdit::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)

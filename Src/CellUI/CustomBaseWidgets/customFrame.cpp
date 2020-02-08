@@ -42,7 +42,12 @@ void customFrame::changeToColor(const QColor& startColor, const QColor &targetCo
                                  targetColor,
                                  duration,
                                  easingCurve,
-                                 {this},nullptr);
+    {this},nullptr);
+}
+
+void customFrame::setEventConnections()
+{
+
 }
 
 void customFrame::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)

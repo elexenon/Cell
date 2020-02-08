@@ -43,19 +43,18 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
     QWidget(parent),
     mainLayout(new QVBoxLayout(this)),
     loadingDialog(new WSLoadingDialog),
-    menuBar(new QMenuBar),
+    menuBar(new QMenuBar(this)),
     leftBlock(new customFrame(customFrame::_REGULAR, this)),
     rightBlock(new customFrame(customFrame::_REGULAR, this)),
     statusBar(new customGradientChangeFrame(CellUiConst::CELLTHEMECOLOR ,this)),
     mainEditor(new QsciScintilla(this)),
     leftStackedWidget(new QStackedWidget(leftBlock)),
     treeView(new QTreeView(leftBlock)),
-    btnDirectory(new QPushButton),
-    btnWarning(new QPushButton),
-    btnToolChain(new QPushButton),
+    btnDirectory(new QPushButton(this)),
+    btnWarning(new QPushButton(this)),
+    btnToolChain(new QPushButton(this)),
     ctrlS(new QShortcut(this))
 {
-    setWindowFlag(Qt::Window);
     initWorkshop();
     setEventConnections();
     if(m_mode != mainWindow_mode)
@@ -64,16 +63,14 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
 
 Workshop::~Workshop()
 {
-    if(PJEntity != nullptr)
-        delete PJEntity;
 }
 
 void Workshop::initWorkshop()
 {
     // Functional.
     this->resize(1400, 800);
-    setAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle(CHAR2STR("Cell WorkShop"));
+    setWindowTitle(CHAR2STR("WorkShop"));
+    setWindowFlag(Qt::WindowType::Window);
 
     // Set MenuBar.
     using CellEntityTools::styleSheetLoader;
@@ -294,7 +291,6 @@ void Workshop::initTreeView()
 void Workshop::_constructed()
 {
     emit constructed();
-    PJEntity = new CellProjectEntity("newpj",CellProjectEntity::CellProjectEntityType::_CELLDEEPLEARNING);
 }
 
 void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
@@ -357,7 +353,6 @@ void Workshop::changeToColor(const QColor &startColor, const QColor &targetColor
 void Workshop::closeEvent(QCloseEvent*)
 {
     emit destoryed();
-    loadingDialog->close();
 }
 
 void Workshop::btnDirectoryClicked()

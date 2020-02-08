@@ -99,9 +99,6 @@ void LauncherHomepage::Init()
     mainLayout->addLayout(HLayout_Row1);
     mainLayout->addWidget(stackedWidget);
     mainLayout->setContentsMargins(4, 20, 15, 10);
-
-    customOptionBlock *block = new customOptionBlock(nullptr);
-    block->setFixedSize(881,300);
 }
 
 void LauncherHomepage::setEventConnections()
@@ -134,7 +131,7 @@ void LauncherHomepage::initTableView()
 
     // Set TableView.
     using CellEntityTools::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(CHAR2STR("TreeViewBrightMode.css"));
+    styleSheetLoader->setStyleSheetName(CHAR2STR("TableViewBrightMode.css"));
     tableView->setStyleSheet(styleSheetLoader->styleSheet());
     tableView->setFrameShape(QFrame::NoFrame);
     tableView->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));

@@ -12,7 +12,9 @@
 #include <QTime>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QApplication>
 #include <QDesktopWidget>
+#include <QStackedWidget>
 
 #include "LauncherGuideDialog.h"
 #include "LauncherNewPJDialog.h"
@@ -29,103 +31,130 @@
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../../../CellDevelopTestStation.h"
 #include "../CustomBaseWidgets/customDialogButton.h"
-#include "ui_Launcher.h"
+#include "../CustomBaseWidgets/ButtonWithIcon.h"
 #define CELL_DEBUG
 #define ENABLE_WORKSHOP
 //#define AUTO_CHANGE
 //#define RELEASE_MODE
 
 Launcher::Launcher(QWidget *parent)
-    : customWinstyleWidget(parent)
-    , ui(new Ui::Launcher)
-    , homePage(new LauncherHomepage)
-    , settingsPage(new LauncherSettings)
-    , titleBar(new customTitleBar(this))
-    , Btn_NewProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
-    , Btn_OpenProject(new ButtonWithIconTextHint(customButton::DYNAMIC, this))
-    , notificationCenter(new class notificationCenter(this))
-    , BtnlistWidget(new customButtonListWidget(this))
+    : customWinstyleWidget(parent),
+      homePage(new LauncherHomepage),
+      settingsPage(new LauncherSettings),
+      titleBar(new customTitleBar(this)),
+      btnMini(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
+      btnMax(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
+      btnClose(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
+      stackedWidget(new QStackedWidget(this)),
+      btnNewPJ(new ButtonWithIconTextHint(customButton::DYNAMIC_RADIUS, this)),
+      btnOpenPJ(new ButtonWithIconTextHint(customButton::DYNAMIC_RADIUS, this)),
+      notificationCenter(new class notificationCenter(this)),
+      btnListWidget(new customButtonListWidget(this)),
 #ifndef RELEASE_MODE
-    , testForm(new CellDevelopTestStation(this))
+      testForm(new CellDevelopTestStation(this)),
 #endif
-    , currentPage(PAGE_TYPE::_HOME)
+      currentPage(PAGE_TYPE::_HOME)
 {
-    ui->setupUi(this);
     InitLauncher();
     setEventConnections();
+    //btnMaxClicked();
 }
 Launcher::~Launcher()
-{
-    delete ui;
-}
+{}
 
 void Launcher::InitLauncher()
 {
+    resize(1400, 800);
     customWinstyleWidget::LoadWinStyle(this);
-    setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
-
-    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + CHAR2STR("InfoDisplayWeb W01 Medium.ttf"));
-    QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
+    setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30); 
 #ifndef RELEASE_MODE
     testForm->hide();
 #endif
-    titleBar->setFixedHeight(50);
+    // Titlebar Combination.
+    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + CHAR2STR("InfoDisplayWeb W01 Medium.ttf"));
+    QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
+    titleBar->setFixedHeight(40);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
     titleBar->setText(CHAR2STR("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
-    titleBar->setFont(fontInfo, 23);
-    titleBar->setIcon(CHAR2STR("CELL_logo_small"), 33, 29);
+    titleBar->setFont(fontInfo, 21);
+    titleBar->setIcon(CHAR2STR("CELL_logo_small"), 28, 25);
     titleBar->setLeftMargin(15);
 
-    ui->stackedWidget->insertWidget(1, homePage);
-    ui->stackedWidget->insertWidget(2, settingsPage);
-    ui->stackedWidget->setCurrentIndex(1);   
+    btnMini->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
+    btnMini->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
+    btnMini->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
+    btnMini->setAnimationDuration(200);
+    btnMini->Init(CHAR2STR("iconMinimize"), 15, 2);
+    btnMini->setFixedSize(50, titleBar->height());
+    btnMini->setCursor(Qt::PointingHandCursor);
 
-    BtnlistWidget->addButton(CHAR2STR("主页"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
-    BtnlistWidget->addButton(CHAR2STR("选项"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
-    BtnlistWidget->addButton(CHAR2STR("向导"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
-    BtnlistWidget->setButtonCheckable(2,false);
+    btnMax->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
+    btnMax->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
+    btnMax->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
+    btnMax->setAnimationDuration(200);
+    btnMax->Init(CHAR2STR("iconMaximize"), 17, 14);
+    btnMax->setFixedSize(50, titleBar->height());
+    btnMax->setCursor(Qt::PointingHandCursor);
+
+    btnClose->setBrightModeHoveringColor(QColor(220, 20, 60));
+    btnClose->setDarkModeHoveringColor(QColor(220, 20, 60));
+    btnClose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
+    btnClose->setAnimationDuration(200);
+    btnClose->Init(CHAR2STR("iconClose"), 14, 14);
+    btnClose->setFixedSize(50, titleBar->height());
+    btnClose->setCursor(Qt::PointingHandCursor);
+
+    // Set StackedWidget
+    stackedWidget->insertWidget(0, homePage);
+    stackedWidget->insertWidget(1, settingsPage);
+    stackedWidget->setCurrentIndex(0);
+
+    btnListWidget->addButton(CHAR2STR("主页"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    btnListWidget->addButton(CHAR2STR("选项"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    btnListWidget->addButton(CHAR2STR("向导"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    btnListWidget->setButtonCheckable(2,false);
 #ifndef RELEASE_MODE
-    BtnlistWidget->addButton(CHAR2STR("自定义CONTROLS测试面板"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
-    BtnlistWidget->setButtonCheckable(3,false);
+    btnListWidget->addButton(CHAR2STR("自定义CONTROLS测试面板"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    btnListWidget->setButtonCheckable(3,false);
 #endif
-    BtnlistWidget->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
-    BtnlistWidget->setButtonSize(251,31);
-    BtnlistWidget->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
-    BtnlistWidget->clickButton(0);
+    btnListWidget->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
+    btnListWidget->setButtonSize(251,31);
+    btnListWidget->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
+    btnListWidget->clickButton(0);
 
-    Btn_NewProject->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    Btn_NewProject->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    Btn_NewProject->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    Btn_NewProject->setAnimationDuration(300);
-    Btn_NewProject->Init(CHAR2STR("Btn_NewProject"), 33, 33, CHAR2STR("新建项目(N)"), 25, CHAR2STR("新建一个Cell文档"));
-    Btn_NewProject->setFixedSize(250, 81);
-    Btn_NewProject->setCursor(Qt::PointingHandCursor);
+    btnNewPJ->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
+    btnNewPJ->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
+    btnNewPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    btnNewPJ->setAnimationDuration(300);
+    btnNewPJ->Init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("新建项目"), 25, CHAR2STR("新建一个Cell文档"));
+    btnNewPJ->setFixedSize(250, 81);
+    btnNewPJ->setCursor(Qt::PointingHandCursor);
 
-    Btn_OpenProject->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    Btn_OpenProject->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    Btn_OpenProject->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    Btn_OpenProject->setAnimationDuration(300);
-    Btn_OpenProject->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("打开项目(O)"), 25, CHAR2STR("打开已知的Cell文档"));
-    Btn_OpenProject->setFixedSize(250, 81);
-    Btn_OpenProject->setCursor(Qt::PointingHandCursor);
+    btnOpenPJ->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
+    btnOpenPJ->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
+    btnOpenPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    btnOpenPJ->setAnimationDuration(300);
+    btnOpenPJ->Init(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目"), 25, CHAR2STR("打开已知的Cell文档"));
+    btnOpenPJ->setFixedSize(250, 81);
+    btnOpenPJ->setCursor(Qt::PointingHandCursor);
 
     QFont t(CHAR2STR("Microsoft Yahei UI Light"));
     t.setPixelSize(25);
 
     QVBoxLayout *VLayout_WorkBtns = new QVBoxLayout;
-    VLayout_WorkBtns->addWidget(Btn_NewProject);
-    VLayout_WorkBtns->addWidget(Btn_OpenProject);
+    VLayout_WorkBtns->addWidget(btnNewPJ);
+    VLayout_WorkBtns->addWidget(btnOpenPJ);
     VLayout_WorkBtns->setSpacing(9);
 
     QVBoxLayout *VLayout_Left = new QVBoxLayout;
-    VLayout_Left->addWidget(BtnlistWidget);
+    VLayout_Left->addWidget(btnListWidget);
     VLayout_Left->addStretch();
     VLayout_Left->addLayout(VLayout_WorkBtns);
     VLayout_Left->setContentsMargins(40, 30, 0, 200);
 
     QHBoxLayout *HLayout = new QHBoxLayout;
     HLayout->addLayout(VLayout_Left);
-    HLayout->addWidget(ui->stackedWidget);
+    HLayout->addWidget(stackedWidget);
     HLayout->setSpacing(40);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -137,36 +166,27 @@ void Launcher::InitLauncher()
     setLayout(mainLayout);
 
     notificationCenter->setObjectName(CHAR2STR("notificationCenter"));
-    notificationCenter->setFixedHeight(29);
+    notificationCenter->setFixedHeight(25);
     notificationCenter->setBrightDarkModeColor(CellUiConst::GRAYLEVEL100, CellUiConst::GRAYLEVEL45);
 
-    ui->Btn_max->setFixedSize(19,19);
-    ui->Btn_mini->setFixedSize(19,19);
-    ui->Btn_close->setFixedSize(19,19);
-
     QHBoxLayout *HLayoutTitleRight = new QHBoxLayout;
-    HLayoutTitleRight->addWidget(ui->Btn_max);
-    HLayoutTitleRight->addWidget(ui->Btn_mini);
-    HLayoutTitleRight->addWidget(ui->Btn_close);
-    HLayoutTitleRight->setContentsMargins(0, 0, 12, 0);
+    HLayoutTitleRight->setSpacing(0);
+    HLayoutTitleRight->addWidget(btnMini);
+    HLayoutTitleRight->addWidget(btnMax);
+    HLayoutTitleRight->addWidget(btnClose);
+    HLayoutTitleRight->setContentsMargins(0, 0, 0, 0);
 
     titleBar->addLayout(HLayoutTitleRight);
-
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherCloseBtn.css"));
-    ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherMinimizeBtn.css"));
-    ui->Btn_mini->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
     guideDialog = new LauncherGuideDialog(this);
     guideDialog->show();
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 16 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
-        BtnlistWidget->clickButton(1);
+    if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
+        btnListWidget->clickButton(1);
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_DARK);
     }else if(currentTime.hour() < 19 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
-        BtnlistWidget->clickButton(1);
+        btnListWidget->clickButton(1);
         settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
     }
 #endif
@@ -177,34 +197,36 @@ void Launcher::setEventConnections()
     // Set connections between SettingsPage & ColorScheme-change-enabled modules
     connect(settingsPage, &LauncherSettings::enableColorScheme, notificationCenter, &notificationCenter::setColorScheme);
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), guideDialog, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), Btn_NewProject, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), Btn_OpenProject, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), btnNewPJ, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), btnOpenPJ, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), this, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), homePage, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), BtnlistWidget, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), btnListWidget, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), titleBar, SLOT(setColorScheme(COLOR_SCHEME)));
-
-    // Set connections for page-switching buttons.
-    const customListButton *Tab_HomePage = BtnlistWidget->getButton(0);
-    const customListButton *Tab_Settings = BtnlistWidget->getButton(1);
-    const customListButton *Tab_Guide = BtnlistWidget->getButton(2);
 #ifndef RELEASE_MODE
-    const customListButton *Tab_Test  = BtnlistWidget->getButton(3);
-    connect(Tab_Test, SIGNAL(clicked(bool)), this, SLOT(Tab_Test_clicked()));
+    const customListButton *Tab_Test  = btnListWidget->getButton(3);
+    connect(Tab_Test, SIGNAL(clicked(bool)), this, SLOT(tabTestClicked()));
 #endif
-    connect(Tab_HomePage, SIGNAL(clicked(bool)), this, SLOT(Tab_HomePage_clicked()));
-    connect(Tab_Settings, SIGNAL(clicked(bool)), this, SLOT(Tab_Settings_clicked()));
-    connect(Tab_Guide, SIGNAL(clicked(bool)), this, SLOT(Tab_Guide_clicked()));
-    connect(Btn_NewProject, SIGNAL(clicked(bool)), this, SLOT(Btn_NewProject_clicked()));
+    // Set connections for page-switching buttons.
+    const customListButton *Tab_HomePage = btnListWidget->getButton(0);
+    const customListButton *Tab_Settings = btnListWidget->getButton(1);
+    const customListButton *Tab_Guide = btnListWidget->getButton(2);
+    connect(Tab_HomePage, SIGNAL(clicked(bool)), this, SLOT(tabHomeClicked()));
+    connect(Tab_Settings, SIGNAL(clicked(bool)), this, SLOT(tabSettingsClicked()));
+    connect(Tab_Guide, SIGNAL(clicked(bool)), this, SLOT(tabGuideClicked()));
+    connect(btnNewPJ, SIGNAL(clicked(bool)), this, SLOT(btnNewClicked()));
+    connect(btnMini,  &QPushButton::clicked, this, &Launcher::btnMiniClicked);
+    connect(btnMax,   &QPushButton::clicked, this, &Launcher::btnMaxClicked);
+    connect(btnClose, &QPushButton::clicked, this, &Launcher::btnCloseClicked);
 }
 
-void Launcher::on_Btn_mini_clicked()
+void Launcher::btnMiniClicked()
 {
     if(this->windowState() != Qt::WindowMinimized)
             this->setWindowState(Qt::WindowMinimized);
 }
 
-void Launcher::on_Btn_close_clicked()
+void Launcher::btnCloseClicked()
 {
     this->close();
     if(workshop){
@@ -212,26 +234,26 @@ void Launcher::on_Btn_close_clicked()
     }
 }
 
-void Launcher::Tab_HomePage_clicked()
+void Launcher::tabHomeClicked()
 {
     if(currentPage == PAGE_TYPE::_HOME) return;
     currentPage = PAGE_TYPE::_HOME;
     startPageSwitchAnimation(PAGE_TYPE::_HOME);
 }
 
-void Launcher::Tab_Settings_clicked()
+void Launcher::tabSettingsClicked()
 {
     if(currentPage == PAGE_TYPE::_SETTINGS) return;
     currentPage = PAGE_TYPE::_SETTINGS;
     startPageSwitchAnimation(PAGE_TYPE::_SETTINGS);
 }
 
-void Launcher::Tab_Guide_clicked()
+void Launcher::tabGuideClicked()
 {
     guideDialog->show();
 }
 
-void Launcher::Tab_Test_clicked()
+void Launcher::tabTestClicked()
 {
     testForm->show();
 }
@@ -241,37 +263,43 @@ void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
     int duration = CellUiGlobal::CELL_GLOBALPAGESWITCHDURATION;
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
-        ui->stackedWidget->setCurrentWidget(settingsPage);
-        CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,this_animi,
+        stackedWidget->setCurrentWidget(settingsPage);
+        CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animi,
                                        settingsPage,duration,CellUiGlobal::FADE_TYPE::_IN);
     }else{
         homePage->setWindowOpacity(0);
-        ui->stackedWidget->setCurrentWidget(homePage);
-        CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,this_animi,
+        stackedWidget->setCurrentWidget(homePage);
+        CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animi,
                                        homePage,duration,CellUiGlobal::FADE_TYPE::_IN);
     }
 }
 
-void Launcher::Btn_NewProject_clicked()
+void Launcher::btnNewClicked()
 {
     newPJDialog = nullptr;
-    workshop = nullptr;
     if(newPJDialog == nullptr){
         newPJDialog = new LauncherNewPJDialog(m_mode, this);
         connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)));
-    }
+        connect(newPJDialog, &LauncherNewPJDialog::projectSettled, this, &Launcher::launchWorkShop);
+    }  
+    newPJDialog->show();
+}
+
+void Launcher::launchWorkShop(CellProjectEntity entity)
+{
+    entity.print();
+    workshop = nullptr;
     if(workshop == nullptr){
         workshop = new Workshop(m_mode, this);
         connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
         connect(workshop, SIGNAL(constructed()),notificationCenter, SLOT(plusCnt()));
         connect(workshop, SIGNAL(destoryed()),notificationCenter, SLOT(minusCnt()));
     }
-    newPJDialog->show();
     workshop->show();
     workshop->_constructed();
 }
 
-void Launcher::on_Btn_max_clicked()
+void Launcher::btnMaxClicked()
 {
     static QSize size;
     static QPoint point;

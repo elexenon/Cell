@@ -36,5 +36,5 @@ GNU通用公共许可证 v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
 
 ## 预览
 
-![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/brightmode.png)
-![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/darkmode.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/launcher.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/workshop.png)

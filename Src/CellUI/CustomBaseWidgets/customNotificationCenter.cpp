@@ -27,17 +27,15 @@ notificationCenter::notificationCenter(QWidget *parent):
 
 void notificationCenter::Init()
 {
-    label_identifi->setObjectName(CHAR2STR("label_identifi"));
     label_identifi->setText(CHAR2STR("WORKSHOP"));
-    label_identifi->setFont(QFont ("微软雅黑",8,QFont::Bold));
+    label_identifi->setFont(QFont (CHAR2STR("Microsoft YaHei UI"), 8, QFont::Bold));
     label_identifi->setStyleSheet("QLabel{color:rgb(255,255,255);}");
-    label_identifi->setGeometry(-120,3,120,22);
+    label_identifi->move(-120,0);
 
-    label_ready->setObjectName("label_ready");
     label_ready->setText(QString::fromUtf8("就绪"));
-    label_ready->setFont(QFont("微软雅黑",9));
+    label_ready->setFont(CellUiGlobal::getFont(CHAR2STR("Microsoft YaHei UI"), 14));
     label_ready->setStyleSheet("QLabel{color:rgb(255,255,255);}");
-    label_ready->setGeometry(10,3,40,22);
+    label_ready->move(10,0);
 }
 
 void notificationCenter::plusCnt()

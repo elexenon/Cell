@@ -12,6 +12,7 @@
 #include "../../CellCore/Kits/CellGlobalMacros.h"
 #include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
 #include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
+#include "../../CellCore/CellProjectEntity.h"
 
 class WSLoadingDialog;
 class QsciScintilla;
@@ -34,6 +35,7 @@ class QStackedWidget;
 
 class Workshop : public QWidget, implements CellWidgetGlobalInterface
 {
+friend class Launcher;
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
@@ -72,10 +74,14 @@ private:
     QShortcut         *ctrlS;
     bool               codeModified = false;
 
+    CellProjectEntity  currEntity;
+
 private:
     void initWorkshop();
-    void setEventConnections();
+    virtual void setEventConnections() override;
     void initTreeView();
+    inline
+    void getProjectEntity(CellProjectEntity &entity) { currEntity = entity; }
 
 private slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;

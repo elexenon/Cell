@@ -19,7 +19,7 @@ void customGradientChangeFrame::transCurrState(const customGradientChangeFrame::
     if(newState == currState) return;
     currState = newState;
     const QColor targetColor = (newState == GRADIENT_STATE::_SPECIAL ? specialColor :
-                                (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL218 : CellUiConst::GRAYLEVEL70));
+                                (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL100 : CellUiConst::GRAYLEVEL70));
     CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                      color(),

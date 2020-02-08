@@ -31,9 +31,9 @@
 
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customGradientChangeFrame.h"
-#include "../../CellCore/CellProjectEntity.h"
 #include "../../CellCore/Kits/CellUtility.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
+#include "../../CellCore/CellSqlManager.h"
 #include "WSLoadingDialog.h"
 #include "WorkShop.h"
 #include "ui_WorkShop.h"
@@ -259,7 +259,6 @@ void Workshop::setEventConnections()
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(updateStatusBar()));
     connect(ctrlS, SIGNAL(activated()), this, SLOT(saveFile()));
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(checkCodeModifiedState()));
-    connect(ctrlS, SIGNAL(activated()), this, SLOT(saveFile()));
 }
 
 void Workshop::initTreeView()
@@ -311,6 +310,10 @@ void Workshop::saveFile()
     if(!codeModified) return;
     code_prev = code_curr;
     statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
+
+    CellSqlManager manager;
+    manager.setDbPath("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\build-Cell_DeepLearning-Desktop_Qt_5_12_6_MinGW_32_bit-Debug\\debug\\CellDB.db");
+    manager.insertProjectEntity(currEntity);
 }
 
 void Workshop::checkCodeModifiedState()

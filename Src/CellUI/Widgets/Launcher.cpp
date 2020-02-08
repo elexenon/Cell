@@ -57,7 +57,7 @@ Launcher::Launcher(QWidget *parent)
 {
     InitLauncher();
     setEventConnections();
-    //btnMaxClicked();
+    btnMaxClicked();
 }
 Launcher::~Launcher()
 {}
@@ -83,7 +83,7 @@ void Launcher::InitLauncher()
     btnMini->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
     btnMini->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
     btnMini->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
-    btnMini->setAnimationDuration(200);
+    btnMini->setAnimationDuration(150);
     btnMini->Init(CHAR2STR("iconMinimize"), 15, 2);
     btnMini->setFixedSize(50, titleBar->height());
     btnMini->setCursor(Qt::PointingHandCursor);
@@ -91,7 +91,7 @@ void Launcher::InitLauncher()
     btnMax->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
     btnMax->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
     btnMax->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
-    btnMax->setAnimationDuration(200);
+    btnMax->setAnimationDuration(150);
     btnMax->Init(CHAR2STR("iconMaximize"), 17, 14);
     btnMax->setFixedSize(50, titleBar->height());
     btnMax->setCursor(Qt::PointingHandCursor);
@@ -99,7 +99,7 @@ void Launcher::InitLauncher()
     btnClose->setBrightModeHoveringColor(QColor(220, 20, 60));
     btnClose->setDarkModeHoveringColor(QColor(220, 20, 60));
     btnClose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
-    btnClose->setAnimationDuration(200);
+    btnClose->setAnimationDuration(150);
     btnClose->Init(CHAR2STR("iconClose"), 14, 14);
     btnClose->setFixedSize(50, titleBar->height());
     btnClose->setCursor(Qt::PointingHandCursor);
@@ -125,7 +125,7 @@ void Launcher::InitLauncher()
     btnNewPJ->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
     btnNewPJ->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
     btnNewPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    btnNewPJ->setAnimationDuration(300);
+    btnNewPJ->setAnimationDuration(200);
     btnNewPJ->Init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("新建项目"), 25, CHAR2STR("新建一个Cell文档"));
     btnNewPJ->setFixedSize(250, 81);
     btnNewPJ->setCursor(Qt::PointingHandCursor);
@@ -133,7 +133,7 @@ void Launcher::InitLauncher()
     btnOpenPJ->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
     btnOpenPJ->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
     btnOpenPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    btnOpenPJ->setAnimationDuration(300);
+    btnOpenPJ->setAnimationDuration(200);
     btnOpenPJ->Init(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目"), 25, CHAR2STR("打开已知的Cell文档"));
     btnOpenPJ->setFixedSize(250, 81);
     btnOpenPJ->setCursor(Qt::PointingHandCursor);
@@ -295,6 +295,7 @@ void Launcher::launchWorkShop(CellProjectEntity entity)
         connect(workshop, SIGNAL(constructed()),notificationCenter, SLOT(plusCnt()));
         connect(workshop, SIGNAL(destoryed()),notificationCenter, SLOT(minusCnt()));
     }
+    workshop->getProjectEntity(entity);
     workshop->show();
     workshop->_constructed();
 }

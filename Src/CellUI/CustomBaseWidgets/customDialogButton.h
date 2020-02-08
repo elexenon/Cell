@@ -26,9 +26,9 @@ private:
     virtual void setEventConnections() override;
 
 protected:
-    customLabel                   *currState;
-    ButtonWithIcon                *trigger;
-    QHBoxLayout                   *mainLayout;
+    customLabel    *currState;
+    ButtonWithIcon *trigger;
+    QHBoxLayout    *mainLayout;
 
 signals:
     void clicked();

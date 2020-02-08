@@ -1,5 +1,6 @@
 #include "CellSqlManager.h"
 #include "../../CellCore/Kits/CellGlobalMacros.h"
+#include "CellProjectEntity.h"
 
 #include <QDebug>
 #include <sqlite3.h>
@@ -40,10 +41,10 @@ const QStringList* CellSqlManager::fetchRecentPJ()
         int ret = sqlite3_prepare_v2(dbHandle, sqlSentence, -1, &stmtHandle, nullptr);
         if(SQLITE_OK == ret) {
             recentPJFetched = true;
-            CELLSQLMANAGER_HEADER << CHAR2STR("Valid Sentence.");
+            CELLSQLMANAGER_HEADER << CHAR2STR("Valid Fetching Sentence.");
         }
         else{
-            CELLSQLMANAGER_HEADER << CHAR2STR("Invalid Sentence.");
+            CELLSQLMANAGER_HEADER << CHAR2STR("Invalid Fetching Sentence.");
             // If Sql Sentense Is Invalid, The Control Flow Will End Up Here.
             return currSqlTuple;
         }
@@ -59,4 +60,49 @@ const QStringList* CellSqlManager::fetchRecentPJ()
     CELLSQLMANAGER_HEADER << CHAR2STR("Recent Projects Fetching Done.");
     sqlite3_finalize(stmtHandle);
     return currSqlTuple;
+}
+
+bool CellSqlManager::insertProjectEntity(CellProjectEntity &entity)
+{
+    QString type;
+    switch(entity.type()){
+    case CellProjectEntity::_CELLDEEPLEARNING:
+        type = QString::fromUtf8("Cell DeepLearning");
+        break;
+    case CellProjectEntity::_PREDICTEARTHQUAKE:
+        type = QString::fromUtf8("基于Cell DeepLearning的地震预测");
+        break;
+    case CellProjectEntity::_EMPTY:
+        type = QString::fromUtf8("Empty File");
+        break;
+    case CellProjectEntity::_CPP:
+        type = QString::fromUtf8("C++ File");
+        break;
+    case CellProjectEntity::_PYTHON:
+        type = QString::fromUtf8("Python File");
+        break;
+    }
+    QString tmp = QString("INSERT INTO RECENT_PROJECT VALUES(") + "'" + entity.name() + "'"
+                                                                + ","
+                                                                + "'" + entity.modifiedTime() + "'"
+                                                                + ","
+                                                                + "'" + entity.size() + "'"
+                                                                + ","
+                                                                + "'" + entity.path() + "'"
+                                                                + ","
+                                                                + "'" + type + "'"
+                                                                + ");";
+    const char *sqlSentence = tmp.toLatin1().data();
+    qDebug() << sqlSentence;
+    int ret = sqlite3_prepare_v2(dbHandle, sqlSentence, -1, &stmtHandle, nullptr);
+    if(ret == SQLITE_OK){
+        CELLSQLMANAGER_HEADER << CHAR2STR("Valid Inserting Sentence.");
+    }else{
+        CELLSQLMANAGER_HEADER << CHAR2STR("Invalid Inserting Sentence.");
+        sqlite3_finalize(stmtHandle);
+        return false;
+    }
+    sqlite3_step(stmtHandle);
+    sqlite3_finalize(stmtHandle);
+    return true;
 }

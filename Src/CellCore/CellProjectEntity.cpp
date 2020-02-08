@@ -12,6 +12,7 @@
 
 CellProjectEntity::CellProjectEntity()
 {
+    m_size = "1GB";
     QDateTime curr = QDateTime::currentDateTime();
     m_modifiedTime = curr.toString("yyyy-MM-dd");
 }

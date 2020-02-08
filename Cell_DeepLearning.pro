@@ -88,7 +88,6 @@ HEADERS += \
 
 FORMS += \
     CellDevelopTestStation.ui \
-    Src/CellUI/Widgets/Forms/Launcher.ui \
     Src/CellUI/Widgets/Forms/LauncherGuideDialog.ui \
     Src/CellUI/Widgets/Forms/WSLoadingDialog.ui \
     Src/CellUI/Widgets/Forms/launcherNewPJDialog.ui

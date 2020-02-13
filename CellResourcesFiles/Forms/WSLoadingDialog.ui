@@ -14,19 +14,19 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(230, 230, 230);</string>
+   <string notr="true">background-color: rgb(247, 247, 247);</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>80</y>
-     <width>391</width>
-     <height>111</height>
+     <x>50</x>
+     <y>110</y>
+     <width>390</width>
+     <height>72</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/images/Images/WS.png);</string>
+    <string notr="true">border-image: url(:/images/Images/workshopLogo.png);</string>
    </property>
    <property name="text">
     <string/>
@@ -61,7 +61,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(163, 163, 163);</string>
+    <string notr="true">background-color: white;</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>

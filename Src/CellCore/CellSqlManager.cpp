@@ -18,15 +18,16 @@ CellSqlManager::~CellSqlManager()
     delete currSqlTuple;
 }
 
-
 bool CellSqlManager::setDbPath(const char *dbPath)
 {
-    // Check if the open operation of database if valid.
-    int ret = sqlite3_open(dbPath, &dbHandle);
-    if(SQLITE_OK == ret)
-        CELLSQLMANAGER_HEADER << CHAR2STR("Database::") + dbPath + CHAR2STR("::Connect Succeed.");
-    else if(SQLITE_ERROR == ret){
-        CELLSQLMANAGER_HEADER << CHAR2STR("Database::") + dbPath + CHAR2STR("::Connect Failed.");
+    sqlResult = sqlite3_open_v2(dbPath, &dbHandle, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE,
+                                nullptr);
+    if(SQLITE_OK == sqlResult){
+        CELLSQLMANAGER_DEBUG << "Database::" << dbPath << "::Connect_Succeed." << endl;
+    }
+    else{
+        CELLSQLMANAGER_DEBUG << "Database::" << dbPath << "::Connect_Failed::" << printErrorMsg() << endl;
+        CELLSQLMANAGER_DEBUG << "Then create a new one as: " << dbPath << endl;
         return false;
     }
     return true;
@@ -37,17 +38,11 @@ const QStringList* CellSqlManager::fetchRecentPJ()
     currSqlTuple->clear();
     static bool recentPJFetched = false;
     if(!recentPJFetched){
-        const char *sqlSentence = "SELECT NAME, MODIFIED_TIME, SIZE, PATH, TYPE FROM RECENT_PROJECT;";
-        int ret = sqlite3_prepare_v2(dbHandle, sqlSentence, -1, &stmtHandle, nullptr);
-        if(SQLITE_OK == ret) {
+        const char *sqlSentence = "SELECT * FROM RecentPJ;";
+        if(execSql("ProjectEntity_Fetch", sqlSentence, false, false))
             recentPJFetched = true;
-            CELLSQLMANAGER_HEADER << CHAR2STR("Valid Fetching Sentence.");
-        }
-        else{
-            CELLSQLMANAGER_HEADER << CHAR2STR("Invalid Fetching Sentence.");
-            // If Sql Sentense Is Invalid, The Control Flow Will End Up Here.
+        else
             return currSqlTuple;
-        }
     }
     if(sqlite3_step(stmtHandle) == SQLITE_ROW){
         (*currSqlTuple) << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 0)))
@@ -57,52 +52,56 @@ const QStringList* CellSqlManager::fetchRecentPJ()
                         << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 4)));
         return currSqlTuple;
     }
-    CELLSQLMANAGER_HEADER << CHAR2STR("Recent Projects Fetching Done.");
     sqlite3_finalize(stmtHandle);
     return currSqlTuple;
 }
 
 bool CellSqlManager::insertProjectEntity(CellProjectEntity &entity)
 {
-    QString type;
-    switch(entity.type()){
-    case CellProjectEntity::_CELLDEEPLEARNING:
-        type = QString::fromUtf8("Cell DeepLearning");
-        break;
-    case CellProjectEntity::_PREDICTEARTHQUAKE:
-        type = QString::fromUtf8("基于Cell DeepLearning的地震预测");
-        break;
-    case CellProjectEntity::_EMPTY:
-        type = QString::fromUtf8("Empty File");
-        break;
-    case CellProjectEntity::_CPP:
-        type = QString::fromUtf8("C++ File");
-        break;
-    case CellProjectEntity::_PYTHON:
-        type = QString::fromUtf8("Python File");
-        break;
-    }
-    QString tmp = QString("INSERT INTO RECENT_PROJECT VALUES(") + "'" + entity.name() + "'"
-                                                                + ","
-                                                                + "'" + entity.modifiedTime() + "'"
-                                                                + ","
-                                                                + "'" + entity.size() + "'"
-                                                                + ","
-                                                                + "'" + entity.path() + "'"
-                                                                + ","
-                                                                + "'" + type + "'"
-                                                                + ");";
+    QString tmp = QString("INSERT INTO RecentPJ VALUES(") + "'" + entity.name()                          + "'" + ","
+                                                          + "'" + entity.modifiedTime()                  + "'" + ","
+                                                                + QString::number(entity.size())               + ","
+                                                          + "'" + CellProjectEntity::getType(entity.type()) + "'" + ","
+                                                          + "'" + entity.path()                          + "'" + ");";
+    qDebug() << tmp;
     const char *sqlSentence = tmp.toLatin1().data();
-    qDebug() << sqlSentence;
-    int ret = sqlite3_prepare_v2(dbHandle, sqlSentence, -1, &stmtHandle, nullptr);
-    if(ret == SQLITE_OK){
-        CELLSQLMANAGER_HEADER << CHAR2STR("Valid Inserting Sentence.");
+    return execSql("Insert", sqlSentence);
+}
+
+const char* CellSqlManager::printErrorMsg()
+{
+    return sqlite3_errmsg(dbHandle);
+}
+
+bool CellSqlManager::execSql(const char *head, const char *sqlSentence, bool clearStmt, bool step)
+{
+    sqlResult = sqlite3_prepare_v2(dbHandle, sqlSentence, -1, &stmtHandle, nullptr);
+    if(sqlResult == SQLITE_OK){
+        CELLSQLMANAGER_DEBUG << head << "_Succeed" << endl;
     }else{
-        CELLSQLMANAGER_HEADER << CHAR2STR("Invalid Inserting Sentence.");
+        CELLSQLMANAGER_DEBUG << head << "_Failed::" << printErrorMsg() << endl;
         sqlite3_finalize(stmtHandle);
         return false;
     }
-    sqlite3_step(stmtHandle);
+    if(step)      sqlite3_step(stmtHandle);
+    if(clearStmt) sqlite3_finalize(stmtHandle);
+    return true;
+}
+
+bool CellSqlManager::tableExists(const char *tableName)
+{
+    const QString sqlSentence = CHAR2STR("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '") + tableName + "'";
+    if(execSql("Query_TableExists", sqlSentence.toLatin1().data(), false, false)){
+        if(sqlite3_step(stmtHandle) == SQLITE_ROW){
+            if(atoi(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 0))) == 0){
+                CELLSQLMANAGER_DEBUG << "Table::" << tableName << "::Doesn't Exist." << endl;
+                return false;
+            }
+        }
+    }else{
+        return false;
+    }
+    CELLSQLMANAGER_DEBUG << "Table::" << tableName << "::Exist." << endl;
     sqlite3_finalize(stmtHandle);
     return true;
 }

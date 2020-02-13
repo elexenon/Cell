@@ -8,11 +8,15 @@ TEMPLATE = app
 
 CONFIG += c++11
 
-CONFIG += procompile_header
-
-PRECOMPILED_HEADER = Src/CellCore/Kits/Pch.h
+CONFIG += precompile_header
+PRECOMPILED_HEADER = Pch.h
 
 DEFINES += QT_DEPRECATED_WARNINGS
+
+msvc {
+    QMAKE_CFLAGS += /utf-8
+    QMAKE_CXXFLAGS += /utf-8
+}
 
 SOURCES += \
     CellDevelopTestStation.cpp \
@@ -30,6 +34,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
+    Src/CellUI/CustomBaseWidgets/customStackedWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customTitleBar.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.cpp \
@@ -52,6 +57,7 @@ SOURCES += \
 
 HEADERS += \
     CellDevelopTestStation.h \
+    Pch.h \
     Src/CellCore/CellSqlManager.h \
     Src/CellCore/Kits/CellGlobalMacros.h \
     Src/CellCore/Kits/CellUtility.h \
@@ -74,6 +80,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
+    Src/CellUI/CustomBaseWidgets/customStackedWidget.h \
     Src/CellUI/CustomBaseWidgets/customTitleBar.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.h \
@@ -88,14 +95,13 @@ HEADERS += \
 
 FORMS += \
     CellDevelopTestStation.ui \
-    Src/CellUI/Widgets/Forms/LauncherGuideDialog.ui \
-    Src/CellUI/Widgets/Forms/WSLoadingDialog.ui \
-    Src/CellUI/Widgets/Forms/launcherNewPJDialog.ui
+    CellResourcesFiles/Forms/WSLoadingDialog.ui \
+    CellResourcesFiles/Forms/launcherNewPJDialog.ui
 
 RESOURCES += \
-    Src/CellResourcesFiles/Fonts.qrc \
-    Src/CellResourcesFiles/Images.qrc \
-    Src/CellResourcesFiles/StyleSheets.qrc
+    CellResourcesFiles/Fonts.qrc \
+    CellResourcesFiles/Images.qrc \
+    CellResourcesFiles/StyleSheets.qrc
 
 INCLUDEPATH += Src/third-part-apis/QScintilla_gpl-2.11.2/ \
                Src/third-part-apis/Sqlite3/
@@ -103,11 +109,12 @@ INCLUDEPATH += Src/third-part-apis/QScintilla_gpl-2.11.2/ \
 CONFIG += debug_and_release
 
 # Libs Path has to be an absolute directory.
-LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\sqlite3.dll
 CONFIG(debug, debug | release){
-    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5d.dll
+    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64\qscintilla2_qt5d.dll
+    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64\sqlite3.dll
 }else{
-    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\LIBS\X86\qscintilla2_qt5.dll
+    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64\sqlite3.dll
+    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64\qscintilla2_qt5.dll
 }
 
 RC_ICONS = CELL.ico

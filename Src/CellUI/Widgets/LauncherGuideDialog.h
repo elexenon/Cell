@@ -11,32 +11,47 @@
 #include "../../CellCore/Kits/CellUtility.h"    // COLOR_SCHEME
 #include "../CustomBaseWidgets/customWinstyleDialog.h"
 
-class customTitleBar;
+class customFrame;
+class customLabel;
+class customStackedWidget;
 class QVBoxLayout;
-
-namespace Ui {
-class LauncherGuideDialog;
-}
+class QLabel;
+class QCheckBox;
+class QStackedWidget;
+class ButtonWithText;
+class ButtonWithIcon;
 
 class LauncherGuideDialog : public customWinstyleDialog
 {
     Q_OBJECT
 public:
     explicit LauncherGuideDialog(QWidget *parent = nullptr);
-    ~LauncherGuideDialog();
+    ~LauncherGuideDialog() = default;
 
 private:
-    QVBoxLayout             *mainLayout;
-    Ui::LauncherGuideDialog *ui;
-    customTitleBar          *titleBar;
+    QVBoxLayout         *mainLayout;
+    customFrame         *titleBar;
+    QLabel              *icon;
+    customLabel         *labelTitle;
+    customStackedWidget *mainStackedWidget;
+    customFrame         *bottomBar;
+    QCheckBox           *checkBox;
+    ButtonWithText      *btnClose;
+    ButtonWithText      *btnNewPJ;
 
 private:
-    void Init();
+    void init();
+    virtual void setEventConnections() override;
+
+signals:
+    void clickedNewPJ();
 
 private slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
-    void    on_Btn_close_clicked();
-    void    on_pushButton_clicked();
+    inline
+    void         btnCloseClicked() { this->close(); }
+    inline
+    void         btnNewPJClicked() { emit clickedNewPJ(); this->close(); }
 };
 
 #endif // LauncherGuideDialog_H

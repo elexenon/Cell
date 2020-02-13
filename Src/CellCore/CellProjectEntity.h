@@ -21,6 +21,8 @@ public:
     explicit CellProjectEntity();
     ~CellProjectEntity() = default;
 
+    static const QString getType(CellProjectEntityType type);
+
     inline
     void setName(const QString &name) { this->m_name = name; }
 
@@ -31,7 +33,7 @@ public:
     void setType(const CellProjectEntityType &type) { this->m_type = type; }
 
     inline
-    void setsize(const QString &size) { this->m_size = size; }
+    void setsize(const int &size) { this->m_size = size; }
 
     inline
     void setModifiedTime(const QString &time) { this->m_modifiedTime = time; }
@@ -45,7 +47,7 @@ public:
     inline const CellProjectEntityType&
     type() { return m_type; }
 
-    inline const QString&
+    inline const int&
     size() { return m_size; }
 
     inline const QString&
@@ -57,7 +59,7 @@ private:
     QString               m_name;
     QString               m_modifiedTime;
     QString               m_path;
-    QString               m_size;
+    int                   m_size;
 };
 
 Q_DECLARE_METATYPE(CellProjectEntity);

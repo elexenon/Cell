@@ -101,7 +101,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     btn1->setBrightModeHoverColor(CellUiConst::GRAYLEVEL218);
     btn1->setDarkModeHoverColor(CellUiConst::GRAYLEVEL130);
     btn1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
-    btn1->Init("customTextButton");
+    btn1->init("customTextButton");
     btn1->setFixedSize(200, 81);
 
     ButtonWithIcon *btn2 = new ButtonWithIcon(customButton::TYPE::CHECKABLE_RADIUS, this);

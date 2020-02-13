@@ -36,7 +36,6 @@
 #include "../../CellCore/CellSqlManager.h"
 #include "WSLoadingDialog.h"
 #include "WorkShop.h"
-#include "ui_WorkShop.h"
 #define CELL_DEBUG
 
 Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
@@ -312,8 +311,10 @@ void Workshop::saveFile()
     statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
 
     CellSqlManager manager;
-    manager.setDbPath("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\build-Cell_DeepLearning-Desktop_Qt_5_12_6_MinGW_32_bit-Debug\\debug\\CellDB.db");
+    manager.setDbPath("CellDB.db");
     manager.insertProjectEntity(currEntity);
+
+    emit fileSaved(currEntity);
 }
 
 void Workshop::checkCodeModifiedState()

@@ -12,7 +12,7 @@
 class StyleSheetLoader
 {
 public:
-    explicit StyleSheetLoader(const QString &DIR) // Must use absolute directory!
+    explicit StyleSheetLoader(const QString &DIR) // Must use an absolute directory!
         :loader(new QFile)
         ,DIR(DIR)
     {}

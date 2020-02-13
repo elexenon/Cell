@@ -23,10 +23,15 @@ ButtonWithText::ButtonWithText(customButton::TYPE type, QWidget *parent):
     mainLayout->addWidget(tag);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
     
-    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    setTextColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
 }
 
-void ButtonWithText::Init(const QString &text, int fontSize)
+void ButtonWithText::setTextColor(const QColor &b, const QColor &d)
+{
+    tag->setBrightDarkModeColor(b, d);
+}
+
+void ButtonWithText::init(const QString &text, int fontSize)
 {
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), fontSize, text);
 }

@@ -98,6 +98,7 @@ protected:
 signals:
     void constructed();
     void destoryed();
+    void fileSaved(CellProjectEntity &entity);
 };
 
 #endif // WORKSHOP_H

@@ -57,7 +57,7 @@ void LauncherNewPJDialog::Init()
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
     titleBar->setText(CHAR2STR("新建项目"), CellUiConst::GRAYLEVEL70);
 
-    QFont font(QString::fromUtf8("Microsoft YaHei UI Light"));
+    QFont font(CHAR2STR("Microsoft YaHei UI Light"));
 
     CellUiGlobal::setCustomTextLabel(label_choose, CHAR2STR("Microsoft YaHei UI Light"), 25, CHAR2STR("选择一个模板"));
     label_choose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
@@ -85,7 +85,7 @@ void LauncherNewPJDialog::Init()
     btnConfirm->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL70);
     btnConfirm->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
     btnConfirm->setAnimationDuration(300);
-    btnConfirm->Init(CHAR2STR("确认"), 14);
+    btnConfirm->init(CHAR2STR("确认"), 14);
     btnConfirm->setFixedSize(100, 27);
     btnConfirm->setCursor(Qt::PointingHandCursor);
     btnConfirm->setEnabled(false);
@@ -93,7 +93,7 @@ void LauncherNewPJDialog::Init()
     btnCancel->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL70);
     btnCancel->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
     btnCancel->setAnimationDuration(300);
-    btnCancel->Init(CHAR2STR("取消"), 14);
+    btnCancel->init(CHAR2STR("取消"), 14);
     btnCancel->setFixedSize(100, 27);
     btnCancel->setCursor(Qt::PointingHandCursor);
 

@@ -6,10 +6,10 @@
 //
 // Of source file directory.
 #include "LauncherHomepage.h"
-#include "ui_LauncherHomepage.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../CustomBaseWidgets/customOptionBlock.h"
 #include "../../CellCore/CellSqlManager.h"
+#include "../../CellCore/CellProjectEntity.h"
 
 #include <QScrollBar>
 #include <QHBoxLayout>
@@ -32,17 +32,18 @@ LauncherHomepage::LauncherHomepage(QWidget *parent) :
     mainLayout(new QVBoxLayout(this)),
     stackedWidget(new QStackedWidget(this)),
     tableView(new QTableView(stackedWidget)),
+    itemModel(new QStandardItemModel),
     scrollArea(new QScrollArea(stackedWidget)),
     btnGrid(new QPushButton(this)),
     btnList(new QPushButton(this)),
     iconRecentPJ(new QLabel(this)),
     labelRecentPJ(new QLabel(this))
 {
-    Init();
+    init();
     setEventConnections();
 }
 
-void LauncherHomepage::Init()
+void LauncherHomepage::init()
 {
     // Set HLayout_Btns.
     CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeGridBtn_Bright.css"));
@@ -109,26 +110,10 @@ void LauncherHomepage::setEventConnections()
 
 void LauncherHomepage::initTableView()
 {
-    // Set The Header Of Standard Item Model.
     QStringList headersList;
     headersList << CHAR2STR("名称") << CHAR2STR("修改时间") << CHAR2STR("大小") << CHAR2STR("类型");
-    QStandardItemModel *itemModel = new QStandardItemModel;
     itemModel->setHorizontalHeaderLabels(headersList);
-
-    // Start Sql.
-    CellSqlManager recentPJSql;
-    recentPJSql.setDbPath("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\build-Cell_DeepLearning-Desktop_Qt_5_12_6_MinGW_32_bit-Debug\\debug\\CellDB.db");
-    const QStringList *tuple = nullptr;
-    while(!(tuple = recentPJSql.fetchRecentPJ())->isEmpty()){
-        QList<QStandardItem*> itemList;
-        for(int i = 0;i < 5;i ++){
-            // Project Path Is Not Useful In Table View.
-            if(i == 3) continue;
-            itemList.append(new QStandardItem(tuple->at(i)));
-        }
-        itemModel->appendRow(itemList);
-    }
-
+    updateDatas();
     // Set TableView.
     using CellEntityTools::styleSheetLoader;
     styleSheetLoader->setStyleSheetName(CHAR2STR("TableViewBrightMode.css"));
@@ -177,6 +162,41 @@ void LauncherHomepage::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
         btnGrid->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
         CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeListBtn_Bright.css"));
         btnList->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+    }
+}
+
+void LauncherHomepage::updateDatasByWS(CellProjectEntity &entity)
+{
+    QList<QStandardItem*> itemList;
+    itemList.append(new QStandardItem(entity.name()));
+    itemList.append(new QStandardItem(entity.modifiedTime()));
+    itemList.append(new QStandardItem(QString::number(entity.size())));
+    itemList.append(new QStandardItem(CellProjectEntity::getType(entity.type())));
+    itemModel->appendRow(itemList);
+}
+
+void LauncherHomepage::updateDatas()
+{
+    // Start Sql.
+    CellSqlManager recentPJSql;
+    recentPJSql.setDbPath("CellDB.db");
+    if(!recentPJSql.tableExists("RecentPJ")){
+        const char *sqlSentence =
+                                "CREATE TABLE RecentPJ("
+                                "Name	       TEXT  PRIMARY KEY  NOT NULL,"
+                                "ModifiedTime  TEXT   			  NOT NULL,"
+                                "Size		   INT			      NOT NULL,"
+                                "Type		   TEXT			      NOT NULL,"
+                                "Path		   TEXT			      NOT NULL);";
+        recentPJSql.createTable(sqlSentence);
+    }
+    const QStringList *tuple = nullptr;
+    while(!(tuple = recentPJSql.fetchRecentPJ())->isEmpty()){
+        qDebug() << tuple;
+        QList<QStandardItem*> itemList;
+        for(int i = 0;i < 4;i ++)
+            itemList.append(new QStandardItem(tuple->at(i)));
+        itemModel->appendRow(itemList);
     }
 }
 

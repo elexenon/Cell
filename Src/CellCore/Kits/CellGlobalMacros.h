@@ -1,4 +1,4 @@
-// This Module Declares Global Macros For Cell WorkStation Developping.
+﻿// This Module Declares Global Macros For Cell WorkStation Developping.
 //
 // Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //

@@ -24,7 +24,7 @@ public:
     void setLeftMargin(int value);
     void setIcon(const QString& fileName, int iconWidth, int iconHeight);
     void setHeight(int value);
-    void setFont(QFont& font, int size);
+    void setFont(const QFont& font);
     void addWidget(QWidget *obj);
     void addLayout(QLayout *obj);
 

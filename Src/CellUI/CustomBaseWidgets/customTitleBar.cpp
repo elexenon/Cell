@@ -22,8 +22,8 @@ customTitleBar::customTitleBar(QWidget *parent):
     setFixedHeight(50);
 
     QPixmap defaultPixmap;
-    defaultPixmap.load(CellUiConst::IMG_DIR + CHAR2STR("CELL_logo_small"));
-    defaultPixmap = defaultPixmap.scaled(height()/2+2, height()/2);
+    defaultPixmap.load(CellUiConst::IMG_DIR + CHAR2STR("cellLogo28"));
+    defaultPixmap = defaultPixmap.scaled(height()/2, height()/2);
     icon->setPixmap(defaultPixmap);
 
 #ifdef CELL_DEBUG
@@ -69,9 +69,8 @@ void customTitleBar::setHeight(int value)
     setFixedHeight(value);
 }
 
-void customTitleBar::setFont(QFont &font, int size)
+void customTitleBar::setFont(const QFont &font)
 {
-    font.setPixelSize(size);
     label_title->setFont(font);
 }
 

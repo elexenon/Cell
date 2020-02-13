@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     // This operation is to register our custom property "COLOR_SCHEME".
     qRegisterMetaType<CellUiGlobal::COLOR_SCHEME>("COLOR_SCHEME");
 
-    QPixmap pixmap(CellUiConst::IMG_DIR + QStringLiteral("SplashScreen.png"));
+    QPixmap pixmap(CellUiConst::IMG_DIR + QStringLiteral("cellSplashScreen.png"));
 
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);
     startUp.setFont(QFont(QStringLiteral("微软雅黑")));

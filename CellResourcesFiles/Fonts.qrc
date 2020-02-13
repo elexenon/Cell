@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/fonts">
         <file>Fonts/InfoDisplayWeb W01 Medium.ttf</file>
+        <file>Fonts/InfoDisplayWeb W01 Bold.ttf</file>
+        <file>Fonts/InfoDisplayWeb W01 Semibold.ttf</file>
     </qresource>
 </RCC>

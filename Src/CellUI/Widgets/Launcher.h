@@ -41,9 +41,9 @@ private:
     QGraphicsOpacityEffect *opacityEffect;
 
     Workshop            *workshop = nullptr;
-    LauncherHomepage    *homePage;
-    LauncherSettings    *settingsPage;
-    LauncherGuideDialog *guideDialog;
+    LauncherHomepage    *homePage = nullptr;
+    LauncherSettings    *settingsPage = nullptr;
+    LauncherGuideDialog *guideDialog = nullptr;
     LauncherNewPJDialog *newPJDialog = nullptr;
 
     customTitleBar *titleBar;

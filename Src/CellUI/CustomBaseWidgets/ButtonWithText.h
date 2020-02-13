@@ -19,7 +19,8 @@ public:
     explicit ButtonWithText(TYPE type = STATIC,QWidget *parent = nullptr);
     virtual ~ButtonWithText() override = default;
 
-    void Init(const QString& text = "Button", int fontSize = 18) ;
+    void init(const QString& text = "Button", int fontSize = 18);
+    void setTextColor(const QColor &b, const QColor &d);
 
 protected:
     QVBoxLayout *mainLayout;

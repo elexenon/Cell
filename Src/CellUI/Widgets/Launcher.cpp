@@ -39,8 +39,8 @@
 
 Launcher::Launcher(QWidget *parent)
     : customWinstyleWidget(parent),
-      homePage(new LauncherHomepage),
-      settingsPage(new LauncherSettings),
+      homePage(new LauncherHomepage(this)),
+      settingsPage(new LauncherSettings((this))),
       titleBar(new customTitleBar(this)),
       btnMini(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
       btnMax(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
@@ -57,7 +57,7 @@ Launcher::Launcher(QWidget *parent)
 {
     InitLauncher();
     setEventConnections();
-    btnMaxClicked();
+    //btnMaxClicked();
 }
 Launcher::~Launcher()
 {}
@@ -71,13 +71,11 @@ void Launcher::InitLauncher()
     testForm->hide();
 #endif
     // Titlebar Combination.
-    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + CHAR2STR("InfoDisplayWeb W01 Medium.ttf"));
-    QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
     titleBar->setFixedHeight(40);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
     titleBar->setText(CHAR2STR("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
-    titleBar->setFont(fontInfo, 21);
-    titleBar->setIcon(CHAR2STR("CELL_logo_small"), 28, 25);
+    titleBar->setFont(CellUiGlobal::getFont(CHAR2STR("InfoDisplayWeb W01 Medium.ttf"), 21));
+    titleBar->setIcon(CHAR2STR("cellLogo28"), 28, 28);
     titleBar->setLeftMargin(15);
 
     btnMini->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
@@ -96,8 +94,8 @@ void Launcher::InitLauncher()
     btnMax->setFixedSize(50, titleBar->height());
     btnMax->setCursor(Qt::PointingHandCursor);
 
-    btnClose->setBrightModeHoveringColor(QColor(220, 20, 60));
-    btnClose->setDarkModeHoveringColor(QColor(220, 20, 60));
+    btnClose->setBrightModeHoveringColor(CellUiConst::CELLEXITRED);
+    btnClose->setDarkModeHoveringColor(CellUiConst::CELLEXITRED);
     btnClose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
     btnClose->setAnimationDuration(150);
     btnClose->Init(CHAR2STR("iconClose"), 14, 14);
@@ -203,6 +201,7 @@ void Launcher::setEventConnections()
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), homePage, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), btnListWidget, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), titleBar, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(guideDialog, &LauncherGuideDialog::clickedNewPJ, this, &Launcher::btnNewClicked);
 #ifndef RELEASE_MODE
     const customListButton *Tab_Test  = btnListWidget->getButton(3);
     connect(Tab_Test, SIGNAL(clicked(bool)), this, SLOT(tabTestClicked()));
@@ -294,6 +293,7 @@ void Launcher::launchWorkShop(CellProjectEntity entity)
         connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
         connect(workshop, SIGNAL(constructed()),notificationCenter, SLOT(plusCnt()));
         connect(workshop, SIGNAL(destoryed()),notificationCenter, SLOT(minusCnt()));
+        connect(workshop, &Workshop::fileSaved, homePage, &LauncherHomepage::updateDatasByWS);
     }
     workshop->getProjectEntity(entity);
     workshop->show();

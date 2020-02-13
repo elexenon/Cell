@@ -5,90 +5,118 @@
 // See accompanying file LICENSE.txt at the root
 //
 // Of source file directory.
-#include <QPropertyAnimation>
-#include <QMouseEvent>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QStackedWidget>
+#include <QCheckBox>
+#include <QLabel>
 
-#include "ui_LauncherGuideDialog.h"
 #include "LauncherGuideDialog.h"
-#include "../CustomBaseWidgets/customTitleBar.h"
+#include "../CustomBaseWidgets/ButtonWithIcon.h"
+#include "../CustomBaseWidgets/ButtonWithText.h"
+#include "../CustomBaseWidgets/customFrame.h"
+#include "../CustomBaseWidgets/customLabel.h"
+#include "../CustomBaseWidgets/customStackedWidget.h"
 #include "../../CellCore/Kits/StyleSheetLoader.hpp"
 
 LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
     customWinstyleDialog(parent),
-    mainLayout(new QVBoxLayout),
-    ui(new Ui::LauncherGuideDialog),
-    titleBar(new customTitleBar(this))
+    mainLayout(new QVBoxLayout(this)),
+    titleBar(new customFrame(customFrame::_REGULAR, this)),
+    icon(new QLabel(titleBar)),
+    labelTitle(new customLabel(titleBar)),
+    mainStackedWidget(new customStackedWidget(this)),
+    bottomBar(new customFrame(customFrame::_REGULAR, this)),
+    checkBox(new QCheckBox(bottomBar)),
+    btnClose(new ButtonWithText(customButton::DYNAMIC, bottomBar)),
+    btnNewPJ(new ButtonWithText(customButton::DYNAMIC, bottomBar))
 {
-    ui->setupUi(this);
-    Init();
+    init();
+    setEventConnections();
 }
 
-LauncherGuideDialog::~LauncherGuideDialog()
-{
-    delete ui;
-}
-
-void LauncherGuideDialog::Init()
+void LauncherGuideDialog::init()
 {
     customWinstyleDialog::LoadWinStyle(this);
     setLayout(mainLayout);
-    setFixedHeight(533);
+    setFixedSize(950, 620);
 
+    // TitleBar Combination.
+    CellUiGlobal::setLabelPixmap(icon, CHAR2STR("cellLogo128"), 50, 50);
+
+    labelTitle->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL255);
+    CellUiGlobal::setCustomTextLabel(labelTitle, CHAR2STR("Microsoft YaHei UI"), 23, CHAR2STR("CELL深度学习向导。"));
+
+    QHBoxLayout *HLayoutTitleBar = new QHBoxLayout(titleBar);
+    HLayoutTitleBar->setContentsMargins(15, 0, 0, 0);
+    HLayoutTitleBar->setSpacing(10);
+    HLayoutTitleBar->setAlignment(Qt::AlignmentFlag::AlignLeft | Qt::AlignmentFlag::AlignVCenter);
+    HLayoutTitleBar->addWidget(icon);
+    HLayoutTitleBar->addWidget(labelTitle);
+
+    titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL60, CellUiConst::GRAYLEVEL60);
+    titleBar->setFixedHeight(75);
+    titleBar->setLayout(HLayoutTitleBar);
+
+    // BottomBar Combination.
+    checkBox->setChecked(true);
+    checkBox->setText(CHAR2STR("启动时显示此面板"));
+    checkBox->setFont(CellUiGlobal::getFont(CHAR2STR("Microsoft YaHei UI"), 13));
+    checkBox->setStyleSheet(CHAR2STR("QCheckBox{color:white;background-color: transparent;}"));
+
+    btnClose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL70);
+    btnClose->setBrightModeHoveringColor(CellUiConst::CELLTHEMECOLOR);
+    btnClose->setDarkModeHoveringColor(CellUiConst::CELLTHEMECOLOR);
+    btnClose->setAnimationDuration(200);
+    btnClose->init(CHAR2STR("关闭"), 15);
+    btnClose->setTextColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL255);
+    btnClose->setFixedSize(100, 40);
+
+    btnNewPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL100, CellUiConst::GRAYLEVEL100);
+    btnNewPJ->setBrightModeHoveringColor(CellUiConst::CELLTHEMECOLOR);
+    btnNewPJ->setDarkModeHoveringColor(CellUiConst::CELLTHEMECOLOR);
+    btnNewPJ->setAnimationDuration(200);
+    btnNewPJ->init(CHAR2STR("新建文档"), 15);
+    btnNewPJ->setTextColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL255);
+    btnNewPJ->setFixedSize(100, 40);
+
+    QHBoxLayout *HLayoutBottom = new QHBoxLayout(bottomBar);
+    HLayoutBottom->setContentsMargins(15, 0, 0, 0);
+    HLayoutBottom->setSpacing(0);
+    HLayoutBottom->addWidget(checkBox);
+    HLayoutBottom->addStretch();
+    HLayoutBottom->addWidget(btnClose);
+    HLayoutBottom->addWidget(btnNewPJ);
+
+    bottomBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL60, CellUiConst::GRAYLEVEL60);
+    bottomBar->setFixedHeight(40);
+
+    customFrame *f1 = new customFrame(customFrame::_REGULAR, this);
+    f1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL30, CellUiConst::GRAYLEVEL60);
+
+    customFrame *f2 = new customFrame(customFrame::_REGULAR, this);
+    f2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL130, CellUiConst::GRAYLEVEL60);
+
+    mainStackedWidget->setAnimiDuration(800);
+    mainStackedWidget->insertWidget(0, f1);
+    mainStackedWidget->insertWidget(1, f2);
+
+
+    // Set MainLayout
     mainLayout->setMargin(0);
-    mainLayout->setSpacing(10);
+    mainLayout->setSpacing(0);
     mainLayout->addWidget(titleBar);
-    mainLayout->addWidget(ui->stackedWidget);
+    mainLayout->addWidget(mainStackedWidget);
+    mainLayout->addWidget(bottomBar);
+}
 
-    QHBoxLayout *HLayout = new QHBoxLayout;
-    HLayout->addWidget(ui->checkBox_showUp);
-    HLayout->addStretch();
-    HLayout->addWidget(ui->Btn_close);
-
-    mainLayout->addLayout(HLayout);
-
-    ui->stackedWidget->setAutoFillBackground(true);
-
-    int fontIDInfo = QFontDatabase::addApplicationFont(CellUiConst::FONT_DIR + CHAR2STR("InfoDisplayWeb W01 Medium.ttf"));
-    QFont fontInfo(QFontDatabase::applicationFontFamilies(fontIDInfo).at(0));
-
-    titleBar->setFixedHeight(50);
-    titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
-    titleBar->setText(CHAR2STR("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
-    titleBar->setFont(fontInfo, 23);
-    titleBar->setIcon(CHAR2STR("CELL_logo_small"), 33, 29);
-    titleBar->setLeftMargin(15);
-
-    ui->checkBox_showUp->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
-    ui->checkBox_showUp->setStyleSheet(CHAR2STR("QCheckBox{color:#798186;background-color: transparent;}"));
-
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherGuideCloseBtn_Bright.css"));
-    ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-    ui->Btn_close->setFont(QFont(CHAR2STR("Microsoft YaHei UI")));
+void LauncherGuideDialog::setEventConnections()
+{
+    connect(btnClose, &QPushButton::clicked, this, &LauncherGuideDialog::btnCloseClicked);
+    connect(btnNewPJ, &QPushButton::clicked, this, &LauncherGuideDialog::btnNewPJClicked);
 }
 
 void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
-    if(m_mode == mode) return;
-    m_mode = mode;
-    //titleBar->setColorScheme(mode);
-    if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
-        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherGuideCloseBtn_Dark.css"));
-        ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-    }
-    else{
-        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherGuideCloseBtn_Bright.css"));
-        ui->Btn_close->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-    }
-}
-
-void LauncherGuideDialog::on_Btn_close_clicked()
-{
-    close();
-}
-static int cnt = 1;
-void LauncherGuideDialog::on_pushButton_clicked()
-{
-    if(cnt == 3) cnt = 0;
-    ui->stackedWidget->setCurrentIndex(cnt++);
+    (void)mode;
 }

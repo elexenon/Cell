@@ -63,7 +63,7 @@ private:
 
 signals:
     void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
-    void projectSettled(CellProjectEntity entity);
+    void projectSettled(CellProjectEntity *entity);
 
 private slots:
     inline

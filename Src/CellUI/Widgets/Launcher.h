@@ -74,6 +74,8 @@ private:
 protected:
 
 
+
+
 private slots:
     void btnMiniClicked();
     void btnMaxClicked();
@@ -83,6 +85,7 @@ private slots:
     void tabGuideClicked();
     void tabTestClicked();
     void btnNewClicked();
-    void launchWorkShop(CellProjectEntity entity);
+    void btnOpenClicked();
+    void launchWorkShop(CellProjectEntity *entity);
 };
 #endif

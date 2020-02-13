@@ -9,7 +9,8 @@
 #define CELLPROJECT_H
 
 #include <QMetaType>
-#include <QTextStream>
+
+class QJsonObject;
 
 class CellProjectEntity{
 public:
@@ -21,45 +22,54 @@ public:
     explicit CellProjectEntity();
     ~CellProjectEntity() = default;
 
-    static const QString getType(CellProjectEntityType type);
+    static const QString         getType(CellProjectEntityType type);
+    static CellProjectEntityType getType(const QString &type);
 
     inline
-    void setName(const QString &name) { this->m_name = name; }
+    void setName(const QString &name) { this->mName = name; }
 
     inline
-    void setPath(const QString &path) { this->m_path = path; }
+    void setPath(const QString &path) { this->mPath = path; }
 
     inline
-    void setType(const CellProjectEntityType &type) { this->m_type = type; }
+    void setType(const CellProjectEntityType &type) { this->mType = type; }
 
     inline
-    void setsize(const int &size) { this->m_size = size; }
+    void setsize(const int &size) { this->mSize = size; }
 
     inline
-    void setModifiedTime(const QString &time) { this->m_modifiedTime = time; }
+    void setModifiedTime(const QString &time) { this->mModifiedTime = time; }
 
     inline const QString&
-    name() { return m_name; }
+    name() { return mName; }
 
     inline const QString&
-    path() { return m_path; }
+    path() { return mPath; }
 
     inline const CellProjectEntityType&
-    type() { return m_type; }
+    type() { return mType; }
 
     inline const int&
-    size() { return m_size; }
+    size() { return mSize; }
+
+    inline void
+    setCode(const QString &code) { mCode = code; }
 
     inline const QString&
-    modifiedTime() { return m_modifiedTime; }
+    modifiedTime() { return mModifiedTime; }
 
     void print();
+
+    void read(const QJsonObject &json);
+
+    void write(QJsonObject &json);
 private:
-    CellProjectEntityType m_type;
-    QString               m_name;
-    QString               m_modifiedTime;
-    QString               m_path;
-    int                   m_size;
+    CellProjectEntityType mType;
+    QString               mName;
+    QString               mModifiedTime;
+    QString               mPath;
+    QString               mCode;
+    int                   mSize;
 };
 
 Q_DECLARE_METATYPE(CellProjectEntity);

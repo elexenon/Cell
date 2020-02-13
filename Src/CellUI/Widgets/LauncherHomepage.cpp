@@ -172,7 +172,7 @@ void LauncherHomepage::updateDatasByWS(CellProjectEntity &entity)
     itemList.append(new QStandardItem(entity.modifiedTime()));
     itemList.append(new QStandardItem(QString::number(entity.size())));
     itemList.append(new QStandardItem(CellProjectEntity::getType(entity.type())));
-    itemModel->appendRow(itemList);
+    itemModel->insertRow(0, itemList);
 }
 
 void LauncherHomepage::updateDatas()
@@ -192,7 +192,6 @@ void LauncherHomepage::updateDatas()
     }
     const QStringList *tuple = nullptr;
     while(!(tuple = recentPJSql.fetchRecentPJ())->isEmpty()){
-        qDebug() << tuple;
         QList<QStandardItem*> itemList;
         for(int i = 0;i < 4;i ++)
             itemList.append(new QStandardItem(tuple->at(i)));

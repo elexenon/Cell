@@ -47,24 +47,24 @@ const QStringList* CellSqlManager::fetchRecentPJ()
     if(sqlite3_step(stmtHandle) == SQLITE_ROW){
         (*currSqlTuple) << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 0)))
                         << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 1)))
-                        << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 2)))
-                        << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 3)))
-                        << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 4)));
+                        << QString::number(sqlite3_column_int(stmtHandle, 2))
+                        << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 3)));
         return currSqlTuple;
     }
     sqlite3_finalize(stmtHandle);
     return currSqlTuple;
 }
 
+
 bool CellSqlManager::insertProjectEntity(CellProjectEntity &entity)
 {
-    QString tmp = QString("INSERT INTO RecentPJ VALUES(") + "'" + entity.name()                          + "'" + ","
-                                                          + "'" + entity.modifiedTime()                  + "'" + ","
-                                                                + QString::number(entity.size())               + ","
-                                                          + "'" + CellProjectEntity::getType(entity.type()) + "'" + ","
-                                                          + "'" + entity.path()                          + "'" + ");";
-    qDebug() << tmp;
-    const char *sqlSentence = tmp.toLatin1().data();
+    QString tmp = QString::fromUtf8("INSERT INTO RecentPJ VALUES(") + "'" + entity.name()                          + "'" + ","
+                                                                    + "'" + entity.modifiedTime()                  + "'" + ","
+                                                                          + QString::number(entity.size())               + ","
+                                                                    + "'" + CellProjectEntity::getType(entity.type()) + "'" + ","
+                                                                    + "'" + entity.path()                          + "'" + ");";
+    const char *sqlSentence = tmp.toUtf8().data();
+    qDebug() << sqlSentence;
     return execSql("Insert", sqlSentence);
 }
 

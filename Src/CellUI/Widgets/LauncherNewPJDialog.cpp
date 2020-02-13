@@ -217,7 +217,7 @@ void LauncherNewPJDialog::setPath(const QString &path)
 
 void LauncherNewPJDialog::btnConfirmClicked()
 {
-    emit projectSettled(*currEntity);
+    emit projectSettled(currEntity);
     this->close();
 }
 

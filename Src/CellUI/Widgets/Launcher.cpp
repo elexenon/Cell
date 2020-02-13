@@ -14,6 +14,7 @@
 #include <QHBoxLayout>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QFileDialog>
 #include <QStackedWidget>
 
 #include "LauncherGuideDialog.h"
@@ -177,7 +178,7 @@ void Launcher::InitLauncher()
     titleBar->addLayout(HLayoutTitleRight);
 
     guideDialog = new LauncherGuideDialog(this);
-    guideDialog->show();
+    guideDialog->hide();
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
     if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
@@ -214,6 +215,7 @@ void Launcher::setEventConnections()
     connect(Tab_Settings, SIGNAL(clicked(bool)), this, SLOT(tabSettingsClicked()));
     connect(Tab_Guide, SIGNAL(clicked(bool)), this, SLOT(tabGuideClicked()));
     connect(btnNewPJ, SIGNAL(clicked(bool)), this, SLOT(btnNewClicked()));
+    connect(btnOpenPJ, &QPushButton::clicked, this, &Launcher::btnOpenClicked);
     connect(btnMini,  &QPushButton::clicked, this, &Launcher::btnMiniClicked);
     connect(btnMax,   &QPushButton::clicked, this, &Launcher::btnMaxClicked);
     connect(btnClose, &QPushButton::clicked, this, &Launcher::btnCloseClicked);
@@ -284,18 +286,26 @@ void Launcher::btnNewClicked()
     newPJDialog->show();
 }
 
-void Launcher::launchWorkShop(CellProjectEntity entity)
+void Launcher::btnOpenClicked()
 {
-    entity.print();
+    QString path = QFileDialog::getOpenFileName(this, "打开Cell文档", ".", "*.json");
+    launchWorkShop(nullptr);
+    workshop->loadFile(path);
+}
+
+void Launcher::launchWorkShop(CellProjectEntity *entity)
+{
     workshop = nullptr;
     if(workshop == nullptr){
         workshop = new Workshop(m_mode, this);
         connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
         connect(workshop, SIGNAL(constructed()),notificationCenter, SLOT(plusCnt()));
         connect(workshop, SIGNAL(destoryed()),notificationCenter, SLOT(minusCnt()));
-        connect(workshop, &Workshop::fileSaved, homePage, &LauncherHomepage::updateDatasByWS);
+        connect(workshop, &Workshop::projectUpdate, homePage, &LauncherHomepage::updateDatasByWS);
     }
-    workshop->getProjectEntity(entity);
+
+    if(entity != nullptr)
+        workshop->getProjectEntity(*entity);
     workshop->show();
     workshop->_constructed();
 }

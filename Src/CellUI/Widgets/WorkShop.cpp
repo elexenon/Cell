@@ -20,6 +20,7 @@
 #include <QFileSystemModel>
 #include <QStandardItem>
 #include <QMenu>
+#include <QFile>
 #include <QStackedWidget>
 #include <QStringList>
 #include <QScrollBar>
@@ -28,6 +29,8 @@
 #include <Qsci/qscilexercpp.h>
 #include <QButtonGroup>
 #include <QList>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customGradientChangeFrame.h"
@@ -49,6 +52,7 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
     mainEditor(new QsciScintilla(this)),
     leftStackedWidget(new QStackedWidget(leftBlock)),
     treeView(new QTreeView(leftBlock)),
+    fileModel(new QFileSystemModel(this)),
     btnDirectory(new QPushButton(this)),
     btnWarning(new QPushButton(this)),
     btnToolChain(new QPushButton(this)),
@@ -237,10 +241,10 @@ void Workshop::initWorkshop()
     loadingDialog->show();
     loadingDialog->progress();
 
-    code_prev = "#!/usr/bin/python\n"
+    codePrev = "#!/usr/bin/python\n"
            "#conding=utf-8\n"
            "import sys\n";
-    mainEditor->setText(code_prev);
+    mainEditor->setText(codePrev);
 
     ctrlS->setKey(tr("ctrl+s"));
     ctrlS->setAutoRepeat(false);
@@ -266,11 +270,16 @@ void Workshop::initTreeView()
     treeView->setAnimated(true);
     treeView->setIndentation(20);
     treeView->setSortingEnabled(false);
+    treeView->header()->setDefaultAlignment(Qt::AlignmentFlag::AlignCenter);
+    treeView->header()->setFont(CellUiGlobal::getFont(CHAR2STR("Microsoft YaHei UI Light"), 15));
+    treeView->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
+}
 
-    QString path("C:\\Users\\HengyiYu\\Desktop\\Projects\\c++\\Qt\\Cell_DeepLearning");
+void Workshop::getProjectEntity(CellProjectEntity &entity)
+{
+    currEntity = entity;
 
-    QFileSystemModel *model = new QFileSystemModel;
-    model->setRootPath(path);
+    fileModel->setRootPath(entity.path());
 
     QStringList headerList;
     headerList << CHAR2STR("Cell Project Directories");
@@ -278,17 +287,9 @@ void Workshop::initTreeView()
     QStandardItemModel *itemModal = new QStandardItemModel;
     itemModal->setHorizontalHeaderLabels(headerList);
 
-    treeView->setModel(model);
+    treeView->setModel(fileModel);
     treeView->header()->setModel(itemModal);
-    treeView->setRootIndex(model->index(path));
-    treeView->header()->setDefaultAlignment(Qt::AlignmentFlag::AlignCenter);
-    treeView->header()->setFont(CellUiGlobal::getFont(CHAR2STR("Microsoft YaHei UI Light"), 15));
-    treeView->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
-}
-
-void Workshop::_constructed()
-{
-    emit constructed();
+    treeView->setRootIndex(fileModel->index(entity.path()));
 }
 
 void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
@@ -304,22 +305,63 @@ void Workshop::updateStatusBar()
     cntChar->setText("Char: " + QString::number(tmp.length()));
 }
 
+void Workshop::loadFile(const QString &path)
+{
+    qDebug() << path;
+    QFile loadFile(path);
+    if (!loadFile.open(QIODevice::ReadOnly))
+        qWarning("Couldn't open save file.");
+    QByteArray saveData = loadFile.readAll();
+    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+    read(loadDoc.object());
+
+    fileModel->setRootPath(currEntity.path());
+    treeView->setRootIndex(fileModel->index(currEntity.path()));
+}
+
+void Workshop::write(QJsonObject &json)
+{
+    QJsonObject projectObject;
+    currEntity.write(projectObject);
+    json["CellProject"] = projectObject;
+}
+
+void Workshop::read(const QJsonObject &json)
+{
+     if (json.contains("CellProject") && json["CellProject"].isObject())
+         currEntity.read(json["CellProject"].toObject());
+     currEntity.print();
+}
+
 void Workshop::saveFile()
 {
     if(!codeModified) return;
-    code_prev = code_curr;
+    codePrev = codeCurr;
     statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
+
+    currEntity.setCode(codeCurr);
 
     CellSqlManager manager;
     manager.setDbPath("CellDB.db");
     manager.insertProjectEntity(currEntity);
 
-    emit fileSaved(currEntity);
+    QJsonObject Object;
+    write(Object);
+    QJsonDocument saveDoc(Object);
+
+    QFile saveFile(currEntity.name() + CHAR2STR(".json"));
+    if(!saveFile.open(QIODevice::WriteOnly)){
+        qWarning("Cannot Open File");
+    }
+    saveFile.write(saveDoc.toJson());
+    saveFile.close();
+
+    emit projectUpdate(currEntity);
 }
 
 void Workshop::checkCodeModifiedState()
 {
-    code_prev == (code_curr = mainEditor->text()) ?
+    codePrev == (codeCurr = mainEditor->text()) ?
     codeModified = false : codeModified = true;
     codeModified ?
         statusBar->transCurrState(customGradientChangeFrame::_SPECIAL):

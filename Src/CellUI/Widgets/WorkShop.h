@@ -13,7 +13,7 @@
 #include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
 #include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
 #include "../../CellCore/CellProjectEntity.h"
-#define WORKSHOP_DEBUG (QTextStream(stdout) << "***CellSqlManager::")
+#define WORKSHOP_DEBUG (QTextStream(stdout) << "***WorkShop::")
 
 class WSLoadingDialog;
 class QsciScintilla;
@@ -21,13 +21,8 @@ class customFrame;
 class QLabel;
 class QPushButton;
 class QStyleSheetLoader;
-class QPropertyAnimation;
-class QGraphicsDropShadowEffect;
-class QFrame;
 class QVBoxLayout;
-class QHBoxLayout;
 class QSplitter;
-class CellProjectEntity;
 class QShortcut;
 class customGradientChangeFrame;
 class QMenuBar;
@@ -50,8 +45,6 @@ public:
     virtual void setColor(const QColor& color) override;
     virtual void setBaseQss(const QString &qss) override;
     virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
-    inline
-    void         _constructed() { emit constructed(); }
 
 private:
     QVBoxLayout *mainLayout;
@@ -69,8 +62,8 @@ private:
     QPushButton               *btnWarning;
     QPushButton               *btnToolChain;
 
-    QLabel *cntRow;
-    QLabel *cntChar;
+    QLabel *labelCntRow;
+    QLabel *labelCntChar;
     QLabel *labelFormat;
 
     QString            codePrev;
@@ -82,22 +75,22 @@ private:
     CellProjectEntity  currEntity;
 
 private:
-    void initWorkshop();
+    void         init();
+    void         initTreeView();
+    void         getProjectEntity(CellProjectEntity &entity);
+    void         read(const QJsonObject &json);
+    void         write(QJsonObject &json);
     virtual void setEventConnections() override;
-    void initTreeView();
-    void getProjectEntity(CellProjectEntity &entity);
-    void read(const QJsonObject &json);
-    void write(QJsonObject &json);
 
 private slots:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
-    void updateStatusBar();
-    void loadFile(const QString &path);
-    void saveFile();
-    void checkCodeModifiedState();
-    void btnDirectoryClicked();
-    void btnWarrningClicked();
-    void btnToolChainClicked();
+    void         updateStatusBar();
+    void         loadFile(const QString &path);
+    void         saveFile();
+    void         checkCodeModifiedState();
+    void         btnDirectoryClicked();
+    void         btnWarrningClicked();
+    void         btnToolChainClicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event) override;

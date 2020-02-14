@@ -56,8 +56,12 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
     btnDirectory(new QPushButton(this)),
     btnWarning(new QPushButton(this)),
     btnToolChain(new QPushButton(this)),
+    labelCntRow(new QLabel(statusBar)),
+    labelCntChar(new QLabel(statusBar)),
+    labelFormat(new QLabel(statusBar)),
     ctrlS(new QShortcut(this))
 {
+    emit constructed();
     initWorkshop();
     setEventConnections();
     if(m_mode != mainWindow_mode)
@@ -68,7 +72,7 @@ Workshop::~Workshop()
 {
 }
 
-void Workshop::initWorkshop()
+void Workshop::init()
 {
     // Functional.
     this->resize(1400, 800);
@@ -158,8 +162,8 @@ void Workshop::initWorkshop()
 
     // Set LeftBlock.
     leftBlock->setMinimumWidth(300);
-    QVBoxLayout *leftBlockLayout = new QVBoxLayout;
-    customFrame *topBtnsFrame = new customFrame(customFrame::_REGULAR);
+    QVBoxLayout *leftBlockLayout = new QVBoxLayout(leftBlock);
+    customFrame *topBtnsFrame = new customFrame(customFrame::_REGULAR,leftBlock);
     topBtnsFrame->setFixedHeight(27);
 
     QHBoxLayout *HLayout = new QHBoxLayout(topBtnsFrame);
@@ -206,7 +210,7 @@ void Workshop::initWorkshop()
 
     // Set RightBlock
     rightBlock->setMinimumWidth(300);
-    QVBoxLayout *rightBlockLayout = new QVBoxLayout;
+    QVBoxLayout *rightBlockLayout = new QVBoxLayout(rightBlock);
     rightBlockLayout->setMargin(0);
     rightBlockLayout->addStretch(1);
     rightBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
@@ -218,17 +222,14 @@ void Workshop::initWorkshop()
     statusBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
 
     // Set Labels Of StatusBar.
-    cntRow = new QLabel(statusBar);
-    cntRow->move(370, 0);
-    cntRow->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
-    cntRow->setText(CHAR2STR("Row: 0"));
+    labelCntRow->move(370, 0);
+    labelCntRow->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
+    labelCntRow->setText(CHAR2STR("Row: 0"));
 
-    cntChar = new QLabel(statusBar);
-    cntChar->move(450, 0);
-    cntChar->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
-    cntChar->setText(CHAR2STR("Char: 0"));
+    labelCntChar->move(450, 0);
+    labelCntChar->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
+    labelCntChar->setText(CHAR2STR("Char: 0"));
 
-    labelFormat = new QLabel(statusBar);
     labelFormat->move(1030 - labelFormat->width(), 0);
     labelFormat->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
     labelFormat->setText(CHAR2STR("Format: UTF-8"));
@@ -284,7 +285,7 @@ void Workshop::getProjectEntity(CellProjectEntity &entity)
     QStringList headerList;
     headerList << CHAR2STR("Cell Project Directories");
 
-    QStandardItemModel *itemModal = new QStandardItemModel;
+    QStandardItemModel *itemModal = new QStandardItemModel(treeView);
     itemModal->setHorizontalHeaderLabels(headerList);
 
     treeView->setModel(fileModel);
@@ -299,10 +300,10 @@ void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 
 void Workshop::updateStatusBar()
 {
-    cntRow->setText("Row: " + QString::number(mainEditor->lines()));
+    labelCntRow->setText("Row: " + QString::number(mainEditor->lines()));
 
     QString tmp = mainEditor->text();
-    cntChar->setText("Char: " + QString::number(tmp.length()));
+    labelCntChar->setText("Char: " + QString::number(tmp.length()));
 }
 
 void Workshop::loadFile(const QString &path)

@@ -307,7 +307,6 @@ void Launcher::launchWorkShop(CellProjectEntity *entity)
     if(entity != nullptr)
         workshop->getProjectEntity(*entity);
     workshop->show();
-    workshop->_constructed();
 }
 
 void Launcher::btnMaxClicked()

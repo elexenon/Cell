@@ -23,7 +23,7 @@ ButtonWithIcon::ButtonWithIcon(customButton::TYPE type, QWidget *parent):
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
 }
 
-void ButtonWithIcon::Init(const QString& fileName, int iconWidth, int iconHeight)
+void ButtonWithIcon::init(const QString& fileName, int iconWidth, int iconHeight)
 {
     CellUiGlobal::setLabelPixmap(icon, fileName, iconWidth, iconHeight);
 }

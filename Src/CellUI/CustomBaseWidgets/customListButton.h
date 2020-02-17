@@ -26,10 +26,10 @@ private:
     customLabel *tag;
 
 protected:
-    void         Init();
+    void         init();
     virtual void setFont(const QFont &font);
 
-protected slots:
+protected Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 

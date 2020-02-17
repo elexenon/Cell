@@ -25,7 +25,7 @@ protected:
     GRADIENT_STATE currState = GRADIENT_STATE::_NORMAL;
     QColor specialColor;
 
-public slots:
+public Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 

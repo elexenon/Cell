@@ -24,10 +24,6 @@ class QFrame;
 class NewPJProjectCellPage;
 class customButtonListWidget;
 
-namespace Ui {
-class LauncherNewPJDialog;
-}
-
 class LauncherNewPJDialog : public customWinstyleDialog
 {
     Q_OBJECT
@@ -37,15 +33,14 @@ public:
     ~LauncherNewPJDialog();
 
 private:
-    Ui::LauncherNewPJDialog *ui;
-
-private:
     customTitleBar *titleBar;
 
     customLabel *label_choose;
 
     ButtonWithText *btnConfirm;
     ButtonWithText *btnCancel;
+
+    QStackedWidget *stackedWidget;
 
     NewPJProjectCellPage *cellPage;
 
@@ -57,7 +52,7 @@ private:
     CellProjectEntity *currEntity;
 
 private:
-    void Init();
+    void init();
     void judgeValidProject();
     virtual void setEventConnections() override;
 

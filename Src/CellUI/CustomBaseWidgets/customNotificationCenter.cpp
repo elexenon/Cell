@@ -9,8 +9,6 @@
 
 #include <QLabel>
 
-#define CELL_DEBUG
-
 notificationCenter::notificationCenter(QWidget *parent):
     customGradientChangeFrame(QColor(79,147,184),parent),
     workshop_instancesCount(0),
@@ -22,10 +20,10 @@ notificationCenter::notificationCenter(QWidget *parent):
     hidePos_ready(QPoint(130,3)),
     normalPos_ready(QPoint(10,3))
 {
-    Init();
+    init();
 }
 
-void notificationCenter::Init()
+void notificationCenter::init()
 {
     label_identifi->setText(CHAR2STR("WORKSHOP"));
     label_identifi->setFont(QFont (CHAR2STR("Microsoft YaHei UI"), 8, QFont::Bold));
@@ -63,10 +61,7 @@ void notificationCenter::plusCnt()
     }
     workshop_instancesCount++;
 #ifdef CELL_DEBUG
-    qDebug() << "--------------------------";
-    qDebug() << "NOTIFICATIONCENTER";
-    qDebug() << "The amount of workshops: " << workshop_instancesCount;
-    qDebug() << "--------------------------\n";
+    CELL_DEBUG("NotificationCenter") << "The_amount_of_workshops::" << workshop_instancesCount << endl;
 #endif
 }
 
@@ -95,9 +90,6 @@ void notificationCenter::minusCnt()
 
     }
 #ifdef CELL_DEBUG
-    qDebug() << "--------------------------";
-    qDebug() << "NOTIFICATIONCENTER";
-    qDebug() << "The amount of workshops: " << workshop_instancesCount;
-    qDebug() << "--------------------------\n";
+    CELL_DEBUG("NotificationCenter") << "The_Amount_Of_Workshops::" << workshop_instancesCount << endl;
 #endif
 }

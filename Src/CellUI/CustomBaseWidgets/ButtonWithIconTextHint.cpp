@@ -46,7 +46,7 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::TYPE type, QWidget 
     //setLayout(mainLayout);
 }
 
-void ButtonWithIconTextHint::Init(const QString &fileName, int iconWidth, int iconHeight,
+void ButtonWithIconTextHint::init(const QString &fileName, int iconWidth, int iconHeight,
                                   const QString& text, int fontSize, const QString& hint)
 {
     CellUiGlobal::setLabelPixmap(icon, fileName, iconWidth, iconHeight);

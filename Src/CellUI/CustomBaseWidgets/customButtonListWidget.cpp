@@ -14,15 +14,13 @@
 #include <QHBoxLayout>
 #include <QButtonGroup>
 
-#define DEBUG
-
 customButtonListWidget::customButtonListWidget(QWidget *parent) :
     customFrame(customFrame::_REGULAR, parent)
   , mainLayout(new QVBoxLayout(this))
   , buttons(new QList<customListButton*>)
   , btnGroup(new QButtonGroup(this))
 {
-    Init();
+    init();
     setEventConnections();
 }
 
@@ -112,7 +110,7 @@ void customButtonListWidget::addThemeHead(const QString& theme)
     mainLayout->addWidget(line_splitter);
 }
 
-void customButtonListWidget::Init()
+void customButtonListWidget::init()
 {
     mainLayout->setMargin(0);
     mainLayout->setSpacing(3);

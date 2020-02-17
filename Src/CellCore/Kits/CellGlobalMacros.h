@@ -37,4 +37,12 @@ public:\
 #define CHAR2STR(arg) (QStringLiteral(arg))
 #define CMPSTR(arg) (QLatin1String(arg))
 
+#define CELL_DEBUG(arg) (QTextStream(stdout) << CHAR2STR("***") + arg + "::")
+
+#define SafeDelete(ptr) \
+    if(ptr) { \
+        delete(ptr); \
+        ptr = nullptr; \
+    }
+
 #endif // CELLGLOBALMACROS_H

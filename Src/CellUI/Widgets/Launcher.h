@@ -38,6 +38,10 @@ public:
         _SETTINGS
     };
 private:
+    void         initLauncher();
+    virtual void setEventConnections() override;
+    void         startPageSwitchAnimation(PAGE_TYPE nextPage);
+
     QGraphicsOpacityEffect *opacityEffect;
 
     Workshop            *workshop = nullptr;
@@ -62,21 +66,13 @@ private:
 
     CellDevelopTestStation *testForm;
 
-private:
     bool      isMaxSize = false;
     PAGE_TYPE currentPage;
-
-private:
-    void InitLauncher();
-    virtual void setEventConnections() override;
-    void startPageSwitchAnimation(PAGE_TYPE nextPage);
 
 protected:
 
 
-
-
-private slots:
+private Q_SLOTS:
     void btnMiniClicked();
     void btnMaxClicked();
     void btnCloseClicked();

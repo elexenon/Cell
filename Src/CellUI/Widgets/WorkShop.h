@@ -39,9 +39,11 @@ friend class Launcher;
 
 public:
     explicit Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
-    ~Workshop();
+    ~Workshop() = default;
 
 public:
+    inline
+    void         constructed() { emit _constructed(); }
     virtual void setColor(const QColor& color) override;
     virtual void setBaseQss(const QString &qss) override;
     virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
@@ -82,7 +84,7 @@ private:
     void         write(QJsonObject &json);
     virtual void setEventConnections() override;
 
-private slots:
+private Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
     void         updateStatusBar();
     void         loadFile(const QString &path);
@@ -96,7 +98,7 @@ protected:
     virtual void closeEvent(QCloseEvent *event) override;
 
 signals:
-    void constructed();
+    void _constructed();
     void destoryed();
     void projectUpdate(CellProjectEntity &entity);
 };

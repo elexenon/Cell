@@ -1,22 +1,30 @@
-QT       += core gui
+QT += core gui
+QT += widgets  #Only On Qt5
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+PRECOMPILED_HEADER = Pch.h
 
-TARGET = Cell_Launcher
+CONFIG += c++11
+CONFIG += precompile_header
+CONFIG += debug_and_release
+
+MYLIBDIR = "C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64"
+
+CONFIG(debug, debug | release){
+    LIBS += -L$$MYLIBDIR -lqscintilla2_qt5d -lsqlite3
+}else{
+    LIBS += -L$$MYLIBDIR -lqscintilla2_qt5 -lsqlite3
+}
+
+INCLUDEPATH += $$PWD/Src/third-part-apis/QScintilla_gpl-2.11.2/ \
+               $$PWD/Src/third-part-apis/Sqlite3/
+
+TARGET = CWS64
+
+RC_ICONS = CELL.ico
 
 TEMPLATE = app
 
-CONFIG += c++11
-
-CONFIG += precompile_header
-PRECOMPILED_HEADER = Pch.h
-
 DEFINES += QT_DEPRECATED_WARNINGS
-
-msvc {
-    QMAKE_CFLAGS += /utf-8
-    QMAKE_CXXFLAGS += /utf-8
-}
 
 SOURCES += \
     CellDevelopTestStation.cpp \
@@ -32,6 +40,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customLineEdit.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
+    Src/CellUI/CustomBaseWidgets/customMaskDialog.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.cpp \
@@ -53,7 +62,6 @@ SOURCES += \
     Src/CellUI/Widgets/LauncherSettings.cpp \
     Src/CellUI/Widgets/WorkShop.cpp \
     Src/CellUI/Widgets/WSLoadingDialog.cpp
-
 
 HEADERS += \
     CellDevelopTestStation.h \
@@ -77,6 +85,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
     Src/CellUI/CustomBaseWidgets/customLineEdit.h \
     Src/CellUI/CustomBaseWidgets/customListButton.h \
+    Src/CellUI/CustomBaseWidgets/customMaskDialog.h \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
@@ -95,29 +104,12 @@ HEADERS += \
 
 FORMS += \
     CellDevelopTestStation.ui \
-    CellResourcesFiles/Forms/WSLoadingDialog.ui \
-    CellResourcesFiles/Forms/launcherNewPJDialog.ui
+    CellResourcesFiles/Forms/WSLoadingDialog.ui
 
 RESOURCES += \
     CellResourcesFiles/Fonts.qrc \
     CellResourcesFiles/Images.qrc \
     CellResourcesFiles/StyleSheets.qrc
-
-INCLUDEPATH += Src/third-part-apis/QScintilla_gpl-2.11.2/ \
-               Src/third-part-apis/Sqlite3/
-
-CONFIG += debug_and_release
-
-# Libs Path has to be an absolute directory.
-CONFIG(debug, debug | release){
-    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64\qscintilla2_qt5d.dll
-    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64\sqlite3.dll
-}else{
-    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64\sqlite3.dll
-    LIBS += C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64\qscintilla2_qt5.dll
-}
-
-RC_ICONS = CELL.ico
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

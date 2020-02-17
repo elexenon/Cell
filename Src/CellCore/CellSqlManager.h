@@ -1,6 +1,5 @@
 #ifndef CELLSQLMANAGER_H
 #define CELLSQLMANAGER_H
-#define CELLSQLMANAGER_DEBUG (QTextStream(stdout) << "***CellSqlManager::")
 
 class QStringList;
 class sqlite3;
@@ -13,7 +12,7 @@ public:
     ~CellSqlManager();
 
     bool execSql(const char *head, const char *sqlSentence,
-                 bool clearStmt = true, bool step = true);
+                 bool step = true, bool clearStmtHandle = true);
     //! Set the exsiting Sqlite3 database file path and open.
     //! If it not exists, create a new Sqlite3 database instead.
     bool setDbPath(const char* dbPath);
@@ -26,12 +25,16 @@ public:
     inline
     bool createTable(const char *sqlSentence) { return execSql("Create_Table", sqlSentence); }
 
+    bool removeTuple(const QString &tableName, const QString &mainKey, const QString &id);
+
     bool tableExists(const char *tableName);
 
     const char* printErrorMsg();
 
 private:
+    //! The Database Connection Object.
     sqlite3      *dbHandle;
+    //! The Prepared Statement Object.
     sqlite3_stmt *stmtHandle;
     QStringList  *currSqlTuple;
     int           sqlResult;

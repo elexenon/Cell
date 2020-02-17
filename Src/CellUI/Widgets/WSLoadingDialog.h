@@ -35,7 +35,7 @@ private:
     QPoint  m_windowPoint;
     bool    m_move;
 
-private slots:
+private Q_SLOTS:
     void updateProgressBar();
 };
 

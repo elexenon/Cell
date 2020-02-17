@@ -81,5 +81,5 @@ void customOptionBlock::setMainBlockBrightDarkModeColor(const QColor &b, const Q
 void customOptionBlock::tidyItemTags()
 {
     for(auto & item : *itemsList)
-        item->setMargin(customOptionBlockItem::_LEFT, (itemTagMaxLen-item->tagLen)*18);
+        item->setMargin(customOptionBlockItem::_LEFT, (itemTagMaxLen-item->tagLen)*17);
 }

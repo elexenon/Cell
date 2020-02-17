@@ -23,17 +23,18 @@
 #include "LauncherSettings.h"
 #include "WorkShop.h"
 #include "Launcher.h"
+
+#include "../../../CellDevelopTestStation.h"
 #include "../../CellCore/Kits/CellGlobalMacros.h"
+#include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../CustomBaseWidgets/customListButton.h"
 #include "../CustomBaseWidgets/ButtonWithIconTextHint.h"
 #include "../CustomBaseWidgets/customButtonListWidget.h"
 #include "../CustomBaseWidgets/customNotificationCenter.h"
 #include "../CustomBaseWidgets/customTitleBar.h"
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
-#include "../../../CellDevelopTestStation.h"
 #include "../CustomBaseWidgets/customDialogButton.h"
 #include "../CustomBaseWidgets/ButtonWithIcon.h"
-#define CELL_DEBUG
+
 #define ENABLE_WORKSHOP
 //#define AUTO_CHANGE
 //#define RELEASE_MODE
@@ -41,7 +42,7 @@
 Launcher::Launcher(QWidget *parent)
     : customWinstyleWidget(parent),
       homePage(new LauncherHomepage(this)),
-      settingsPage(new LauncherSettings((this))),
+      settingsPage(new LauncherSettings(this)),
       titleBar(new customTitleBar(this)),
       btnMini(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
       btnMax(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
@@ -56,14 +57,14 @@ Launcher::Launcher(QWidget *parent)
 #endif
       currentPage(PAGE_TYPE::_HOME)
 {
-    InitLauncher();
+    initLauncher();
     setEventConnections();
     //btnMaxClicked();
 }
 Launcher::~Launcher()
 {}
 
-void Launcher::InitLauncher()
+void Launcher::initLauncher()
 {
     resize(1400, 800);
     customWinstyleWidget::LoadWinStyle(this);
@@ -83,7 +84,7 @@ void Launcher::InitLauncher()
     btnMini->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
     btnMini->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
     btnMini->setAnimationDuration(150);
-    btnMini->Init(CHAR2STR("iconMinimize"), 15, 2);
+    btnMini->init(CHAR2STR("iconMinimize"), 15, 2);
     btnMini->setFixedSize(50, titleBar->height());
     btnMini->setCursor(Qt::PointingHandCursor);
 
@@ -91,7 +92,7 @@ void Launcher::InitLauncher()
     btnMax->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
     btnMax->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
     btnMax->setAnimationDuration(150);
-    btnMax->Init(CHAR2STR("iconMaximize"), 17, 14);
+    btnMax->init(CHAR2STR("iconMaximize"), 17, 14);
     btnMax->setFixedSize(50, titleBar->height());
     btnMax->setCursor(Qt::PointingHandCursor);
 
@@ -99,9 +100,12 @@ void Launcher::InitLauncher()
     btnClose->setDarkModeHoveringColor(CellUiConst::CELLEXITRED);
     btnClose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
     btnClose->setAnimationDuration(150);
-    btnClose->Init(CHAR2STR("iconClose"), 14, 14);
+    btnClose->init(CHAR2STR("iconClose"), 14, 14);
     btnClose->setFixedSize(50, titleBar->height());
     btnClose->setCursor(Qt::PointingHandCursor);
+
+    // Set SettingsPage
+    settingsPage->getLauncherPtr(this);
 
     // Set StackedWidget
     stackedWidget->insertWidget(0, homePage);
@@ -125,7 +129,7 @@ void Launcher::InitLauncher()
     btnNewPJ->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
     btnNewPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
     btnNewPJ->setAnimationDuration(200);
-    btnNewPJ->Init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("新建项目"), 25, CHAR2STR("新建一个Cell文档"));
+    btnNewPJ->init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("新建项目"), 25, CHAR2STR("新建一个Cell文档"));
     btnNewPJ->setFixedSize(250, 81);
     btnNewPJ->setCursor(Qt::PointingHandCursor);
 
@@ -133,7 +137,7 @@ void Launcher::InitLauncher()
     btnOpenPJ->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
     btnOpenPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
     btnOpenPJ->setAnimationDuration(200);
-    btnOpenPJ->Init(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目"), 25, CHAR2STR("打开已知的Cell文档"));
+    btnOpenPJ->init(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目"), 25, CHAR2STR("打开已知的Cell文档"));
     btnOpenPJ->setFixedSize(250, 81);
     btnOpenPJ->setCursor(Qt::PointingHandCursor);
 
@@ -166,7 +170,7 @@ void Launcher::InitLauncher()
 
     notificationCenter->setObjectName(CHAR2STR("notificationCenter"));
     notificationCenter->setFixedHeight(25);
-    notificationCenter->setBrightDarkModeColor(CellUiConst::GRAYLEVEL100, CellUiConst::GRAYLEVEL45);
+    notificationCenter->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL45);
 
     QHBoxLayout *HLayoutTitleRight = new QHBoxLayout;
     HLayoutTitleRight->setSpacing(0);
@@ -288,24 +292,23 @@ void Launcher::btnNewClicked()
 
 void Launcher::btnOpenClicked()
 {
-    QString path = QFileDialog::getOpenFileName(this, "打开Cell文档", ".", "*.json");
+    QString path = QFileDialog::getOpenFileName(this, "打开Cell文档", ".", "*.workshop");
+    if(path == "") return;
     launchWorkShop(nullptr);
     workshop->loadFile(path);
 }
 
 void Launcher::launchWorkShop(CellProjectEntity *entity)
 {
-    workshop = nullptr;
-    if(workshop == nullptr){
-        workshop = new Workshop(m_mode, this);
-        connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
-        connect(workshop, SIGNAL(constructed()),notificationCenter, SLOT(plusCnt()));
-        connect(workshop, SIGNAL(destoryed()),notificationCenter, SLOT(minusCnt()));
-        connect(workshop, &Workshop::projectUpdate, homePage, &LauncherHomepage::updateDatasByWS);
-    }
+    workshop = new Workshop(m_mode, this);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(workshop, &Workshop::constructed,notificationCenter, &notificationCenter::plusCnt);
+    connect(workshop, &Workshop::constructed,notificationCenter, &notificationCenter::minusCnt);
+    connect(workshop, &Workshop::projectUpdate, homePage, &LauncherHomepage::updateDatasByWS);
 
     if(entity != nullptr)
         workshop->getProjectEntity(*entity);
+    workshop->constructed();
     workshop->show();
 }
 

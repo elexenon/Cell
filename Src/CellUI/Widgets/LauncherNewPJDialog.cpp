@@ -6,7 +6,6 @@
 //
 // Of source file directory.
 #include "LauncherNewPJDialog.h"
-#include "ui_launcherNewPJDialog.h"
 
 #include "../CustomBaseWidgets/customTitleBar.h"
 #include "../CustomBaseWidgets/customLabel.h"
@@ -24,34 +23,32 @@
 
 LauncherNewPJDialog::LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,QWidget *parent) :
     customWinstyleDialog(parent),
-    ui(new Ui::LauncherNewPJDialog),
     titleBar(new customTitleBar(this)),
     label_choose(new customLabel(this)),
     btnConfirm(new ButtonWithText(customButton::DYNAMIC, this)),
     btnCancel(new ButtonWithText(customButton::DYNAMIC, this)),
-    cellPage(new NewPJProjectCellPage),
+    stackedWidget(new QStackedWidget(this)),
+    cellPage(new NewPJProjectCellPage(this)),
     btnListWidget1(new customButtonListWidget(this)),
     btnListWidget2(new customButtonListWidget(this)),
     currEntity(new CellProjectEntity)
 {
-    ui->setupUi(this);
-    Init();
+    init();
     if(m_mode != globalMode)
         setColorScheme(globalMode);
 }
 
 LauncherNewPJDialog::~LauncherNewPJDialog()
 {
-    delete ui;
     delete currEntity;
 }
 
-void LauncherNewPJDialog::Init()
+void LauncherNewPJDialog::init()
 {
-    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     customWinstyleDialog::LoadWinStyle(this);
     setAttribute(Qt::WA_DeleteOnClose);
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL30);
+    resize(900, 520);
 
     titleBar->setFixedHeight(40);
     titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
@@ -122,7 +119,7 @@ void LauncherNewPJDialog::Init()
     QHBoxLayout *HLayout = new QHBoxLayout;
     HLayout->addLayout(VLayout_left);
     HLayout->addWidget(VLineSplitter);
-    HLayout->addWidget(ui->stackedWidget);
+    HLayout->addWidget(stackedWidget);
     HLayout->setMargin(0);
     HLayout->setSpacing(0);
 
@@ -134,16 +131,16 @@ void LauncherNewPJDialog::Init()
 
     setLayout(mainLayout);
 
-    ui->stackedWidget->insertWidget(1, cellPage);
-    ui->stackedWidget->setCurrentIndex(1);
+    stackedWidget->insertWidget(1, cellPage);
+    stackedWidget->setCurrentIndex(1);
 
     setEventConnections();
 }
 
 void LauncherNewPJDialog::setEventConnections()
 {
-    connect(btnListWidget1, SIGNAL(clicked(int)), this, SLOT(btnListWidget1Clicked(int)));
-    connect(btnListWidget2, SIGNAL(clicked(int)), this, SLOT(btnListWidget2Clicked(int)));
+    connect(btnListWidget1, &customButtonListWidget::clicked, this, &LauncherNewPJDialog::btnListWidget1Clicked);
+    connect(btnListWidget2, &customButtonListWidget::clicked, this, &LauncherNewPJDialog::btnListWidget2Clicked);
 
     connect(cellPage, &NewPJProjectCellPage::pathSettled, this, &LauncherNewPJDialog::setPath);
     connect(cellPage, &NewPJProjectCellPage::nameSettled, this, &LauncherNewPJDialog::setName);

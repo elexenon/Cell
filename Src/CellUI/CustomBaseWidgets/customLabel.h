@@ -29,7 +29,7 @@ protected:
     virtual void setColor(const QColor &color) override;
     virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
 
-public slots:
+public Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 #endif // CUSTOMLABEL_H

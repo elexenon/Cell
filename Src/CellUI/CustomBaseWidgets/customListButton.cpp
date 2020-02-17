@@ -19,10 +19,10 @@ customListButton::customListButton(QWidget *parent, const QString &text) :
   , tag(new customLabel(this))
 {
     tag->setText(text);
-    Init();
+    init();
 }
 
-void customListButton::Init()
+void customListButton::init()
 {
     setLayout(mainLayout);
 

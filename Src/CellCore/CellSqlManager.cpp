@@ -1,6 +1,9 @@
 #include "CellSqlManager.h"
 #include "../../CellCore/Kits/CellGlobalMacros.h"
 #include "CellProjectEntity.h"
+#define FINALIZESTMT(arg) \
+        sqlite3_finalize(arg); \
+        arg = nullptr
 
 #include <QDebug>
 #include <sqlite3.h>
@@ -23,11 +26,15 @@ bool CellSqlManager::setDbPath(const char *dbPath)
     sqlResult = sqlite3_open_v2(dbPath, &dbHandle, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE,
                                 nullptr);
     if(SQLITE_OK == sqlResult){
-        CELLSQLMANAGER_DEBUG << "Database::" << dbPath << "::Connect_Succeed." << endl;
+#ifdef  CELL_DEBUG
+        CELL_DEBUG("CellSqlManager") << "Database::" << dbPath << "::Connect_Succeed." << endl;
+#endif
     }
     else{
-        CELLSQLMANAGER_DEBUG << "Database::" << dbPath << "::Connect_Failed::" << printErrorMsg() << endl;
-        CELLSQLMANAGER_DEBUG << "Then create a new one as: " << dbPath << endl;
+#ifdef CELL_DEBUG
+        CELL_DEBUG("CellSqlManager") << "Database::" << dbPath << "::Connect_Failed::" << printErrorMsg() << endl;
+        CELL_DEBUG("CellSqlManager") << "Then_Create_A_New_One_As::" << dbPath << endl;
+#endif
         return false;
     }
     return true;
@@ -48,13 +55,13 @@ const QStringList* CellSqlManager::fetchRecentPJ()
         (*currSqlTuple) << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 0)))
                         << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 1)))
                         << QString::number(sqlite3_column_int(stmtHandle, 2))
-                        << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 3)));
+                        << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 3)))
+                        << QString::fromUtf8(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 4)));
         return currSqlTuple;
     }
-    sqlite3_finalize(stmtHandle);
+    FINALIZESTMT(stmtHandle);
     return currSqlTuple;
 }
-
 
 bool CellSqlManager::insertProjectEntity(CellProjectEntity &entity)
 {
@@ -63,9 +70,17 @@ bool CellSqlManager::insertProjectEntity(CellProjectEntity &entity)
                                                                           + QString::number(entity.size())               + ","
                                                                     + "'" + CellProjectEntity::getType(entity.type()) + "'" + ","
                                                                     + "'" + entity.path()                          + "'" + ");";
-    const char *sqlSentence = tmp.toUtf8().data();
-    qDebug() << sqlSentence;
+    QByteArray byteArray = tmp.toUtf8();
+    char *sqlSentence = byteArray.data();
     return execSql("Insert", sqlSentence);
+}
+
+bool CellSqlManager::removeTuple(const QString &tableName, const QString &mainKey, const QString &id)
+{
+    QString tmp = CHAR2STR("DELETE FROM ") + tableName + " WHERE " + mainKey + " = '" + id + "';";
+    QByteArray byteArray = tmp.toUtf8();
+    const char *sqlSentence = byteArray.data();
+    return execSql("Remove", sqlSentence);
 }
 
 const char* CellSqlManager::printErrorMsg()
@@ -73,35 +88,64 @@ const char* CellSqlManager::printErrorMsg()
     return sqlite3_errmsg(dbHandle);
 }
 
-bool CellSqlManager::execSql(const char *head, const char *sqlSentence, bool clearStmt, bool step)
+bool CellSqlManager::execSql(const char *head, const char *sqlSentence,
+                             bool step, bool clearStmtHandle)
 {
+    // Check if the sqlSentence is valid.
     sqlResult = sqlite3_prepare_v2(dbHandle, sqlSentence, -1, &stmtHandle, nullptr);
     if(sqlResult == SQLITE_OK){
-        CELLSQLMANAGER_DEBUG << head << "_Succeed" << endl;
+#ifdef  CELL_DEBUG
+        CELL_DEBUG("CellSqlManager") << "Valid_" << head << "_Sentence::["
+                                     << QString::fromUtf8(sqlSentence) << "]" << endl;
+#endif
     }else{
-        CELLSQLMANAGER_DEBUG << head << "_Failed::" << printErrorMsg() << endl;
-        sqlite3_finalize(stmtHandle);
+#ifdef  CELL_DEBUG
+        CELL_DEBUG("CellSqlManager") << "Invalid_" << head << "_Sentence::["
+                                     << QString::fromUtf8(sqlSentence) << "]::" << printErrorMsg() << endl;
+#endif
+        FINALIZESTMT(stmtHandle);
         return false;
     }
-    if(step)      sqlite3_step(stmtHandle);
-    if(clearStmt) sqlite3_finalize(stmtHandle);
+    if(step){
+        if(sqlite3_step(stmtHandle) == SQLITE_DONE)
+#ifdef      CELL_DEBUG
+            CELL_DEBUG("CellSqlManager") << "Query::[" << sqlSentence << "]::Done." << endl;
+#endif
+        else{
+#ifdef      CELL_DEBUG
+            CELL_DEBUG("CellSqlManager") << "Query::[" << sqlSentence << "]::Failed." << printErrorMsg() << endl;
+#endif
+            return false;
+        }
+    }
+    if(clearStmtHandle) FINALIZESTMT(stmtHandle);
     return true;
 }
 
 bool CellSqlManager::tableExists(const char *tableName)
 {
     const QString sqlSentence = CHAR2STR("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '") + tableName + "'";
-    if(execSql("Query_TableExists", sqlSentence.toLatin1().data(), false, false)){
-        if(sqlite3_step(stmtHandle) == SQLITE_ROW){
-            if(atoi(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 0))) == 0){
-                CELLSQLMANAGER_DEBUG << "Table::" << tableName << "::Doesn't Exist." << endl;
+    QByteArray byteArray = sqlSentence.toLatin1();
+    if(execSql("Query_TableExists", byteArray.data(), false, false)){
+        int res = sqlite3_step(stmtHandle);
+        qDebug() << res;
+        if(res == SQLITE_ROW){
+            int column = atoi(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 0)));
+            qDebug() << "columns:" << column;
+            if(column == 0){
+#ifdef          CELL_DEBUG
+                CELL_DEBUG("CellSqlManager") << "Table::" << tableName << "::Doesn't Exist." << endl;
+#endif
                 return false;
             }
         }
+        qDebug() << printErrorMsg();
     }else{
         return false;
     }
-    CELLSQLMANAGER_DEBUG << "Table::" << tableName << "::Exist." << endl;
-    sqlite3_finalize(stmtHandle);
+#ifdef CELL_DEBUG
+       CELL_DEBUG("CellSqlManager") << "Table::" << tableName << "::Exists." << endl;
+#endif
+    FINALIZESTMT(stmtHandle);
     return true;
 }

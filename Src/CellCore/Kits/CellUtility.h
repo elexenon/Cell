@@ -96,6 +96,9 @@ extern void    multiModulesOneStyleSheet(const QList<QWidget*> &modules, const Q
 //! Set Pixmap
 //! For A Specific Target QLabel.
 extern void    setLabelPixmap(QLabel *label, const QString& fileName, int iconWidth, int iconHeight);
+//! Turn A QString Into A C Style
+//! String.
+extern const char* QString2Char(const QString &string);
 } // namespace CellUiGlobal{
 
 namespace CellEntityTools{

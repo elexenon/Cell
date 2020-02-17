@@ -9,7 +9,6 @@
 #include <QJsonObject>
 #include "CellProjectEntity.h"
 #include "Kits/CellGlobalMacros.h"
-#define CELL_DEBUG
 
 CellProjectEntity::CellProjectEntity()
 {
@@ -18,24 +17,25 @@ CellProjectEntity::CellProjectEntity()
     mModifiedTime = curr.toString("yyyy-MM-dd-hh:mm");
 }
 
-const QString CellProjectEntity::getType(CellProjectEntity::CellProjectEntityType type)
+const QString CellProjectEntity::getType(CellProjectEntityType type)
 {
+    qDebug() << "Type:" << type;
     QString tmp;
     switch(type){
     case CellProjectEntity::_CELLDEEPLEARNING:
-        tmp = CHAR2STR("Cell DeepLearning");
+        tmp = "Cell DeepLearning";
         break;
     case CellProjectEntity::_PREDICTEARTHQUAKE:
-        tmp = CHAR2STR("基于Cell DeepLearning的地震预测");
+        tmp = "基于Cell DeepLearning的地震预测";
         break;
     case CellProjectEntity::_EMPTY:
-        tmp = CHAR2STR("Empty File");
+        tmp = "Empty File";
         break;
     case CellProjectEntity::_CPP:
-        tmp = CHAR2STR("C++ File");
+        tmp = "C++ File";
         break;
     case CellProjectEntity::_PYTHON:
-        tmp = CHAR2STR("Python File");
+        tmp = "Python File";
         break;
     }
     return tmp;
@@ -80,7 +80,7 @@ void CellProjectEntity::read(const QJsonObject &json)
 
 void CellProjectEntity::write(QJsonObject &json)
 {
-    json["Name"] = mName;
+    json["name"] = mName;
     json["modifiedTime"] = mModifiedTime;
     json["size"] = mSize;
     json["type"] = getType(mType);

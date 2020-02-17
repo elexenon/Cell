@@ -37,7 +37,7 @@ private:
     double              midIndex;
     bool                animiRunning = false;
 
-public slots:
+public Q_SLOTS:
     void switchNext();
     void switchPrevious();
     void animiFinished();

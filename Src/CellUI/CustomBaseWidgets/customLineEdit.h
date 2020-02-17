@@ -14,7 +14,7 @@ private:
 
     CellUiGlobal::COLOR_SCHEME m_mode;
 
-public slots:
+public Q_SLOTS:
     void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 };
 

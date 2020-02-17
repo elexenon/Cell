@@ -32,13 +32,13 @@ public:
     void  clickButton(int index) const;
     void  setButtonCheckable(int index, bool value);
     void  setExlusive(bool value = true);
-    void  setEventConnections();
+    virtual void setEventConnections() override;
 
     inline
     const QList<customListButton*>* getButtons() { return buttons; }
 
 private:
-    void Init();
+    void init();
 
     customLabel              *label_theme = nullptr;
     QFrame                   *line_splitter;
@@ -51,7 +51,7 @@ private:
 signals:
     void clicked(int id);
 
-private slots:
+private Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
     inline
     void btnGroupClicked(int id) { emit clicked(id); }

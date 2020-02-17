@@ -30,7 +30,7 @@ private:
     void setAnimiStartEndColor(CellUiGlobal::COLOR_SCHEME mode, QColor&, QColor&);
     TYPE type;
 
-protected slots:
+protected Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 
 Checkable_Public:

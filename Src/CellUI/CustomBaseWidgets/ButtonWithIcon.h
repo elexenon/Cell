@@ -19,7 +19,7 @@ public:
     explicit ButtonWithIcon(TYPE type = STATIC,QWidget *parent = nullptr);
     virtual ~ButtonWithIcon() override = default;
 
-    void Init(const QString& fileName, int iconWidth, int iconHeight);
+    void init(const QString& fileName, int iconWidth, int iconHeight);
 
 protected:
     QHBoxLayout *mainLayout;

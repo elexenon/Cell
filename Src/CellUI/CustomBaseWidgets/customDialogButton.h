@@ -33,7 +33,7 @@ protected:
 signals:
     void clicked();
 
-private slots:
+private Q_SLOTS:
     inline
     void triggerClicked() { emit clicked(); }
 };

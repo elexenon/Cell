@@ -23,6 +23,7 @@ class customOptionBlockItem;
 class customDialogButton;
 class customButton;
 class QVBoxLayout;
+class customMaskDialog;
 
 class LauncherSettings : public customFrame
 {
@@ -32,25 +33,32 @@ public:
     ~LauncherSettings() = default;
 
     void LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode);
+    inline
+    void getLauncherPtr(QWidget *ptr) { launcherPtr = ptr; }
 
 private:
-    void   Init();
+    void   init();
     void   setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void   setEventConnections();
 
     QVBoxLayout *mainLayout;
 
     // OptionBlock blockGeneral Combination;
-    customOptionBlock       *blockGeneral;
-    customOptionBlockItem   *blockGeneral_ItemAppear;
-        // ComboBox Appear Combination.
-        customDialogButton          *cBoxAppear;
-    customOptionBlockItem   *blockGeneral_ItemAuto;
+    customOptionBlock     *blockGeneral;
+    customOptionBlockItem *blockGeneral_ItemAppear;
+    // ComboBox Appear Combination.
+    customDialogButton    *cBoxAppear;
+    customDialogButton    *cBoxAuto;
+    customOptionBlockItem *blockGeneral_ItemAuto;
+
+    QWidget *launcherPtr;
 
 signals:
     void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
 
-private slots:
+private Q_SLOTS:
+    void btnColorSchemeClicked();
+    void btnAutoSwitchClicked();
     void Btn_bright_clicked();
     void Btn_dark_clicked();
 };

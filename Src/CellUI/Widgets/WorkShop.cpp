@@ -39,7 +39,6 @@
 #include "../../CellCore/CellSqlManager.h"
 #include "WSLoadingDialog.h"
 #include "WorkShop.h"
-#define CELL_DEBUG
 
 Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
     QWidget(parent),
@@ -61,15 +60,10 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
     labelFormat(new QLabel(statusBar)),
     ctrlS(new QShortcut(this))
 {
-    emit constructed();
-    initWorkshop();
+    init();
     setEventConnections();
     if(m_mode != mainWindow_mode)
         setColorScheme(mainWindow_mode);
-}
-
-Workshop::~Workshop()
-{
 }
 
 void Workshop::init()
@@ -267,6 +261,12 @@ void Workshop::setEventConnections()
 
 void Workshop::initTreeView()
 {
+    QStringList headerList;
+    headerList << CHAR2STR("Project Directory");
+    QStandardItemModel *itemModal = new QStandardItemModel(treeView);
+    itemModal->setHorizontalHeaderLabels(headerList);
+    treeView->setModel(fileModel);
+    treeView->header()->setModel(itemModal);
     treeView->setFrameShape(QFrame::NoFrame);
     treeView->setAnimated(true);
     treeView->setIndentation(20);
@@ -279,18 +279,8 @@ void Workshop::initTreeView()
 void Workshop::getProjectEntity(CellProjectEntity &entity)
 {
     currEntity = entity;
-
-    fileModel->setRootPath(entity.path());
-
-    QStringList headerList;
-    headerList << CHAR2STR("Cell Project Directories");
-
-    QStandardItemModel *itemModal = new QStandardItemModel(treeView);
-    itemModal->setHorizontalHeaderLabels(headerList);
-
-    treeView->setModel(fileModel);
-    treeView->header()->setModel(itemModal);
-    treeView->setRootIndex(fileModel->index(entity.path()));
+    fileModel->setRootPath(currEntity.path());
+    treeView->setRootIndex(fileModel->index(currEntity.path()));
 }
 
 void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
@@ -308,13 +298,17 @@ void Workshop::updateStatusBar()
 
 void Workshop::loadFile(const QString &path)
 {
-    qDebug() << path;
+#ifdef CELL_DEBUG
+    CELL_DEBUG("WorkShop") << "Project_Path: " << path << endl;
+#endif
     QFile loadFile(path);
     if (!loadFile.open(QIODevice::ReadOnly))
         qWarning("Couldn't open save file.");
     QByteArray saveData = loadFile.readAll();
-    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+    QJsonDocument loadDoc(QJsonDocument::fromBinaryData(saveData));
     read(loadDoc.object());
+
+    mainEditor->setText(currEntity.code());
 
     fileModel->setRootPath(currEntity.path());
     treeView->setRootIndex(fileModel->index(currEntity.path()));
@@ -350,11 +344,11 @@ void Workshop::saveFile()
     write(Object);
     QJsonDocument saveDoc(Object);
 
-    QFile saveFile(currEntity.name() + CHAR2STR(".json"));
+    QFile saveFile(currEntity.path() + CHAR2STR("\\") + currEntity.name() + CHAR2STR(".workshop"));
     if(!saveFile.open(QIODevice::WriteOnly)){
         qWarning("Cannot Open File");
     }
-    saveFile.write(saveDoc.toJson());
+    saveFile.write(saveDoc.toBinaryData());
     saveFile.close();
 
     emit projectUpdate(currEntity);
@@ -368,10 +362,7 @@ void Workshop::checkCodeModifiedState()
         statusBar->transCurrState(customGradientChangeFrame::_SPECIAL):
         statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
 #ifdef CELL_DEBUG
-    qDebug() << "--------------------------";
-    qDebug() << "CODE EDITOR";
-    qDebug() << "CodeModified: " << codeModified;
-    qDebug() << "--------------------------\n";
+    CELL_DEBUG("WorkShop") << CHAR2STR("Code_Modified") << endl;
 #endif
 }
 

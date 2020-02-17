@@ -20,7 +20,7 @@ public:
     explicit ButtonWithIconText(TYPE type = STATIC, QWidget *parent = nullptr);
     virtual ~ButtonWithIconText() override = default;
 
-    void Init(const QString &filePath, int iconWidth, int iconHeight, const QString& text = "Button", int fontSize = 18);
+    void init(const QString &filePath, int iconWidth, int iconHeight, const QString& text = "Button", int fontSize = 18);
 
 protected:
     QHBoxLayout *mainLayout;

@@ -30,11 +30,11 @@ NewPJProjectCellPage::NewPJProjectCellPage(QWidget *parent):
    ,blockConfig_Loca(new customOptionBlockItem)
    ,dialogButton(new customDialogButton(CHAR2STR("Location")))
 {
-    Init();
+    init();
     setEventConnections();
 }
 
-void NewPJProjectCellPage::Init()
+void NewPJProjectCellPage::init()
 {
     setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
     setLayout(mainLayout);
@@ -84,9 +84,4 @@ void NewPJProjectCellPage::btnPathClicked()
 
     dialogButton->setText(path);
     emit pathSettled(path);
-}
-
-void NewPJProjectCellPage::lineEditChanged(const QString &text)
-{
-    emit nameSettled(text);
 }

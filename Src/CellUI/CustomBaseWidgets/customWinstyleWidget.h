@@ -34,7 +34,7 @@ protected:
     QPoint m_windowPoint;
     bool   m_move; 
 
-protected slots:
+protected Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 #endif // CELLWINSTYLEINTERFACE_H

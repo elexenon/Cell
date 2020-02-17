@@ -46,7 +46,7 @@ private:
 signals:
     void clickedNewPJ();
 
-private slots:
+private Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
     inline
     void         btnCloseClicked() { this->close(); }

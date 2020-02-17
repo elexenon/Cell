@@ -32,7 +32,7 @@ customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     trigger->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
     trigger->setAnimationDuration(200);
     trigger->setCursor(Qt::PointingHandCursor);
-    trigger->Init(CHAR2STR("popUpIcon.png"), 15, 12);
+    trigger->init(CHAR2STR("popUpIcon.png"), 15, 12);
 
     mainLayout->setContentsMargins(11, 3, 3, 3);
     mainLayout->addWidget(currState);

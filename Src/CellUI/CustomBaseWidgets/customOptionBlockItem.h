@@ -47,7 +47,7 @@ protected:
     int itemHeight = 0;
     int tagLen     = 0;
 
-public slots:
+public Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 

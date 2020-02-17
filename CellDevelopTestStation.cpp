@@ -108,7 +108,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     btn2->setBrightModeCheckedColor(CellUiConst::GRAYLEVEL130);
     btn2->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
     btn2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
-    btn2->Init(CHAR2STR("CELL_logo_small"), 33, 29);
+    btn2->init(CHAR2STR("cellLogo32"), 32, 32);
     btn2->setFixedSize(200, 81);
 
     ButtonWithIconText *btn3 = new ButtonWithIconText(customButton::TYPE::DYNAMIC_RADIUS, this);
@@ -116,14 +116,14 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     btn3->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
     btn3->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
     btn3->setAnimationDuration(300);
-    btn3->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("带图标和文字的Button"));
+    btn3->init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("带图标和文字的Button"));
     btn3->setFixedSize(250, 81);
 
     ButtonWithIconTextHint *btn4 = new ButtonWithIconTextHint(customButton::TYPE::CHECKABLE_RADIUS, this);
     btn4->setBrightModeCheckedColor(CellUiConst::GRAYLEVEL130);
     btn4->setDarkModeCheckedColor(CellUiConst::GRAYLEVEL180);
     btn4->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
-    btn4->Init(CHAR2STR("Btn_OpenProject"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已有的Cell文档"));
+    btn4->init(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已有的Cell文档"));
     btn4->setFixedSize(250, 81);
 
     customDialogButton *customDB = new customDialogButton(CHAR2STR("FUSION"), this);

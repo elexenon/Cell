@@ -30,7 +30,7 @@ ButtonWithIconText::ButtonWithIconText(customButton::TYPE type, QWidget *parent)
     tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
 }
 
-void ButtonWithIconText::Init(const QString& fileName, int iconWidth, int iconHeight, const QString& text, int fontSize)
+void ButtonWithIconText::init(const QString& fileName, int iconWidth, int iconHeight, const QString& text, int fontSize)
 {
     CellUiGlobal::setLabelPixmap(icon, fileName, iconWidth, iconHeight);
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), fontSize, text);

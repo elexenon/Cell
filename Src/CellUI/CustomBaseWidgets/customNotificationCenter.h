@@ -15,12 +15,13 @@ class QGraphicsOpacityEffect;
 class QLabel;
 
 class notificationCenter : public customGradientChangeFrame{
+friend class Launcher;
     Q_OBJECT
 public:
     explicit notificationCenter(QWidget *parent = nullptr);
     ~notificationCenter() override = default;
 
-    void   Init();
+    void   init();
     inline
     unsigned getCurrWorkshopCount(){ return workshop_instancesCount;}
 
@@ -42,7 +43,7 @@ private:
     const QPoint hidePos_ready;
     const QPoint normalPos_ready;
 
-private slots:
+private Q_SLOTS:
     void plusCnt();
     void minusCnt();
 };

@@ -11,8 +11,6 @@
 #include <QLabel>
 #include <QHBoxLayout>
 
-//#define CELL_DEBUG
-
 customTitleBar::customTitleBar(QWidget *parent):
     customFrame(customFrame::_REGULAR, parent),
     mainLayout(new QHBoxLayout),
@@ -25,10 +23,6 @@ customTitleBar::customTitleBar(QWidget *parent):
     defaultPixmap.load(CellUiConst::IMG_DIR + CHAR2STR("cellLogo28"));
     defaultPixmap = defaultPixmap.scaled(height()/2, height()/2);
     icon->setPixmap(defaultPixmap);
-
-#ifdef CELL_DEBUG
-    qDebug() << height()/2;
-#endif
 
     QFont defaultFont(CHAR2STR("Microsoft YaHei UI Light"));
     defaultFont.setPixelSize(height()/3);

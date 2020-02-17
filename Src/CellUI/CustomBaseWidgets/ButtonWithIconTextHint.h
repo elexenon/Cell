@@ -20,7 +20,7 @@ public:
     explicit ButtonWithIconTextHint(TYPE type = STATIC,QWidget *parent = nullptr);
     virtual ~ButtonWithIconTextHint() override = default;
 
-    void Init(const QString &fileName, int iconWidth, int iconHeight,
+    void init(const QString &fileName, int iconWidth, int iconHeight,
               const QString& text = "Button", int fontSize = 23, const QString& hint = "hint");
 
 protected:

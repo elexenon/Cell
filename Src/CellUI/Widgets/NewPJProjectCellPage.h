@@ -38,16 +38,17 @@ private:
     QString name;
 
 private:
-    void Init();
+    void init();
     virtual void setEventConnections() override;
 
 signals:
     void pathSettled(const QString &path);
     void nameSettled(const QString &name);
 
-private slots:
+private Q_SLOTS:
     void btnPathClicked();
-    void lineEditChanged(const QString &text);
+    inline
+    void lineEditChanged(const QString &text) { nameSettled(text); }
 };
 
 #endif // NEWPJPROJECTPAGE_H

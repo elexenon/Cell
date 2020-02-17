@@ -35,7 +35,7 @@ protected:
     customLabel *label_title;
     QLabel      *icon;
 
-protected slots:
+protected Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 

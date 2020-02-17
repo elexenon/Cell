@@ -12,14 +12,12 @@
 
 CellProjectEntity::CellProjectEntity()
 {
-    mSize = 1024;
     QDateTime curr = QDateTime::currentDateTime();
     mModifiedTime = curr.toString("yyyy-MM-dd-hh:mm");
 }
 
 const QString CellProjectEntity::getType(CellProjectEntityType type)
 {
-    qDebug() << "Type:" << type;
     QString tmp;
     switch(type){
     case CellProjectEntity::_CELLDEEPLEARNING:
@@ -52,10 +50,11 @@ CellProjectEntity::CellProjectEntityType CellProjectEntity::getType(const QStrin
 
 void CellProjectEntity::print()
 {
-    qDebug() << CHAR2STR("Project:")
-             << mName
-             << mModifiedTime
-             << mPath;
+    CELL_DEUBG("CellProjectEntity") << "SelfPrint:\n"
+                                    << mName         << endl
+                                    << mModifiedTime << endl
+                                    << mType         << endl
+                                    << mPath         << endl;
 }
 
 void CellProjectEntity::read(const QJsonObject &json)
@@ -74,15 +73,12 @@ void CellProjectEntity::read(const QJsonObject &json)
 
     if (json.contains("code") && json["code"].isString())
         mCode = json["code"].toString();
-
-    mSize = json["size"].toInt();
 }
 
 void CellProjectEntity::write(QJsonObject &json)
 {
     json["name"] = mName;
     json["modifiedTime"] = mModifiedTime;
-    json["size"] = mSize;
     json["type"] = getType(mType);
     json["path"] = mPath;
     json["code"] = mCode;

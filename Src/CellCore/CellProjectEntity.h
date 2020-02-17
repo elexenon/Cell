@@ -15,14 +15,13 @@ class QJsonObject;
 class CellProjectEntity{
 public:
     enum CellProjectEntityType{
-        _CELLDEEPLEARNING = 0, _PREDICTEARTHQUAKE,
-        _CPP             , _PYTHON,
-        _EMPTY
+        CellDeepLearning = 0, PredictEarthquake,
+        CPP                 , Python,
+        Empty
     };
     enum CellProjectEntityIndex{
-        _NAME = 0, _MODIFIEDTIME,
-        _SIZE,     _TYPE,
-        _PATH
+        Name = 0, ModifiedTime,
+        Type,     Path
     };
 
     explicit CellProjectEntity();
@@ -41,9 +40,6 @@ public:
     void setType(const CellProjectEntityType &type) { this->mType = type; }
 
     inline
-    void setsize(const int &size) { this->mSize = size; }
-
-    inline
     void setModifiedTime(const QString &time) { this->mModifiedTime = time; }
 
     inline const QString&
@@ -54,9 +50,6 @@ public:
 
     inline const CellProjectEntityType&
     type() { return mType; }
-
-    inline const int&
-    size() { return mSize; }
 
     inline const QString
     code() { return mCode; }
@@ -73,12 +66,11 @@ public:
 
     void write(QJsonObject &json);
 private:
-    CellProjectEntityType mType = _CELLDEEPLEARNING;
     QString               mName;
     QString               mModifiedTime;
+    CellProjectEntityType mType = _CELLDEEPLEARNING;
     QString               mPath;
     QString               mCode;
-    int                   mSize;
 };
 
 Q_DECLARE_METATYPE(CellProjectEntity);

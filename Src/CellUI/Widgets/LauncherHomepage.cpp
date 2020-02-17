@@ -179,7 +179,7 @@ void LauncherHomepage::updateDatas()
 {
     // Start Sql.
     CellSqlManager recentPJSql;
-    recentPJSql.setDbPath("CellDB.db");
+    recentPJSql.setDataBase("CellDB.db");
     if(!recentPJSql.tableExists("RecentPJ")){
         const char *sqlSentence =
                                 "CREATE TABLE RecentPJ("
@@ -190,35 +190,11 @@ void LauncherHomepage::updateDatas()
                                 "Path		   TEXT			      NOT NULL);";
         recentPJSql.createTable(sqlSentence);
     }
-
-    // Tuple[0]: Name Of Project.
-    // Tuple[1]: Modified Time Of Project.
-    // Tuple[2]: Size Of Project.
-    // Tuple[3]: Type Of Project.
-    // Tuple[4]: Path Of Project.
-    const QStringList *tuple = nullptr;
     // CellSqlManager Will Fetch A Row Of Table "RecentPJ" Once
     // A "While" Circle Is Over.
-    while(!(tuple = recentPJSql.fetchRecentPJ())->isEmpty()){
-        QString PJName = tuple->at(CellProjectEntity::_NAME);
-        QString PJDir =  tuple->at(CellProjectEntity::_PATH);
-        QString PJPath = PJDir + CHAR2STR("/") + PJName + CHAR2STR(".workshop");
-        // Check If Current Project That Readed From Database
-        // Exists, If Not, Output A Warning Signal And Remove
-        // It From RecentPJ Table, Then Continue To Next Circle.
-        if(!QFileInfo(PJPath).isFile()){
-#ifdef      CELL_DEBUG
-            CELL_DEBUG("LauncherHomepage") << CHAR2STR("Project::[") << PJPath << "]::Doesn't_Exists." << endl;
-#endif
-            recentPJSql.removeTuple("RecentPJ", "Name", PJName);
-            continue;
-        }
-#ifdef  CELL_DEBUG
-        CELL_DEBUG("LauncherHomepage") << CHAR2STR("Project::[") << PJPath << "]::Exists." << endl;
-#endif
-        QList<QStandardItem*> itemList;
-        for(int i = 0;i < 4;i ++)
-            itemList.append(new QStandardItem(tuple->at(i)));
+    QList<QStandardItem*> *itemList;
+    while(recentPJSql.fetchRecentPJRow(itemList)){
+        if(itemList->isEmpty()) continue;
         itemModel->appendRow(itemList);
     }
 }

@@ -1,0 +1,4 @@
+#ifndef CELLVARIANT_H
+#define CELLVARIANT_H
+
+#endif // CELLVARIANT_H

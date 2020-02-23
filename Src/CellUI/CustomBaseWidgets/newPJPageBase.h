@@ -1,0 +1,4 @@
+#ifndef NEWPJPAGEBASE_H
+#define NEWPJPAGEBASE_H
+
+#endif // NEWPJPAGEBASE_H

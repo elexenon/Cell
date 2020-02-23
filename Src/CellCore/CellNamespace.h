@@ -1,0 +1,4 @@
+#ifndef CELLNAMESPACE_H
+#define CELLNAMESPACE_H
+
+#endif // CELLNAMESPACE_H

@@ -1,0 +1,4 @@
+#ifndef CUSTOMSWITCH_H
+#define CUSTOMSWITCH_H
+
+#endif // CUSTOMSWITCH_H

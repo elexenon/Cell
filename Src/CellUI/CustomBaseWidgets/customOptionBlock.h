@@ -1,10 +1,8 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef CUSTOMOPTIONBLOCK_H
 #define CUSTOMOPTIONBLOCK_H
 
@@ -22,8 +20,11 @@ public:
     void addItem(QWidget *optionWidget, const QString& hint, const QString& tag = " ",
                  bool addSplitterLine = false);
     void addItem(customOptionBlockItem *item, bool addSplitterLine = false);
-    void setMainBlockBrightDarkModeColor(const QColor &b, const QColor &d);
-    void tidyItemTags();
+    void setMainBlockBrightDarkModeColor(const CellVariant b, const CellVariant d);
+    void tidyItems(customOptionBlock *another = nullptr);
+    inline
+    int  getItemTagMaxLen() { return itemTagMaxLen; }
+
 protected:
     void addThemeTag(const QString &name);
 
@@ -35,6 +36,9 @@ protected:
 
     int blockHeight = 0;
     int itemTagMaxLen = 0;
+
+private:
+    void _tidyItems(int value = -1);
 };
 
 #endif // CUSTOMOPTIONBLOCK_H

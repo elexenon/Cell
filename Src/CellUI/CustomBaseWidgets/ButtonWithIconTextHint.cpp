@@ -1,13 +1,12 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "ButtonWithIconTextHint.h"
 
 #include "customLabel.h"
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
 #include <QHBoxLayout>
@@ -23,8 +22,8 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::TYPE type, QWidget 
 {
     setCursor(Qt::PointingHandCursor);
 
-    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-    hint->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    tag->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    hint->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
 
     QVBoxLayout *VLayoutIcon = new QVBoxLayout;
     VLayoutIcon->setMargin(0);

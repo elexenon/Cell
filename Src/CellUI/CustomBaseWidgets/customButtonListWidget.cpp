@@ -1,13 +1,12 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "../CustomBaseWidgets/customButtonListWidget.h"
 #include "../CustomBaseWidgets/customListButton.h"
 #include "../CustomBaseWidgets/customLabel.h"
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellGlobalMacros.h"
 
 #include <QVBoxLayout>
@@ -24,13 +23,13 @@ customButtonListWidget::customButtonListWidget(QWidget *parent) :
     setEventConnections();
 }
 
-void customButtonListWidget::setButtonsBrightDarkModeColor(const QColor &b, const QColor &d)
+void customButtonListWidget::setButtonsBrightDarkModeColor(const CellVariant &b, const CellVariant &d)
 {
     for(auto & e : *buttons)
         e->setBrightDarkModeColor(b, d);
 }
 
-void customButtonListWidget::addButton(const QString &text, const QColor& b, const QColor& d, int index)
+void customButtonListWidget::addButton(const QString &text, const CellVariant &b, const CellVariant &d, int index)
 {
     if(index == -1)
         index = buttonIndex++;
@@ -99,7 +98,7 @@ void customButtonListWidget::addThemeHead(const QString& theme)
 {
     label_theme = new customLabel(this);
     CellUiGlobal::setCustomTextLabel(label_theme, CHAR2STR("Microsoft YaHei UI"), 15, theme);
-    label_theme->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    label_theme->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
     line_splitter = CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine);
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(label_theme);

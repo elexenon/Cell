@@ -1,11 +1,9 @@
-// Copyright 2018-2019 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
+#include "../../CellCore/CellNamespace.h"
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customLabel.h"
 #include "../CustomBaseWidgets/customOptionBlock.h"
@@ -14,6 +12,7 @@
 #include "../CustomBaseWidgets/customButton.h"
 #include "../CustomBaseWidgets/customMaskDialog.h"
 #include "../CustomBaseWidgets/ButtonWithIcon.h"
+#include "../Widgets/Launcher.h"
 #include "LauncherSettings.h"
 
 #include <QPropertyAnimation>
@@ -26,10 +25,15 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     customFrame(customFrame::_REGULAR, parent),
     mainLayout(new QVBoxLayout(this)),
     blockGeneral(new customOptionBlock(this, CHAR2STR("通用"))),
-    blockGeneral_ItemAppear(new customOptionBlockItem),  
-    cBoxAppear(new customDialogButton(CHAR2STR("FUSION"))),
-    cBoxAuto(new customDialogButton(CHAR2STR("是"))),
-    blockGeneral_ItemAuto(new customOptionBlockItem),
+    blockGeneralItemAppear(new customOptionBlockItem),
+    dBtnAppear(new customDialogButton(CHAR2STR("FUSION"))),
+    blockGeneralItemAuto(new customOptionBlockItem),
+    dBtnAuto(new customDialogButton(CHAR2STR("是"))),
+    blockGeneralItemLan(new customOptionBlockItem),
+    dBtnLan(new customDialogButton(CHAR2STR("简体中文"))),
+    blockWorkshop(new customOptionBlock(this, CHAR2STR("Workshop"))),
+    blockWorkshopItemMulti(new customOptionBlockItem),
+    dBtnMulti(new customDialogButton(CHAR2STR("是"))),
     launcherPtr(nullptr)
 {
     init();
@@ -46,33 +50,53 @@ void LauncherSettings::LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME
 
 void LauncherSettings::init()
 {
-    setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL45);
+    setBrightDarkModeColor(Cell::CGL247,Cell::CGL45);
     setLayout(mainLayout);
-    mainLayout->setSpacing(0);
+    mainLayout->setSpacing(50);
     mainLayout->setContentsMargins(45, 30, 45, 0);
     mainLayout->addWidget(blockGeneral);
+    mainLayout->addWidget(blockWorkshop);
     mainLayout->addStretch();
 
     // ComboBox Appear Combination
-    cBoxAppear->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
-    cBoxAppear->setFixedWidth(200);
+    dBtnAppear->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    dBtnAppear->setFixedWidth(200);
     // ComboBox Auto Combination.
-    cBoxAuto->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
-    cBoxAuto->setFixedWidth(200);
+    dBtnAuto->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    dBtnAuto->setFixedWidth(200);
+    // ComboBox Lan Combination.
+    dBtnLan->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    dBtnLan->setFixedWidth(200);
 
     // OptionBlock General Combination.
-    blockGeneral->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
+    blockGeneral->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
     // Item Appear Combination.
-    blockGeneral_ItemAppear->setTag("外观");
-    blockGeneral_ItemAppear->setOptionWidget(cBoxAppear);
-    blockGeneral_ItemAppear->setHint("调整Cell的工作主题");
+    blockGeneralItemAppear->setTag("外观");
+    blockGeneralItemAppear->setOptionWidget(dBtnAppear);
+    blockGeneralItemAppear->setHint("调整Cell的工作主题");
     // Item Auto   Combination.
-    blockGeneral_ItemAuto->setTag("自动切换");
-    blockGeneral_ItemAuto->setOptionWidget(cBoxAuto);
-    blockGeneral_ItemAuto->setHint("在日落时自动切换工作主题");
-    blockGeneral->addItem(blockGeneral_ItemAppear);
-    blockGeneral->addItem(blockGeneral_ItemAuto);
-    blockGeneral->tidyItemTags();
+    blockGeneralItemAuto->setTag("自动切换");
+    blockGeneralItemAuto->setOptionWidget(dBtnAuto);
+    blockGeneralItemAuto->setHint("在日落时自动切换工作主题");
+    // Item Lan Combination.
+    blockGeneralItemLan->setTag("语言");
+    blockGeneralItemLan->setOptionWidget(dBtnLan);
+    blockGeneralItemLan->setHint("设置全局语言");
+    blockGeneral->addItem(blockGeneralItemAppear);
+    blockGeneral->addItem(blockGeneralItemAuto, true);
+    blockGeneral->addItem(blockGeneralItemLan);
+
+    dBtnMulti->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    dBtnMulti->setFixedWidth(200);
+
+    // OptionBlock Workshop Combination.
+    blockWorkshop->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    // Item Multi Combination.
+    blockWorkshopItemMulti->setTag("多实例");
+    blockWorkshopItemMulti->setOptionWidget(dBtnMulti);
+    blockWorkshopItemMulti->setHint("允许多个Workshop实例同时存在");
+    blockWorkshop->addItem(blockWorkshopItemMulti);
+    blockWorkshop->tidyItems(blockGeneral);
 
     setEventConnections();
 }
@@ -84,28 +108,28 @@ void LauncherSettings::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 
 void LauncherSettings::setEventConnections()
 {
-    const ButtonWithIcon *trigger = cBoxAppear->getTrigger();
+    const ButtonWithIcon *trigger = dBtnAppear->getTrigger();
     connect(trigger, &QPushButton::clicked, this, &LauncherSettings::btnColorSchemeClicked);
 
-    trigger = cBoxAuto->getTrigger();
+    trigger = dBtnAuto->getTrigger();
     connect(trigger, &QPushButton::clicked, this, &LauncherSettings::btnAutoSwitchClicked);
 }
 
 void LauncherSettings::btnColorSchemeClicked()
 {
-    customMaskDialog *maskDialog = new customMaskDialog;
-    maskDialog->setTargetWidget(launcherPtr);
+    customMaskDialog *maskDialog = new customMaskDialog(launcherPtr);
     maskDialog->setOptionText(CHAR2STR("颜色模式"));
     maskDialog->setHintText(CHAR2STR("选择一个你偏好的颜色模式，Cell会为你自动切换。"));
+    maskDialog->setGeometry(launcherPtr->maskGeometry());
     maskDialog->show();
 }
 
 void LauncherSettings::btnAutoSwitchClicked()
 {
-    customMaskDialog *maskDialog = new customMaskDialog;
-    maskDialog->setTargetWidget(launcherPtr);
+    customMaskDialog *maskDialog = new customMaskDialog(launcherPtr);
     maskDialog->setOptionText(CHAR2STR("自动切换"));
     maskDialog->setHintText(CHAR2STR("选择此项，Cell会在日落时为你自动切换颜色模式。"));
+    maskDialog->setGeometry(launcherPtr->maskGeometry());
     maskDialog->show();
 }
 

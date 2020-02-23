@@ -1,22 +1,17 @@
-﻿// Copyright 2018-2019 CellTek.
+﻿// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "LauncherHomepage.h"
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../CustomBaseWidgets/customOptionBlock.h"
 #include "../../CellCore/CellSqlManager.h"
 #include "../../CellCore/CellProjectEntity.h"
 
-#include <QScrollBar>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QScrollArea>
 #include <QHeaderView>
 #include <QComboBox>
 #include <QButtonGroup>
@@ -25,7 +20,7 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 
-using namespace CellUiConst;
+using namespace CellUiLiteral;
 
 LauncherHomepage::LauncherHomepage(QWidget *parent) :
     QWidget(parent),
@@ -33,7 +28,6 @@ LauncherHomepage::LauncherHomepage(QWidget *parent) :
     stackedWidget(new QStackedWidget(this)),
     tableView(new QTableView(stackedWidget)),
     itemModel(new QStandardItemModel),
-    scrollArea(new QScrollArea(stackedWidget)),
     btnGrid(new QPushButton(this)),
     btnList(new QPushButton(this)),
     iconRecentPJ(new QLabel(this)),
@@ -46,13 +40,13 @@ LauncherHomepage::LauncherHomepage(QWidget *parent) :
 void LauncherHomepage::init()
 {
     // Set HLayout_Btns.
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeGridBtn_Bright.css"));
-    btnGrid->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeGridBtn_Bright.css"));
+    btnGrid->setStyleSheet(CellUiGlobal::loader.content());
     btnGrid->setCheckable(true);
     btnGrid->setFixedSize(51,41);
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeListBtn_Bright.css"));
-    btnList->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeListBtn_Bright.css"));
+    btnList->setStyleSheet(CellUiGlobal::loader.content());
     btnList->setCheckable(true);
     btnList->setFixedSize(51,41);
 
@@ -63,8 +57,8 @@ void LauncherHomepage::init()
     // Set HLayout_Row1.
     CellUiGlobal::setCustomTextLabel(labelRecentPJ, CHAR2STR("Microsoft YaHei UI Light"), 19, CHAR2STR("近期使用"));
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeIconRecentPJBright.css"));
-    iconRecentPJ->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeIconRecentPJBright.css"));
+    iconRecentPJ->setStyleSheet(CellUiGlobal::loader.content());
     iconRecentPJ->setFixedSize(19, 19);
 
     QHBoxLayout *HLayout_Row1 = new QHBoxLayout;
@@ -73,12 +67,6 @@ void LauncherHomepage::init()
     HLayout_Row1->addWidget(labelRecentPJ);
     HLayout_Row1->addStretch();
     HLayout_Row1->addLayout(HLayout_Btns);
-
-    // Set ScrollArea.
-    scrollArea->setFrameShape(QFrame::Shape::NoFrame);
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeScrollBar_Bright.css"));
-    QScrollBar *verticalBar = scrollArea->verticalScrollBar();
-    verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
 
     // Set ButtonGroup For Button Grid And List.
     QButtonGroup *btnGroup = new QButtonGroup(this);
@@ -92,7 +80,7 @@ void LauncherHomepage::init()
 
     // Set StackedWidget.
     stackedWidget->addWidget(tableView);
-    stackedWidget->addWidget(scrollArea);
+    //stackedWidget->addWidget(); TODO
     stackedWidget->setCurrentIndex(0);
 
     // set MainLayout.
@@ -104,20 +92,21 @@ void LauncherHomepage::init()
 
 void LauncherHomepage::setEventConnections()
 {
-    connect(btnGrid, &QPushButton::clicked, this, &LauncherHomepage::Btn_grid_clicked);
-    connect(btnList, &QPushButton::clicked, this, &LauncherHomepage::Btn_list_clicked);
+    connect(btnGrid, &QPushButton::clicked, this, &LauncherHomepage::btnGridClicked);
+    connect(btnList, &QPushButton::clicked, this, &LauncherHomepage::btnListClicked);
+    connect(tableView, &QTableView::doubleClicked, this, &LauncherHomepage::tableDoubleClicked);
 }
 
 void LauncherHomepage::initTableView()
 {
     QStringList headersList;
-    headersList << CHAR2STR("名称") << CHAR2STR("修改时间") << CHAR2STR("大小") << CHAR2STR("类型");
+    headersList << CHAR2STR("名称") << CHAR2STR("修改时间") << CHAR2STR("类型") << CHAR2STR("路径");
     itemModel->setHorizontalHeaderLabels(headersList);
     updateDatas();
     // Set TableView.
-    using CellEntityTools::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(CHAR2STR("TableViewBrightMode.css"));
-    tableView->setStyleSheet(styleSheetLoader->styleSheet());
+     
+    CellUiGlobal::loader.setFileName(CHAR2STR("TableViewBrightMode.css"));
+    tableView->setStyleSheet(CellUiGlobal::loader.content());
     tableView->setFrameShape(QFrame::NoFrame);
     tableView->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
     tableView->setAlternatingRowColors(true);
@@ -136,33 +125,19 @@ void LauncherHomepage::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(mode == m_mode) return;
     m_mode = mode;
-    if(mode == CellUiGlobal::COLOR_SCHEME::_DARK){
-        CellUiGlobal::multiModulesOneStyleSheet({labelRecentPJ},
-                                         CHAR2STR("QLabel{background-color:#1F1E1F; color:#FFFFFF;}"));
 
-        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeScrollBar_Dark.css"));
-        QScrollBar *verticalBar = scrollArea->verticalScrollBar();
-        verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+    const QString labelQss = (mode == CellUiGlobal::_BRIGHT ? "QLabel{background:transparent; color:rgb(70,70,70);}":
+                                                              "QLabel{background:transparent; color:white;}");
+    const QString gridQssFile =  (mode == CellUiGlobal::_BRIGHT ? "LauncherHomeGridBtn_Bright.css":
+                                                                  "LauncherHomeGridBtn_Dark.css");
+    const QString listQssFile =  (mode == CellUiGlobal::_BRIGHT ? "LauncherHomeListBtn_Bright.css":
+                                                                  "LauncherHomeListBtn_Dark.css");
 
-        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeGridBtn_Dark.css"));
-        btnGrid->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-
-        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeListBtn_Dark.css"));
-        btnList->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-    }
-    else{
-        CellUiGlobal::multiModulesOneStyleSheet({labelRecentPJ},
-                                         CHAR2STR("QLabel{background-color:#F7F7F7; color:#000000;}"));
-
-        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeScrollBar_Bright.css"));
-        QScrollBar *verticalBar = scrollArea->verticalScrollBar();
-        verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-
-        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeGridBtn_Bright.css"));
-        btnGrid->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-        CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("LauncherHomeListBtn_Bright.css"));
-        btnList->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
-    }
+    CellUiGlobal::multiModulesOneStyleSheet({labelRecentPJ},labelQss);
+    CellUiGlobal::loader.setFileName(gridQssFile);
+    btnGrid->setStyleSheet(CellUiGlobal::loader.content());
+    CellUiGlobal::loader.setFileName(listQssFile);
+    btnList->setStyleSheet(CellUiGlobal::loader.content());
 }
 
 void LauncherHomepage::updateDatasByWS(CellProjectEntity &entity)
@@ -170,8 +145,8 @@ void LauncherHomepage::updateDatasByWS(CellProjectEntity &entity)
     QList<QStandardItem*> itemList;
     itemList.append(new QStandardItem(entity.name()));
     itemList.append(new QStandardItem(entity.modifiedTime()));
-    itemList.append(new QStandardItem(QString::number(entity.size())));
     itemList.append(new QStandardItem(CellProjectEntity::getType(entity.type())));
+    itemList.append(new QStandardItem(entity.path()));
     itemModel->insertRow(0, itemList);
 }
 
@@ -185,26 +160,33 @@ void LauncherHomepage::updateDatas()
                                 "CREATE TABLE RecentPJ("
                                 "Name	       TEXT  PRIMARY KEY  NOT NULL,"
                                 "ModifiedTime  TEXT   			  NOT NULL,"
-                                "Size		   INT			      NOT NULL,"
                                 "Type		   TEXT			      NOT NULL,"
                                 "Path		   TEXT			      NOT NULL);";
         recentPJSql.createTable(sqlSentence);
     }
     // CellSqlManager Will Fetch A Row Of Table "RecentPJ" Once
     // A "While" Circle Is Over.
-    QList<QStandardItem*> *itemList;
+    QList<QStandardItem*> *itemList = new QList<QStandardItem*>;
     while(recentPJSql.fetchRecentPJRow(itemList)){
         if(itemList->isEmpty()) continue;
-        itemModel->appendRow(itemList);
+        itemModel->appendRow(*itemList);
     }
+    SafeDelete(itemList);
 }
 
-void LauncherHomepage::Btn_grid_clicked()
+void LauncherHomepage::btnGridClicked()
 {
     stackedWidget->setCurrentIndex(1);
 }
 
-void LauncherHomepage::Btn_list_clicked()
+void LauncherHomepage::btnListClicked()
 {
     stackedWidget->setCurrentIndex(0);
+}
+
+void LauncherHomepage::tableDoubleClicked(const QModelIndex index)
+{
+    qDebug() << index.siblingAtColumn(3).data();
+    emit getProjectPath(index.siblingAtColumn(3).data().toString() + "//" +
+                        index.siblingAtColumn(0).data().toString() + ".workshop");
 }

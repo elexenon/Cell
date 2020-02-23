@@ -1,12 +1,11 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "ButtonWithText.h"
 #include "customLabel.h"
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
 #include <QVBoxLayout>
@@ -23,10 +22,10 @@ ButtonWithText::ButtonWithText(customButton::TYPE type, QWidget *parent):
     mainLayout->addWidget(tag);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
     
-    setTextColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    setTextColor(Cell::CGL70, Cell::CGL255);
 }
 
-void ButtonWithText::setTextColor(const QColor &b, const QColor &d)
+void ButtonWithText::setTextColor(const CellVariant &b, const CellVariant &d)
 {
     tag->setBrightDarkModeColor(b, d);
 }

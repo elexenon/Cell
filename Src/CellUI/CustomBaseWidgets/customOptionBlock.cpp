@@ -1,13 +1,11 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "customOptionBlock.h"
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "customOptionBlockItem.h"
 #include "customLabel.h"
 
@@ -30,7 +28,7 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
     if(name != " ") addThemeTag(name);
 
     mainBlock = new customFrame(customFrame::_RADIUS, this);
-    mainBlock->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
+    mainBlock->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
     mainBlock->setLayout(mainBlockLayout);
 
     mainLayout->addWidget(mainBlock);
@@ -40,7 +38,7 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
 void customOptionBlock::addThemeTag(const QString &name)
 {
     theme = new customLabel(this);
-    theme->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    theme->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(theme, CHAR2STR("Microsoft YaHei UI Light"), 15, name);
 
     QHBoxLayout *themeTagLayout = new QHBoxLayout;
@@ -73,13 +71,33 @@ void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLin
     }
 }
 
-void customOptionBlock::setMainBlockBrightDarkModeColor(const QColor &b, const QColor &d)
+void customOptionBlock::setMainBlockBrightDarkModeColor(const CellVariant b, const CellVariant d)
 {
     mainBlock->setBrightDarkModeColor(b, d);
 }
 
-void customOptionBlock::tidyItemTags()
+void customOptionBlock::_tidyItems(int value)
 {
     for(auto & item : *itemsList)
-        item->setMargin(customOptionBlockItem::_LEFT, (itemTagMaxLen-item->tagLen)*17);
+        if(value == -1)
+            item->setMargin(customOptionBlockItem::_LEFT, (itemTagMaxLen-item->tagLen)*customOptionBlockItem::TagTextSize);
+        else
+            item->setMargin(customOptionBlockItem::_LEFT, (value-item->tagLen)*customOptionBlockItem::TagTextSize);
+}
+
+void customOptionBlock::tidyItems(customOptionBlock *another)
+{
+    if(another == nullptr){
+        _tidyItems();
+    }else{
+        int anothMax = another->getItemTagMaxLen();
+        if(itemTagMaxLen < anothMax){
+            _tidyItems(anothMax);
+            another->_tidyItems(anothMax);
+        }
+        else{
+            another->_tidyItems(itemTagMaxLen);
+            _tidyItems(itemTagMaxLen);
+        }
+    }
 }

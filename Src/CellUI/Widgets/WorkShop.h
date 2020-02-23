@@ -20,7 +20,6 @@ class QsciScintilla;
 class customFrame;
 class QLabel;
 class QPushButton;
-class QStyleSheetLoader;
 class QVBoxLayout;
 class QSplitter;
 class QShortcut;
@@ -54,19 +53,19 @@ private:
     WSLoadingDialog           *loadingDialog;
     QMenuBar                  *menuBar;
     customFrame               *leftBlock;
-    customFrame               *rightBlock;
-    customGradientChangeFrame *statusBar;
-    QsciScintilla             *mainEditor;
     QStackedWidget            *leftStackedWidget;
-    QTreeView                 *treeView;
-    QFileSystemModel          *fileModel;
     QPushButton               *btnDirectory;
     QPushButton               *btnWarning;
     QPushButton               *btnToolChain;
-
-    QLabel *labelCntRow;
-    QLabel *labelCntChar;
-    QLabel *labelFormat;
+    QTreeView                 *treeView;
+    QFileSystemModel          *fileModel;
+    QsciScintilla             *mainEditor;
+    customFrame               *rightBlock;
+    customFrame               *statusBar;
+    customGradientChangeFrame *textChangetoken;
+    QLabel                    *labelCntRow;
+    QLabel                    *labelCntChar;
+    QLabel                    *labelFormat;
 
     QString            codePrev;
     QString            codeCurr;
@@ -84,6 +83,14 @@ private:
     void         write(QJsonObject &json);
     virtual void setEventConnections() override;
 
+protected:
+    virtual void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void _constructed();
+    void destoryed();
+    void projectUpdate(CellProjectEntity &entity);
+
 private Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
     void         updateStatusBar();
@@ -93,14 +100,6 @@ private Q_SLOTS:
     void         btnDirectoryClicked();
     void         btnWarrningClicked();
     void         btnToolChainClicked();
-
-protected:
-    virtual void closeEvent(QCloseEvent *event) override;
-
-signals:
-    void _constructed();
-    void destoryed();
-    void projectUpdate(CellProjectEntity &entity);
 };
 
 #endif // WORKSHOP_H

@@ -6,14 +6,12 @@
 //
 // Of source file directory.
 #include "customLabel.h"
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
 
 customLabel::customLabel(QWidget *parent):
     QLabel(parent)
-{
-    using CellEntityTools::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(CHAR2STR("CustomLabel.css"));
-    setBaseQss(styleSheetLoader->styleSheet());
+{ 
+    CellUiGlobal::loader.setFileName(CHAR2STR("CustomLabel.css"));
+    setBaseQss(CellUiGlobal::loader.content());
 }
 
 void customLabel::setBaseQss(const QString &qss)

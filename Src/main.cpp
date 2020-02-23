@@ -1,10 +1,8 @@
-// Copyright 2018-2019 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "CellUI/Widgets/Launcher.h"
 
 #include <QApplication>
@@ -12,6 +10,8 @@
 #include <QMessageBox>
 #include <QSplashScreen>
 #include <iostream>
+
+#define SPLASHSCREEN
 
 int main(int argc, char *argv[])
 {
@@ -26,19 +26,19 @@ int main(int argc, char *argv[])
     // This operation is to register our custom property "COLOR_SCHEME".
     qRegisterMetaType<CellUiGlobal::COLOR_SCHEME>("COLOR_SCHEME");
 
-    QPixmap pixmap(CellUiConst::IMG_DIR + QStringLiteral("cellSplashScreen.png"));
+    QPixmap pixmap(CellUiLiteral::IMG_DIR + QStringLiteral("cellSplashScreen.png"));
 
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);
     startUp.setFont(QFont(QStringLiteral("微软雅黑")));
     startUp.show();
-    startUp.showMessage(QStringLiteral("装载模块"), Qt::AlignBottom | Qt::AlignHCenter, Qt::white);
+    startUp.showMessage(QStringLiteral("装载模块"), Qt::AlignBottom | Qt::AlignHCenter, QColor(100, 100, 100));
     a.processEvents();
-    startUp.showMessage(QStringLiteral("初始化主界面"), Qt::AlignHCenter | Qt::AlignBottom, Qt::white);
-
+    startUp.showMessage(QStringLiteral("初始化主界面"), Qt::AlignHCenter | Qt::AlignBottom, QColor(100, 100, 100));
     Launcher w;
     w.setWindowTitle(QStringLiteral("Cell Launcher"));
     w.show();
-
+#ifdef SPLASHSCREEN
     startUp.finish(&w);
+#endif
     return a.exec();
 }

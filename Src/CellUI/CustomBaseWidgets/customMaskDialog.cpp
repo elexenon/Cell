@@ -1,14 +1,20 @@
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
+//
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "customMaskDialog.h"
 #include "../../CellUI/Widgets/Launcher.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
 #include <QVBoxLayout>
+#include <QGraphicsOpacityEffect>
 #include <QLabel>
 
 customMaskDialog::customMaskDialog(QWidget *parent):
     QWidget(parent),
     animi(new QPropertyAnimation(this)),
-    targetWidget(nullptr),
+    targetWidget(parent),
     mainLayout(new QVBoxLayout(this)),
     dialog(new QFrame(this)),
     labelOption(new QLabel(dialog)),
@@ -28,7 +34,6 @@ void customMaskDialog::init()
     setLayout(mainLayout);
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_DeleteOnClose);
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
 
     // Set Dialog
     dialog->setAutoFillBackground(true);
@@ -85,12 +90,18 @@ void customMaskDialog::switchOpacity(int sValue, int eValue)
 void customMaskDialog::fade()
 {
     connect(animi, &QPropertyAnimation::finished, this, &customMaskDialog::close);
-    animi->setPropertyName("windowOpacity");
+
+    QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
+    eff->setOpacity(1);
+    this->setGraphicsEffect(eff);
+
+    animi->setTargetObject(eff);
+    animi->setPropertyName("opacity");
     animi->setDuration(150);
     animi->setEasingCurve(QEasingCurve::Linear);
     animi->setStartValue(1);
     animi->setEndValue(0);
-    animi->start(QAbstractAnimation::KeepWhenStopped);
+    animi->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void customMaskDialog::setOpacity(int value)
@@ -103,8 +114,6 @@ void customMaskDialog::showEvent(QShowEvent *e)
 {
     (void)e;
     if(targetWidget == nullptr) return;
-    this->setGeometry(targetWidget->geometry());
-
     switchOpacity(0, 170);
 }
 

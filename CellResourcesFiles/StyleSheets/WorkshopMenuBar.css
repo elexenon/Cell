@@ -1,17 +1,17 @@
 QMenuBar {
-    background-color: rgb(79,147,184);
+    background-color: rgb(218,218,218);
     spacing: 3px; /* spacing between menu bar items */
 }
 
 QMenuBar::item {
-    color: rgb(255,255,255);
+    color: rgb(70,70,70);
     background: transparent;
 }
 
 QMenuBar::item:selected { /* when selected using mouse or keyboard */
-    background: rgb(99,167,204);
+    background: rgb(200,200,200);
 }
 
 QMenuBar::item:pressed {
-    background: rgb(99,167,204);
+    background: rgb(200,200,200);
 }

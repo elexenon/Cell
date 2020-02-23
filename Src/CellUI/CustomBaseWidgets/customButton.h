@@ -1,10 +1,8 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef CUSTOMBUTTON_H
 #define CUSTOMBUTTON_H
 
@@ -21,7 +19,9 @@ public:
         STATIC,        DYNAMIC,        CHECKABLE,
         STATIC_RADIUS, DYNAMIC_RADIUS, CHECKABLE_RADIUS
     };
-    explicit     customButton(TYPE type = STATIC,QWidget *parent = nullptr);
+    explicit customButton(TYPE type = STATIC,QWidget *parent = nullptr);
+
+protected:
     virtual void setColor(const QColor &color) override;
     virtual void setBaseQss(const QString &qss) override;
     virtual void changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
@@ -33,35 +33,29 @@ private:
 protected Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 
-Checkable_Public:
-    inline
-    void setBrightModeCheckedColor(const QColor &color) { brightModeCheckedColor = color; }
-    inline
-    void setDarkModeCheckedColor(const QColor &color)   { darkModeCheckedColor = color; }
-Checkable_Protected:
+CheckablePublic:
+    void setBrightModeCheckedColor(const CellVariant &color);
+    void setDarkModeCheckedColor(const CellVariant &color);
+CheckableProtected:
     QColor brightModeCheckedColor;
     QColor darkModeCheckedColor;
 
-Dynamic_Public:
-    inline
-    void setBrightModeHoveringColor(const QColor &color) { brightModeHoveringColor = color; }
-    inline
-    void setDarkModeHoveringColor(const QColor &color)   { darkModeHoveringColor = color; }
+DynamicPublic:
+    void setBrightModeHoveringColor(const CellVariant &color);
+    void setDarkModeHoveringColor(const CellVariant &color);
     inline
     void setAnimationDuration(int dur) { hoverAnimiDuration = dur; }
-Dynamic_Protected:
+DynamicProtected:
     virtual void enterEvent(QEvent*) override;
     virtual void leaveEvent(QEvent*) override;
     QColor  brightModeHoveringColor;
     QColor  darkModeHoveringColor;
     int     hoverAnimiDuration = 300;
 
-Static_Public:
-    inline
-    void setBrightModeHoverColor(const QColor& color) { brightModeHoverColor = color; }
-    inline
-    void setDarkModeHoverColor(const QColor& color)   { darkModeHoverColor = color; }
-Static_Protected:
+StaticPublic:
+    void setBrightModeHoverColor(const CellVariant &color);
+    void setDarkModeHoverColor(const CellVariant &color);
+StaticProtected:
     QColor brightModeHoverColor;
     QColor darkModeHoverColor;
 };

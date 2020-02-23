@@ -2,33 +2,40 @@
 //
 // Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// This File May Be Used Under The Terms Of The GNU General Public License
-// version 3.0 As Published By The Free Software Foundation And Appearing In
-// The File LICENSE Included In The Packaging Of This File.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef QSTYLELOADER_H
 #define QSTYLELOADER_H
 #include <QFile>
 
-class StyleSheetLoader
+class textFileLoader
 {
 public:
-    explicit StyleSheetLoader(const QString &DIR) // Must use an absolute directory!
+    explicit textFileLoader(const QString &DIR) // Must Use An Absolute Directory.
         :loader(new QFile)
         ,DIR(DIR)
     {}
+    textFileLoader(const textFileLoader&) = delete;
+    textFileLoader& operator=(const textFileLoader&) = delete;
     inline
-    void setStyleSheetName(const QString &name){
+    static textFileLoader& instance(const QString &DIR){
+        static textFileLoader mInstance(DIR);
+        return mInstance;
+    }
+    inline
+    void setFileName(const QString &name){
         fileName = name;
     }
     inline
-    const QString styleSheet() const{
+    const QString content() const{
         loader->setFileName(DIR + fileName);
         loader->open(QFile::ReadOnly);
         QString tmp = loader->readAll();
         loader->close();
         return tmp;
     }
-    ~StyleSheetLoader(){
+    ~textFileLoader(){
         delete loader;
     }
 private:

@@ -1,12 +1,10 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "customDialogButton.h"
 #include "customLabel.h"
 #include "ButtonWithIcon.h"
@@ -24,12 +22,12 @@ customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     setLayout(mainLayout);
 
     CellUiGlobal::setCustomTextLabel(currState, CHAR2STR("Microsoft YaHei UI Light"), 15, state);
-    currState->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    currState->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
 
     trigger->setFixedSize(35, 22);
-    trigger->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    trigger->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
-    trigger->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
+    trigger->setBrightModeHoveringColor(Cell::CGL255);
+    trigger->setDarkModeHoveringColor(Cell::CGL180);
+    trigger->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
     trigger->setAnimationDuration(200);
     trigger->setCursor(Qt::PointingHandCursor);
     trigger->init(CHAR2STR("popUpIcon.png"), 15, 12);

@@ -16,7 +16,6 @@
 class QVBoxLayout;
 class QLabel;
 class QPushButton;
-class QScrollArea;
 class QComboBox;
 class QTableView;
 class QStackedWidget;
@@ -37,7 +36,6 @@ private:
     QStackedWidget     *stackedWidget;
     QTableView         *tableView;
     QStandardItemModel *itemModel;
-    QScrollArea        *scrollArea;
     QPushButton        *btnGrid;
     QPushButton        *btnList;
     QLabel             *iconRecentPJ;
@@ -54,8 +52,12 @@ private:
 private Q_SLOTS:
     void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void updateDatasByWS(CellProjectEntity &entity);
-    void Btn_grid_clicked();
-    void Btn_list_clicked();
+    void btnGridClicked();
+    void btnListClicked();
+    void tableDoubleClicked(const QModelIndex index);
+
+Q_SIGNALS:
+    void getProjectPath(const QString &path);
 };
 
 #endif // LauncherHomepage_H

@@ -22,6 +22,7 @@ class ButtonWithText;
 class QStackedWidget;
 class QFrame;
 class NewPJProjectCellPage;
+class NewPJPredictEarPage;
 class customButtonListWidget;
 
 class LauncherNewPJDialog : public customWinstyleDialog
@@ -43,8 +44,7 @@ private:
     QStackedWidget *stackedWidget;
 
     NewPJProjectCellPage *cellPage;
-
-    QFrame *VLineSplitter;
+    NewPJPredictEarPage  *prePage;
 
     customButtonListWidget *btnListWidget1;
     customButtonListWidget *btnListWidget2;
@@ -60,7 +60,7 @@ signals:
     void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void projectSettled(CellProjectEntity *entity);
 
-private slots:
+private Q_SLOTS:
     inline
     void btnCancelClicked() { this->close(); }
     void btnConfirmClicked();

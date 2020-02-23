@@ -1,10 +1,8 @@
-// Copyright 2018-2019 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
 #include <QFontDatabase>
@@ -25,8 +23,8 @@
 #include "Launcher.h"
 
 #include "../../../CellDevelopTestStation.h"
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellGlobalMacros.h"
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../CustomBaseWidgets/customListButton.h"
 #include "../CustomBaseWidgets/ButtonWithIconTextHint.h"
 #include "../CustomBaseWidgets/customButtonListWidget.h"
@@ -59,46 +57,51 @@ Launcher::Launcher(QWidget *parent)
 {
     initLauncher();
     setEventConnections();
-    //btnMaxClicked();
 }
 Launcher::~Launcher()
 {}
 
+const QRect Launcher::maskGeometry()
+{
+    return QRect(0, titleBar->height(), this->width(),this->height()-titleBar->height()-notificationCenter->height());
+}
+
 void Launcher::initLauncher()
 {
     resize(1400, 800);
+    setObjectName(CHAR2STR("Launcher"));
     customWinstyleWidget::LoadWinStyle(this);
-    setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30); 
+    setBrightDarkModeColor(Cell::CGL247, Cell::CGL30); 
 #ifndef RELEASE_MODE
     testForm->hide();
 #endif
     // Titlebar Combination.
     titleBar->setFixedHeight(40);
-    titleBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255,CellUiConst::GRAYLEVEL45);
-    titleBar->setText(CHAR2STR("CELL LAUNCHER"),CellUiConst::GRAYLEVEL130);
+    titleBar->setBrightDarkModeColor(Cell::CGL255,Cell::CGL45);
+    titleBar->setText(CHAR2STR("CELL LAUNCHER"),Cell::CGL130);
     titleBar->setFont(CellUiGlobal::getFont(CHAR2STR("InfoDisplayWeb W01 Medium.ttf"), 21));
     titleBar->setIcon(CHAR2STR("cellLogo28"), 28, 28);
     titleBar->setLeftMargin(15);
 
-    btnMini->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
-    btnMini->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
-    btnMini->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
+    btnMini->setBrightModeHoveringColor(Cell::NavyBlue);
+    btnMini->setDarkModeHoveringColor(Cell::CGL180);
+    btnMini->setBrightDarkModeColor(Cell::CGL255, Cell::CGL45);
     btnMini->setAnimationDuration(150);
     btnMini->init(CHAR2STR("iconMinimize"), 15, 2);
     btnMini->setFixedSize(50, titleBar->height());
     btnMini->setCursor(Qt::PointingHandCursor);
 
-    btnMax->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL218);
-    btnMax->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
-    btnMax->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
+    btnMax->setBrightModeHoveringColor(Cell::NavyBlue);
+    btnMax->setDarkModeHoveringColor(Cell::CGL180);
+    btnMax->setBrightDarkModeColor(Cell::CGL255, Cell::CGL45);
     btnMax->setAnimationDuration(150);
     btnMax->init(CHAR2STR("iconMaximize"), 17, 14);
     btnMax->setFixedSize(50, titleBar->height());
     btnMax->setCursor(Qt::PointingHandCursor);
 
-    btnClose->setBrightModeHoveringColor(CellUiConst::CELLEXITRED);
-    btnClose->setDarkModeHoveringColor(CellUiConst::CELLEXITRED);
-    btnClose->setBrightDarkModeColor(CellUiConst::GRAYLEVEL255, CellUiConst::GRAYLEVEL45);
+    btnClose->setBrightModeHoveringColor(Cell::ExitRed);
+    btnClose->setDarkModeHoveringColor(Cell::ExitRed);
+    btnClose->setBrightDarkModeColor(Cell::CGL255, Cell::CGL45);
     btnClose->setAnimationDuration(150);
     btnClose->init(CHAR2STR("iconClose"), 14, 14);
     btnClose->setFixedSize(50, titleBar->height());
@@ -112,30 +115,30 @@ void Launcher::initLauncher()
     stackedWidget->insertWidget(1, settingsPage);
     stackedWidget->setCurrentIndex(0);
 
-    btnListWidget->addButton(CHAR2STR("主页"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
-    btnListWidget->addButton(CHAR2STR("选项"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
-    btnListWidget->addButton(CHAR2STR("向导"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    btnListWidget->addButton(CHAR2STR("主页"),Cell::CGL218,Cell::CGL70);
+    btnListWidget->addButton(CHAR2STR("选项"),Cell::CGL218,Cell::CGL70);
+    btnListWidget->addButton(CHAR2STR("向导"),Cell::CGL218,Cell::CGL70);
     btnListWidget->setButtonCheckable(2,false);
 #ifndef RELEASE_MODE
-    btnListWidget->addButton(CHAR2STR("自定义CONTROLS测试面板"),CellUiConst::GRAYLEVEL218,CellUiConst::GRAYLEVEL70);
+    btnListWidget->addButton(CHAR2STR("自定义CONTROLS测试面板"),Cell::CGL218,Cell::CGL70);
     btnListWidget->setButtonCheckable(3,false);
 #endif
-    btnListWidget->setButtonsBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
+    btnListWidget->setButtonsBrightDarkModeColor(Cell::CGL247,Cell::CGL30);
     btnListWidget->setButtonSize(251,31);
-    btnListWidget->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247,CellUiConst::GRAYLEVEL30);
+    btnListWidget->setBrightDarkModeColor(Cell::CGL247,Cell::CGL30);
     btnListWidget->clickButton(0);
 
-    btnNewPJ->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    btnNewPJ->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    btnNewPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    btnNewPJ->setBrightModeHoveringColor(Cell::CGL255);
+    btnNewPJ->setDarkModeHoveringColor(Cell::CGL255);
+    btnNewPJ->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
     btnNewPJ->setAnimationDuration(200);
     btnNewPJ->init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("新建项目"), 25, CHAR2STR("新建一个Cell文档"));
     btnNewPJ->setFixedSize(250, 81);
     btnNewPJ->setCursor(Qt::PointingHandCursor);
 
-    btnOpenPJ->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    btnOpenPJ->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    btnOpenPJ->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    btnOpenPJ->setBrightModeHoveringColor(Cell::CGL255);
+    btnOpenPJ->setDarkModeHoveringColor(Cell::CGL255);
+    btnOpenPJ->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
     btnOpenPJ->setAnimationDuration(200);
     btnOpenPJ->init(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目"), 25, CHAR2STR("打开已知的Cell文档"));
     btnOpenPJ->setFixedSize(250, 81);
@@ -147,7 +150,7 @@ void Launcher::initLauncher()
     QVBoxLayout *VLayout_WorkBtns = new QVBoxLayout;
     VLayout_WorkBtns->addWidget(btnNewPJ);
     VLayout_WorkBtns->addWidget(btnOpenPJ);
-    VLayout_WorkBtns->setSpacing(9);
+    VLayout_WorkBtns->setSpacing(15);
 
     QVBoxLayout *VLayout_Left = new QVBoxLayout;
     VLayout_Left->addWidget(btnListWidget);
@@ -170,7 +173,7 @@ void Launcher::initLauncher()
 
     notificationCenter->setObjectName(CHAR2STR("notificationCenter"));
     notificationCenter->setFixedHeight(25);
-    notificationCenter->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL45);
+    notificationCenter->setBrightDarkModeColor(Cell::CGL70, Cell::CGL45);
 
     QHBoxLayout *HLayoutTitleRight = new QHBoxLayout;
     HLayoutTitleRight->setSpacing(0);
@@ -207,6 +210,7 @@ void Launcher::setEventConnections()
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), btnListWidget, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), titleBar, SLOT(setColorScheme(COLOR_SCHEME)));
     connect(guideDialog, &LauncherGuideDialog::clickedNewPJ, this, &Launcher::btnNewClicked);
+    connect(homePage, &LauncherHomepage::getProjectPath, this, &Launcher::launchWorkShopByPath);
 #ifndef RELEASE_MODE
     const customListButton *Tab_Test  = btnListWidget->getButton(3);
     connect(Tab_Test, SIGNAL(clicked(bool)), this, SLOT(tabTestClicked()));
@@ -294,22 +298,30 @@ void Launcher::btnOpenClicked()
 {
     QString path = QFileDialog::getOpenFileName(this, "打开Cell文档", ".", "*.workshop");
     if(path == "") return;
-    launchWorkShop(nullptr);
-    workshop->loadFile(path);
+    launchWorkShopByPath(path);
+}
+
+void Launcher::_launcherWorkshop()
+{
+    workshop = new Workshop(m_mode);
+    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(workshop, &Workshop::_constructed,notificationCenter, &notificationCenter::plusCnt);
+    connect(workshop, &Workshop::destoryed,notificationCenter, &notificationCenter::minusCnt);
+    connect(workshop, &Workshop::projectUpdate, homePage, &LauncherHomepage::updateDatasByWS);
+    workshop->constructed();
+    workshop->show();
 }
 
 void Launcher::launchWorkShop(CellProjectEntity *entity)
 {
-    workshop = new Workshop(m_mode, this);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(workshop, &Workshop::constructed,notificationCenter, &notificationCenter::plusCnt);
-    connect(workshop, &Workshop::constructed,notificationCenter, &notificationCenter::minusCnt);
-    connect(workshop, &Workshop::projectUpdate, homePage, &LauncherHomepage::updateDatasByWS);
+    _launcherWorkshop();
+    workshop->getProjectEntity(*entity);
+}
 
-    if(entity != nullptr)
-        workshop->getProjectEntity(*entity);
-    workshop->constructed();
-    workshop->show();
+void Launcher::launchWorkShopByPath(const QString &path)
+{
+    _launcherWorkshop();
+    workshop->loadFile(path);
 }
 
 void Launcher::btnMaxClicked()

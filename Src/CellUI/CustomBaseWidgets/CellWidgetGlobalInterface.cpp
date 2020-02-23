@@ -1,15 +1,13 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
 
-void CellWidgetGlobalInterface::setBrightDarkModeColor(const QColor &b, const QColor &d)
+void CellWidgetGlobalInterface::setBrightDarkModeColor(const CellVariant &b, const CellVariant &d)
 {
-    brightmodeColor = b; darkmodeColor = d;
+    brightmodeColor = b.toColor(); darkmodeColor = d.toColor();
     setColor(brightmodeColor);
 }
 

@@ -1,10 +1,8 @@
-// Copyright 2018-2019 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include <QTimer>
 
 #include "ui_WSLoadingDialog.h"
@@ -14,7 +12,7 @@
 WSLoadingDialog::WSLoadingDialog(QWidget *parent) :
     customWinstyleDialog(parent),
     ui(new Ui::WSLoadingDialog),
-    timer(new QTimer)
+    timer(new QTimer(this))
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
@@ -39,11 +37,10 @@ void WSLoadingDialog::progress()
 void WSLoadingDialog::updateProgressBar()
 {
     QProgressBar *bar = ui->progressBar;
-    if(bar->value() < 100)
-        bar->setValue(bar->value()+1);
+    if(bar->value() < 95)
+        bar->setValue(bar->value()+2);
     else{
         timer->stop();
-        delete timer;
         close();
     }
 }

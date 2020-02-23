@@ -37,10 +37,14 @@ public:
         _HOME,
         _SETTINGS
     };
+
+    const QRect maskGeometry();
+
 private:
     void         initLauncher();
     virtual void setEventConnections() override;
     void         startPageSwitchAnimation(PAGE_TYPE nextPage);
+    void         _launcherWorkshop();
 
     QGraphicsOpacityEffect *opacityEffect;
 
@@ -83,5 +87,6 @@ private Q_SLOTS:
     void btnNewClicked();
     void btnOpenClicked();
     void launchWorkShop(CellProjectEntity *entity);
+    void launchWorkShopByPath(const QString &path);
 };
 #endif

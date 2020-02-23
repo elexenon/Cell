@@ -20,19 +20,19 @@ const QString CellProjectEntity::getType(CellProjectEntityType type)
 {
     QString tmp;
     switch(type){
-    case CellProjectEntity::_CELLDEEPLEARNING:
+    case CellProjectEntity::CellDeepLearning:
         tmp = "Cell DeepLearning";
         break;
-    case CellProjectEntity::_PREDICTEARTHQUAKE:
+    case CellProjectEntity::PredictEarthquake:
         tmp = "基于Cell DeepLearning的地震预测";
         break;
-    case CellProjectEntity::_EMPTY:
+    case CellProjectEntity::Empty:
         tmp = "Empty File";
         break;
-    case CellProjectEntity::_CPP:
+    case CellProjectEntity::CPP:
         tmp = "C++ File";
         break;
-    case CellProjectEntity::_PYTHON:
+    case CellProjectEntity::Python:
         tmp = "Python File";
         break;
     }
@@ -41,16 +41,16 @@ const QString CellProjectEntity::getType(CellProjectEntityType type)
 
 CellProjectEntity::CellProjectEntityType CellProjectEntity::getType(const QString &type)
 {
-    if(type == CMPSTR("Cell DeepLearning")) return _CELLDEEPLEARNING;
-    else if(type == CMPSTR("基于Cell DeepLearning的地震预测")) return _PREDICTEARTHQUAKE;
-    else if(type == CMPSTR("Empty File")) return _EMPTY;
-    else if(type == CMPSTR("C++ File")) return _CPP;
-    return _PYTHON;
+    if(type == CMPSTR("Cell DeepLearning")) return CellDeepLearning;
+    else if(type == CMPSTR("基于Cell DeepLearning的地震预测")) return PredictEarthquake;
+    else if(type == CMPSTR("Empty File")) return Empty;
+    else if(type == CMPSTR("C++ File")) return CPP;
+    return Python;
 }
 
 void CellProjectEntity::print()
 {
-    CELL_DEUBG("CellProjectEntity") << "SelfPrint:\n"
+    CELL_DEBUG("CellProjectEntity") << "SelfPrint:\n"
                                     << mName         << endl
                                     << mModifiedTime << endl
                                     << mType         << endl
@@ -59,27 +59,27 @@ void CellProjectEntity::print()
 
 void CellProjectEntity::read(const QJsonObject &json)
 {
-    if (json.contains("name") && json["name"].isString())
-        mName = json["name"].toString();
+    if (json.contains("Name") && json["Name"].isString())
+        mName = json["Name"].toString();
 
-    if (json.contains("modifiedTime") && json["modifiedTime"].isString())
-        mModifiedTime = json["modifiedTime"].toString();
+    if (json.contains("ModifiedTime") && json["ModifiedTime"].isString())
+        mModifiedTime = json["ModifiedTime"].toString();
 
-    if (json.contains("type") && json["type"].isString())
-        mType = getType(json["type"].toString());
+    if (json.contains("Type") && json["Type"].isString())
+        mType = getType(json["Type"].toString());
 
-    if (json.contains("path") && json["path"].isString())
-        mPath = json["path"].toString();
+    if (json.contains("Path") && json["Path"].isString())
+        mPath = json["Path"].toString();
 
-    if (json.contains("code") && json["code"].isString())
-        mCode = json["code"].toString();
+    if (json.contains("Code") && json["Code"].isString())
+        mCode = json["Code"].toString();
 }
 
 void CellProjectEntity::write(QJsonObject &json)
 {
-    json["name"] = mName;
-    json["modifiedTime"] = mModifiedTime;
-    json["type"] = getType(mType);
-    json["path"] = mPath;
-    json["code"] = mCode;
+    json["Name"] = mName;
+    json["ModifiedTime"] = mModifiedTime;
+    json["Type"] = getType(mType);
+    json["Path"] = mPath;
+    json["Code"] = mCode;
 }

@@ -12,6 +12,7 @@
 #include "../CustomBaseWidgets/customWinstyleDialog.h"
 
 class customFrame;
+class customTitleBar;
 class customLabel;
 class customStackedWidget;
 class QVBoxLayout;
@@ -29,29 +30,28 @@ public:
     ~LauncherGuideDialog() = default;
 
 private:
+    void init();
+    virtual void setEventConnections() override;
+
     QVBoxLayout         *mainLayout;
-    customFrame         *titleBar;
-    QLabel              *icon;
-    customLabel         *labelTitle;
+    customTitleBar      *titleBar;
     customStackedWidget *mainStackedWidget;
     customFrame         *bottomBar;
     QCheckBox           *checkBox;
     ButtonWithText      *btnClose;
     ButtonWithText      *btnNewPJ;
 
-private:
-    void init();
-    virtual void setEventConnections() override;
+protected:
+    virtual void showEvent(QShowEvent *e) override;
 
 signals:
     void clickedNewPJ();
 
 private Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
+    void         fade();
     inline
-    void         btnCloseClicked() { this->close(); }
-    inline
-    void         btnNewPJClicked() { emit clickedNewPJ(); this->close(); }
+    void         btnNewPJClicked() { emit clickedNewPJ(); close(); }
 };
 
 #endif // LauncherGuideDialog_H

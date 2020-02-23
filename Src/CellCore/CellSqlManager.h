@@ -1,3 +1,8 @@
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
+//
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef CELLSQLMANAGER_H
 #define CELLSQLMANAGER_H
 
@@ -12,11 +17,6 @@ public:
     explicit CellSqlManager() = default;
     ~CellSqlManager();
 
-    bool prepareStmt(const char *sqlSentence);
-    //! Exec prepared Statement.
-    //! This function only fits situations that the result of
-    //! query is SQLITE_DONE.
-    bool execQuery(const char *sqlSentence);
     //! Set the exsiting Sqlite3 database file path and open.
     //! If it not exists, create a new Sqlite3 database instead.
     bool setDataBase(const char* dbPath);
@@ -29,15 +29,23 @@ public:
     bool insertProjectEntity(CellProjectEntity &entity);
 
     inline
-    bool createTable(const char *sqlSentence) { return execQuery("Create_Table", sqlSentence); }
+    bool createTable(const char *sqlSentence) { return execQuery(sqlSentence); }
 
     bool removeTuple(const QString &tableName, const QString &mainKey, const QString &id);
 
     bool tableExists(const char *tableName);
 
+    bool tupleExists(const QString &tableName, const QString &mainKey, const QString &id);
+
     const char* printErrorMsg();
 
 private:
+    bool prepareStmt(const char *sqlSentence);
+    //! Exec prepared Statement.
+    //! This function only fits situations that the result of
+    //! query is SQLITE_DONE.
+    bool execQuery(const char *sqlSentence, bool clearStmt = true);
+
     void finalizeStmt();
 
     //! The Database Connection Object.

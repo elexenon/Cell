@@ -29,6 +29,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     CellDevelopTestStation.cpp \
     Src/CellCore/CellSqlManager.cpp \
+    Src/CellCore/CellVariant.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconText.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIcon.cpp \
@@ -44,10 +45,13 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.cpp \
+    Src/CellUI/CustomBaseWidgets/customSwitch.cpp \
     Src/CellUI/CustomBaseWidgets/customTitleBar.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.cpp \
+    Src/CellUI/CustomBaseWidgets/newPJPageBase.cpp \
     Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
+    Src/CellUI/Widgets/NewPJPredictEarPage.cpp \
     Src/CellUI/Widgets/NewPJProjectCellPage.cpp \
     Src/main.cpp \
     Src/CellCore/Kits/CellUtility.cpp \
@@ -66,17 +70,20 @@ SOURCES += \
 HEADERS += \
     CellDevelopTestStation.h \
     Pch.h \
+    Src/CellCore/CellNamespace.h \
     Src/CellCore/CellSqlManager.h \
+    Src/CellCore/CellVariant.h \
     Src/CellCore/Kits/CellGlobalMacros.h \
     Src/CellCore/Kits/CellUtility.h \
     Src/CellCore/Kits/WindWMAPI.h \
-    Src/CellCore/Kits/StyleSheetLoader.hpp \
     Src/CellCore/CellProjectEntity.h \
+    Src/CellCore/Kits/textFileLoader.hpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIcon.h \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconText.h \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.h \
     Src/CellUI/CustomBaseWidgets/ButtonWithText.h \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.h \
+    Src/CellUI/CustomBaseWidgets/customAnimation.h \
     Src/CellUI/CustomBaseWidgets/customButton.h \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.h \
     Src/CellUI/CustomBaseWidgets/customDialogButton.h \
@@ -90,14 +97,17 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.h \
+    Src/CellUI/CustomBaseWidgets/customSwitch.h \
     Src/CellUI/CustomBaseWidgets/customTitleBar.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.h \
+    Src/CellUI/CustomBaseWidgets/newPJPageBase.h \
     Src/CellUI/Widgets/Launcher.h \
     Src/CellUI/Widgets/LauncherGuideDialog.h \
     Src/CellUI/Widgets/LauncherHomepage.h \
     Src/CellUI/Widgets/LauncherNewPJDialog.h \
     Src/CellUI/Widgets/LauncherSettings.h \
+    Src/CellUI/Widgets/NewPJPredictEarPage.h \
     Src/CellUI/Widgets/NewPJProjectCellPage.h \
     Src/CellUI/Widgets/WorkShop.h \
     Src/CellUI/Widgets/WSLoadingDialog.h

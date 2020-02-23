@@ -1,10 +1,8 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef CUSTOMBUTTONLISTWIDGET_H
 #define CUSTOMBUTTONLISTWIDGET_H
 
@@ -22,8 +20,8 @@ public:
     explicit customButtonListWidget(QWidget *parent = nullptr);
 
     void  addThemeHead(const QString& theme = "theme");
-    void  addButton(const QString &text, const QColor &b, const QColor &d, int index = -1);
-    void  setButtonsBrightDarkModeColor(const QColor &b, const QColor &d);
+    void  addButton(const QString &text, const CellVariant &b, const CellVariant &d, int index = -1);
+    void  setButtonsBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
     const customListButton* getButton(int index = 0) const;
     void  setButtonSize(int width, int height);
     void  setBtnFontPixelSize(int size);

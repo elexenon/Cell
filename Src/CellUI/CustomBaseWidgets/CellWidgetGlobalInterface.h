@@ -1,18 +1,18 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef CELLGLOBALWIDGET_H
 #define CELLGLOBALWIDGET_H
 
-#include "../../CellCore/Kits/CellUtility.h"
+#include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME & CELL_GLOBALANIMATION
+#include "../../CellCore/CellVariant.h"
 #include <QWidget>
 
 class QPropertyAnimation;
 class QEasingCurve;
+class CellVariant;
 
 class CellWidgetGlobalInterface{
 public:
@@ -23,12 +23,7 @@ public:
     const QColor color() const { return m_color; }
     inline
     void         setColorAnimiDuration(int value) { this->colorSchemeAnimiDuration = value; }
-    inline
-    void         setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
-    virtual void setColor(const QColor &color) = 0;
-    virtual void setBaseQss(const QString& qss) = 0;
-    virtual void changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
-    void         setBrightDarkModeColor(const QColor& b, const QColor& d);
+    void         setBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
 
 protected:
     CellUiGlobal::COLOR_SCHEME m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
@@ -40,6 +35,11 @@ protected:
     QString                    BASEQSS;
     QPropertyAnimation        *animi;
 
+    inline
+    void         setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
+    virtual void setBaseQss(const QString& qss) = 0;
+    virtual void changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
+    virtual void setColor(const QColor &color) = 0;
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) = 0;
     virtual void setEventConnections();
 };

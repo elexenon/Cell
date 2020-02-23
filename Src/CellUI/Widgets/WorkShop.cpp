@@ -1,10 +1,8 @@
-// Copyright 2018-2019 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include <QLabel>
 #include <QDebug>
 #include <QCursor>
@@ -34,8 +32,8 @@
 
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customGradientChangeFrame.h"
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
 #include "../../CellCore/CellSqlManager.h"
 #include "WSLoadingDialog.h"
 #include "WorkShop.h"
@@ -46,15 +44,16 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
     loadingDialog(new WSLoadingDialog),
     menuBar(new QMenuBar(this)),
     leftBlock(new customFrame(customFrame::_REGULAR, this)),
-    rightBlock(new customFrame(customFrame::_REGULAR, this)),
-    statusBar(new customGradientChangeFrame(CellUiConst::CELLTHEMECOLOR ,this)),
-    mainEditor(new QsciScintilla(this)),
     leftStackedWidget(new QStackedWidget(leftBlock)),
-    treeView(new QTreeView(leftBlock)),
-    fileModel(new QFileSystemModel(this)),
     btnDirectory(new QPushButton(this)),
     btnWarning(new QPushButton(this)),
     btnToolChain(new QPushButton(this)),
+    treeView(new QTreeView(leftBlock)),
+    fileModel(new QFileSystemModel(this)),
+    mainEditor(new QsciScintilla(this)),
+    rightBlock(new customFrame(customFrame::_REGULAR, this)),
+    statusBar(new customFrame(customFrame::_REGULAR, this)),
+    textChangetoken(new customGradientChangeFrame(Cell::NavyBlue ,statusBar)),
     labelCntRow(new QLabel(statusBar)),
     labelCntChar(new QLabel(statusBar)),
     labelFormat(new QLabel(statusBar)),
@@ -69,14 +68,14 @@ Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) 
 void Workshop::init()
 {
     // Functional.
-    this->resize(1400, 800);
+    this->resize(1400, 820);
     setWindowTitle(CHAR2STR("WorkShop"));
+    setAttribute(Qt::WA_DeleteOnClose);
     setWindowFlag(Qt::WindowType::Window);
 
     // Set MenuBar.
-    using CellEntityTools::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(CHAR2STR("WorkshopMenuBar.css"));
-    menuBar->setStyleSheet(styleSheetLoader->styleSheet());
+    CellUiGlobal::loader.setFileName(CHAR2STR("WorkshopMenuBar.css"));
+    menuBar->setStyleSheet(CellUiGlobal::loader.content());
     menuBar->setFont(CellUiGlobal::getFont(CHAR2STR("Microsoft YaHei UI"), 15));
     menuBar->setFixedHeight(27);
 
@@ -115,7 +114,6 @@ void Workshop::init()
     splitter->setStretchFactor(1, 3);
     splitter->setStretchFactor(2, 1);
 
-
     // Set MainEditor.
     QsciLexer *lexCPP = new QsciLexerCPP();
     lexCPP->setFont(QFont(CHAR2STR("Courier New"), 10));
@@ -143,13 +141,13 @@ void Workshop::init()
     mainEditor->setAutoCompletionSource(QsciScintilla::AcsAll);
     mainEditor->setAutoCompletionReplaceWord(false);
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("WorkshopEditorVerticalScrollBar.css"));
+    CellUiGlobal::loader.setFileName(CHAR2STR("WorkshopEditorVerticalScrollBar.css"));
     QScrollBar *verticalBar = mainEditor->verticalScrollBar();
-    verticalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+    verticalBar->setStyleSheet(CellUiGlobal::loader.content());
 
-    CellEntityTools::styleSheetLoader->setStyleSheetName(CHAR2STR("WorkshopEditorHorizontalScrollBar.css"));
+    CellUiGlobal::loader.setFileName(CHAR2STR("WorkshopEditorHorizontalScrollBar.css"));
     QScrollBar *horizontalBar = mainEditor->horizontalScrollBar();
-    horizontalBar->setStyleSheet(CellEntityTools::styleSheetLoader->styleSheet());
+    horizontalBar->setStyleSheet(CellUiGlobal::loader.content());
 
     // Set TreeView.
     initTreeView();
@@ -163,8 +161,11 @@ void Workshop::init()
     QHBoxLayout *HLayout = new QHBoxLayout(topBtnsFrame);
     HLayout->setContentsMargins(8, 0, 0, 0);
     HLayout->setSpacing(13);
+    HLayout->addStretch();
     HLayout->addWidget(btnDirectory);
+    HLayout->addStretch();
     HLayout->addWidget(btnWarning);
+    HLayout->addStretch();
     HLayout->addWidget(btnToolChain);
     HLayout->addStretch();
 
@@ -182,15 +183,15 @@ void Workshop::init()
         e->setCheckable(true);
     }
 
-    styleSheetLoader->setStyleSheetName(CHAR2STR("WorkShopBtnDirectory.css"));
-    btnDirectory->setStyleSheet(styleSheetLoader->styleSheet());
+    CellUiGlobal::loader.setFileName(CHAR2STR("WorkShopBtnDirectory.css"));
+    btnDirectory->setStyleSheet(CellUiGlobal::loader.content());
     btnDirectory->setChecked(true);
 
-    styleSheetLoader->setStyleSheetName(CHAR2STR("WorkShopBtnWarrning.css"));
-    btnWarning->setStyleSheet(styleSheetLoader->styleSheet());
+    CellUiGlobal::loader.setFileName(CHAR2STR("WorkShopBtnWarrning.css"));
+    btnWarning->setStyleSheet(CellUiGlobal::loader.content());
 
-    styleSheetLoader->setStyleSheetName(CHAR2STR("WorkShopBtnToolChain.css"));
-    btnToolChain->setStyleSheet(styleSheetLoader->styleSheet());
+    CellUiGlobal::loader.setFileName(CHAR2STR("WorkShopBtnToolChain.css"));
+    btnToolChain->setStyleSheet(CellUiGlobal::loader.content());
 
     leftStackedWidget->addWidget(treeView);
     leftStackedWidget->setCurrentIndex(0);
@@ -212,8 +213,21 @@ void Workshop::init()
     rightBlock->setLayout(rightBlockLayout);
 
     // Set StatusBar.
+    textChangetoken->setBrightDarkModeColor(Cell::pureGreen, Cell::CGL45);
+    textChangetoken->setFixedSize(23, 15);
+
     statusBar->setFixedHeight(25);
-    statusBar->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL45);
+    statusBar->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
+
+    QHBoxLayout *HLayoutStatusBar = new QHBoxLayout(statusBar);
+    HLayoutStatusBar->setContentsMargins(22, 0, 17, 0);
+    HLayoutStatusBar->setSpacing(15);
+    HLayoutStatusBar->addWidget(labelCntRow);
+    HLayoutStatusBar->addWidget(labelCntChar);
+    HLayoutStatusBar->addStretch();
+    HLayoutStatusBar->addWidget(labelFormat);
+    HLayoutStatusBar->addWidget(textChangetoken);
+    statusBar->setLayout(HLayoutStatusBar);
 
     // Set Labels Of StatusBar.
     labelCntRow->move(370, 0);
@@ -231,7 +245,6 @@ void Workshop::init()
     // Two Blocks.
     CellUiGlobal::multiModulesOneStyleSheet({leftBlock, rightBlock},
                                        CHAR2STR("QFrame{background-color:rgb(235,235,235);}"));
-
     // Functional.
     loadingDialog->show();
     loadingDialog->progress();
@@ -248,7 +261,9 @@ void Workshop::init()
     mainLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(menuBar);
+    mainLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
     mainLayout->addWidget(splitter);
+    mainLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
     mainLayout->addWidget(statusBar);
 }
 
@@ -308,6 +323,8 @@ void Workshop::loadFile(const QString &path)
     QJsonDocument loadDoc(QJsonDocument::fromBinaryData(saveData));
     read(loadDoc.object());
 
+    currEntity.setPath(path.left(path.lastIndexOf('/')));
+
     mainEditor->setText(currEntity.code());
 
     fileModel->setRootPath(currEntity.path());
@@ -332,13 +349,16 @@ void Workshop::saveFile()
 {
     if(!codeModified) return;
     codePrev = codeCurr;
-    statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
+    textChangetoken->transCurrState(customGradientChangeFrame::_NORMAL);
 
     currEntity.setCode(codeCurr);
 
     CellSqlManager manager;
-    manager.setDbPath("CellDB.db");
-    manager.insertProjectEntity(currEntity);
+    manager.setDataBase("CellDB.db");
+    if(!manager.tupleExists(CHAR2STR("RecentPJ"), CHAR2STR("Name"), currEntity.name())){
+        emit projectUpdate(currEntity);
+        manager.insertProjectEntity(currEntity);
+    }
 
     QJsonObject Object;
     write(Object);
@@ -350,8 +370,6 @@ void Workshop::saveFile()
     }
     saveFile.write(saveDoc.toBinaryData());
     saveFile.close();
-
-    emit projectUpdate(currEntity);
 }
 
 void Workshop::checkCodeModifiedState()
@@ -359,11 +377,8 @@ void Workshop::checkCodeModifiedState()
     codePrev == (codeCurr = mainEditor->text()) ?
     codeModified = false : codeModified = true;
     codeModified ?
-        statusBar->transCurrState(customGradientChangeFrame::_SPECIAL):
-        statusBar->transCurrState(customGradientChangeFrame::_NORMAL);
-#ifdef CELL_DEBUG
-    CELL_DEBUG("WorkShop") << CHAR2STR("Code_Modified") << endl;
-#endif
+        textChangetoken->transCurrState(customGradientChangeFrame::_SPECIAL):
+        textChangetoken->transCurrState(customGradientChangeFrame::_NORMAL);
 }
 
 void Workshop::setColor(const QColor& color)
@@ -388,8 +403,9 @@ void Workshop::changeToColor(const QColor &startColor, const QColor &targetColor
                                  {this},nullptr);
 }
 
-void Workshop::closeEvent(QCloseEvent*)
+void Workshop::closeEvent(QCloseEvent* e)
 {
+    (void)e;
     emit destoryed();
 }
 

@@ -1,9 +1,15 @@
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
+//
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "CellDevelopTestStation.h"
 #include "ui_CellDevelopTestStation.h"
 
 #include <QComboBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include "../../CellCore/CellNamespace.h"
 #include "Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h"
 #include "Src/CellUI/CustomBaseWidgets/customButton.h"
 #include "Src/CellUI/CustomBaseWidgets/customOptionBlock.h"
@@ -84,7 +90,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     item10->setHint("奥德赛大苏打阿德撒旦撒旦你扩散的扩散的三点三看到你撒");
 
     customOptionBlock *block1 = new customOptionBlock(this, CHAR2STR("OptionBlock"));
-    block1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
+    block1->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
     block1->addItem(item);
     block1->addItem(item2);
     block1->addItem(item3);
@@ -95,39 +101,39 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     block1->addItem(item8);
     block1->addItem(item9);
     block1->addItem(item10);
-    block1->tidyItemTags();
+    block1->tidyItems();
 
     ButtonWithText *btn1 = new ButtonWithText(customButton::TYPE::STATIC_RADIUS, this);
-    btn1->setBrightModeHoverColor(CellUiConst::GRAYLEVEL218);
-    btn1->setDarkModeHoverColor(CellUiConst::GRAYLEVEL130);
-    btn1->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
+    btn1->setBrightModeHoverColor(Cell::CGL218);
+    btn1->setDarkModeHoverColor(Cell::CGL130);
+    btn1->setBrightDarkModeColor(Cell::CGL247, Cell::CGL180);
     btn1->init("customTextButton");
     btn1->setFixedSize(200, 81);
 
     ButtonWithIcon *btn2 = new ButtonWithIcon(customButton::TYPE::CHECKABLE_RADIUS, this);
-    btn2->setBrightModeCheckedColor(CellUiConst::GRAYLEVEL130);
-    btn2->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL180);
-    btn2->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL180);
+    btn2->setBrightModeCheckedColor(Cell::CGL130);
+    btn2->setDarkModeHoveringColor(Cell::CGL180);
+    btn2->setBrightDarkModeColor(Cell::CGL247, Cell::CGL180);
     btn2->init(CHAR2STR("cellLogo32"), 32, 32);
     btn2->setFixedSize(200, 81);
 
     ButtonWithIconText *btn3 = new ButtonWithIconText(customButton::TYPE::DYNAMIC_RADIUS, this);
-    btn3->setBrightModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    btn3->setDarkModeHoveringColor(CellUiConst::GRAYLEVEL255);
-    btn3->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    btn3->setBrightModeHoveringColor(Cell::CGL255);
+    btn3->setDarkModeHoveringColor(Cell::CGL255);
+    btn3->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
     btn3->setAnimationDuration(300);
     btn3->init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("带图标和文字的Button"));
     btn3->setFixedSize(250, 81);
 
     ButtonWithIconTextHint *btn4 = new ButtonWithIconTextHint(customButton::TYPE::CHECKABLE_RADIUS, this);
-    btn4->setBrightModeCheckedColor(CellUiConst::GRAYLEVEL130);
-    btn4->setDarkModeCheckedColor(CellUiConst::GRAYLEVEL180);
-    btn4->setBrightDarkModeColor(CellUiConst::GRAYLEVEL218, CellUiConst::GRAYLEVEL70);
+    btn4->setBrightModeCheckedColor(Cell::CGL130);
+    btn4->setDarkModeCheckedColor(Cell::CGL180);
+    btn4->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
     btn4->init(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已有的Cell文档"));
     btn4->setFixedSize(250, 81);
 
     customDialogButton *customDB = new customDialogButton(CHAR2STR("FUSION"), this);
-    customDB->setBrightDarkModeColor(CellUiConst::GRAYLEVEL247, CellUiConst::GRAYLEVEL30);
+    customDB->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(block1);

@@ -1,10 +1,8 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef CUSTOMTITLEBAR_H
 #define CUSTOMTITLEBAR_H
 
@@ -20,7 +18,7 @@ class customTitleBar : public customFrame
 public:
     explicit customTitleBar(QWidget *parent = nullptr);
 
-    void setText(const QString& text, const QColor& color = Qt::black);
+    void setText(const QString& text, const CellVariant &color = Cell::CGL0);
     void setLeftMargin(int value);
     void setIcon(const QString& fileName, int iconWidth, int iconHeight);
     void setHeight(int value);

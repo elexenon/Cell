@@ -1,11 +1,8 @@
-// Copyright 2018-2019 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
-//
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef CUSTOMFRAME_H
 #define CUSTOMFRAME_H
 
@@ -24,10 +21,9 @@ public:
     explicit customFrame(CUSTOMFRAME_TYPE type, QWidget *parent = nullptr);
     virtual ~customFrame() override = default;
 
-    virtual void setColor(const QColor &color) override;
-
 protected:
     virtual void setBaseQss(const QString& qss) override;
+    virtual void setColor(const QColor &color) override;
     virtual void changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
     virtual void setEventConnections() override;
 

@@ -13,7 +13,7 @@
 class customGradientChangeFrame : public customFrame{
     Q_OBJECT
 public:
-    explicit customGradientChangeFrame(const QColor &specialColor,QWidget *parent = nullptr);
+    explicit customGradientChangeFrame(const CellVariant &specialColor,QWidget *parent = nullptr);
     virtual ~customGradientChangeFrame() override = default;
     enum GRADIENT_STATE{
         _NORMAL,
@@ -23,7 +23,7 @@ public:
 
 protected:
     GRADIENT_STATE currState = GRADIENT_STATE::_NORMAL;
-    QColor specialColor;
+    QColor mSpecialColor;
 
 public Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;

@@ -7,19 +7,17 @@
 // Of source file directory.
 #include "customGradientChangeFrame.h"
 
-customGradientChangeFrame::customGradientChangeFrame(const QColor &specialColor,QWidget *parent):
+customGradientChangeFrame::customGradientChangeFrame(const CellVariant &specialColor,QWidget *parent):
     customFrame(customFrame::_REGULAR, parent),
-    specialColor(specialColor)
-{
-
-}
+    mSpecialColor(specialColor.toColor())
+{}
 
 void customGradientChangeFrame::transCurrState(const customGradientChangeFrame::GRADIENT_STATE &newState)
 {
     if(newState == currState) return;
     currState = newState;
-    const QColor targetColor = (newState == GRADIENT_STATE::_SPECIAL ? specialColor :
-                                (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? CellUiConst::GRAYLEVEL100 : CellUiConst::GRAYLEVEL70));
+    const QColor targetColor = (newState == GRADIENT_STATE::_SPECIAL ? mSpecialColor :
+                                (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor));
     CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                      color(),

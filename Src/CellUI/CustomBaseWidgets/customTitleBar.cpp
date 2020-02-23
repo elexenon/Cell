@@ -1,12 +1,11 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "customTitleBar.h"
 #include "customLabel.h"
+#include "../../CellCore/CellNamespace.h"
 
 #include <QLabel>
 #include <QHBoxLayout>
@@ -20,7 +19,7 @@ customTitleBar::customTitleBar(QWidget *parent):
     setFixedHeight(50);
 
     QPixmap defaultPixmap;
-    defaultPixmap.load(CellUiConst::IMG_DIR + CHAR2STR("cellLogo28"));
+    defaultPixmap.load(CellUiLiteral::IMG_DIR + CHAR2STR("cellLogo28"));
     defaultPixmap = defaultPixmap.scaled(height()/2, height()/2);
     icon->setPixmap(defaultPixmap);
 
@@ -28,7 +27,7 @@ customTitleBar::customTitleBar(QWidget *parent):
     defaultFont.setPixelSize(height()/3);
     label_title->setText(CHAR2STR("Title"));
     label_title->setFont(defaultFont);
-    label_title->setBrightDarkModeColor(CellUiConst::GRAYLEVEL130, CellUiConst::GRAYLEVEL255);
+    label_title->setBrightDarkModeColor(Cell::CGL130, Cell::CGL255);
 
     mainLayout->setContentsMargins(10, 0, 0, 0);
     mainLayout->setSpacing(8);
@@ -39,10 +38,10 @@ customTitleBar::customTitleBar(QWidget *parent):
     setLayout(mainLayout);
 }
 
-void customTitleBar::setText(const QString &text, const QColor& color)
+void customTitleBar::setText(const QString &text, const CellVariant &color)
 {
     label_title->setText(text);
-    label_title->setBrightDarkModeColor(color, CellUiConst::GRAYLEVEL255);
+    label_title->setBrightDarkModeColor(color, Cell::CGL255);
 }
 
 void customTitleBar::setLeftMargin(int value)
@@ -53,7 +52,7 @@ void customTitleBar::setLeftMargin(int value)
 void customTitleBar::setIcon(const QString &fileName, int iconWidth, int iconHeight)
 {
     QPixmap newPixmap;
-    newPixmap.load(CellUiConst::IMG_DIR + fileName);
+    newPixmap.load(CellUiLiteral::IMG_DIR + fileName);
     newPixmap = newPixmap.scaled(iconWidth, iconHeight);
     icon->setPixmap(newPixmap);
 }

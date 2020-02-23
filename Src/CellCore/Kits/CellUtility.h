@@ -2,44 +2,30 @@
 //
 // Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// This File May Be Used Under The Terms Of The GNU General Public License
-// version 3.0 As Published By The Free Software Foundation And Appearing In
-// The File LICENSE Included In The Packaging Of This File.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef CELL_UTIL_H
 #define CELL_UTIL_H
 
-namespace CellUiConst{
+namespace CellUiLiteral{
 extern const char* const  INSTANCE_IS_ON;
-
 extern const QString IMG_DIR;
 extern const QString FONT_DIR;
 extern const QString STYLESHEET_DIR;
 extern const QString LIB_DIR;
-
-extern const QColor GRAYLEVEL255;
-extern const QColor GRAYLEVEL70;
-extern const QColor GRAYLEVEL100;
-extern const QColor GRAYLEVEL180;
-extern const QColor GRAYLEVEL45;
-extern const QColor GRAYLEVEL218;
-extern const QColor GRAYLEVEL30;
-extern const QColor GRAYLEVEL247;
-extern const QColor GRAYLEVEL0;
-extern const QColor GRAYLEVEL130;
-extern const QColor CELLTHEMECOLOR;
-extern const QColor CELLEXITRED;
-extern const QColor GRAYLEVEL60;
-} // namespace CellUiConst{
+} // namespace CellUiLiteral{
 
 class QGraphicsDropShadowEffect;
 class QPropertyAnimation;
-class StyleSheetLoader;
+class textFileLoader;
 class QGraphicsEffect;
 class QGraphicsOpacityEffect;
 class QFrame;
 class QLabel;
 
 namespace CellUiGlobal{
+extern textFileLoader& loader;
 enum FADE_TYPE{
     _IN,
     _OUT
@@ -96,17 +82,9 @@ extern void    multiModulesOneStyleSheet(const QList<QWidget*> &modules, const Q
 //! Set Pixmap
 //! For A Specific Target QLabel.
 extern void    setLabelPixmap(QLabel *label, const QString& fileName, int iconWidth, int iconHeight);
-//! Turn A QString Into A C Style
-//! String.
-extern const char* QString2Char(const QString &string);
 } // namespace CellUiGlobal{
-
-namespace CellEntityTools{
-extern StyleSheetLoader * const styleSheetLoader;
-} // namespace CellEntityTools{
 
 #include <QMetaType> // Q_DECLARE_METATYPE()
 Q_DECLARE_METATYPE(CellUiGlobal::COLOR_SCHEME)
 
 #endif
-

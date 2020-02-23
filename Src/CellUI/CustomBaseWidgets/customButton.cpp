@@ -1,12 +1,10 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "customButton.h"
-#include "../../CellCore/Kits/StyleSheetLoader.hpp"
+#include "../../CellCore/CellVariant.h"
 
 customButton::customButton(customButton::TYPE type, QWidget *parent):
     QPushButton(parent),
@@ -43,9 +41,8 @@ void customButton::setBaseQss(const QString &qss)
         setCheckable(true);
         break;
     }
-    using CellEntityTools::styleSheetLoader;
-    styleSheetLoader->setStyleSheetName(qssFileName);
-    BASEQSS = styleSheetLoader->styleSheet();
+    CellUiGlobal::loader.setFileName(qssFileName);
+    BASEQSS = CellUiGlobal::loader.content();
 }
 
 void customButton::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
@@ -141,4 +138,34 @@ void customButton::setColor(const QColor &color)
         setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue())
                       .arg(hoverColor.red()).arg(hoverColor.green()).arg(hoverColor.blue()));
     }
+}
+
+void customButton::setBrightModeCheckedColor(const CellVariant &color)
+{
+    brightModeCheckedColor = color.toColor();
+}
+
+void customButton::setDarkModeCheckedColor(const CellVariant &color)
+{
+    darkModeCheckedColor = color.toColor();
+}
+
+void customButton::setBrightModeHoveringColor(const CellVariant &color)
+{
+    brightModeHoveringColor = color.toColor();
+}
+
+void customButton::setDarkModeHoveringColor(const CellVariant &color)
+{
+    darkModeHoveringColor = color.toColor();
+}
+
+void customButton::setBrightModeHoverColor(const CellVariant &color)
+{
+    brightModeHoverColor = color.toColor();
+}
+
+void customButton::setDarkModeHoverColor(const CellVariant &color)
+{
+    darkModeHoverColor = color.toColor();
 }

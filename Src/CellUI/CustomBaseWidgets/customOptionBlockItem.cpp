@@ -1,15 +1,16 @@
-// Copyright 2018-2020 CellTek.
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
-// Distributed under the GPL License, Version 3.0.
-//
-// See accompanying file LICENSE.txt at the root
-//
-// Of source file directory.
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "customOptionBlockItem.h"
 #include "customLabel.h"
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
 #include <QHBoxLayout>
+
+int customOptionBlockItem::TagTextSize = 17;
 
 customOptionBlockItem::customOptionBlockItem(QWidget *parent,  const QString& tag):
     QWidget(parent),
@@ -28,8 +29,8 @@ void customOptionBlockItem::setTag(const QString &text)
 {
     tagLen = text.length();
     tag = new customLabel(this);
-    tag->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
-    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 17, text);
+    tag->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), TagTextSize, text);
     mainLayout->addWidget(tag);
 }
 
@@ -44,7 +45,7 @@ void customOptionBlockItem::setOptionWidget(QWidget *widget)
 void customOptionBlockItem::setHint(const QString &text)
 {
     hint = new customLabel(this);
-    hint->setBrightDarkModeColor(CellUiConst::GRAYLEVEL70, CellUiConst::GRAYLEVEL255);
+    hint->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(hint, CHAR2STR("Microsoft YaHei UI Light"), 13, text+"。");
     mainLayout->addWidget(hint);
     mainLayout->addStretch();

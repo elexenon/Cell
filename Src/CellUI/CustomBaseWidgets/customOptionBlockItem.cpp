@@ -19,7 +19,7 @@ customOptionBlockItem::customOptionBlockItem(QWidget *parent,  const QString& ta
     setFixedHeight(50);
     setStyleSheet(CHAR2STR("background-color:transparent"));
     setLayout(mainLayout);
-    mainLayout->setContentsMargins(48, 0, 0, 0);
+    mainLayout->setContentsMargins(48, 0, 25, 0);
     mainLayout->setSpacing(20);
 
     if(tag != " ") setTag(tag);
@@ -48,7 +48,6 @@ void customOptionBlockItem::setHint(const QString &text)
     hint->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(hint, CHAR2STR("Microsoft YaHei UI Light"), 13, text+"。");
     mainLayout->addWidget(hint);
-    mainLayout->addStretch();
 }
 
 void customOptionBlockItem::setMargins(int left, int top, int right, int bottom)

@@ -13,7 +13,6 @@
 #include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
 #include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
 #include "../../CellCore/CellProjectEntity.h"
-#define WORKSHOP_DEBUG (QTextStream(stdout) << "***WorkShop::")
 
 class WSLoadingDialog;
 class QsciScintilla;

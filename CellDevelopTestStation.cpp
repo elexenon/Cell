@@ -18,6 +18,7 @@
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIconText.h"
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.h"
 #include "Src/CellUI/CustomBaseWidgets/customDialogButton.h"
+#include "Src/CellUI/CustomBaseWidgets/customSwitch.h"
 
 CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     QWidget(parent),
@@ -135,6 +136,8 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     customDialogButton *customDB = new customDialogButton(CHAR2STR("FUSION"), this);
     customDB->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
 
+    customSwitch *mSwitch = new customSwitch(this);
+
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(block1);
     layout->addWidget(btn1);
@@ -142,6 +145,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     layout->addWidget(btn3);
     layout->addWidget(btn4);
     layout->addWidget(customDB);
+    layout->addWidget(mSwitch);
 
     setLayout(layout);
 }

@@ -35,4 +35,5 @@ If you have any ideas or suggestions, welcome to submit an issue/pull request.
 
 ## Preview
 ![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/launcher.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/launcher2.png)
 ![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/workshop.png)

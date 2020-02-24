@@ -26,7 +26,8 @@ namespace Cell{
     enum CellThemeColor{
         pureGreen,
         NavyBlue,
-        ExitRed
+        ExitRed,
+
     };
 }
 

@@ -25,10 +25,16 @@ class customButton;
 class QVBoxLayout;
 class customMaskDialog;
 class Launcher;
+class customSwitch;
 
 class LauncherSettings : public customFrame
 {
     Q_OBJECT
+    enum SaveAttribute{
+        Auto,
+        MultiInstance
+    };
+
 public:
     explicit LauncherSettings(QWidget *parent = nullptr);
     ~LauncherSettings() = default;
@@ -38,9 +44,11 @@ public:
     void getLauncherPtr(Launcher *ptr) { launcherPtr = ptr; }
 
 private:
-    void   init();
-    void   setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
-    void   setEventConnections();
+    void init();
+    void write(SaveAttribute value);
+    void read(SaveAttribute value);
+    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    void setEventConnections();
 
     QVBoxLayout *mainLayout;
 
@@ -51,7 +59,7 @@ private:
     customDialogButton    *dBtnAppear;
     // Item Auto Combination.
     customOptionBlockItem *blockGeneralItemAuto;
-    customDialogButton    *dBtnAuto;
+    customSwitch          *switchAuto;
     // Item Language Combination.
     customOptionBlockItem *blockGeneralItemLan;
     customDialogButton    *dBtnLan;
@@ -60,7 +68,7 @@ private:
     customOptionBlock     *blockWorkshop;
     // Item Multi Combination.
     customOptionBlockItem *blockWorkshopItemMulti;
-    customDialogButton    *dBtnMulti;
+    customSwitch          *switchMulti;
 
     Launcher *launcherPtr;
 
@@ -69,9 +77,11 @@ signals:
 
 private Q_SLOTS:
     void btnColorSchemeClicked();
-    void btnAutoSwitchClicked();
+    void switchAutoClicked();
+    void switchMultiClicked();
     void Btn_bright_clicked();
     void Btn_dark_clicked();
+
 };
 
 #endif // LauncherSettings_H

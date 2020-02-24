@@ -12,12 +12,13 @@
 #include "../CustomBaseWidgets/customButton.h"
 #include "../CustomBaseWidgets/customMaskDialog.h"
 #include "../CustomBaseWidgets/ButtonWithIcon.h"
+#include "../CustomBaseWidgets/customSwitch.h"
 #include "../Widgets/Launcher.h"
 #include "LauncherSettings.h"
 
-#include <QPropertyAnimation>
-#include <QDebug>
 #include <QVBoxLayout>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 #define DEBUG
 
@@ -26,14 +27,14 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     mainLayout(new QVBoxLayout(this)),
     blockGeneral(new customOptionBlock(this, CHAR2STR("通用"))),
     blockGeneralItemAppear(new customOptionBlockItem),
-    dBtnAppear(new customDialogButton(CHAR2STR("FUSION"))),
+    dBtnAppear(new customDialogButton(CHAR2STR("外观"))),
     blockGeneralItemAuto(new customOptionBlockItem),
-    dBtnAuto(new customDialogButton(CHAR2STR("是"))),
+    switchAuto(new customSwitch),
     blockGeneralItemLan(new customOptionBlockItem),
     dBtnLan(new customDialogButton(CHAR2STR("简体中文"))),
     blockWorkshop(new customOptionBlock(this, CHAR2STR("Workshop"))),
     blockWorkshopItemMulti(new customOptionBlockItem),
-    dBtnMulti(new customDialogButton(CHAR2STR("是"))),
+    switchMulti(new customSwitch),
     launcherPtr(nullptr)
 {
     init();
@@ -58,12 +59,10 @@ void LauncherSettings::init()
     mainLayout->addWidget(blockWorkshop);
     mainLayout->addStretch();
 
+    switchMulti->setChecked(true);
     // ComboBox Appear Combination
     dBtnAppear->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
     dBtnAppear->setFixedWidth(200);
-    // ComboBox Auto Combination.
-    dBtnAuto->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
-    dBtnAuto->setFixedWidth(200);
     // ComboBox Lan Combination.
     dBtnLan->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
     dBtnLan->setFixedWidth(200);
@@ -76,7 +75,7 @@ void LauncherSettings::init()
     blockGeneralItemAppear->setHint("调整Cell的工作主题");
     // Item Auto   Combination.
     blockGeneralItemAuto->setTag("自动切换");
-    blockGeneralItemAuto->setOptionWidget(dBtnAuto);
+    blockGeneralItemAuto->setOptionWidget(switchAuto);
     blockGeneralItemAuto->setHint("在日落时自动切换工作主题");
     // Item Lan Combination.
     blockGeneralItemLan->setTag("语言");
@@ -86,14 +85,11 @@ void LauncherSettings::init()
     blockGeneral->addItem(blockGeneralItemAuto, true);
     blockGeneral->addItem(blockGeneralItemLan);
 
-    dBtnMulti->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
-    dBtnMulti->setFixedWidth(200);
-
     // OptionBlock Workshop Combination.
     blockWorkshop->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
     // Item Multi Combination.
     blockWorkshopItemMulti->setTag("多实例");
-    blockWorkshopItemMulti->setOptionWidget(dBtnMulti);
+    blockWorkshopItemMulti->setOptionWidget(switchMulti);
     blockWorkshopItemMulti->setHint("允许多个Workshop实例同时存在");
     blockWorkshop->addItem(blockWorkshopItemMulti);
     blockWorkshop->tidyItems(blockGeneral);
@@ -111,8 +107,7 @@ void LauncherSettings::setEventConnections()
     const ButtonWithIcon *trigger = dBtnAppear->getTrigger();
     connect(trigger, &QPushButton::clicked, this, &LauncherSettings::btnColorSchemeClicked);
 
-    trigger = dBtnAuto->getTrigger();
-    connect(trigger, &QPushButton::clicked, this, &LauncherSettings::btnAutoSwitchClicked);
+    connect(switchAuto, &customSwitch::clicked, this, &LauncherSettings::switchAutoClicked);
 }
 
 void LauncherSettings::btnColorSchemeClicked()
@@ -124,13 +119,25 @@ void LauncherSettings::btnColorSchemeClicked()
     maskDialog->show();
 }
 
-void LauncherSettings::btnAutoSwitchClicked()
+void LauncherSettings::write(LauncherSettings::SaveAttribute value)
 {
-    customMaskDialog *maskDialog = new customMaskDialog(launcherPtr);
-    maskDialog->setOptionText(CHAR2STR("自动切换"));
-    maskDialog->setHintText(CHAR2STR("选择此项，Cell会在日落时为你自动切换颜色模式。"));
-    maskDialog->setGeometry(launcherPtr->maskGeometry());
-    maskDialog->show();
+
+}
+
+void LauncherSettings::read(LauncherSettings::SaveAttribute value)
+{
+
+}
+
+
+void LauncherSettings::switchAutoClicked()
+{
+
+}
+
+void LauncherSettings::switchMultiClicked()
+{
+
 }
 
 void LauncherSettings::Btn_bright_clicked()

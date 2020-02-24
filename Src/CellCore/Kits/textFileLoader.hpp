@@ -12,10 +12,6 @@
 class textFileLoader
 {
 public:
-    explicit textFileLoader(const QString &DIR) // Must Use An Absolute Directory.
-        :loader(new QFile)
-        ,DIR(DIR)
-    {}
     textFileLoader(const textFileLoader&) = delete;
     textFileLoader& operator=(const textFileLoader&) = delete;
     inline
@@ -39,6 +35,11 @@ public:
         delete loader;
     }
 private:
+    // Must Use An Absolute Directory.
+    explicit textFileLoader(const QString &DIR)
+        :loader(new QFile)
+        ,DIR(DIR)
+    {};
     QFile *loader;
     QString DIR;
     QString fileName;

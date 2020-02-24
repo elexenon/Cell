@@ -6,7 +6,7 @@ Cell_DeepLearning
 
 这原本是一个大学生创新项目，后来我们决定更进一步，把它做强。
 
-我们正在开发一个通用的深度学习库，我们称之为CELL。正如你所看到的，我们的目标是同时建立一个良好的交互用户界面。
+我们正开发一个通用的深度学习库，我们称之为CELL。如你所见，我们的另一个目标是建立一个良好的交互用户界面。
 
 注意，CELL引入了一个开源文本编辑器 **QScintria**，它是由原版 **Scintria** 向Windows Qt移植的，以下是他们的官方网站：
 
@@ -37,4 +37,5 @@ GNU通用公共许可证 v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
 ## 预览
 
 ![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/launcher.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/launcher2.png)
 ![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/workshop.png)

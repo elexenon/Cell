@@ -87,6 +87,7 @@ void customSwitch::switchTrigger()
 
 void customSwitch::setChecked(bool checked)
 {
-    switchTrigger();
+    if(checked != isChecked)
+        switchTrigger();
     isChecked = checked;
 }

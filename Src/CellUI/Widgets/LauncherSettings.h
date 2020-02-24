@@ -47,8 +47,9 @@ public:
 private:
     void init();
     void initsettingsObj();
-    void saveFile(SaveAttribute key, const QString &value);
+    void write(SaveAttribute key, const QString &value);
     void loadFile();
+    void saveFile();
     void read(const QJsonObject&);
     void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
     void setEventConnections();
@@ -86,7 +87,6 @@ private Q_SLOTS:
     void switchMultiClicked(bool checked);
     void Btn_bright_clicked();
     void Btn_dark_clicked();
-
 };
 
 #endif // LauncherSettings_H

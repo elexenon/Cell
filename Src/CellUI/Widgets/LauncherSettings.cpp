@@ -20,9 +20,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#define DEBUG
-
-const QString LauncherSettings::path = "CWS64";
+const QString LauncherSettings::path("CWS64.json");
 
 LauncherSettings::LauncherSettings(QWidget *parent) :
     customFrame(customFrame::_REGULAR, parent),
@@ -40,7 +38,7 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     launcherPtr(nullptr)
 {
     init();
-    readSettings();
+    loadFile();
 }
 
 void LauncherSettings::LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode)
@@ -135,74 +133,87 @@ void LauncherSettings::initsettingsObj()
     read(tmp);
 }
 
-void LauncherSettings::writeSettings(LauncherSettings::SaveAttribute key, const QString &value)
+void LauncherSettings::write(LauncherSettings::SaveAttribute key, const QString &value)
 {
+    QJsonObject tmp = settingsObj["CellLauncherSettgins"].toObject();
     switch(key){
     case Auto:
-        loadedSettings["LauncherSettings"]["AutoChange"] = value;
+        tmp["AutoChange"] = value;
         break;
-        loadedSettings["LauncherSettings"]["MultiInstance"] = value;
+    case MultiInstance:
+        tmp["MultiInstance"] = value;
         break;
     }
-#ifdef CELL_DEUBG
-       CELL_DEUBG("LauncherSettings") << "Start Writing Settings Into::" << path << endl;
+    settingsObj["CellLauncherSettgins"] = tmp;
+#ifdef CELL_DEBUG
+       CELL_DEBUG("LauncherSettings") << "Start Writing Settings Into::" << path << endl;
 #endif
-    QFile saveFile(path);
-    if (!loadFile.open(QIODevice::WriteOnly))
-        qWarning("Couldn't open save file.");
-    saveFile.write(QJsonDocument(loadedSettings).toJson());
-    saveFile.close();
+    saveFile();
 }
 
-void LauncherSettings::readSettings()
+void LauncherSettings::loadFile()
 {
-#ifdef CELL_DEUBG
-       CELL_DEUBG("LauncherSettings") << "Start Fetching Settings From::" << path << endl;
+#ifdef CELL_DEBUG
+       CELL_DEBUG("LauncherSettings") << "Start Fetching Settings From::" << path << endl;
 #endif
-    QFile loadFile(path);
-    if (!loadFile.open())
-        qWarning("Couldn't open save file.");
+
+       QFile loadFile(path);
 
     if(!QFileInfo(path).isFile()){
-#ifdef CELL_DEUBG
-       CELL_DEUBG("LauncherSettings") << "Settings File Not Exists." << endl;
-       CELL_DEUBG("LauncherSettings") << "Then create a new one as::" << path << endl;
+#ifdef CELL_DEBUG
+       CELL_DEBUG("LauncherSettings") << "Settings File Not Exists." << endl;
+       CELL_DEBUG("LauncherSettings") << "Then create a new one as::" << path << endl;
 #endif
         initsettingsObj();
+        if(!loadFile.open(QIODevice::WriteOnly))
+            qWarning("Couldn't open save file.");
         loadFile.write(QJsonDocument(settingsObj).toJson());
         loadFile.close();
         return;
     }
 
+    if (!loadFile.open(QIODevice::ReadOnly))
+        qWarning("Couldn't open save file.");
+
     QByteArray saveData = loadFile.readAll();
-    loadedSettings = QJsonDocument::fromJson(saveData).object();
+    settingsObj = QJsonDocument::fromJson(saveData).object();
     loadFile.close();
 
-    read(loadedSettings["LauncherSettings"].toObject());
+    read(settingsObj["CellLauncherSettgins"].toObject());
+}
+
+void LauncherSettings::saveFile()
+{
+    QFile saveFile(path);
+    if (!saveFile.open(QIODevice::WriteOnly))
+        qWarning("Couldn't open save file.");
+    saveFile.write(QJsonDocument(settingsObj).toJson());
+    saveFile.close();
 }
 
 void LauncherSettings::read(const QJsonObject &json)
 {
-    if(json["Appearance"] == STRCMP("FUSION")){
+    if(json["Appearance"] == CMPSTR("FUSION")){
 
     }else{
 
     }
+    /* TODO
     switch(json["Language"]){
 
-    }
-    switchAuto->setChecked(json["AutoChange"] == STRCMP("true") ? true : false);
-    switchMulti->setChecked(json["MultiInstance"] == STRCMP("true") ? true : false);
+    }*/
+    switchAuto->setChecked(json["AutoChange"] == CMPSTR("true") ? true : false);
+    switchMulti->setChecked(json["MultiInstance"] == CMPSTR("true") ? true : false);
 }
 
 void LauncherSettings::switchAutoClicked(bool checked)
 {
-    writeSettings(SaveAttribute::Auto, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
+    write(SaveAttribute::Auto, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
 }
 
 void LauncherSettings::switchMultiClicked(bool checked)
 {
-    writeSettings(SaveAttribute::MultiInstance, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
+    write(SaveAttribute::MultiInstance, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
 }
 
 void LauncherSettings::Btn_bright_clicked()

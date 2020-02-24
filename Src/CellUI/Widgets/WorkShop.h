@@ -76,6 +76,7 @@ private:
 
 private:
     void         init();
+    void         initMainEditor();
     void         initTreeView();
     void         getProjectEntity(CellProjectEntity &entity);
     void         read(const QJsonObject &json);

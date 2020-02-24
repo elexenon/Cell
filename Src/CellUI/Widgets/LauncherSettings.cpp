@@ -22,6 +22,8 @@
 
 #define DEBUG
 
+const QString LauncherSettings::path = "CWS64";
+
 LauncherSettings::LauncherSettings(QWidget *parent) :
     customFrame(customFrame::_REGULAR, parent),
     mainLayout(new QVBoxLayout(this)),
@@ -31,13 +33,14 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     blockGeneralItemAuto(new customOptionBlockItem),
     switchAuto(new customSwitch),
     blockGeneralItemLan(new customOptionBlockItem),
-    dBtnLan(new customDialogButton(CHAR2STR("简体中文"))),
+    dBtnLan(new customDialogButton(CHAR2STR("CHN"))),
     blockWorkshop(new customOptionBlock(this, CHAR2STR("Workshop"))),
     blockWorkshopItemMulti(new customOptionBlockItem),
     switchMulti(new customSwitch),
     launcherPtr(nullptr)
 {
     init();
+    readSettings();
 }
 
 void LauncherSettings::LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode)
@@ -108,6 +111,7 @@ void LauncherSettings::setEventConnections()
     connect(trigger, &QPushButton::clicked, this, &LauncherSettings::btnColorSchemeClicked);
 
     connect(switchAuto, &customSwitch::clicked, this, &LauncherSettings::switchAutoClicked);
+    connect(switchMulti, &customSwitch::clicked, this, &LauncherSettings::switchMultiClicked);
 }
 
 void LauncherSettings::btnColorSchemeClicked()
@@ -119,25 +123,86 @@ void LauncherSettings::btnColorSchemeClicked()
     maskDialog->show();
 }
 
-void LauncherSettings::write(LauncherSettings::SaveAttribute value)
+void LauncherSettings::initsettingsObj()
 {
+    QJsonObject tmp;
+    tmp["Appearance"] = "FUSION";
+    tmp["AutoChange"] = "false";
+    tmp["Language"]   = "CHN";
+    tmp["MultiInstance"] = "true";;
 
+    settingsObj["CellLauncherSettgins"] = tmp;
+    read(tmp);
 }
 
-void LauncherSettings::read(LauncherSettings::SaveAttribute value)
+void LauncherSettings::writeSettings(LauncherSettings::SaveAttribute key, const QString &value)
 {
-
+    switch(key){
+    case Auto:
+        loadedSettings["LauncherSettings"]["AutoChange"] = value;
+        break;
+        loadedSettings["LauncherSettings"]["MultiInstance"] = value;
+        break;
+    }
+#ifdef CELL_DEUBG
+       CELL_DEUBG("LauncherSettings") << "Start Writing Settings Into::" << path << endl;
+#endif
+    QFile saveFile(path);
+    if (!loadFile.open(QIODevice::WriteOnly))
+        qWarning("Couldn't open save file.");
+    saveFile.write(QJsonDocument(loadedSettings).toJson());
+    saveFile.close();
 }
 
-
-void LauncherSettings::switchAutoClicked()
+void LauncherSettings::readSettings()
 {
+#ifdef CELL_DEUBG
+       CELL_DEUBG("LauncherSettings") << "Start Fetching Settings From::" << path << endl;
+#endif
+    QFile loadFile(path);
+    if (!loadFile.open())
+        qWarning("Couldn't open save file.");
 
+    if(!QFileInfo(path).isFile()){
+#ifdef CELL_DEUBG
+       CELL_DEUBG("LauncherSettings") << "Settings File Not Exists." << endl;
+       CELL_DEUBG("LauncherSettings") << "Then create a new one as::" << path << endl;
+#endif
+        initsettingsObj();
+        loadFile.write(QJsonDocument(settingsObj).toJson());
+        loadFile.close();
+        return;
+    }
+
+    QByteArray saveData = loadFile.readAll();
+    loadedSettings = QJsonDocument::fromJson(saveData).object();
+    loadFile.close();
+
+    read(loadedSettings["LauncherSettings"].toObject());
 }
 
-void LauncherSettings::switchMultiClicked()
+void LauncherSettings::read(const QJsonObject &json)
 {
+    if(json["Appearance"] == STRCMP("FUSION")){
 
+    }else{
+
+    }
+    switch(json["Language"]){
+
+    }
+    switchAuto->setChecked(json["AutoChange"] == STRCMP("true") ? true : false);
+    switchMulti->setChecked(json["MultiInstance"] == STRCMP("true") ? true : false);
+}
+
+void LauncherSettings::switchAutoClicked(bool checked)
+{
+    writeSettings(SaveAttribute::Auto, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
+}
+
+void LauncherSettings::switchMultiClicked(bool checked)
+{
+    writeSettings(SaveAttribute::MultiInstance, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
 }
 
 void LauncherSettings::Btn_bright_clicked()

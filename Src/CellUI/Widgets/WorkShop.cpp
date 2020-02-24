@@ -115,39 +115,7 @@ void Workshop::init()
     splitter->setStretchFactor(2, 1);
 
     // Set MainEditor.
-    QsciLexer *lexCPP = new QsciLexerCPP();
-    lexCPP->setFont(QFont(CHAR2STR("Courier New"), 10));
-    mainEditor->setLexer(lexCPP);
-    mainEditor->setUtf8(true);
-    mainEditor->setMinimumWidth(500);
-    mainEditor->setCaretLineVisible(true);
-    mainEditor->setMarginWidth(0, 55);
-    mainEditor->setMarginsBackgroundColor(QColor(240,240,240));
-    mainEditor->setIndentationsUseTabs(true);
-    mainEditor->setIndentationGuides(true);
-    mainEditor->setAutoIndent(true);
-    mainEditor->setWrapIndentMode(QsciScintilla::WrapIndentFixed);
-    mainEditor->setWrapMode(QsciScintilla::WrapCharacter);
-    mainEditor->setWrapVisualFlags(QsciScintilla::WrapFlagInMargin, QsciScintilla::WrapFlagInMargin, 0);
-    mainEditor->setTabWidth(4);
-    mainEditor->setCaretLineVisible(true);
-    mainEditor->setFrameShape(QFrame::NoFrame);
-    mainEditor->setFont(CellUiGlobal::getFont(CHAR2STR("Courier New"), 14));
-    mainEditor->setPaper(QColor(249,250,250));
-
-    mainEditor->setCaretLineBackgroundColor(QColor(240,240,240));
-    mainEditor->setAutoCompletionCaseSensitivity(false);
-    mainEditor->setAutoCompletionThreshold(3);
-    mainEditor->setAutoCompletionSource(QsciScintilla::AcsAll);
-    mainEditor->setAutoCompletionReplaceWord(false);
-
-    CellUiGlobal::loader.setFileName(CHAR2STR("WorkshopEditorVerticalScrollBar.css"));
-    QScrollBar *verticalBar = mainEditor->verticalScrollBar();
-    verticalBar->setStyleSheet(CellUiGlobal::loader.content());
-
-    CellUiGlobal::loader.setFileName(CHAR2STR("WorkshopEditorHorizontalScrollBar.css"));
-    QScrollBar *horizontalBar = mainEditor->horizontalScrollBar();
-    horizontalBar->setStyleSheet(CellUiGlobal::loader.content());
+    initMainEditor();
 
     // Set TreeView.
     initTreeView();
@@ -272,6 +240,43 @@ void Workshop::setEventConnections()
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(updateStatusBar()));
     connect(ctrlS, SIGNAL(activated()), this, SLOT(saveFile()));
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(checkCodeModifiedState()));
+}
+
+void Workshop::initMainEditor()
+{
+    QsciLexer *lexCPP = new QsciLexerCPP();
+    lexCPP->setFont(QFont(CHAR2STR("Courier New"), 10));
+    mainEditor->setLexer(lexCPP);
+    mainEditor->setUtf8(true);
+    mainEditor->setMinimumWidth(500);
+    mainEditor->setCaretLineVisible(true);
+    mainEditor->setMarginWidth(0, 55);
+    mainEditor->setMarginsBackgroundColor(QColor(240,240,240));
+    mainEditor->setIndentationsUseTabs(true);
+    mainEditor->setIndentationGuides(true);
+    mainEditor->setAutoIndent(true);
+    mainEditor->setWrapIndentMode(QsciScintilla::WrapIndentFixed);
+    mainEditor->setWrapMode(QsciScintilla::WrapCharacter);
+    mainEditor->setWrapVisualFlags(QsciScintilla::WrapFlagInMargin, QsciScintilla::WrapFlagInMargin, 0);
+    mainEditor->setTabWidth(4);
+    mainEditor->setCaretLineVisible(true);
+    mainEditor->setFrameShape(QFrame::NoFrame);
+    mainEditor->setFont(CellUiGlobal::getFont(CHAR2STR("Courier New"), 14));
+    mainEditor->setPaper(QColor(249,250,250));
+
+    mainEditor->setCaretLineBackgroundColor(QColor(240,240,240));
+    mainEditor->setAutoCompletionCaseSensitivity(false);
+    mainEditor->setAutoCompletionThreshold(3);
+    mainEditor->setAutoCompletionSource(QsciScintilla::AcsAll);
+    mainEditor->setAutoCompletionReplaceWord(false);
+
+    CellUiGlobal::loader.setFileName(CHAR2STR("WorkshopEditorVerticalScrollBar.css"));
+    QScrollBar *verticalBar = mainEditor->verticalScrollBar();
+    verticalBar->setStyleSheet(CellUiGlobal::loader.content());
+
+    CellUiGlobal::loader.setFileName(CHAR2STR("WorkshopEditorHorizontalScrollBar.css"));
+    QScrollBar *horizontalBar = mainEditor->horizontalScrollBar();
+    horizontalBar->setStyleSheet(CellUiGlobal::loader.content());
 }
 
 void Workshop::initTreeView()

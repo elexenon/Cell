@@ -244,7 +244,7 @@ void Workshop::setEventConnections()
 
 void Workshop::initMainEditor()
 {
-    QsciLexer *lexCPP = new QsciLexerCPP();
+    QsciLexer *lexCPP = new QsciLexerCPP(mainEditor);
     lexCPP->setFont(QFont(CHAR2STR("Courier New"), 10));
     mainEditor->setLexer(lexCPP);
     mainEditor->setUtf8(true);
@@ -325,6 +325,7 @@ void Workshop::loadFile(const QString &path)
     if (!loadFile.open(QIODevice::ReadOnly))
         qWarning("Couldn't open save file.");
     QByteArray saveData = loadFile.readAll();
+    loadFile.close();
     QJsonDocument loadDoc(QJsonDocument::fromBinaryData(saveData));
     read(loadDoc.object());
 

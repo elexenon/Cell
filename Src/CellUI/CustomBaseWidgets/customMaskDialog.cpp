@@ -81,7 +81,7 @@ void customMaskDialog::switchOpacity(int sValue, int eValue)
     animi->setPropertyName("opacity");
     animi->setTargetObject(this);
     animi->setDuration(150);
-    animi->setEasingCurve(QEasingCurve::Linear);
+    animi->setEasingCurve(QEasingCurve::InOutSine);
     animi->setStartValue(sValue);
     animi->setEndValue(eValue);
     animi->start(QAbstractAnimation::KeepWhenStopped);
@@ -98,7 +98,7 @@ void customMaskDialog::fade()
     animi->setTargetObject(eff);
     animi->setPropertyName("opacity");
     animi->setDuration(150);
-    animi->setEasingCurve(QEasingCurve::Linear);
+    animi->setEasingCurve(QEasingCurve::InOutSine);
     animi->setStartValue(1);
     animi->setEndValue(0);
     animi->start(QAbstractAnimation::DeleteWhenStopped);

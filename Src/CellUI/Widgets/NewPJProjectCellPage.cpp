@@ -8,7 +8,6 @@
 #include <QComboBox>
 #include <QVBoxLayout>
 #include <QLineEdit>
-#include <QFileDialog>
 
 NewPJProjectCellPage::NewPJProjectCellPage(QWidget *parent):
     newPJPageBase(parent)

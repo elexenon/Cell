@@ -138,7 +138,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
 
     customSwitch *mSwitch = new customSwitch(this);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(block1);
     layout->addWidget(btn1);
     layout->addWidget(btn2);

@@ -41,6 +41,11 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     loadFile();
 }
 
+LauncherSettings::~LauncherSettings()
+{
+    saveFile();
+}
+
 void LauncherSettings::LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
@@ -145,10 +150,6 @@ void LauncherSettings::write(LauncherSettings::SaveAttribute key, const QString 
         break;
     }
     settingsObj["CellLauncherSettgins"] = tmp;
-#ifdef CELL_DEBUG
-       CELL_DEBUG("LauncherSettings") << "Start Writing Settings Into::" << path << endl;
-#endif
-    saveFile();
 }
 
 void LauncherSettings::loadFile()

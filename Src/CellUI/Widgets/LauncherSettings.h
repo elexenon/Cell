@@ -38,7 +38,7 @@ class LauncherSettings : public customFrame
     static const QString path;
 public:
     explicit LauncherSettings(QWidget *parent = nullptr);
-    ~LauncherSettings() = default;
+    ~LauncherSettings();
 
     void LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode);
     inline

@@ -304,7 +304,7 @@ void Launcher::btnOpenClicked()
 void Launcher::_launcherWorkshop()
 {
     workshop = new Workshop(m_mode);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),workshop, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, &LauncherSettings::enableColorScheme, workshop, &Workshop::setColorScheme);
     connect(workshop, &Workshop::_constructed,notificationCenter, &notificationCenter::plusCnt);
     connect(workshop, &Workshop::destoryed,notificationCenter, &notificationCenter::minusCnt);
     connect(workshop, &Workshop::projectUpdate, homePage, &LauncherHomepage::updateDatasByWS);

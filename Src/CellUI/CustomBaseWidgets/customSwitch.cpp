@@ -21,7 +21,7 @@ void customSwitch::init()
     setFixedSize(50, triggerDiam);
     animi.setTargetObject(this);
     animi.setPropertyName("triggerOffset");
-    animi.setEasingCurve(QEasingCurve::Linear);
+    animi.setEasingCurve(QEasingCurve::InOutSine);
     animi.setDuration(150);
 }
 
@@ -37,14 +37,14 @@ void customSwitch::paintEvent(QPaintEvent *event)
                         paddingRadius, paddingRadius);
 
     if(this->isChecked){
-        QLinearGradient gradient(margin, this->height()/2, this->width(), this->height()/2);
-        gradient.setColorAt(0.0, QColor(109, 204, 255));
-        gradient.setColorAt(1.0, CellVariant(Cell::NavyBlue).toColor());
+        QLinearGradient gradient(-7, this->height()/2, this->width(), this->height()/2);
+        gradient.setColorAt(0.0, QColor(235, 235, 235));
+        gradient.setColorAt(1.0, QColor(26, 96, 134));
         painter.setBrush(gradient);
     }
     else
         painter.setBrush(paddingColor);
-    painter.setPen(QPen(QColor(70,70,70),0.1));
+    painter.setPen(QPen(QColor(60,60,60),0.2));
     painter.drawPath(path.simplified());
 
     // Draw area of trigger.

@@ -15,7 +15,6 @@ class ButtonWithIcon : public customButton{
     Q_OBJECT
 public:
     explicit ButtonWithIcon(TYPE type = STATIC,QWidget *parent = nullptr);
-    virtual ~ButtonWithIcon() override = default;
 
     void init(const QString& fileName, int iconWidth, int iconHeight);
 

@@ -20,6 +20,7 @@ public:
         STATIC_RADIUS, DYNAMIC_RADIUS, CHECKABLE_RADIUS
     };
     explicit customButton(TYPE type = STATIC,QWidget *parent = nullptr);
+    virtual ~customButton() = default;
 
 protected:
     virtual void setColor(const QColor &color) override;
@@ -30,7 +31,7 @@ private:
     void setAnimiStartEndColor(CellUiGlobal::COLOR_SCHEME mode, QColor&, QColor&);
     TYPE type;
 
-protected Q_SLOTS:
+public Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 
 CheckablePublic:

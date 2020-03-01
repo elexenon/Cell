@@ -83,10 +83,11 @@ signals:
 
 private Q_SLOTS:
     void btnColorSchemeClicked();
+    void btnLanguageClicked();
     void switchAutoClicked(bool checked);
     void switchMultiClicked(bool checked);
-    void Btn_bright_clicked();
-    void Btn_dark_clicked();
+    void btnBrightClicked();
+    void btnDarkClicked();
 };
 
 #endif // LauncherSettings_H

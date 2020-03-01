@@ -15,7 +15,8 @@ class customWinstyleWidget : public QWidget, implements CellWidgetGlobalInterfac
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
-    explicit     customWinstyleWidget(QWidget *parent = nullptr);
+    explicit customWinstyleWidget(QWidget *parent = nullptr);
+    virtual ~customWinstyleWidget() = default;
 
     virtual void setBaseQss(const QString &qss) override;
 
@@ -32,7 +33,7 @@ protected:
     QPoint m_windowPoint;
     bool   m_move; 
 
-protected Q_SLOTS:
+public Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 };
 #endif // CELLWINSTYLEINTERFACE_H

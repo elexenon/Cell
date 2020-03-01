@@ -47,8 +47,10 @@ protected:
 signals:
     void clickedNewPJ();
 
-private Q_SLOTS:
+public Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
+
+private Q_SLOTS:
     void         fade();
     inline
     void         btnNewPJClicked() { emit clickedNewPJ(); close(); }

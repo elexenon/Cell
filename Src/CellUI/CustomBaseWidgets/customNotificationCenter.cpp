@@ -91,3 +91,4 @@ void notificationCenter::minusCnt()
     CELL_DEBUG("NotificationCenter") << "The_Amount_Of_Workshops::" << workshop_instancesCount << endl;
 #endif
 }
+

@@ -60,7 +60,6 @@ bool customWinstyleWidget::nativeEvent(const QByteArray &eventType, void *messag
 void customWinstyleWidget::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
     CellWidgetGlobalInterface::setColorScheme(mode);
-
 }
 
 void customWinstyleWidget::mousePressEvent(QMouseEvent *event)

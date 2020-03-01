@@ -49,8 +49,10 @@ private:
     void updateDatas();
     bool tableExists(const char *tableName);
 
-private Q_SLOTS:
+public Q_SLOTS:
     void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+
+private Q_SLOTS:
     void updateDatasByWS(CellProjectEntity &entity);
     void btnGridClicked();
     void btnListClicked();

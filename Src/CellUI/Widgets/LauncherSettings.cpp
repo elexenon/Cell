@@ -49,9 +49,9 @@ LauncherSettings::~LauncherSettings()
 void LauncherSettings::LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode)
 {
     if(mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
-        Btn_bright_clicked();
+        btnBrightClicked();
     }else{
-        Btn_dark_clicked();
+        btnDarkClicked();
     }
 }
 
@@ -110,8 +110,10 @@ void LauncherSettings::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 
 void LauncherSettings::setEventConnections()
 {
-    const ButtonWithIcon *trigger = dBtnAppear->getTrigger();
-    connect(trigger, &QPushButton::clicked, this, &LauncherSettings::btnColorSchemeClicked);
+    const ButtonWithIcon *trigger1 = dBtnAppear->getTrigger();
+    const ButtonWithIcon *trigger2 = dBtnLan->getTrigger();
+    connect(trigger1, &QPushButton::clicked, this, &LauncherSettings::btnColorSchemeClicked);
+    connect(trigger2, &QPushButton::clicked, this, &LauncherSettings::btnLanguageClicked);
 
     connect(switchAuto, &customSwitch::clicked, this, &LauncherSettings::switchAutoClicked);
     connect(switchMulti, &customSwitch::clicked, this, &LauncherSettings::switchMultiClicked);
@@ -119,9 +121,17 @@ void LauncherSettings::setEventConnections()
 
 void LauncherSettings::btnColorSchemeClicked()
 {
+    static bool statusBright = true;
+    statusBright = !statusBright;
+
+    statusBright ? btnBrightClicked() : btnDarkClicked();
+}
+
+void LauncherSettings::btnLanguageClicked()
+{
     customMaskDialog *maskDialog = new customMaskDialog(launcherPtr);
-    maskDialog->setOptionText(CHAR2STR("颜色模式"));
-    maskDialog->setHintText(CHAR2STR("选择一个你偏好的颜色模式，Cell会为你自动切换。"));
+    maskDialog->setOptionText(CHAR2STR("语言"));
+    maskDialog->setHintText(CHAR2STR("选择全局语言。"));
     maskDialog->setGeometry(launcherPtr->maskGeometry());
     maskDialog->show();
 }
@@ -217,13 +227,13 @@ void LauncherSettings::switchMultiClicked(bool checked)
     write(SaveAttribute::MultiInstance, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
 }
 
-void LauncherSettings::Btn_bright_clicked()
+void LauncherSettings::btnBrightClicked()
 {
     setColorScheme(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
     emit enableColorScheme(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
 }
 
-void LauncherSettings::Btn_dark_clicked()
+void LauncherSettings::btnDarkClicked()
 {
     setColorScheme(CellUiGlobal::COLOR_SCHEME::_DARK);
     emit enableColorScheme(CellUiGlobal::COLOR_SCHEME::_DARK);

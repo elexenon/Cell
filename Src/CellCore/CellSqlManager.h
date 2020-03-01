@@ -25,14 +25,19 @@ public:
     //! Once the fetching processing is done, this function will
     //! return true.
     bool fetchRecentPJRow(QList<QStandardItem*> *tuple); //TODO: const
-    //! Insert New Project Into Database.
+    //! Insert New Cell Project
+    //! Into Database.
     bool insertProjectEntity(CellProjectEntity &entity);
 
+    //! Create a new table, users have to provide the CREATE
+    //! SQL Sentence.
     inline
     bool createTable(const char *sqlSentence) { return execQuery(sqlSentence); }
-
+    //! Remove a specific tuple by TABLENAME, MAINKEY, ID
     bool removeTuple(const QString &tableName, const QString &mainKey, const QString &id);
-
+    //! Return a boolean value to judge if the table TABLENAME
+    //! provided by user exists, if not, this function wil
+    //! return false.
     bool tableExists(const char *tableName);
 
     bool tupleExists(const QString &tableName, const QString &mainKey, const QString &id);

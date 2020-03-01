@@ -40,7 +40,7 @@ void customMaskDialog::init()
     dialog->setStyleSheet(CHAR2STR("QFrame{background-color:rgb(247,247,247);}"));
     dialog->setFixedHeight(300);
 
-    CellUiGlobal::setCustomTextLabel(labelOption, CHAR2STR("Microsoft YaHei UI"), 24, CHAR2STR("选项主题"));
+    CellUiGlobal::setCustomTextLabel(labelOption, CHAR2STR("Microsoft YaHei UI"), 30, CHAR2STR("选项主题"));
     CellUiGlobal::setCustomTextLabel(labelHint,   CHAR2STR("Microsoft YaHei UI Light"), 15, CHAR2STR("进行一些描述。"));
 
     QVBoxLayout *VLayoutLabel = new QVBoxLayout;

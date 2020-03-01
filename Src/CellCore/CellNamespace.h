@@ -20,6 +20,7 @@ namespace Cell{
         CGL218 = 218,
         CGL230 = 230,
         CGL240 = 240,
+        CGL245 = 245,
         CGL247 = 247,
         CGL255 = 255
     };
@@ -27,7 +28,7 @@ namespace Cell{
         pureGreen,
         NavyBlue,
         ExitRed,
-
+        yellowGreen
     };
 }
 

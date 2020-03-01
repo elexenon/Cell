@@ -19,6 +19,7 @@ customOptionBlockItem::customOptionBlockItem(QWidget *parent,  const QString& ta
     setFixedHeight(50);
     setStyleSheet(CHAR2STR("background-color:transparent"));
     setLayout(mainLayout);
+    mainLayout->setAlignment(Qt::AlignmentFlag::AlignVCenter);
     mainLayout->setContentsMargins(48, 0, 25, 0);
     mainLayout->setSpacing(20);
 

@@ -49,8 +49,10 @@ private:
 signals:
     void clicked(int id);
 
-private Q_SLOTS:
+public Q_SLOTS:
     virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+
+private Q_SLOTS:
     inline
     void btnGroupClicked(int id) { emit clicked(id); }
 };

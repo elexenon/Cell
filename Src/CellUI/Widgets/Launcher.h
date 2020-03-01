@@ -74,7 +74,7 @@ private:
     PAGE_TYPE currentPage;
 
 protected:
-
+    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
 
 private Q_SLOTS:
     void btnMiniClicked();

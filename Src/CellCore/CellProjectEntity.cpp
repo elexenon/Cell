@@ -48,7 +48,7 @@ CellProjectEntity::CellProjectEntityType CellProjectEntity::getType(const QStrin
     return Python;
 }
 
-void CellProjectEntity::print()
+void CellProjectEntity::print() const
 {
     CELL_DEBUG("CellProjectEntity") << "SelfPrint:\n"
                                     << mName         << endl

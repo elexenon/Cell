@@ -21,7 +21,7 @@ class customWinstyleDialog : public QDialog, implements CellWidgetGlobalInterfac
     Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
     explicit customWinstyleDialog(QWidget *parent = nullptr);
-    ~customWinstyleDialog() = default;
+    virtual ~customWinstyleDialog() = default;
 
     virtual void setColor(const QColor &color) override;
     virtual void setBaseQss(const QString &qss) override;

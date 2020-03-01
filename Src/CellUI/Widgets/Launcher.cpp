@@ -201,19 +201,19 @@ void Launcher::initLauncher()
 void Launcher::setEventConnections()
 {
     // Set connections between SettingsPage & ColorScheme-change-enabled modules
-    connect(settingsPage, &LauncherSettings::enableColorScheme, notificationCenter, &notificationCenter::setColorScheme);
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), guideDialog, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), btnNewPJ, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), btnOpenPJ, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), this, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), homePage, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), btnListWidget, SLOT(setColorScheme(COLOR_SCHEME)));
-    connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)), titleBar, SLOT(setColorScheme(COLOR_SCHEME)));
+    connect(settingsPage, &LauncherSettings::enableColorScheme, notificationCenter, &customGradientChangeFrame::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, guideDialog, &LauncherGuideDialog::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, btnNewPJ, &customButton::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, btnOpenPJ, &customButton::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, this, &Launcher::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, homePage, &LauncherHomepage::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, btnListWidget, &customButtonListWidget::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, titleBar, &customTitleBar::setColorScheme);
     connect(guideDialog, &LauncherGuideDialog::clickedNewPJ, this, &Launcher::btnNewClicked);
     connect(homePage, &LauncherHomepage::getProjectPath, this, &Launcher::launchWorkShopByPath);
 #ifndef RELEASE_MODE
     const customListButton *Tab_Test  = btnListWidget->getButton(3);
-    connect(Tab_Test, SIGNAL(clicked(bool)), this, SLOT(tabTestClicked()));
+    connect(Tab_Test, &QPushButton::clicked, this, &Launcher::tabTestClicked);
 #endif
     // Set connections for page-switching buttons.
     const customListButton *Tab_HomePage = btnListWidget->getButton(0);
@@ -288,7 +288,7 @@ void Launcher::btnNewClicked()
     newPJDialog = nullptr;
     if(newPJDialog == nullptr){
         newPJDialog = new LauncherNewPJDialog(m_mode, this);
-        connect(settingsPage, SIGNAL(enableColorScheme(COLOR_SCHEME)),newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)));
+        connect(settingsPage, &LauncherSettings::enableColorScheme,newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)));
         connect(newPJDialog, &LauncherNewPJDialog::projectSettled, this, &Launcher::launchWorkShop);
     }  
     newPJDialog->show();
@@ -310,6 +310,12 @@ void Launcher::_launcherWorkshop()
     connect(workshop, &Workshop::projectUpdate, homePage, &LauncherHomepage::updateDatasByWS);
     workshop->constructed();
     workshop->show();
+}
+
+void Launcher::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+{
+    customWinstyleWidget::setColorScheme(mode);
+
 }
 
 void Launcher::launchWorkShop(CellProjectEntity *entity)

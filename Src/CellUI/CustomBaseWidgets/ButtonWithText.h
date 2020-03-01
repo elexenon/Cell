@@ -15,7 +15,6 @@ class ButtonWithText : public customButton{
     Q_OBJECT
 public:
     explicit ButtonWithText(TYPE type = STATIC,QWidget *parent = nullptr);
-    virtual ~ButtonWithText() override = default;
 
     void init(const QString& text = "Button", int fontSize = 18);
     void setTextColor(const CellVariant &b, const CellVariant &d);

@@ -16,7 +16,7 @@ class newPJPageBase : public customFrame{
     Q_OBJECT
 public:
     explicit newPJPageBase(QWidget *parent = nullptr);
-    ~newPJPageBase() = default;
+    virtual ~newPJPageBase() = default;
 
     void setPageTitle(const QString &text);
 

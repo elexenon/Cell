@@ -43,24 +43,24 @@ public:
     void setModifiedTime(const QString &time) { this->mModifiedTime = time; }
 
     inline const QString&
-    name() { return mName; }
+    name() const { return mName; }
 
     inline const QString&
-    path() { return mPath; }
+    path() const { return mPath; }
 
     inline const CellProjectEntityType&
-    type() { return mType; }
+    type() const { return mType; }
 
     inline const QString
-    code() { return mCode; }
+    code() const { return mCode; }
 
     inline void
     setCode(const QString &code) { mCode = code; }
 
     inline const QString&
-    modifiedTime() { return mModifiedTime; }
+    modifiedTime() const { return mModifiedTime; }
 
-    void print();
+    void print() const;
 
     void read(const QJsonObject &json);
 

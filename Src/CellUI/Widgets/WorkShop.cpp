@@ -34,6 +34,7 @@
 #include "../CustomBaseWidgets/customGradientChangeFrame.h"
 #include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
+#include "../../CellCore/CellVariant.h"
 #include "../../CellCore/CellSqlManager.h"
 #include "WSLoadingDialog.h"
 #include "WorkShop.h"
@@ -246,12 +247,13 @@ void Workshop::initMainEditor()
 {
     QsciLexer *lexCPP = new QsciLexerCPP(mainEditor);
     lexCPP->setFont(QFont(CHAR2STR("Courier New"), 10));
+    lexCPP->setPaper(CellVariant(Cell::CGL245).toColor());
     mainEditor->setLexer(lexCPP);
     mainEditor->setUtf8(true);
     mainEditor->setMinimumWidth(500);
     mainEditor->setCaretLineVisible(true);
     mainEditor->setMarginWidth(0, 55);
-    mainEditor->setMarginsBackgroundColor(QColor(240,240,240));
+    mainEditor->setMarginsBackgroundColor(CellVariant(Cell::CGL245).toColor());
     mainEditor->setIndentationsUseTabs(true);
     mainEditor->setIndentationGuides(true);
     mainEditor->setAutoIndent(true);
@@ -262,9 +264,8 @@ void Workshop::initMainEditor()
     mainEditor->setCaretLineVisible(true);
     mainEditor->setFrameShape(QFrame::NoFrame);
     mainEditor->setFont(CellUiGlobal::getFont(CHAR2STR("Courier New"), 14));
-    mainEditor->setPaper(QColor(249,250,250));
 
-    mainEditor->setCaretLineBackgroundColor(QColor(240,240,240));
+    mainEditor->setCaretLineBackgroundColor(CellVariant(Cell::yellowGreen).toColor());
     mainEditor->setAutoCompletionCaseSensitivity(false);
     mainEditor->setAutoCompletionThreshold(3);
     mainEditor->setAutoCompletionSource(QsciScintilla::AcsAll);

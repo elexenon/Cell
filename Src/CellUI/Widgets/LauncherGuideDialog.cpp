@@ -126,5 +126,5 @@ void LauncherGuideDialog::showEvent(QShowEvent *e)
 
 void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
 {
-    (void)mode;
+    customWinstyleDialog::setColorScheme(mode);
 }

@@ -12,7 +12,7 @@ public:
 private:
     void init();
 
-    Cell::ColorScheme m_mode;
+    Cell::ColorScheme mMode;
 
 public Q_SLOTS:
     void setColorScheme(Cell::ColorScheme mode);

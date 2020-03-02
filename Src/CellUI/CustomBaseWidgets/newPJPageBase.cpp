@@ -20,7 +20,7 @@
 #include <QFileDialog>
 
 newPJPageBase::newPJPageBase(QWidget *parent):
-    customFrame(customFrame::_REGULAR, parent),
+    customFrame(customFrame::Regular, parent),
     mainLayout(new QVBoxLayout(this)),
     labelTitle(new customLabel(this)),
     blockConfig(new customOptionBlock(this, CHAR2STR("项目属性"))),

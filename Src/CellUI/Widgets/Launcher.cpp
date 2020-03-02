@@ -42,12 +42,12 @@ Launcher::Launcher(QWidget *parent)
       homePage(new LauncherHomepage(this)),
       settingsPage(new LauncherSettings(this)),
       titleBar(new customTitleBar(this)),
-      btnMini(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
-      btnMax(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
-      btnClose(new ButtonWithIcon(customButton::DYNAMIC, titleBar)),
+      btnMini(new ButtonWithIcon(customButton::Dynamic, titleBar)),
+      btnMax(new ButtonWithIcon(customButton::Dynamic, titleBar)),
+      btnClose(new ButtonWithIcon(customButton::Dynamic, titleBar)),
       stackedWidget(new QStackedWidget(this)),
-      btnNewPJ(new ButtonWithIconTextHint(customButton::DYNAMIC_RADIUS, this)),
-      btnOpenPJ(new ButtonWithIconTextHint(customButton::DYNAMIC_RADIUS, this)),
+      btnNewPJ(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
+      btnOpenPJ(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
       notificationCenter(new class notificationCenter(this)),
       btnListWidget(new customButtonListWidget(this)),
 #ifndef RELEASE_MODE
@@ -83,7 +83,7 @@ void Launcher::initLauncher()
     titleBar->setIcon(CHAR2STR("cellLogo28"), 28, 28);
     titleBar->setLeftMargin(15);
 
-    btnMini->setBrightModeHoveringColor(Cell::NavyBlue);
+    btnMini->setBrightModeHoveringColor(Cell::CellThemeColor::NavyBlue);
     btnMini->setDarkModeHoveringColor(Cell::CGL180);
     btnMini->setBrightDarkModeColor(Cell::CGL255, Cell::CGL45);
     btnMini->setAnimationDuration(150);
@@ -91,7 +91,7 @@ void Launcher::initLauncher()
     btnMini->setFixedSize(50, titleBar->height());
     btnMini->setCursor(Qt::PointingHandCursor);
 
-    btnMax->setBrightModeHoveringColor(Cell::NavyBlue);
+    btnMax->setBrightModeHoveringColor(Cell::CellThemeColor::NavyBlue);
     btnMax->setDarkModeHoveringColor(Cell::CGL180);
     btnMax->setBrightDarkModeColor(Cell::CGL255, Cell::CGL45);
     btnMax->setAnimationDuration(150);
@@ -99,8 +99,8 @@ void Launcher::initLauncher()
     btnMax->setFixedSize(50, titleBar->height());
     btnMax->setCursor(Qt::PointingHandCursor);
 
-    btnClose->setBrightModeHoveringColor(Cell::ExitRed);
-    btnClose->setDarkModeHoveringColor(Cell::ExitRed);
+    btnClose->setBrightModeHoveringColor(Cell::CellThemeColor::ExitRed);
+    btnClose->setDarkModeHoveringColor(Cell::CellThemeColor::ExitRed);
     btnClose->setBrightDarkModeColor(Cell::CGL255, Cell::CGL45);
     btnClose->setAnimationDuration(150);
     btnClose->init(CHAR2STR("iconClose"), 14, 14);
@@ -188,12 +188,12 @@ void Launcher::initLauncher()
     guideDialog->hide();
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && m_mode == Cell::ColorScheme::_BRIGHT){
+    if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && m_mode == Cell::ColorScheme::Bright){
         btnListWidget->clickButton(1);
-        settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::_DARK);
-    }else if(currentTime.hour() < 19 && m_mode == Cell::ColorScheme::_DARK){
+        settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::Dark);
+    }else if(currentTime.hour() < 19 && m_mode == Cell::ColorScheme::Dark){
         btnListWidget->clickButton(1);
-        settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::_BRIGHT);
+        settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::Bright);
     }
 #endif
 }
@@ -269,17 +269,17 @@ void Launcher::tabTestClicked()
 
 void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
 {
-    int duration = static_cast<int>(Cell::GlobalPageSwitchDuration);
+    int duration = static_cast<int>(Cell::AnimiDuration::GlobalDuration);
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         stackedWidget->setCurrentWidget(settingsPage);
         CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animi,
-                                       settingsPage,duration,CellUiGlobal::FadeAnimiType::FadeIn);
+                                       settingsPage,duration,Cell::FadeAnimiType::FadeIn);
     }else{
         homePage->setWindowOpacity(0);
         stackedWidget->setCurrentWidget(homePage);
         CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animi,
-                                       homePage,duration,CellUiGlobal::FadeAnimiType::FadeIn);
+                                       homePage,duration,Cell::FadeAnimiType::FadeIn);
     }
 }
 

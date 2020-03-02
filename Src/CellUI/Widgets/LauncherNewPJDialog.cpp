@@ -25,8 +25,8 @@ LauncherNewPJDialog::LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *p
     customWinstyleDialog(parent),
     titleBar(new customTitleBar(this)),
     label_choose(new customLabel(this)),
-    btnConfirm(new ButtonWithText(customButton::DYNAMIC, this)),
-    btnCancel(new ButtonWithText(customButton::DYNAMIC, this)),
+    btnConfirm(new ButtonWithText(customButton::Dynamic, this)),
+    btnCancel(new ButtonWithText(customButton::Dynamic, this)),
     stackedWidget(new QStackedWidget(this)),
     cellPage(new NewPJProjectCellPage(this)),
     prePage(new NewPJPredictEarPage(this)),
@@ -118,7 +118,7 @@ void LauncherNewPJDialog::init()
 
     QHBoxLayout *HLayout = new QHBoxLayout;
     HLayout->addLayout(VLayout_left);
-    HLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::VLine));
+    HLayout->addWidget(CellUiGlobal::getLine(Cell::LineType::VLine));
     HLayout->addWidget(stackedWidget);
     HLayout->setMargin(0);
     HLayout->setSpacing(0);

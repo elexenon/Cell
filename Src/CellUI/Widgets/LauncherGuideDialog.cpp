@@ -23,10 +23,10 @@ LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
     mainLayout(new QVBoxLayout(this)),
     titleBar(new customTitleBar(this)),
     mainStackedWidget(new customStackedWidget(this)),
-    bottomBar(new customFrame(customFrame::_REGULAR, this)),
+    bottomBar(new customFrame(customFrame::Regular, this)),
     checkBox(new QCheckBox(bottomBar)),
-    btnClose(new ButtonWithText(customButton::DYNAMIC, bottomBar)),
-    btnNewPJ(new ButtonWithText(customButton::DYNAMIC, bottomBar))
+    btnClose(new ButtonWithText(customButton::Dynamic, bottomBar)),
+    btnNewPJ(new ButtonWithText(customButton::Dynamic, bottomBar))
 {
     init();
     setEventConnections();
@@ -53,16 +53,16 @@ void LauncherGuideDialog::init()
     checkBox->setStyleSheet(CHAR2STR("QCheckBox{color:white;background-color: transparent;}"));
 
     btnClose->setBrightDarkModeColor(Cell::CGL70, Cell::CGL70);
-    btnClose->setBrightModeHoveringColor(Cell::NavyBlue);
-    btnClose->setDarkModeHoveringColor(Cell::NavyBlue);
+    btnClose->setBrightModeHoveringColor(Cell::CellThemeColor::NavyBlue);
+    btnClose->setDarkModeHoveringColor(Cell::CellThemeColor::NavyBlue);
     btnClose->setAnimationDuration(200);
     btnClose->init(CHAR2STR("关闭"), 15);
     btnClose->setTextColor(Cell::CGL255, Cell::CGL255);
     btnClose->setFixedSize(100, 40);
 
     btnNewPJ->setBrightDarkModeColor(Cell::CGL100, Cell::CGL100);
-    btnNewPJ->setBrightModeHoveringColor(Cell::NavyBlue);
-    btnNewPJ->setDarkModeHoveringColor(Cell::NavyBlue);
+    btnNewPJ->setBrightModeHoveringColor(Cell::CellThemeColor::NavyBlue);
+    btnNewPJ->setDarkModeHoveringColor(Cell::CellThemeColor::NavyBlue);
     btnNewPJ->setAnimationDuration(200);
     btnNewPJ->init(CHAR2STR("新建文档"), 15);
     btnNewPJ->setTextColor(Cell::CGL255, Cell::CGL255);
@@ -79,10 +79,10 @@ void LauncherGuideDialog::init()
     bottomBar->setBrightDarkModeColor(Cell::CGL60, Cell::CGL60);
     bottomBar->setFixedHeight(40);
 
-    customFrame *f1 = new customFrame(customFrame::_REGULAR, this);
+    customFrame *f1 = new customFrame(customFrame::Regular, this);
     f1->setBrightDarkModeColor(Cell::CGL247, Cell::CGL60);
 
-    customFrame *f2 = new customFrame(customFrame::_REGULAR, this);
+    customFrame *f2 = new customFrame(customFrame::Regular, this);
     f2->setBrightDarkModeColor(Cell::CGL130, Cell::CGL60);
 
     mainStackedWidget->setAnimiDuration(800);

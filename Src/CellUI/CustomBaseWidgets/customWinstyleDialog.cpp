@@ -5,6 +5,7 @@
 // the file LICENSE included in the packaging of this file.
 #include "customWinstyleDialog.h"
 #include "../../CellCore/Kits/WindWMAPI.h"
+#include "../../CellCore/Kits/CellUtility.h"
 
 customWinstyleDialog::customWinstyleDialog(QWidget *parent):
     QDialog(parent)

@@ -13,7 +13,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
-ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::TYPE type, QWidget *parent):
+ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::Type type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this)),

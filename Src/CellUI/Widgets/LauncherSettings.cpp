@@ -23,7 +23,7 @@
 const QString LauncherSettings::path("CWS64.json");
 
 LauncherSettings::LauncherSettings(QWidget *parent) :
-    customFrame(customFrame::_REGULAR, parent),
+    customFrame(customFrame::Regular, parent),
     mainLayout(new QVBoxLayout(this)),
     blockGeneral(new customOptionBlock(this, CHAR2STR("通用"))),
     blockGeneralItemAppear(new customOptionBlockItem),
@@ -48,7 +48,7 @@ LauncherSettings::~LauncherSettings()
 
 void LauncherSettings::LauncherSetColorSchemeModeCall(Cell::ColorScheme mode)
 {
-    if(mode == Cell::ColorScheme::_BRIGHT){
+    if(mode == Cell::ColorScheme::Bright){
         btnBrightClicked();
     }else{
         btnDarkClicked();
@@ -229,12 +229,12 @@ void LauncherSettings::switchMultiClicked(bool checked)
 
 void LauncherSettings::btnBrightClicked()
 {
-    setColorScheme(Cell::ColorScheme::_BRIGHT);
-    emit enableColorScheme(Cell::ColorScheme::_BRIGHT);
+    setColorScheme(Cell::ColorScheme::Bright);
+    emit enableColorScheme(Cell::ColorScheme::Bright);
 }
 
 void LauncherSettings::btnDarkClicked()
 {
-    setColorScheme(Cell::ColorScheme::_DARK);
-    emit enableColorScheme(Cell::ColorScheme::_DARK);
+    setColorScheme(Cell::ColorScheme::Dark);
+    emit enableColorScheme(Cell::ColorScheme::Dark);
 }

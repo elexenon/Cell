@@ -41,7 +41,7 @@ private:
     QLabel             *iconRecentPJ;
     QLabel             *labelRecentPJ;
 
-    Cell::ColorScheme m_mode = Cell::ColorScheme::_BRIGHT;
+    Cell::ColorScheme m_mode = Cell::ColorScheme::Bright;
 
     void init();
     void setEventConnections();

@@ -13,7 +13,7 @@
 #include <QPropertyAnimation>
 
 customListButton::customListButton(QWidget *parent, const QString &text) :
-    customButton(customButton::CHECKABLE, parent)
+    customButton(customButton::Checkable, parent)
   , mainLayout(new QHBoxLayout(this))
   , tag(new customLabel(this))
 {

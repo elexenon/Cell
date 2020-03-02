@@ -6,6 +6,7 @@
 //
 // Of source file directory.
 #include "customLabel.h"
+#include "../../CellCore/Kits/CellUtility.h"
 
 customLabel::customLabel(QWidget *parent):
     QLabel(parent)

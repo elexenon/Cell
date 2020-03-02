@@ -13,7 +13,7 @@
 #include <QHBoxLayout>
 
 customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
-    customFrame(customFrame::_REGULAR, parent),
+    customFrame(customFrame::Regular, parent),
     mainLayout(new QVBoxLayout),
     mainBlockLayout(new QVBoxLayout),
     itemsList(new QList<customOptionBlockItem*>)
@@ -27,7 +27,7 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
 
     if(name != " ") addThemeTag(name);
 
-    mainBlock = new customFrame(customFrame::_RADIUS, this);
+    mainBlock = new customFrame(customFrame::Radius, this);
     mainBlock->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
     mainBlock->setLayout(mainBlockLayout);
 
@@ -61,7 +61,7 @@ void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLin
     setFixedHeight(blockHeight + 25);
 
     if(addSplitterLine){
-        QFrame *lineSplitter = CellUiGlobal::getLine(CellUiGlobal::LineType::HLine);
+        QFrame *lineSplitter = CellUiGlobal::getLine(Cell::LineType::HLine);
         QHBoxLayout *layout = new QHBoxLayout;
         layout->setContentsMargins(10, 0, 10, 0);
         layout->addWidget(lineSplitter);
@@ -80,9 +80,9 @@ void customOptionBlock::_tidyItems(int value)
 {
     for(auto & item : *itemsList)
         if(value == -1)
-            item->setMargin(customOptionBlockItem::_LEFT, (itemTagMaxLen-item->tagLen)*customOptionBlockItem::TagTextSize);
+            item->setMargin(customOptionBlockItem::Left, (itemTagMaxLen-item->tagLen)*customOptionBlockItem::TagTextSize);
         else
-            item->setMargin(customOptionBlockItem::_LEFT, (value-item->tagLen)*customOptionBlockItem::TagTextSize);
+            item->setMargin(customOptionBlockItem::Left, (value-item->tagLen)*customOptionBlockItem::TagTextSize);
 }
 
 void customOptionBlock::tidyItems(customOptionBlock *another)

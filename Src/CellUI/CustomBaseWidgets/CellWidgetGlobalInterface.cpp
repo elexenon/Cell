@@ -29,6 +29,6 @@ void CellWidgetGlobalInterface::setColorScheme(Cell::ColorScheme mode)
 {
     if(mode == m_mode) return;
     m_mode = mode;
-    const QColor targetColor = (mode == Cell::ColorScheme::_BRIGHT ? brightmodeColor : darkmodeColor);
+    const QColor targetColor = (mode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
     changeToColor(color(), targetColor, colorSchemeAnimiDuration);
 }

@@ -6,12 +6,13 @@
 #include "customTitleBar.h"
 #include "customLabel.h"
 #include "../../CellCore/CellNamespace.h"
+#include "../../CellCore/Kits/CellUtility.h"
 
 #include <QLabel>
 #include <QHBoxLayout>
 
 customTitleBar::customTitleBar(QWidget *parent):
-    customFrame(customFrame::_REGULAR, parent),
+    customFrame(customFrame::Regular, parent),
     mainLayout(new QHBoxLayout),
     label_title(new customLabel(this)),
     icon(new QLabel(this))

@@ -10,22 +10,22 @@
 
 customLineEdit::customLineEdit(QWidget *parent):
     QLineEdit(parent),
-    m_mode(CellUiGlobal::_DARK)
+    mMode(Cell::ColorScheme::Dark)
 {
     init();
 }
 
 void customLineEdit::init()
 {
-    setColorScheme(CellUiGlobal::_BRIGHT);
+    setColorScheme(Cell::ColorScheme::Bright);
     setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
 }
 
 void customLineEdit::setColorScheme(Cell::ColorScheme mode)
 {
-    if(mode == m_mode) return;
-    m_mode = mode;
-    const QString targetCss = (mode == CellUiGlobal::_BRIGHT ? "CustomLineEditBright.css"
+    if(mode == mMode) return;
+    mMode = mode;
+    const QString targetCss = (mode == Cell::ColorScheme::Bright ? "CustomLineEditBright.css"
                                                              : "CustomLineEditDark.css");
     CellUiGlobal::loader.setFileName(targetCss);
     setStyleSheet(CellUiGlobal::loader.content());

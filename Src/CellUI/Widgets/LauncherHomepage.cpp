@@ -40,12 +40,12 @@ LauncherHomepage::LauncherHomepage(QWidget *parent) :
 void LauncherHomepage::init()
 {
     // Set HLayout_Btns.
-    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeGridBtn_Bright.css"));
+    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeGridBtnBright.css"));
     btnGrid->setStyleSheet(CellUiGlobal::loader.content());
     btnGrid->setCheckable(true);
     btnGrid->setFixedSize(51,41);
 
-    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeListBtn_Bright.css"));
+    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeListBtnBright.css"));
     btnList->setStyleSheet(CellUiGlobal::loader.content());
     btnList->setCheckable(true);
     btnList->setFixedSize(51,41);
@@ -126,12 +126,12 @@ void LauncherHomepage::setColorScheme(Cell::ColorScheme mode)
     if(mode == m_mode) return;
     m_mode = mode;
 
-    const QString labelQss = (mode == CellUiGlobal::_BRIGHT ? "QLabel{background:transparent; color:rgb(70,70,70);}":
+    const QString labelQss = (mode == Cell::ColorScheme::Bright ? "QLabel{background:transparent; color:rgb(70,70,70);}":
                                                               "QLabel{background:transparent; color:white;}");
-    const QString gridQssFile =  (mode == CellUiGlobal::_BRIGHT ? "LauncherHomeGridBtn_Bright.css":
-                                                                  "LauncherHomeGridBtn_Dark.css");
-    const QString listQssFile =  (mode == CellUiGlobal::_BRIGHT ? "LauncherHomeListBtn_Bright.css":
-                                                                  "LauncherHomeListBtn_Dark.css");
+    const QString gridQssFile =  (mode == Cell::ColorScheme::Bright ? "LauncherHomeGridBtnBright.css":
+                                                                  "LauncherHomeGridBtnDark.css");
+    const QString listQssFile =  (mode == Cell::ColorScheme::Bright ? "LauncherHomeListBtnBright.css":
+                                                                  "LauncherHomeListBtnDark.css");
 
     CellUiGlobal::multiModulesOneStyleSheet({labelRecentPJ},labelQss);
     CellUiGlobal::loader.setFileName(gridQssFile);

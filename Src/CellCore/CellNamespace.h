@@ -52,4 +52,7 @@ namespace Cell{
     };
 }
 
+#include <QMetaType> // Q_DECLARE_METATYPE()
+Q_DECLARE_METATYPE(Cell::ColorScheme)
+
 #endif // CELLNAMESPACE_H

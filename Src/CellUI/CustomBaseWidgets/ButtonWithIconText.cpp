@@ -11,7 +11,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
-ButtonWithIconText::ButtonWithIconText(customButton::TYPE type, QWidget *parent):
+ButtonWithIconText::ButtonWithIconText(customButton::Type type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this)),

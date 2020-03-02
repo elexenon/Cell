@@ -15,14 +15,14 @@ class customGradientChangeFrame : public customFrame{
 public:
     explicit customGradientChangeFrame(const CellVariant &specialColor,QWidget *parent = nullptr);
     virtual ~customGradientChangeFrame() override = default;
-    enum GRADIENT_STATE{
-        _NORMAL,
-        _SPECIAL
+    enum State{
+        Normal,
+        Special
     };
-    void transCurrState(const GRADIENT_STATE &newState);
+    void transCurrState(const customGradientChangeFrame::State &newState);
 
 protected:
-    GRADIENT_STATE currState = GRADIENT_STATE::_NORMAL;
+    State currState = Normal;
     QColor mSpecialColor;
 
 public Q_SLOTS:

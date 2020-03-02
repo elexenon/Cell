@@ -6,7 +6,7 @@
 #ifndef CELLGLOBALWIDGET_H
 #define CELLGLOBALWIDGET_H
 
-#include "../../CellCore/Kits/CellUtility.h" // ColorScheme & CELL_GLOBALANIMATION
+#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/CellVariant.h"
 #include <QWidget>
 
@@ -26,8 +26,8 @@ public:
     void         setBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
 
 protected:
-    Cell::ColorScheme m_mode = Cell::ColorScheme::_BRIGHT;
-    int                        colorSchemeAnimiDuration = static_cast<int>(Cell::GlobalDuration);
+    Cell::ColorScheme m_mode = Cell::ColorScheme::Bright;
+    int                        colorSchemeAnimiDuration = static_cast<int>(Cell::AnimiDuration::GlobalDuration);
     QEasingCurve               easingCurve = QEasingCurve::InOutCubic;
     QColor                     m_color;
     QColor                     brightmodeColor;

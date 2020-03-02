@@ -14,7 +14,7 @@ class QHBoxLayout;
 class ButtonWithIcon : public customButton{
     Q_OBJECT
 public:
-    explicit ButtonWithIcon(TYPE type = STATIC,QWidget *parent = nullptr);
+    explicit ButtonWithIcon(customButton::Type type = Static,QWidget *parent = nullptr);
 
     void init(const QString& fileName, int iconWidth, int iconHeight);
 

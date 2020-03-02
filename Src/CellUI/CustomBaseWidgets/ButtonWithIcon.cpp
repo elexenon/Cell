@@ -4,11 +4,12 @@
 // version 3.0 as published by the free software foundation and appearing in
 // the file LICENSE included in the packaging of this file.
 #include "ButtonWithIcon.h"
+#include "../../CellCore/Kits/CellUtility.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
 
-ButtonWithIcon::ButtonWithIcon(customButton::TYPE type, QWidget *parent):
+ButtonWithIcon::ButtonWithIcon(customButton::Type type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this))

@@ -15,10 +15,10 @@ class customFrame : public QFrame, implements CellWidgetGlobalInterface
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
-    enum CUSTOMFRAME_TYPE{
-        _REGULAR, _RADIUS
+    enum CustomFrameType{
+        Regular, Radius
     };
-    explicit customFrame(CUSTOMFRAME_TYPE type, QWidget *parent = nullptr);
+    explicit customFrame(CustomFrameType type, QWidget *parent = nullptr);
     virtual ~customFrame() override = default;
 
 protected:
@@ -28,7 +28,7 @@ protected:
     virtual void setEventConnections() override;
 
 private:
-    CUSTOMFRAME_TYPE m_type;
+    CustomFrameType mType;
 
 public Q_SLOTS:
     virtual void setColorScheme(Cell::ColorScheme mode) override;

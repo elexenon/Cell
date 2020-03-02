@@ -5,6 +5,7 @@
 // the file LICENSE included in the packaging of this file.
 #include "../CustomBaseWidgets/customWinstyleWidget.h"
 #include "../../CellCore/Kits/WindWMAPI.h"
+#include "../../CellCore/Kits/CellUtility.h"
 
 customWinstyleWidget::customWinstyleWidget(QWidget *parent):
     QWidget(parent)

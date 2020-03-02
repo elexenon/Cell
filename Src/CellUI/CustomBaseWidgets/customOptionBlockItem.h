@@ -17,8 +17,8 @@ class customOptionBlockItem : public QWidget, implements CellWidgetGlobalInterfa
 friend class customOptionBlock;
     Q_OBJECT
 public:
-enum MARGIN_DIRE{
-    _LEFT, _RIGHT, _TOP, _BOTTOM
+enum MarginType{
+    Left, Right, Top, Bottom
 };
 static int TagTextSize;
     explicit customOptionBlockItem(QWidget *parent = nullptr, const QString& tag = " ");
@@ -29,7 +29,7 @@ static int TagTextSize;
     void           setOptionWidget(QWidget* widget);
     void           setHint(const QString& text);
     void           setMargins(int left, int top, int right, int bottom);
-    void           setMargin(MARGIN_DIRE direction, int margin);
+    void           setMargin(MarginType direction, int margin);
     void           setSpacing(int value);
     const QMargins getMargins();
 

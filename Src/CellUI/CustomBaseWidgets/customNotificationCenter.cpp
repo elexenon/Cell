@@ -4,11 +4,12 @@
 // version 3.0 as published by the free software foundation and appearing in
 // the file LICENSE included in the packaging of this file.
 #include "customNotificationCenter.h"
+#include "../../CellCore/Kits/CellUtility.h"
 
 #include <QLabel>
 
 notificationCenter::notificationCenter(QWidget *parent):
-    customGradientChangeFrame(Cell::NavyBlue,parent),
+    customGradientChangeFrame(Cell::CellThemeColor::NavyBlue,parent),
     workshop_instancesCount(0),
     label_ready(new QLabel(this)),
     label_identifi(new QLabel(this)),
@@ -36,8 +37,8 @@ void notificationCenter::init()
 
 void notificationCenter::plusCnt()
 {
-    if(currState != GRADIENT_STATE::_SPECIAL){
-        transCurrState(GRADIENT_STATE::_SPECIAL);
+    if(currState != customGradientChangeFrame::State::Special){
+        transCurrState(customGradientChangeFrame::State::Special);
         CellUiGlobal::setPropertyAnimation({animi},
                                          "pos",
                                          label_identifi->pos(),
@@ -46,9 +47,9 @@ void notificationCenter::plusCnt()
                                          QEasingCurve::InOutCubic,
                                          {label_identifi},nullptr);
         CellUiGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
-                                            label_ready,700,CellUiGlobal::FadeAnimiType::FadeOut);
+                                            label_ready,700,Cell::FadeAnimiType::FadeOut);
         CellUiGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
-                                            label_identifi,700,CellUiGlobal::FadeAnimiType::FadeIn);
+                                            label_identifi,700,Cell::FadeAnimiType::FadeIn);
         CellUiGlobal::setPropertyAnimation({label_ready_animi_move},
                                          "pos",
                                          label_ready->pos(),
@@ -66,7 +67,7 @@ void notificationCenter::plusCnt()
 void notificationCenter::minusCnt()
 {
     if(--workshop_instancesCount == 0){
-        transCurrState(GRADIENT_STATE::_NORMAL);
+        transCurrState(customGradientChangeFrame::State::Normal);
         CellUiGlobal::setPropertyAnimation({animi},
                                          "pos",
                                          label_identifi->pos(),
@@ -75,9 +76,9 @@ void notificationCenter::minusCnt()
                                          QEasingCurve::InOutCubic,
                                          {label_identifi},nullptr);
         CellUiGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
-                                            label_ready,700,CellUiGlobal::FadeAnimiType::FadeIn);
+                                            label_ready,700,Cell::FadeAnimiType::FadeIn);
         CellUiGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
-                                            label_identifi,700,CellUiGlobal::FadeAnimiType::FadeOut);
+                                            label_identifi,700,Cell::FadeAnimiType::FadeOut);
         CellUiGlobal::setPropertyAnimation({label_ready_animi_move},
                                          "pos",
                                          label_ready->pos(),

@@ -8,6 +8,8 @@
 #ifndef CELL_UTIL_H
 #define CELL_UTIL_H
 
+#include "../CellNamespace.h"
+
 namespace CellUiLiteral{
 extern const char* const  INSTANCE_IS_ON;
 extern const QString IMG_DIR;
@@ -48,10 +50,10 @@ extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,
                                     QPropertyAnimation *animi,
                                     QWidget *target,
                                     int duration,
-                                    CellUiGlobal::FadeAnimiType type);
+                                    Cell::FadeAnimiType type);
 //! Get A Line
 //! Which Is One Pixel Height OR WIDTH.
-extern QFrame* getLine(CellUiGlobal::LineType type);
+extern QFrame* getLine(Cell::LineType type);
 //! Get Font By Ordered Font Name.
 //! If The Font Cannot Be Found In
 //! Font Families Of Current Platform,
@@ -67,8 +69,5 @@ extern void    multiModulesOneStyleSheet(const QList<QWidget*> &modules, const Q
 //! For A Specific Target QLabel.
 extern void    setLabelPixmap(QLabel *label, const QString& fileName, int iconWidth, int iconHeight);
 } // namespace CellUiGlobal{
-
-#include <QMetaType> // Q_DECLARE_METATYPE()
-Q_DECLARE_METATYPE(Cell::ColorScheme)
 
 #endif

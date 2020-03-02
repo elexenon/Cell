@@ -15,7 +15,7 @@ class QLabel;
 class ButtonWithIconTextHint : public customButton{
     Q_OBJECT
 public:
-    explicit ButtonWithIconTextHint(TYPE type = STATIC,QWidget *parent = nullptr);
+    explicit ButtonWithIconTextHint(customButton::Type type = Static,QWidget *parent = nullptr);
 
     void init(const QString &fileName, int iconWidth, int iconHeight,
               const QString& text = "Button", int fontSize = 23, const QString& hint = "hint");

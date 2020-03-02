@@ -44,7 +44,7 @@ Workshop::Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent) :
     mainLayout(new QVBoxLayout(this)),
     loadingDialog(new WSLoadingDialog),
     menuBar(new QMenuBar(this)),
-    leftBlock(new customFrame(customFrame::_REGULAR, this)),
+    leftBlock(new customFrame(customFrame::Regular, this)),
     leftStackedWidget(new QStackedWidget(leftBlock)),
     btnDirectory(new QPushButton(this)),
     btnWarning(new QPushButton(this)),
@@ -52,9 +52,9 @@ Workshop::Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent) :
     treeView(new QTreeView(leftBlock)),
     fileModel(new QFileSystemModel(this)),
     mainEditor(new QsciScintilla(this)),
-    rightBlock(new customFrame(customFrame::_REGULAR, this)),
-    statusBar(new customFrame(customFrame::_REGULAR, this)),
-    textChangetoken(new customGradientChangeFrame(Cell::NavyBlue ,statusBar)),
+    rightBlock(new customFrame(customFrame::Regular, this)),
+    statusBar(new customFrame(customFrame::Regular, this)),
+    textChangetoken(new customGradientChangeFrame(Cell::CellThemeColor::NavyBlue ,statusBar)),
     labelCntRow(new QLabel(statusBar)),
     labelCntChar(new QLabel(statusBar)),
     labelFormat(new QLabel(statusBar)),
@@ -124,7 +124,7 @@ void Workshop::init()
     // Set LeftBlock.
     leftBlock->setMinimumWidth(300);
     QVBoxLayout *leftBlockLayout = new QVBoxLayout(leftBlock);
-    customFrame *topBtnsFrame = new customFrame(customFrame::_REGULAR,leftBlock);
+    customFrame *topBtnsFrame = new customFrame(customFrame::Regular,leftBlock);
     topBtnsFrame->setFixedHeight(27);
 
     QHBoxLayout *HLayout = new QHBoxLayout(topBtnsFrame);
@@ -182,7 +182,7 @@ void Workshop::init()
     rightBlock->setLayout(rightBlockLayout);
 
     // Set StatusBar.
-    textChangetoken->setBrightDarkModeColor(Cell::pureGreen, Cell::CGL45);
+    textChangetoken->setBrightDarkModeColor(Cell::CellThemeColor::pureGreen, Cell::CGL45);
     textChangetoken->setFixedSize(23, 15);
 
     statusBar->setFixedHeight(25);
@@ -265,7 +265,7 @@ void Workshop::initMainEditor()
     mainEditor->setFrameShape(QFrame::NoFrame);
     mainEditor->setFont(CellUiGlobal::getFont(CHAR2STR("Courier New"), 14));
 
-    mainEditor->setCaretLineBackgroundColor(CellVariant(Cell::yellowGreen).toColor());
+    mainEditor->setCaretLineBackgroundColor(CellVariant(Cell::CellThemeColor::yellowGreen).toColor());
     mainEditor->setAutoCompletionCaseSensitivity(false);
     mainEditor->setAutoCompletionThreshold(3);
     mainEditor->setAutoCompletionSource(QsciScintilla::AcsAll);

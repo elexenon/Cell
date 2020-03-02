@@ -10,7 +10,7 @@
 
 #include <QVBoxLayout>
 
-ButtonWithText::ButtonWithText(customButton::TYPE type, QWidget *parent):
+ButtonWithText::ButtonWithText(customButton::Type type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QVBoxLayout(this)),
     tag(new customLabel(this))

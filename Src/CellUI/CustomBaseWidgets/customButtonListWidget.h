@@ -7,7 +7,7 @@
 #define CUSTOMBUTTONLISTWIDGET_H
 
 #include "customFrame.h"
-#include "../../CellCore/Kits/CellUtility.h" // ColorScheme
+#include "../../CellCore/CellNamespace.h"
 
 class customListButton;
 class QVBoxLayout;

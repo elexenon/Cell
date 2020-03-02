@@ -13,9 +13,9 @@
 #include <QHBoxLayout>
 
 customDialogButton::customDialogButton(const QString &state, QWidget *parent):
-    customFrame(customFrame::_RADIUS, parent),
+    customFrame(customFrame::Radius, parent),
     currState(new customLabel(this)),
-    trigger(new ButtonWithIcon(customButton::DYNAMIC_RADIUS, this)),
+    trigger(new ButtonWithIcon(customButton::DynamicRadius, this)),
     mainLayout(new QHBoxLayout(this))
 {
     setFixedHeight(30);

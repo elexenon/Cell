@@ -6,12 +6,13 @@
 //
 // Of source file directory.
 #include "customFrame.h"
+#include "../../CellCore/Kits/CellUtility.h"
 
 #include <QDebug>
 
-customFrame::customFrame(CUSTOMFRAME_TYPE type, QWidget *parent):
+customFrame::customFrame(CustomFrameType type, QWidget *parent):
     QFrame(parent),
-    m_type(type)
+    mType(type)
 {
     setBaseQss("");
 }
@@ -26,7 +27,7 @@ void customFrame::setBaseQss(const QString& qss)
 {
     (void)qss;
     setObjectName(CHAR2STR("customFrameRadius"));
-    QString qssFileName = (m_type == CUSTOMFRAME_TYPE::_REGULAR ? "CustomFrame.css" : "CustomFrameRadius.css");
+    QString qssFileName = (mType == CustomFrameType::Regular ? "CustomFrame.css" : "CustomFrameRadius.css");
 
     CellUiGlobal::loader.setFileName(qssFileName);
     CellWidgetGlobalInterface::setBaseQss(CellUiGlobal::loader.content());

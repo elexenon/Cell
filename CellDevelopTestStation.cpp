@@ -104,21 +104,21 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     block1->addItem(item10);
     block1->tidyItems();
 
-    ButtonWithText *btn1 = new ButtonWithText(customButton::TYPE::STATIC_RADIUS, this);
+    ButtonWithText *btn1 = new ButtonWithText(customButton::Type::StaticRadius, this);
     btn1->setBrightModeHoverColor(Cell::CGL218);
     btn1->setDarkModeHoverColor(Cell::CGL130);
     btn1->setBrightDarkModeColor(Cell::CGL247, Cell::CGL180);
     btn1->init("customTextButton");
     btn1->setFixedSize(200, 81);
 
-    ButtonWithIcon *btn2 = new ButtonWithIcon(customButton::TYPE::CHECKABLE_RADIUS, this);
+    ButtonWithIcon *btn2 = new ButtonWithIcon(customButton::Type::CheckableRadius, this);
     btn2->setBrightModeCheckedColor(Cell::CGL130);
     btn2->setDarkModeHoveringColor(Cell::CGL180);
     btn2->setBrightDarkModeColor(Cell::CGL247, Cell::CGL180);
     btn2->init(CHAR2STR("cellLogo32"), 32, 32);
     btn2->setFixedSize(200, 81);
 
-    ButtonWithIconText *btn3 = new ButtonWithIconText(customButton::TYPE::DYNAMIC_RADIUS, this);
+    ButtonWithIconText *btn3 = new ButtonWithIconText(customButton::Type::DynamicRadius, this);
     btn3->setBrightModeHoveringColor(Cell::CGL255);
     btn3->setDarkModeHoveringColor(Cell::CGL255);
     btn3->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
@@ -126,7 +126,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     btn3->init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("带图标和文字的Button"));
     btn3->setFixedSize(250, 81);
 
-    ButtonWithIconTextHint *btn4 = new ButtonWithIconTextHint(customButton::TYPE::CHECKABLE_RADIUS, this);
+    ButtonWithIconTextHint *btn4 = new ButtonWithIconTextHint(customButton::Type::CheckableRadius, this);
     btn4->setBrightModeCheckedColor(Cell::CGL130);
     btn4->setDarkModeCheckedColor(Cell::CGL180);
     btn4->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);

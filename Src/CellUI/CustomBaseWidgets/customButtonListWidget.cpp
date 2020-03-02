@@ -6,6 +6,7 @@
 #include "../CustomBaseWidgets/customButtonListWidget.h"
 #include "../CustomBaseWidgets/customListButton.h"
 #include "../CustomBaseWidgets/customLabel.h"
+#include "../../CellCore/Kits/CellUtility.h"
 #include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellGlobalMacros.h"
 
@@ -14,7 +15,7 @@
 #include <QButtonGroup>
 
 customButtonListWidget::customButtonListWidget(QWidget *parent) :
-    customFrame(customFrame::_REGULAR, parent)
+    customFrame(customFrame::Regular, parent)
   , mainLayout(new QVBoxLayout(this))
   , buttons(new QList<customListButton*>)
   , btnGroup(new QButtonGroup(this))
@@ -99,7 +100,7 @@ void customButtonListWidget::addThemeHead(const QString& theme)
     label_theme = new customLabel(this);
     CellUiGlobal::setCustomTextLabel(label_theme, CHAR2STR("Microsoft YaHei UI"), 15, theme);
     label_theme->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
-    line_splitter = CellUiGlobal::getLine(CellUiGlobal::LineType::HLine);
+    line_splitter = CellUiGlobal::getLine(Cell::LineType::HLine);
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(label_theme);
     layout->addStretch();

@@ -20,16 +20,16 @@ CellVariant::CellVariant(Cell::CellThemeColor type)
     mData.reset(new Data);
     mData.get()->color = new QColor;
     switch(type){
-    case Cell::pureGreen:
+    case Cell::CellThemeColor::pureGreen:
         mData.get()->color->setRgb(0, 255, 0);
         break;
-    case Cell::NavyBlue:
+    case Cell::CellThemeColor::NavyBlue:
         mData.get()->color->setRgb(79, 147, 184);
         break;
-    case Cell::ExitRed:
+    case Cell::CellThemeColor::ExitRed:
         mData.get()->color->setRgb(220, 20, 60);
         break;
-    case Cell::yellowGreen:
+    case Cell::CellThemeColor::yellowGreen:
         mData.get()->color->setRgb(228, 246, 212);
     }
 }

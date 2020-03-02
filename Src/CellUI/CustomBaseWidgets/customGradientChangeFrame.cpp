@@ -17,7 +17,7 @@ void customGradientChangeFrame::transCurrState(const customGradientChangeFrame::
     if(newState == currState) return;
     currState = newState;
     const QColor targetColor = (newState == GRADIENT_STATE::_SPECIAL ? mSpecialColor :
-                                (m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor));
+                                (m_mode == Cell::ColorScheme::_BRIGHT ? brightmodeColor : darkmodeColor));
     CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                      color(),
@@ -27,16 +27,16 @@ void customGradientChangeFrame::transCurrState(const customGradientChangeFrame::
     {this},nullptr);
 }
 
-void customGradientChangeFrame::setColorScheme(CellUiGlobal::COLOR_SCHEME mode){
+void customGradientChangeFrame::setColorScheme(Cell::ColorScheme mode){
     if(mode == m_mode) return;
     m_mode = mode;
     if(currState == GRADIENT_STATE::_SPECIAL) return;
-    const QColor targetColor = (mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT ? brightmodeColor : darkmodeColor);
+    const QColor targetColor = (mode == Cell::ColorScheme::_BRIGHT ? brightmodeColor : darkmodeColor);
     CellUiGlobal::setPropertyAnimation({animi},
                                      "color",
                                       color(),
                                       targetColor,
-                                      CellUiGlobal::CELL_GLOBALANIMIDURATION,
+                                      static_cast<int>(Cell::GlobalDuration),
                                       QEasingCurve::InOutCubic,
                                       {this}, nullptr);
 }

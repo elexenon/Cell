@@ -26,23 +26,7 @@ class QLabel;
 
 namespace CellUiGlobal{
 extern textFileLoader& loader;
-enum FADE_TYPE{
-    _IN,
-    _OUT
-};
-enum COLOR_SCHEME{
-    _BRIGHT,
-    _DARK
-};
-enum LINE_TYPE{
-    HLine = 0x0004,
-    VLine = 0x0005,
-};
 
-enum ANIMIDURATION{
-    CELL_GLOBALANIMIDURATION = 700,
-    CELL_GLOBALPAGESWITCHDURATION = 300
-};
 //! Set The Same Drop Shadow
 //! Effect For Multi Widgets.
 extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> &&animis,
@@ -64,10 +48,10 @@ extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,
                                     QPropertyAnimation *animi,
                                     QWidget *target,
                                     int duration,
-                                    CellUiGlobal::FADE_TYPE type);
+                                    CellUiGlobal::FadeAnimiType type);
 //! Get A Line
 //! Which Is One Pixel Height OR WIDTH.
-extern QFrame* getLine(CellUiGlobal::LINE_TYPE type);
+extern QFrame* getLine(CellUiGlobal::LineType type);
 //! Get Font By Ordered Font Name.
 //! If The Font Cannot Be Found In
 //! Font Families Of Current Platform,
@@ -85,6 +69,6 @@ extern void    setLabelPixmap(QLabel *label, const QString& fileName, int iconWi
 } // namespace CellUiGlobal{
 
 #include <QMetaType> // Q_DECLARE_METATYPE()
-Q_DECLARE_METATYPE(CellUiGlobal::COLOR_SCHEME)
+Q_DECLARE_METATYPE(Cell::ColorScheme)
 
 #endif

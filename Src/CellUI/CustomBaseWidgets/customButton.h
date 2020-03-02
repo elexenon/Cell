@@ -28,11 +28,11 @@ protected:
     virtual void changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
 
 private:
-    void setAnimiStartEndColor(CellUiGlobal::COLOR_SCHEME mode, QColor&, QColor&);
+    void setAnimiStartEndColor(Cell::ColorScheme mode, QColor&, QColor&);
     TYPE type;
 
 public Q_SLOTS:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
 
 CheckablePublic:
     void setBrightModeCheckedColor(const CellVariant &color);

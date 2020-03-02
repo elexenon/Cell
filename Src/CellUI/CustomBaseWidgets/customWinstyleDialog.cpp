@@ -43,7 +43,7 @@ void customWinstyleDialog::LoadWinStyle(QWidget *obj)
     WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
 }
 
-void customWinstyleDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void customWinstyleDialog::setColorScheme(Cell::ColorScheme mode)
 {
     CellWidgetGlobalInterface::setColorScheme(mode);
 }

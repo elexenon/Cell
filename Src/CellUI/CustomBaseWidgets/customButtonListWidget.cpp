@@ -99,7 +99,7 @@ void customButtonListWidget::addThemeHead(const QString& theme)
     label_theme = new customLabel(this);
     CellUiGlobal::setCustomTextLabel(label_theme, CHAR2STR("Microsoft YaHei UI"), 15, theme);
     label_theme->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
-    line_splitter = CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine);
+    line_splitter = CellUiGlobal::getLine(CellUiGlobal::LineType::HLine);
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(label_theme);
     layout->addStretch();
@@ -117,7 +117,7 @@ void customButtonListWidget::init()
     btnGroup->setExclusive(true);
 }
 
-void customButtonListWidget::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void customButtonListWidget::setColorScheme(Cell::ColorScheme mode)
 {
     customFrame::setColorScheme(mode);
     if(label_theme!=nullptr)

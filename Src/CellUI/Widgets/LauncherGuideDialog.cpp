@@ -124,7 +124,7 @@ void LauncherGuideDialog::showEvent(QShowEvent *e)
     this->setWindowOpacity(1);
 }
 
-void LauncherGuideDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void LauncherGuideDialog::setColorScheme(Cell::ColorScheme mode)
 {
     customWinstyleDialog::setColorScheme(mode);
 }

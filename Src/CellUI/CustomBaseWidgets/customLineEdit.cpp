@@ -21,7 +21,7 @@ void customLineEdit::init()
     setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
 }
 
-void customLineEdit::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void customLineEdit::setColorScheme(Cell::ColorScheme mode)
 {
     if(mode == m_mode) return;
     m_mode = mode;

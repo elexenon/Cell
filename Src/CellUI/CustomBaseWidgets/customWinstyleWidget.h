@@ -34,6 +34,6 @@ protected:
     bool   m_move; 
 
 public Q_SLOTS:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
 };
 #endif // CELLWINSTYLEINTERFACE_H

@@ -9,7 +9,7 @@
 #define Launcher_H
 
 #include "../CustomBaseWidgets/customWinstyleWidget.h"
-#include "../../CellCore/Kits/CellUtility.h"   // COLOR_SCHEME & FADE_TYPE
+#include "../../CellCore/Kits/CellUtility.h"   // ColorScheme & FadeAnimiType
 #include "../../CellCore/CellProjectEntity.h"
 
 class LauncherGuideDialog;
@@ -74,7 +74,7 @@ private:
     PAGE_TYPE currentPage;
 
 protected:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
 
 private Q_SLOTS:
     void btnMiniClicked();

@@ -46,9 +46,9 @@ void notificationCenter::plusCnt()
                                          QEasingCurve::InOutCubic,
                                          {label_identifi},nullptr);
         CellUiGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
-                                            label_ready,700,CellUiGlobal::FADE_TYPE::_OUT);
+                                            label_ready,700,CellUiGlobal::FadeAnimiType::FadeOut);
         CellUiGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
-                                            label_identifi,700,CellUiGlobal::FADE_TYPE::_IN);
+                                            label_identifi,700,CellUiGlobal::FadeAnimiType::FadeIn);
         CellUiGlobal::setPropertyAnimation({label_ready_animi_move},
                                          "pos",
                                          label_ready->pos(),
@@ -75,9 +75,9 @@ void notificationCenter::minusCnt()
                                          QEasingCurve::InOutCubic,
                                          {label_identifi},nullptr);
         CellUiGlobal::setFadeInOrOutAnimation(eff,label_ready_animi,
-                                            label_ready,700,CellUiGlobal::FADE_TYPE::_IN);
+                                            label_ready,700,CellUiGlobal::FadeAnimiType::FadeIn);
         CellUiGlobal::setFadeInOrOutAnimation(eff2,label_iden_animi,
-                                            label_identifi,700,CellUiGlobal::FADE_TYPE::_OUT);
+                                            label_identifi,700,CellUiGlobal::FadeAnimiType::FadeOut);
         CellUiGlobal::setPropertyAnimation({label_ready_animi_move},
                                          "pos",
                                          label_ready->pos(),

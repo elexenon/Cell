@@ -48,7 +48,7 @@ void customFrame::setEventConnections()
 
 }
 
-void customFrame::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void customFrame::setColorScheme(Cell::ColorScheme mode)
 {
     CellWidgetGlobalInterface::setColorScheme(mode);
 }

@@ -39,7 +39,7 @@
 #include "WSLoadingDialog.h"
 #include "WorkShop.h"
 
-Workshop::Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent) :
+Workshop::Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent) :
     QWidget(parent),
     mainLayout(new QVBoxLayout(this)),
     loadingDialog(new WSLoadingDialog),
@@ -168,7 +168,7 @@ void Workshop::init()
     leftBlockLayout->setMargin(0);
     leftBlockLayout->setSpacing(0);
     leftBlockLayout->addWidget(topBtnsFrame);
-    leftBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
+    leftBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::HLine));
     leftBlockLayout->addWidget(leftStackedWidget);
     leftBlock->setLayout(leftBlockLayout);
 
@@ -177,7 +177,7 @@ void Workshop::init()
     QVBoxLayout *rightBlockLayout = new QVBoxLayout(rightBlock);
     rightBlockLayout->setMargin(0);
     rightBlockLayout->addStretch(1);
-    rightBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
+    rightBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::HLine));
     rightBlockLayout->addStretch(25);
     rightBlock->setLayout(rightBlockLayout);
 
@@ -230,9 +230,9 @@ void Workshop::init()
     mainLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(menuBar);
-    mainLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
+    mainLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::HLine));
     mainLayout->addWidget(splitter);
-    mainLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine));
+    mainLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::HLine));
     mainLayout->addWidget(statusBar);
 }
 
@@ -304,7 +304,7 @@ void Workshop::getProjectEntity(CellProjectEntity &entity)
     treeView->setRootIndex(fileModel->index(currEntity.path()));
 }
 
-void Workshop::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void Workshop::setColorScheme(Cell::ColorScheme mode)
 {
     CellWidgetGlobalInterface::setColorScheme(mode);
 }

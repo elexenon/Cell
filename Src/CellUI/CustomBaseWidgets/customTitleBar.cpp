@@ -77,7 +77,7 @@ void customTitleBar::addLayout(QLayout *obj)
     mainLayout->addLayout(obj);
 }
 
-void customTitleBar::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void customTitleBar::setColorScheme(Cell::ColorScheme mode)
 {
     customFrame::setColorScheme(mode);
     label_title->setColorScheme(mode);

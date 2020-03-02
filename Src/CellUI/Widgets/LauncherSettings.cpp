@@ -46,9 +46,9 @@ LauncherSettings::~LauncherSettings()
     saveFile();
 }
 
-void LauncherSettings::LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode)
+void LauncherSettings::LauncherSetColorSchemeModeCall(Cell::ColorScheme mode)
 {
-    if(mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
+    if(mode == Cell::ColorScheme::_BRIGHT){
         btnBrightClicked();
     }else{
         btnDarkClicked();
@@ -103,7 +103,7 @@ void LauncherSettings::init()
     setEventConnections();
 }
 
-void LauncherSettings::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void LauncherSettings::setColorScheme(Cell::ColorScheme mode)
 {
     customFrame::setColorScheme(mode);
 }
@@ -229,12 +229,12 @@ void LauncherSettings::switchMultiClicked(bool checked)
 
 void LauncherSettings::btnBrightClicked()
 {
-    setColorScheme(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
-    emit enableColorScheme(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
+    setColorScheme(Cell::ColorScheme::_BRIGHT);
+    emit enableColorScheme(Cell::ColorScheme::_BRIGHT);
 }
 
 void LauncherSettings::btnDarkClicked()
 {
-    setColorScheme(CellUiGlobal::COLOR_SCHEME::_DARK);
-    emit enableColorScheme(CellUiGlobal::COLOR_SCHEME::_DARK);
+    setColorScheme(Cell::ColorScheme::_DARK);
+    emit enableColorScheme(Cell::ColorScheme::_DARK);
 }

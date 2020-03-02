@@ -11,7 +11,7 @@
 #include <QWidget>
 #include "../../CellCore/Kits/CellGlobalMacros.h"
 #include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
-#include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
+#include "../../CellCore/Kits/CellUtility.h" // ColorScheme
 #include "../../CellCore/CellProjectEntity.h"
 
 class WSLoadingDialog;
@@ -36,7 +36,7 @@ friend class Launcher;
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-    explicit Workshop(CellUiGlobal::COLOR_SCHEME mainWindow_mode, QWidget *parent = nullptr);
+    explicit Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent = nullptr);
     ~Workshop() = default;
 
 public:
@@ -92,7 +92,7 @@ signals:
     void projectUpdate(CellProjectEntity &entity);
 
 private Q_SLOTS:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
     void         updateStatusBar();
     void         loadFile(const QString &path);
     void         saveFile();

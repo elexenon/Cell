@@ -61,7 +61,7 @@ void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLin
     setFixedHeight(blockHeight + 25);
 
     if(addSplitterLine){
-        QFrame *lineSplitter = CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::HLine);
+        QFrame *lineSplitter = CellUiGlobal::getLine(CellUiGlobal::LineType::HLine);
         QHBoxLayout *layout = new QHBoxLayout;
         layout->setContentsMargins(10, 0, 10, 0);
         layout->addWidget(lineSplitter);

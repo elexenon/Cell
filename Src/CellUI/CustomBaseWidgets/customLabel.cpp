@@ -36,7 +36,7 @@ void customLabel::changeToColor(const QColor &startColor, const QColor &targetCo
                                       {this}, nullptr);
 }
 
-void customLabel::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void customLabel::setColorScheme(Cell::ColorScheme mode)
 {
     CellWidgetGlobalInterface::setColorScheme(mode);
 }

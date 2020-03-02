@@ -8,7 +8,7 @@
 #ifndef LauncherGuideDialog_H
 #define LauncherGuideDialog_H
 
-#include "../../CellCore/Kits/CellUtility.h"    // COLOR_SCHEME
+#include "../../CellCore/Kits/CellUtility.h"    // ColorScheme
 #include "../CustomBaseWidgets/customWinstyleDialog.h"
 
 class customFrame;
@@ -48,7 +48,7 @@ signals:
     void clickedNewPJ();
 
 public Q_SLOTS:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
+    virtual void setColorScheme(Cell::ColorScheme) override;
 
 private Q_SLOTS:
     void         fade();

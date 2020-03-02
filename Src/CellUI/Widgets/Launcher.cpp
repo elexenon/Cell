@@ -188,12 +188,12 @@ void Launcher::initLauncher()
     guideDialog->hide();
 #ifdef AUTO_CHANGE
     QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && m_mode == CellUiGlobal::COLOR_SCHEME::_BRIGHT){
+    if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && m_mode == Cell::ColorScheme::_BRIGHT){
         btnListWidget->clickButton(1);
-        settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_DARK);
-    }else if(currentTime.hour() < 19 && m_mode == CellUiGlobal::COLOR_SCHEME::_DARK){
+        settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::_DARK);
+    }else if(currentTime.hour() < 19 && m_mode == Cell::ColorScheme::_DARK){
         btnListWidget->clickButton(1);
-        settingsPage->LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME::_BRIGHT);
+        settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::_BRIGHT);
     }
 #endif
 }
@@ -269,17 +269,17 @@ void Launcher::tabTestClicked()
 
 void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
 {
-    int duration = CellUiGlobal::CELL_GLOBALPAGESWITCHDURATION;
+    int duration = static_cast<int>(Cell::GlobalPageSwitchDuration);
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
         stackedWidget->setCurrentWidget(settingsPage);
         CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animi,
-                                       settingsPage,duration,CellUiGlobal::FADE_TYPE::_IN);
+                                       settingsPage,duration,CellUiGlobal::FadeAnimiType::FadeIn);
     }else{
         homePage->setWindowOpacity(0);
         stackedWidget->setCurrentWidget(homePage);
         CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animi,
-                                       homePage,duration,CellUiGlobal::FADE_TYPE::_IN);
+                                       homePage,duration,CellUiGlobal::FadeAnimiType::FadeIn);
     }
 }
 
@@ -288,7 +288,7 @@ void Launcher::btnNewClicked()
     newPJDialog = nullptr;
     if(newPJDialog == nullptr){
         newPJDialog = new LauncherNewPJDialog(m_mode, this);
-        connect(settingsPage, &LauncherSettings::enableColorScheme,newPJDialog, SLOT(setColorScheme(COLOR_SCHEME)));
+        connect(settingsPage, &LauncherSettings::enableColorScheme,newPJDialog, SLOT(setColorScheme(ColorScheme)));
         connect(newPJDialog, &LauncherNewPJDialog::projectSettled, this, &Launcher::launchWorkShop);
     }  
     newPJDialog->show();
@@ -312,7 +312,7 @@ void Launcher::_launcherWorkshop()
     workshop->show();
 }
 
-void Launcher::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void Launcher::setColorScheme(Cell::ColorScheme mode)
 {
     customWinstyleWidget::setColorScheme(mode);
 

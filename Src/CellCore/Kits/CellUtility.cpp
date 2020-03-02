@@ -78,9 +78,9 @@ void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qs
         e->setStyleSheet(qss);
 }
 void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,QPropertyAnimation *animi,QWidget *target,
-                             int duration, CellUiGlobal::FADE_TYPE type){
+                             int duration, CellUiGlobal::FadeAnimiType type){
     int startValue = 0, endValue = 1;
-    if(type == CellUiGlobal::FADE_TYPE::_OUT)
+    if(type == CellUiGlobal::FadeAnimiType::FadeOut)
         qSwap(startValue, endValue);
     eff = new QGraphicsOpacityEffect(target);
     eff->setOpacity(startValue);
@@ -88,9 +88,9 @@ void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,QPropertyAnimation *ani
     CellUiGlobal::setPropertyAnimation({animi}, "opacity", startValue, endValue, duration,
                          QEasingCurve::Linear, {nullptr}, eff);
 }
-QFrame* getLine(CellUiGlobal::LINE_TYPE type){
+QFrame* getLine(CellUiGlobal::LineType type){
     QFrame *tmp = new QFrame;
-    type == CellUiGlobal::LINE_TYPE::HLine ? tmp->setFixedHeight(1)
+    type == CellUiGlobal::LineType::HLine ? tmp->setFixedHeight(1)
                                            : tmp->setFixedWidth(1);
     tmp->setStyleSheet(CHAR2STR("QFrame{color:rgb(180,180,180);}"));
     tmp->setFrameShadow(QFrame::Plain);

@@ -121,7 +121,7 @@ void LauncherHomepage::initTableView()
     tableView->horizontalHeader()->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
 }
 
-void LauncherHomepage::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void LauncherHomepage::setColorScheme(Cell::ColorScheme mode)
 {
     if(mode == m_mode) return;
     m_mode = mode;

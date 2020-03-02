@@ -7,6 +7,26 @@
 #define CELLNAMESPACE_H
 
 namespace Cell{
+    enum class FadeAnimiType{
+        FadeIn,
+        FadeOut
+    };
+
+    enum class ColorScheme{
+        Bright,
+        Dark
+    };
+
+    enum LineType{
+        HLine = 0x0004,
+        VLine = 0x0005,
+    };
+
+    enum class AnimiDuration: int{
+        GlobalDuration = 700,
+        GlobalPageSwitchDuration = 300
+    };
+    
     enum CellGrayColor{
         CGL0 = 0,
         CGL30 = 30,
@@ -24,7 +44,7 @@ namespace Cell{
         CGL247 = 247,
         CGL255 = 255
     };
-    enum CellThemeColor{
+    enum class CellThemeColor{
         pureGreen,
         NavyBlue,
         ExitRed,

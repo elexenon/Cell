@@ -48,7 +48,7 @@ void customListButton::setText(QString &text)
     tag->setText(text);
 }
 
-void customListButton::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void customListButton::setColorScheme(Cell::ColorScheme mode)
 {
     customButton::setColorScheme(mode);
     tag->setColorScheme(mode);

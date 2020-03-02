@@ -11,7 +11,7 @@
 #define LauncherHomepage_H
 
 #include <QWidget>
-#include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
+#include "../../CellCore/Kits/CellUtility.h" // ColorScheme
 
 class QVBoxLayout;
 class QLabel;
@@ -41,7 +41,7 @@ private:
     QLabel             *iconRecentPJ;
     QLabel             *labelRecentPJ;
 
-    CellUiGlobal::COLOR_SCHEME m_mode = CellUiGlobal::COLOR_SCHEME::_BRIGHT;
+    Cell::ColorScheme m_mode = Cell::ColorScheme::_BRIGHT;
 
     void init();
     void setEventConnections();
@@ -50,7 +50,7 @@ private:
     bool tableExists(const char *tableName);
 
 public Q_SLOTS:
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    void setColorScheme(Cell::ColorScheme mode);
 
 private Q_SLOTS:
     void updateDatasByWS(CellProjectEntity &entity);

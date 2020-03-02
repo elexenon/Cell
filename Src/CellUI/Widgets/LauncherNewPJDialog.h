@@ -10,7 +10,7 @@
 
 #include <QDialog>
 
-#include "../../CellCore/Kits/CellUtility.h"    // COLOR_SCHEME
+#include "../../CellCore/Kits/CellUtility.h"    // ColorScheme
 #include "../CustomBaseWidgets/customWinstyleDialog.h"
 #include "../../CellCore/CellProjectEntity.h"
 
@@ -30,7 +30,7 @@ class LauncherNewPJDialog : public customWinstyleDialog
     Q_OBJECT
 
 public:
-    explicit LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,QWidget *parent = nullptr);
+    explicit LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *parent = nullptr);
     ~LauncherNewPJDialog();
 
 private:
@@ -57,7 +57,7 @@ private:
     virtual void setEventConnections() override;
 
 signals:
-    void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    void enableColorScheme(Cell::ColorScheme mode);
     void projectSettled(CellProjectEntity *entity);
 
 private Q_SLOTS:
@@ -68,7 +68,7 @@ private Q_SLOTS:
     void btnListWidget2Clicked(int id);
     void setName(const QString &name);
     void setPath(const QString &path);
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME) override;
+    virtual void setColorScheme(Cell::ColorScheme) override;
 };
 
 #endif // LAUNCHERNEWPJDIALOG_H

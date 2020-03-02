@@ -12,10 +12,10 @@ public:
 private:
     void init();
 
-    CellUiGlobal::COLOR_SCHEME m_mode;
+    Cell::ColorScheme m_mode;
 
 public Q_SLOTS:
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    void setColorScheme(Cell::ColorScheme mode);
 };
 
 #endif // CUSTOMLINEEDIT_H

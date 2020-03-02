@@ -7,7 +7,7 @@
 #define CUSTOMBUTTONLISTWIDGET_H
 
 #include "customFrame.h"
-#include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
+#include "../../CellCore/Kits/CellUtility.h" // ColorScheme
 
 class customListButton;
 class QVBoxLayout;
@@ -50,7 +50,7 @@ signals:
     void clicked(int id);
 
 public Q_SLOTS:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
 
 private Q_SLOTS:
     inline

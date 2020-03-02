@@ -11,7 +11,7 @@
 #define LauncherSettings_H
 
 #include "../CustomBaseWidgets/customFrame.h"
-#include "../../CellCore/Kits/CellUtility.h" // COLOR_SCHEME
+#include "../../CellCore/Kits/CellUtility.h" // ColorScheme
 
 namespace Ui {
 class LauncherSettings;
@@ -40,7 +40,7 @@ public:
     explicit LauncherSettings(QWidget *parent = nullptr);
     ~LauncherSettings();
 
-    void LauncherSetColorSchemeModeCall(CellUiGlobal::COLOR_SCHEME mode);
+    void LauncherSetColorSchemeModeCall(Cell::ColorScheme mode);
     inline
     void getLauncherPtr(Launcher *ptr) { launcherPtr = ptr; }
 
@@ -51,7 +51,7 @@ private:
     void loadFile();
     void saveFile();
     void read(const QJsonObject&);
-    void setColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    void setColorScheme(Cell::ColorScheme mode);
     void setEventConnections();
 
     QVBoxLayout *mainLayout;
@@ -79,7 +79,7 @@ private:
     QJsonObject settingsObj;
 
 signals:
-    void enableColorScheme(CellUiGlobal::COLOR_SCHEME mode);
+    void enableColorScheme(Cell::ColorScheme mode);
 
 private Q_SLOTS:
     void btnColorSchemeClicked();

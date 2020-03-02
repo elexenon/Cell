@@ -102,7 +102,7 @@ void customOptionBlockItem::changeToColor(const QColor &startColor, const QColor
     (void)duration;
 }
 
-void customOptionBlockItem::setColorScheme(CellUiGlobal::COLOR_SCHEME mode)
+void customOptionBlockItem::setColorScheme(Cell::ColorScheme mode)
 {
     tag->setColorScheme(mode);
     hint->setColorScheme(mode);

@@ -28,7 +28,7 @@ protected:
     virtual void setFont(const QFont &font);
 
 protected Q_SLOTS:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
 };
 
 #endif // CUSTOMLISTBUTTON_H

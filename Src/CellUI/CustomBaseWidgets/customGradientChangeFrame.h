@@ -26,7 +26,7 @@ protected:
     QColor mSpecialColor;
 
 public Q_SLOTS:
-    virtual void setColorScheme(CellUiGlobal::COLOR_SCHEME mode) override;
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
 };
 
 #endif // CUSTOMGRADIENTCHANGEFRAME_H

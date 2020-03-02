@@ -21,7 +21,7 @@
 #include <QTextStream>
 #define DEBUG
 
-LauncherNewPJDialog::LauncherNewPJDialog(CellUiGlobal::COLOR_SCHEME globalMode,QWidget *parent) :
+LauncherNewPJDialog::LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *parent) :
     customWinstyleDialog(parent),
     titleBar(new customTitleBar(this)),
     label_choose(new customLabel(this)),
@@ -118,7 +118,7 @@ void LauncherNewPJDialog::init()
 
     QHBoxLayout *HLayout = new QHBoxLayout;
     HLayout->addLayout(VLayout_left);
-    HLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LINE_TYPE::VLine));
+    HLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::VLine));
     HLayout->addWidget(stackedWidget);
     HLayout->setMargin(0);
     HLayout->setSpacing(0);
@@ -168,7 +168,7 @@ void LauncherNewPJDialog::setEventConnections()
     connect(btnConfirm, &QPushButton::clicked, this, &LauncherNewPJDialog::btnConfirmClicked);
 }
 
-void LauncherNewPJDialog::setColorScheme(CellUiGlobal::COLOR_SCHEME mode){
+void LauncherNewPJDialog::setColorScheme(Cell::ColorScheme mode){
     if(mode == m_mode) return;
     emit enableColorScheme(mode);
     customWinstyleDialog::setColorScheme(mode);

@@ -1,6 +1,45 @@
 #include "CellVariant.h"
 #include "Kits/CellGlobalMacros.h"
 
+template <typename Type>
+CellVariant<Type>::CellVariant() noexcept
+    :content(nullptr){}
+
+template <typename Type>
+CellVariant<Type>::CellVariant(const Type &value) noexcept
+    :content(new holder<Type>(value)){}
+
+template <typename Type>
+CellVariant<Type>::CellVariant(const CellVariant &other) noexcept
+    :content(other.content ? other.content->clone() : nullptr){}
+
+template <typename Type>
+CellVariant<Type>::~CellVariant() noexcept
+{
+    delete content;
+}
+
+template <typename Type>
+CellVariant& CellVariant<Type>::swap(CellVariant &rhs) noexcept
+{
+    std::swap(content, rhs.content);
+    return *this;
+}
+
+template <typename Type>
+CellVariant& CellVariant<Type>::operator=(const CellVariant &rhs)
+{
+    static_cast<CellVariant>(rhs).swap(*this);
+    return *this;
+}
+
+template <typename Type>
+Type* CellVariant<Type>::CellVariant_Cast(CellVariant *ptr){
+    return (ptr && ptr->type() == typeid(Type)) ?
+            &static_cast<CellVariant::holder<Type>*>(ptr->content)->held:
+            nullptr;
+}
+
 CellVariant::CellVariant(CellVariant &other):
     mType(other.mType)
 {
@@ -55,7 +94,7 @@ CellVariant &CellVariant::operator=(Cell::CellThemeColor value)
     return operator=(tmp);
 }
 
-CellVariant::~CellVariant()
+CellVariant::~CellVariant() noexcept
 {
     if(mType == Color && mData) delete mData.get()->color;
 }

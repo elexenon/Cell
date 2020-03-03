@@ -26,7 +26,7 @@ namespace Cell{
         GlobalDuration = 700,
         GlobalPageSwitchDuration = 300
     };
-    
+     
     enum CellGrayColor{
         CGL0 = 0,
         CGL30 = 30,

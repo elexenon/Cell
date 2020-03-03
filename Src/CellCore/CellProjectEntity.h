@@ -66,11 +66,11 @@ public:
 
     void write(QJsonObject &json);
 private:
-    QString               mName;
-    QString               mModifiedTime;
-    CellProjectEntityType mType = CellDeepLearning;
-    QString               mPath;
-    QString               mCode;
+    mutable QString               mName;
+    mutable QString               mModifiedTime;
+    mutable CellProjectEntityType mType = CellDeepLearning;
+    mutable QString               mPath;
+    mutable QString               mCode;
 };
 
 Q_DECLARE_METATYPE(CellProjectEntity);

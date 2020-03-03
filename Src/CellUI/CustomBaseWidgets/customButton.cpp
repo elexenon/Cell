@@ -7,9 +7,9 @@
 #include "../../CellCore/CellVariant.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
-customButton::customButton(customButton::Type type, QWidget *parent):
+customButton::customButton(int type, QWidget *parent):
     QPushButton(parent),
-    mType(type)
+    mType(static_cast<customButton::Type>(type))
 {
     setBaseQss("");
 }

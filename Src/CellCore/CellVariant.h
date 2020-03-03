@@ -7,8 +7,52 @@
 #define CELLVARIANT_H
 
 #include "CellNamespace.h"
+#include "holder.h"
 
 #include <memory>
+
+template <typename Type>
+class CellVariant{
+public:
+    CellVariant();
+    CellVariant(const Type&);
+    CellVariant(const CellVariant&)
+    ~CellVariant();
+
+public:
+    CellVariant& swap(CellVariant &rhs);
+    CellVariant& operator=(const CellVariant &rhs);
+    inline
+    bool empty() const noexcept{
+        return !content;
+    }
+    inline
+    const std::type_info& type() const{
+        return content ? content->type() : typeid(void);
+    }
+    inline static
+    const Type*  CellVariant_Cast(const CellVariant *ptr){
+        return CellVariant_Cast(const_cast<CellVariant*>(ptr));
+    }
+    static Type* CellVariant_Cast(CellVariant *ptr);
+    static Type  CellVariant_Cast(CellVariant &rhs);
+
+private:
+    placeholder *content;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class CellVariant{
 union Data{

@@ -28,11 +28,13 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
     if(name != " ") addThemeTag(name);
 
     mainBlock = new customFrame(customFrame::Radius, this);
-    mainBlock->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
+    mainBlock->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
     mainBlock->setLayout(mainBlockLayout);
 
     mainLayout->addWidget(mainBlock);
     setLayout(mainLayout);
+
+    _modules << mainBlock;
 }
 
 void customOptionBlock::addThemeTag(const QString &name)
@@ -47,6 +49,8 @@ void customOptionBlock::addThemeTag(const QString &name)
     themeTagLayout->setMargin(0);
 
     mainLayout->addLayout(themeTagLayout);
+
+    _modules << theme;
 }
 
 void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLine)
@@ -69,6 +73,8 @@ void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLin
         blockHeight += 1;
         setFixedHeight(blockHeight + 25);
     }
+
+    _modules << item;
 }
 
 void customOptionBlock::setMainBlockBrightDarkModeColor(const CellVariant b, const CellVariant d)
@@ -100,4 +106,9 @@ void customOptionBlock::tidyItems(customOptionBlock *another)
             _tidyItems(itemTagMaxLen);
         }
     }
+}
+
+void customOptionBlock::setColorScheme(Cell::ColorScheme mode)
+{
+    customFrame::setColorScheme(mode);
 }

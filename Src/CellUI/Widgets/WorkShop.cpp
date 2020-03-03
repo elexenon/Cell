@@ -168,7 +168,7 @@ void Workshop::init()
     leftBlockLayout->setMargin(0);
     leftBlockLayout->setSpacing(0);
     leftBlockLayout->addWidget(topBtnsFrame);
-    leftBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::HLine));
+    leftBlockLayout->addWidget(CellUiGlobal::getLine(Cell::LineType::HLine));
     leftBlockLayout->addWidget(leftStackedWidget);
     leftBlock->setLayout(leftBlockLayout);
 
@@ -177,11 +177,15 @@ void Workshop::init()
     QVBoxLayout *rightBlockLayout = new QVBoxLayout(rightBlock);
     rightBlockLayout->setMargin(0);
     rightBlockLayout->addStretch(1);
-    rightBlockLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::HLine));
+    rightBlockLayout->addWidget(CellUiGlobal::getLine(Cell::LineType::HLine));
     rightBlockLayout->addStretch(25);
     rightBlock->setLayout(rightBlockLayout);
 
     // Set StatusBar.
+    CellUiGlobal::setCustomTextLabel(labelCntRow,  CHAR2STR("Microsoft YaHei UI Light"), 12, CHAR2STR("Row: 0"));
+    CellUiGlobal::setCustomTextLabel(labelCntChar, CHAR2STR("Microsoft YaHei UI Light"), 12, CHAR2STR("Characters: 0"));
+    CellUiGlobal::setCustomTextLabel(labelFormat,  CHAR2STR("Microsoft YaHei UI Light"), 12, CHAR2STR("UTF-8"));
+
     textChangetoken->setBrightDarkModeColor(Cell::CellThemeColor::pureGreen, Cell::CGL45);
     textChangetoken->setFixedSize(23, 15);
 
@@ -197,19 +201,6 @@ void Workshop::init()
     HLayoutStatusBar->addWidget(labelFormat);
     HLayoutStatusBar->addWidget(textChangetoken);
     statusBar->setLayout(HLayoutStatusBar);
-
-    // Set Labels Of StatusBar.
-    labelCntRow->move(370, 0);
-    labelCntRow->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
-    labelCntRow->setText(CHAR2STR("Row: 0"));
-
-    labelCntChar->move(450, 0);
-    labelCntChar->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
-    labelCntChar->setText(CHAR2STR("Char: 0"));
-
-    labelFormat->move(1030 - labelFormat->width(), 0);
-    labelFormat->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
-    labelFormat->setText(CHAR2STR("Format: UTF-8"));
 
     // Two Blocks.
     CellUiGlobal::multiModulesOneStyleSheet({leftBlock, rightBlock},
@@ -230,16 +221,16 @@ void Workshop::init()
     mainLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(menuBar);
-    mainLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::HLine));
+    mainLayout->addWidget(CellUiGlobal::getLine(Cell::LineType::HLine));
     mainLayout->addWidget(splitter);
-    mainLayout->addWidget(CellUiGlobal::getLine(CellUiGlobal::LineType::HLine));
+    mainLayout->addWidget(CellUiGlobal::getLine(Cell::LineType::HLine));
     mainLayout->addWidget(statusBar);
 }
 
 void Workshop::setEventConnections()
 {
+    connect(ctrlS, &QShortcut::activated, this, &Workshop::saveFile);
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(updateStatusBar()));
-    connect(ctrlS, SIGNAL(activated()), this, SLOT(saveFile()));
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(checkCodeModifiedState()));
 }
 
@@ -356,7 +347,7 @@ void Workshop::saveFile()
 {
     if(!codeModified) return;
     codePrev = codeCurr;
-    textChangetoken->transCurrState(customGradientChangeFrame::_NORMAL);
+    textChangetoken->transCurrState(customGradientChangeFrame::Normal);
 
     currEntity.setCode(codeCurr);
 
@@ -384,8 +375,8 @@ void Workshop::checkCodeModifiedState()
     codePrev == (codeCurr = mainEditor->text()) ?
     codeModified = false : codeModified = true;
     codeModified ?
-        textChangetoken->transCurrState(customGradientChangeFrame::_SPECIAL):
-        textChangetoken->transCurrState(customGradientChangeFrame::_NORMAL);
+        textChangetoken->transCurrState(customGradientChangeFrame::Special):
+        textChangetoken->transCurrState(customGradientChangeFrame::Normal);
 }
 
 void Workshop::setColor(const QColor& color)

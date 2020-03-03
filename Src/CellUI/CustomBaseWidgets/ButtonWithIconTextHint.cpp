@@ -25,6 +25,8 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::Type type, QWidget 
     tag->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
     hint->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
 
+    _modules << tag << hint;
+
     QVBoxLayout *VLayoutIcon = new QVBoxLayout;
     VLayoutIcon->setMargin(0);
     VLayoutIcon->addWidget(icon);

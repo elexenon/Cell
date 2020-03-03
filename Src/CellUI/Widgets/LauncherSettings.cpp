@@ -67,14 +67,14 @@ void LauncherSettings::init()
 
     switchMulti->setChecked(true);
     // ComboBox Appear Combination
-    dBtnAppear->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    dBtnAppear->setBrightDarkModeColor(Cell::CGL247, Cell::CGL100);
     dBtnAppear->setFixedWidth(200);
     // ComboBox Lan Combination.
-    dBtnLan->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    dBtnLan->setBrightDarkModeColor(Cell::CGL247, Cell::CGL100);
     dBtnLan->setFixedWidth(200);
 
     // OptionBlock General Combination.
-    blockGeneral->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    blockGeneral->setBrightDarkModeColor(Cell::CGL247, Cell::CGL45);
     // Item Appear Combination.
     blockGeneralItemAppear->setTag("外观");
     blockGeneralItemAppear->setOptionWidget(dBtnAppear);
@@ -92,13 +92,18 @@ void LauncherSettings::init()
     blockGeneral->addItem(blockGeneralItemLan);
 
     // OptionBlock Workshop Combination.
-    blockWorkshop->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    blockWorkshop->setBrightDarkModeColor(Cell::CGL247, Cell::CGL45);
     // Item Multi Combination.
     blockWorkshopItemMulti->setTag("多实例");
     blockWorkshopItemMulti->setOptionWidget(switchMulti);
     blockWorkshopItemMulti->setHint("允许多个Workshop实例同时存在");
     blockWorkshop->addItem(blockWorkshopItemMulti);
     blockWorkshop->tidyItems(blockGeneral);
+
+    _modules << dBtnAppear << dBtnLan
+             << blockGeneral
+             << blockGeneralItemAuto
+             << blockWorkshop;
 
     setEventConnections();
 }

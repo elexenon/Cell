@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     */
     // This operation is to register our custom property "ColorScheme".
     qRegisterMetaType<Cell::ColorScheme>("ColorScheme");
+    qRegisterMetaType<Cell::ColorScheme>("ColorScheme&");
 
     QPixmap pixmap(CellUiLiteral::IMG_DIR + QStringLiteral("cellSplashScreen.png"));
 

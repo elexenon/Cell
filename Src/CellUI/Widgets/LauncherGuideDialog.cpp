@@ -40,7 +40,7 @@ void LauncherGuideDialog::init()
 
     // TitleBar Combination.
     titleBar->setFixedHeight(40);
-    titleBar->setBrightDarkModeColor(Cell::CGL218,Cell::CGL45);
+    titleBar->setBrightDarkModeColor(Cell::CGL218,Cell::CGL60);
     titleBar->setText("");
     titleBar->setFont(CellUiGlobal::getFont(CHAR2STR("InfoDisplayWeb W01 Medium.ttf"), 21));
     titleBar->setIcon(CHAR2STR("cellLogo28"), 0, 0);
@@ -89,6 +89,8 @@ void LauncherGuideDialog::init()
     mainStackedWidget->insertWidget(0, f1);
     mainStackedWidget->insertWidget(1, f2);
 
+    _modules << titleBar << btnClose << btnNewPJ << bottomBar;
+
 
     // Set MainLayout
     mainLayout->setMargin(0);
@@ -115,7 +117,9 @@ void LauncherGuideDialog::fade()
 void LauncherGuideDialog::setEventConnections()
 {
     connect(btnClose, &QPushButton::clicked, this, &LauncherGuideDialog::fade);
-    connect(btnNewPJ, &QPushButton::clicked, this, &LauncherGuideDialog::btnNewPJClicked);
+    connect(btnNewPJ, &QPushButton::clicked, [this]{
+        emit clickedNewPJ(); close();
+    });
 }
 
 void LauncherGuideDialog::showEvent(QShowEvent *e)

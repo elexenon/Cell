@@ -68,7 +68,9 @@ void newPJPageBase::init(){
 void newPJPageBase::setEventConnections()
 {
     connect(dialogButton, &customDialogButton::clicked, this, &newPJPageBase::btnPathClicked);
-    connect(lineEditName, &QLineEdit::textChanged,      this, &newPJPageBase::lineEditChanged);
+    connect(lineEditName, &QLineEdit::textChanged, [this](const QString& text){
+        emit nameSettled(text);
+    });
 }
 
 void newPJPageBase::btnPathClicked()

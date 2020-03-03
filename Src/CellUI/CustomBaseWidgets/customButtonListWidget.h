@@ -51,10 +51,6 @@ signals:
 
 public Q_SLOTS:
     virtual void setColorScheme(Cell::ColorScheme mode) override;
-
-private Q_SLOTS:
-    inline
-    void btnGroupClicked(int id) { emit clicked(id); }
 };
 
 #endif // CUSTOMBUTTONLISTWIDGET_H

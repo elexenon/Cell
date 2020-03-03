@@ -27,6 +27,8 @@ ButtonWithIconText::ButtonWithIconText(customButton::Type type, QWidget *parent)
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
 
     tag->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+
+    _modules << tag;
 }
 
 void ButtonWithIconText::init(const QString& fileName, int iconWidth, int iconHeight, const QString& text, int fontSize)

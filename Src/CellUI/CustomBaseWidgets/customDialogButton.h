@@ -20,6 +20,8 @@ public:
     const ButtonWithIcon* getTrigger() { return trigger;}
     void  setText(const QString &text);
 
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
+
 private:
     virtual void setEventConnections() override;
 
@@ -30,10 +32,6 @@ protected:
 
 signals:
     void clicked();
-
-private Q_SLOTS:
-    inline
-    void triggerClicked() { emit clicked(); }
 };
 
 #endif // CUSTOMCOMBOBOX_H

@@ -26,8 +26,8 @@ customDialogButton::customDialogButton(const QString &state, QWidget *parent):
 
     trigger->setFixedSize(35, 22);
     trigger->setBrightModeHoveringColor(Cell::CGL255);
-    trigger->setDarkModeHoveringColor(Cell::CGL180);
-    trigger->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
+    trigger->setDarkModeHoveringColor(Cell::CGL130);
+    trigger->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
     trigger->setAnimationDuration(200);
     trigger->setCursor(Qt::PointingHandCursor);
     trigger->init(CHAR2STR("popUpIcon.png"), 15, 12);
@@ -37,6 +37,8 @@ customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     mainLayout->addStretch();
     mainLayout->addWidget(trigger);
 
+    _modules << currState << trigger;
+
     setEventConnections();
 }
 
@@ -45,7 +47,14 @@ void customDialogButton::setText(const QString &text)
     currState->setText(text);
 }
 
+void customDialogButton::setColorScheme(Cell::ColorScheme mode)
+{
+    customFrame::setColorScheme(mode);
+}
+
 void customDialogButton::setEventConnections()
 {
-    connect(trigger, &QPushButton::clicked, this, &customDialogButton::triggerClicked);
+    connect(trigger, &QPushButton::clicked, [this]{
+        emit clicked();
+    });
 }

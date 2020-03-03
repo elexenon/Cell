@@ -60,6 +60,9 @@ signals:
     void enableColorScheme(Cell::ColorScheme mode);
     void projectSettled(CellProjectEntity *entity);
 
+public Q_SLOTS:
+    virtual void setColorScheme(Cell::ColorScheme) override;
+
 private Q_SLOTS:
     inline
     void btnCancelClicked() { this->close(); }
@@ -68,7 +71,6 @@ private Q_SLOTS:
     void btnListWidget2Clicked(int id);
     void setName(const QString &name);
     void setPath(const QString &path);
-    virtual void setColorScheme(Cell::ColorScheme) override;
 };
 
 #endif // LAUNCHERNEWPJDIALOG_H

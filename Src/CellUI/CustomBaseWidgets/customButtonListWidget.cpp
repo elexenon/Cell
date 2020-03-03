@@ -92,7 +92,9 @@ void customButtonListWidget::setExlusive(bool value)
 
 void customButtonListWidget::setEventConnections()
 {
-    connect(btnGroup, SIGNAL(buttonClicked(int)), this, SLOT(btnGroupClicked(int)));
+    connect(btnGroup, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), [=](int id){
+        emit clicked(id);
+    });
 }
 
 void customButtonListWidget::addThemeHead(const QString& theme)

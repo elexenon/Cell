@@ -56,7 +56,7 @@ private Q_SLOTS:
     void updateDatasByWS(CellProjectEntity &entity);
     void btnGridClicked();
     void btnListClicked();
-    void tableDoubleClicked(const QModelIndex index);
+    void tableDoubleClicked(const QModelIndex &index);
 
 Q_SIGNALS:
     void getProjectPath(const QString &path);

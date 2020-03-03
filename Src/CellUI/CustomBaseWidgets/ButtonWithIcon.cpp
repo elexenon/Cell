@@ -16,7 +16,7 @@ ButtonWithIcon::ButtonWithIcon(customButton::Type type, QWidget *parent):
 {
     setLayout(mainLayout);
     setCursor(Qt::PointingHandCursor);
-    
+
     mainLayout->setMargin(0);
     mainLayout->addWidget(icon);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);

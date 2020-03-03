@@ -21,7 +21,7 @@ WSLoadingDialog::WSLoadingDialog(QWidget *parent) :
     setAutoFillBackground(true);
     setModal(true);
 
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
+    connect(timer, &QTimer::timeout, this, &WSLoadingDialog::updateProgressBar);
 }
 
 WSLoadingDialog::~WSLoadingDialog()

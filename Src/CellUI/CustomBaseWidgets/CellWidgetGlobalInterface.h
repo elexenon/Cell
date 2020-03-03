@@ -24,6 +24,7 @@ public:
     inline
     void         setColorAnimiDuration(int value) { this->colorSchemeAnimiDuration = value; }
     void         setBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
+    virtual void setColorScheme(Cell::ColorScheme mode) = 0;
 
 protected:
     Cell::ColorScheme m_mode = Cell::ColorScheme::Bright;
@@ -40,8 +41,9 @@ protected:
     virtual void setBaseQss(const QString& qss) = 0;
     virtual void changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
     virtual void setColor(const QColor &color) = 0;
-    virtual void setColorScheme(Cell::ColorScheme mode) = 0;
     virtual void setEventConnections();
+
+    QList<CellWidgetGlobalInterface*> _modules;
 };
 
 #endif // CELLGLOBALWIDGET_H

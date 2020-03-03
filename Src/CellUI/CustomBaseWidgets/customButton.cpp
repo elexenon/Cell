@@ -60,11 +60,14 @@ void customButton::changeToColor(const QColor &startColor, const QColor &targetC
 void customButton::setColorScheme(Cell::ColorScheme mode)
 {
     if(mode == m_mode) return;
-    m_mode = Cell::ColorScheme::Dark;
+    m_mode = mode;
     QColor startColor;
     QColor endColor;
     setAnimiStartEndColor(mode, startColor, endColor);
     changeToColor(startColor, endColor, colorSchemeAnimiDuration);
+
+    if(!_modules.isEmpty())
+        for(auto & e : _modules) e->setColorScheme(mode);
 }
 
 void customButton::enterEvent(QEvent *)
@@ -105,10 +108,10 @@ void customButton::setAnimiStartEndColor(Cell::ColorScheme mode, QColor &startCo
             }
         }
     }
-    else if(mType == Dynamic || mType == Static)
+    else if(mType == Dynamic || mType == Static || mType == DynamicRadius || mType == StaticRadius)
     {
-        startColor = color();
-        endColor = (m_mode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
+        startColor = m_color;
+        endColor = (mode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
     }
 }
 

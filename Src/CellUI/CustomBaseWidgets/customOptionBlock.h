@@ -25,6 +25,8 @@ public:
     inline
     int  getItemTagMaxLen() { return itemTagMaxLen; }
 
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
+
 protected:
     void addThemeTag(const QString &name);
 

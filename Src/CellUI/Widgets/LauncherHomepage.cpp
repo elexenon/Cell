@@ -40,12 +40,12 @@ LauncherHomepage::LauncherHomepage(QWidget *parent) :
 void LauncherHomepage::init()
 {
     // Set HLayout_Btns.
-    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeGridBtnBright.css"));
+    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeGridBtn_Bright.css"));
     btnGrid->setStyleSheet(CellUiGlobal::loader.content());
     btnGrid->setCheckable(true);
     btnGrid->setFixedSize(51,41);
 
-    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeListBtnBright.css"));
+    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeListBtn_Bright.css"));
     btnList->setStyleSheet(CellUiGlobal::loader.content());
     btnList->setCheckable(true);
     btnList->setFixedSize(51,41);
@@ -128,10 +128,10 @@ void LauncherHomepage::setColorScheme(Cell::ColorScheme mode)
 
     const QString labelQss = (mode == Cell::ColorScheme::Bright ? "QLabel{background:transparent; color:rgb(70,70,70);}":
                                                               "QLabel{background:transparent; color:white;}");
-    const QString gridQssFile =  (mode == Cell::ColorScheme::Bright ? "LauncherHomeGridBtnBright.css":
-                                                                  "LauncherHomeGridBtnDark.css");
-    const QString listQssFile =  (mode == Cell::ColorScheme::Bright ? "LauncherHomeListBtnBright.css":
-                                                                  "LauncherHomeListBtnDark.css");
+    const QString gridQssFile =  (mode == Cell::ColorScheme::Bright ? "LauncherHomeGridBtn_Bright.css":
+                                                                  "LauncherHomeGridBtn_Dark.css");
+    const QString listQssFile =  (mode == Cell::ColorScheme::Bright ? "LauncherHomeListBtn_Bright.css":
+                                                                  "LauncherHomeListBtn_Dark.css");
 
     CellUiGlobal::multiModulesOneStyleSheet({labelRecentPJ},labelQss);
     CellUiGlobal::loader.setFileName(gridQssFile);
@@ -184,7 +184,7 @@ void LauncherHomepage::btnListClicked()
     stackedWidget->setCurrentIndex(0);
 }
 
-void LauncherHomepage::tableDoubleClicked(const QModelIndex index)
+void LauncherHomepage::tableDoubleClicked(const QModelIndex &index)
 {
     qDebug() << index.siblingAtColumn(3).data();
     emit getProjectPath(index.siblingAtColumn(3).data().toString() + "//" +

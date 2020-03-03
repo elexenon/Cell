@@ -48,8 +48,6 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void btnPathClicked();
-    inline
-    void lineEditChanged(const QString &text) { emit nameSettled(text); }
 };
 
 #endif // NEWPJPAGEBASE_H

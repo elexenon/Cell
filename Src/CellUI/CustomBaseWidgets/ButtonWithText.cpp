@@ -23,6 +23,8 @@ ButtonWithText::ButtonWithText(customButton::Type type, QWidget *parent):
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
     
     setTextColor(Cell::CGL70, Cell::CGL255);
+
+    _modules << tag;
 }
 
 void ButtonWithText::setTextColor(const CellVariant &b, const CellVariant &d)

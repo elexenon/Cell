@@ -52,8 +52,6 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void         fade();
-    inline
-    void         btnNewPJClicked() { emit clickedNewPJ(); close(); }
 };
 
 #endif // LauncherGuideDialog_H

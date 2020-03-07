@@ -24,8 +24,8 @@ public:
         Type,     Path
     };
 
-    explicit CellProjectEntity();
-    ~CellProjectEntity() = default;
+    explicit CellProjectEntity() noexcept;
+    ~CellProjectEntity() noexcept = default;
 
     static const QString         getType(CellProjectEntityType type);
     static CellProjectEntityType getType(const QString &type);

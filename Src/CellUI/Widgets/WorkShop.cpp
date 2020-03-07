@@ -45,19 +45,19 @@ Workshop::Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent) :
     loadingDialog(new WSLoadingDialog),
     menuBar(new QMenuBar(this)),
     leftBlock(new customFrame(customFrame::Regular, this)),
-    leftStackedWidget(new QStackedWidget(leftBlock)),
+    leftStackedWidget(new QStackedWidget(this)),
     btnDirectory(new QPushButton(this)),
     btnWarning(new QPushButton(this)),
     btnToolChain(new QPushButton(this)),
-    treeView(new QTreeView(leftBlock)),
+    treeView(new QTreeView(this)),
     fileModel(new QFileSystemModel(this)),
     mainEditor(new QsciScintilla(this)),
     rightBlock(new customFrame(customFrame::Regular, this)),
     statusBar(new customFrame(customFrame::Regular, this)),
-    textChangetoken(new customGradientChangeFrame(Cell::CellThemeColor::NavyBlue ,statusBar)),
-    labelCntRow(new QLabel(statusBar)),
-    labelCntChar(new QLabel(statusBar)),
-    labelFormat(new QLabel(statusBar)),
+    textChangetoken(new customGradientChangeFrame(Cell::CellThemeColor::NavyBlue ,this)),
+    labelCntRow(new QLabel(this)),
+    labelCntChar(new QLabel(this)),
+    labelFormat(new QLabel(this)),
     ctrlS(new QShortcut(this))
 {
     init();
@@ -191,6 +191,8 @@ void Workshop::init()
 
     statusBar->setFixedHeight(25);
     statusBar->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
+
+    _modules << textChangetoken << statusBar;
 
     QHBoxLayout *HLayoutStatusBar = new QHBoxLayout(statusBar);
     HLayoutStatusBar->setContentsMargins(22, 0, 17, 0);
@@ -405,6 +407,7 @@ void Workshop::closeEvent(QCloseEvent* e)
 {
     (void)e;
     emit destoryed();
+    e->accept();
 }
 
 void Workshop::btnDirectoryClicked()

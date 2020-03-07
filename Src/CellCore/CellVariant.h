@@ -7,52 +7,8 @@
 #define CELLVARIANT_H
 
 #include "CellNamespace.h"
-#include "holder.h"
 
 #include <memory>
-
-template <typename Type>
-class CellVariant{
-public:
-    CellVariant();
-    CellVariant(const Type&);
-    CellVariant(const CellVariant&)
-    ~CellVariant();
-
-public:
-    CellVariant& swap(CellVariant &rhs);
-    CellVariant& operator=(const CellVariant &rhs);
-    inline
-    bool empty() const noexcept{
-        return !content;
-    }
-    inline
-    const std::type_info& type() const{
-        return content ? content->type() : typeid(void);
-    }
-    inline static
-    const Type*  CellVariant_Cast(const CellVariant *ptr){
-        return CellVariant_Cast(const_cast<CellVariant*>(ptr));
-    }
-    static Type* CellVariant_Cast(CellVariant *ptr);
-    static Type  CellVariant_Cast(CellVariant &rhs);
-
-private:
-    placeholder *content;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class CellVariant{
 union Data{
@@ -62,15 +18,16 @@ public:
 enum Type{
     Color
 };
-    explicit
+    //! The default constructor that deleted is because
+    //! you must offer a explicit & implicit conversion.
     CellVariant() = delete;
-    CellVariant(CellVariant &other);
-    CellVariant(Cell::CellGrayColor value);
-    CellVariant(Cell::CellThemeColor);
-    CellVariant& operator=(CellVariant &other);
-    CellVariant& operator=(Cell::CellGrayColor value);
-    CellVariant& operator=(Cell::CellThemeColor value);
-    ~CellVariant();
+    CellVariant(CellVariant &other) noexcept;
+    CellVariant(Cell::CellGrayColor value) noexcept;
+    CellVariant(Cell::CellThemeColor) noexcept;
+    CellVariant& operator=(CellVariant &other) noexcept;
+    CellVariant& operator=(Cell::CellGrayColor value) noexcept;
+    CellVariant& operator=(Cell::CellThemeColor value) noexcept;
+    ~CellVariant() noexcept;
     inline
     QColor toColor() const { return *mData.get()->color; }
 

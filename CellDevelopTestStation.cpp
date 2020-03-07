@@ -104,7 +104,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     block1->addItem(item10);
     block1->tidyItems();
 
-    ButtonWithText *btn1 = new ButtonWithText(customButton::Type::StaticRadius, this);
+    ButtonWithText *btn1 = new ButtonWithText(customButton::StaticRadius, this);
     btn1->setBrightModeHoverColor(Cell::CGL218);
     btn1->setDarkModeHoverColor(Cell::CGL130);
     btn1->setBrightDarkModeColor(Cell::CGL247, Cell::CGL180);
@@ -113,7 +113,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
 
     ButtonWithIcon *btn2 = new ButtonWithIcon(customButton::Type::CheckableRadius, this);
     btn2->setBrightModeCheckedColor(Cell::CGL130);
-    btn2->setDarkModeHoveringColor(Cell::CGL180);
+    btn2->setDarkModeCheckedColor(Cell::CGL180);
     btn2->setBrightDarkModeColor(Cell::CGL247, Cell::CGL180);
     btn2->init(CHAR2STR("cellLogo32"), 32, 32);
     btn2->setFixedSize(200, 81);

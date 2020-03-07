@@ -10,7 +10,7 @@
 #include "CellProjectEntity.h"
 #include "Kits/CellGlobalMacros.h"
 
-CellProjectEntity::CellProjectEntity()
+CellProjectEntity::CellProjectEntity() noexcept
 {
     QDateTime curr = QDateTime::currentDateTime();
     mModifiedTime = curr.toString("yyyy-MM-dd-hh:mm");

@@ -11,7 +11,7 @@
 #include <QSplashScreen>
 #include <iostream>
 
-#define SPLASHSCREEN
+//#define SPLASHSCREEN
 
 int main(int argc, char *argv[])
 {
@@ -28,13 +28,16 @@ int main(int argc, char *argv[])
     qRegisterMetaType<Cell::ColorScheme>("ColorScheme&");
 
     QPixmap pixmap(CellUiLiteral::IMG_DIR + QStringLiteral("cellSplashScreen.png"));
-
+#ifdef SPLASHSCREEN
     QSplashScreen startUp(pixmap, Qt::WindowStaysOnTopHint);
     startUp.setFont(QFont(QStringLiteral("微软雅黑")));
     startUp.show();
     startUp.showMessage(QStringLiteral("装载模块"), Qt::AlignBottom | Qt::AlignHCenter, QColor(100, 100, 100));
+#endif
     a.processEvents();
+#ifdef SPLASHSCREEN
     startUp.showMessage(QStringLiteral("初始化主界面"), Qt::AlignHCenter | Qt::AlignBottom, QColor(100, 100, 100));
+#endif
     Launcher w;
     w.setWindowTitle(QStringLiteral("Cell Launcher"));
     w.show();

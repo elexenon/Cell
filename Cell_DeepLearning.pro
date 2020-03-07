@@ -28,8 +28,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     CellDevelopTestStation.cpp \
+    Src/CellCore/Kits/CellUtility.cpp \
+    Src/CellCore/Kits/WindWMAPI.cpp \
     Src/CellCore/CellSqlManager.cpp \
     Src/CellCore/CellVariant.cpp \
+    Src/CellCore/CellProjectEntity.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconText.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithIcon.cpp \
@@ -39,6 +42,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customDialogButton.cpp \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
+    Src/CellUI/CustomBaseWidgets/customGridView.cpp \
     Src/CellUI/CustomBaseWidgets/customLineEdit.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/CustomBaseWidgets/customMaskDialog.cpp \
@@ -54,9 +58,6 @@ SOURCES += \
     Src/CellUI/Widgets/NewPJPredictEarPage.cpp \
     Src/CellUI/Widgets/NewPJProjectCellPage.cpp \
     Src/main.cpp \
-    Src/CellCore/Kits/CellUtility.cpp \
-    Src/CellCore/Kits/WindWMAPI.cpp \
-    Src/CellCore/CellProjectEntity.cpp \
     Src/CellUI/CustomBaseWidgets/customFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customLabel.cpp \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.cpp \
@@ -89,6 +90,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customDialogButton.h \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
     Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.h \
+    Src/CellUI/CustomBaseWidgets/customGridView.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
     Src/CellUI/CustomBaseWidgets/customLineEdit.h \
     Src/CellUI/CustomBaseWidgets/customListButton.h \

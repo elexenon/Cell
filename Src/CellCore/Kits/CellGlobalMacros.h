@@ -14,9 +14,7 @@
 
 #define DeclareInterface(name) _interface name{\
 public:\
-    virtual ~name(){}
-
-#define DeclareInterfaceEnd };
+    virtual ~name() = default;
 
 #define implements public
 //! INTERFACE IMPLEMENTED BY MARCOS OF CPP

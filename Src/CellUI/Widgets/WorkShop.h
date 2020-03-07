@@ -39,7 +39,6 @@ public:
     explicit Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent = nullptr);
     ~Workshop() = default;
 
-public:
     inline
     void         constructed() { emit _constructed(); }
     virtual void setColor(const QColor& color) override;
@@ -47,8 +46,15 @@ public:
     virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
 
 private:
-    QVBoxLayout *mainLayout;
+    void         init();
+    void         initMainEditor();
+    void         initTreeView();
+    void         getProjectEntity(CellProjectEntity &entity);
+    void         read(const QJsonObject &json);
+    void         write(QJsonObject &json);
+    virtual void setEventConnections() override;
 
+    QVBoxLayout *mainLayout;
     WSLoadingDialog           *loadingDialog;
     QMenuBar                  *menuBar;
     customFrame               *leftBlock;
@@ -66,22 +72,13 @@ private:
     QLabel                    *labelCntChar;
     QLabel                    *labelFormat;
 
-    QString            codePrev;
-    QString            codeCurr;
-    QString            savePath;
-    QShortcut         *ctrlS;
-    bool               codeModified = false;
+    QString    codePrev;
+    QString    codeCurr;
+    QString    savePath;
+    QShortcut *ctrlS;
+    bool       codeModified = false;
 
-    CellProjectEntity  currEntity;
-
-private:
-    void         init();
-    void         initMainEditor();
-    void         initTreeView();
-    void         getProjectEntity(CellProjectEntity &entity);
-    void         read(const QJsonObject &json);
-    void         write(QJsonObject &json);
-    virtual void setEventConnections() override;
+    CellProjectEntity  currEntity;   
 
 protected:
     virtual void closeEvent(QCloseEvent *event) override;
@@ -91,8 +88,10 @@ signals:
     void destoryed();
     void projectUpdate(CellProjectEntity &entity);
 
-private Q_SLOTS:
+public Q_SLOTS:
     virtual void setColorScheme(Cell::ColorScheme mode) override;
+
+private Q_SLOTS:
     void         updateStatusBar();
     void         loadFile(const QString &path);
     void         saveFile();

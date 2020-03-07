@@ -1,59 +1,24 @@
 #include "CellVariant.h"
 #include "Kits/CellGlobalMacros.h"
 
-template <typename Type>
-CellVariant<Type>::CellVariant() noexcept
-    :content(nullptr){}
+#include <cassert>
 
-template <typename Type>
-CellVariant<Type>::CellVariant(const Type &value) noexcept
-    :content(new holder<Type>(value)){}
-
-template <typename Type>
-CellVariant<Type>::CellVariant(const CellVariant &other) noexcept
-    :content(other.content ? other.content->clone() : nullptr){}
-
-template <typename Type>
-CellVariant<Type>::~CellVariant() noexcept
+CellVariant::CellVariant(CellVariant &other) noexcept
 {
-    delete content;
-}
-
-template <typename Type>
-CellVariant& CellVariant<Type>::swap(CellVariant &rhs) noexcept
-{
-    std::swap(content, rhs.content);
-    return *this;
-}
-
-template <typename Type>
-CellVariant& CellVariant<Type>::operator=(const CellVariant &rhs)
-{
-    static_cast<CellVariant>(rhs).swap(*this);
-    return *this;
-}
-
-template <typename Type>
-Type* CellVariant<Type>::CellVariant_Cast(CellVariant *ptr){
-    return (ptr && ptr->type() == typeid(Type)) ?
-            &static_cast<CellVariant::holder<Type>*>(ptr->content)->held:
-            nullptr;
-}
-
-CellVariant::CellVariant(CellVariant &other):
-    mType(other.mType)
-{
+    if(mType == Type::Color)
+        delete mData.get()->color;
+    mType = other.mType;
     mData = std::move(other.mData);
 }
 
-CellVariant::CellVariant(Cell::CellGrayColor value)
+CellVariant::CellVariant(Cell::CellGrayColor value) noexcept
+    :mType(Type::Color)
 {
-    mType = Color;
     mData.reset(new Data);
     mData.get()->color = new QColor(value, value, value);
 }
 
-CellVariant::CellVariant(Cell::CellThemeColor type)
+CellVariant::CellVariant(Cell::CellThemeColor type) noexcept
 {
     mType = Color;
     mData.reset(new Data);
@@ -73,22 +38,24 @@ CellVariant::CellVariant(Cell::CellThemeColor type)
     }
 }
 
-CellVariant &CellVariant::operator=(CellVariant &other)
+CellVariant &CellVariant::operator=(CellVariant &other) noexcept
 {
     if(this == &other)
         return *this;
+    if(mType == Type::Color)
+        delete mData.get()->color;
     mType = other.mType;
     mData = std::move(other.mData);
     return *this;
 }
 
-CellVariant &CellVariant::operator=(Cell::CellGrayColor value)
+CellVariant &CellVariant::operator=(Cell::CellGrayColor value) noexcept
 {
     CellVariant tmp(value);
     return operator=(tmp);
 }
 
-CellVariant &CellVariant::operator=(Cell::CellThemeColor value)
+CellVariant &CellVariant::operator=(Cell::CellThemeColor value) noexcept
 {
     CellVariant tmp(value);
     return operator=(tmp);
@@ -98,3 +65,4 @@ CellVariant::~CellVariant() noexcept
 {
     if(mType == Color && mData) delete mData.get()->color;
 }
+

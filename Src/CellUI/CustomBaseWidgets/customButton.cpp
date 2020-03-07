@@ -7,11 +7,39 @@
 #include "../../CellCore/CellVariant.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
-customButton::customButton(int type, QWidget *parent):
+#define NDEBUG
+#include <cassert>
+
+customButton::customButton(customButton::Type type, QWidget *parent):
     QPushButton(parent),
-    mType(static_cast<customButton::Type>(type))
+    mType(type),
+    brightModeCheckedColor(nullptr),  darkModeCheckedColor(nullptr),
+    brightModeHoveringColor(nullptr), darkModeHoveringColor(nullptr),
+    brightModeHoverColor(nullptr),    darkModeHoverColor(nullptr)
 {
     setBaseQss("");
+    initializeColors();
+}
+
+void customButton::initializeColors()
+{
+    switch(mType){
+    case Static:
+    case StaticRadius:
+        brightModeHoverColor = new QColor;
+        darkModeHoverColor   = new QColor;
+        break;
+    case Dynamic:
+    case DynamicRadius:
+        brightModeHoveringColor = new QColor;
+        darkModeHoveringColor   = new QColor;
+        break;
+    case Checkable:
+    case CheckableRadius:
+        brightModeCheckedColor = new QColor;
+        darkModeCheckedColor   = new QColor;
+        break;
+    }
 }
 
 void customButton::setBaseQss(const QString &qss)
@@ -54,7 +82,7 @@ void customButton::changeToColor(const QColor &startColor, const QColor &targetC
                                  targetColor,
                                  duration,
                                  easingCurve,
-                                 {this},nullptr);
+    {this},nullptr);
 }
 
 void customButton::setColorScheme(Cell::ColorScheme mode)
@@ -73,8 +101,8 @@ void customButton::setColorScheme(Cell::ColorScheme mode)
 void customButton::enterEvent(QEvent *)
 {
     if(!(mType == Dynamic || mType == DynamicRadius)) return;
-    QColor enterColor = (m_mode == Cell::ColorScheme::Bright ? brightModeHoveringColor : darkModeHoveringColor);
-    changeToColor(m_color, enterColor, hoverAnimiDuration);
+    QColor *enterColor = (m_mode == Cell::ColorScheme::Bright ? brightModeHoveringColor : darkModeHoveringColor);
+    changeToColor(m_color, *enterColor, hoverAnimiDuration);
 }
 
 void customButton::leaveEvent(QEvent*){
@@ -93,8 +121,8 @@ void customButton::setAnimiStartEndColor(Cell::ColorScheme mode, QColor &startCo
                 startColor = m_color;
                 endColor = darkmodeColor;
             }else{
-                startColor = brightModeCheckedColor;
-                endColor = darkModeCheckedColor;
+                startColor = *brightModeCheckedColor;
+                endColor = *darkModeCheckedColor;
                 m_color = darkmodeColor;
             }
         }else if(mode == Cell::ColorScheme::Bright){
@@ -102,8 +130,8 @@ void customButton::setAnimiStartEndColor(Cell::ColorScheme mode, QColor &startCo
                 startColor = m_color;
                 endColor = brightmodeColor;
             }else{
-                startColor = darkModeCheckedColor;
-                endColor = brightModeCheckedColor;
+                startColor = *darkModeCheckedColor;
+                endColor = *brightModeCheckedColor;
                 m_color = brightmodeColor;
             }
         }
@@ -121,10 +149,10 @@ void customButton::setColor(const QColor &color)
     {
         if(!isChecked()){
             CellWidgetGlobalInterface::setColor(color);
-            QColor checkedColor = (m_mode == Cell::ColorScheme::Bright ? brightModeCheckedColor : darkModeCheckedColor);
+            QColor *checkedColor = (m_mode == Cell::ColorScheme::Bright ? brightModeCheckedColor : darkModeCheckedColor);
             setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue())
-                          .arg(checkedColor.red()).arg(checkedColor.green()).arg(checkedColor.blue())
-                          .arg(checkedColor.red()).arg(checkedColor.green()).arg(checkedColor.blue()));
+                          .arg(checkedColor->red()).arg(checkedColor->green()).arg(checkedColor->blue())
+                          .arg(checkedColor->red()).arg(checkedColor->green()).arg(checkedColor->blue()));
         }else
             setStyleSheet(BASEQSS.arg(m_color.red()).arg(m_color.green()).arg(m_color.blue())
                           .arg(color.red()).arg(color.green()).arg(color.blue())
@@ -138,38 +166,44 @@ void customButton::setColor(const QColor &color)
     else if(mType == Static || mType == StaticRadius)
     {
         CellWidgetGlobalInterface::setColor(color);
-        QColor hoverColor = (m_mode == Cell::ColorScheme::Bright ? brightModeHoverColor : darkModeHoverColor);
+        QColor *hoverColor = (m_mode == Cell::ColorScheme::Bright ? brightModeHoverColor : darkModeHoverColor);
         setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue())
-                      .arg(hoverColor.red()).arg(hoverColor.green()).arg(hoverColor.blue()));
+                      .arg(hoverColor->red()).arg(hoverColor->green()).arg(hoverColor->blue()));
     }
 }
 
 void customButton::setBrightModeCheckedColor(const CellVariant &color)
 {
-    brightModeCheckedColor = color.toColor();
+    assert(brightModeCheckedColor);
+    *brightModeCheckedColor = color.toColor();
 }
 
 void customButton::setDarkModeCheckedColor(const CellVariant &color)
 {
-    darkModeCheckedColor = color.toColor();
+    assert(brightModeCheckedColor);
+    *darkModeCheckedColor = color.toColor();
 }
 
 void customButton::setBrightModeHoveringColor(const CellVariant &color)
 {
-    brightModeHoveringColor = color.toColor();
+    assert(brightModeHoveringColor);
+    *brightModeHoveringColor = color.toColor();
 }
 
 void customButton::setDarkModeHoveringColor(const CellVariant &color)
 {
-    darkModeHoveringColor = color.toColor();
+    assert(brightModeHoveringColor);
+    *darkModeHoveringColor = color.toColor();
 }
 
 void customButton::setBrightModeHoverColor(const CellVariant &color)
 {
-    brightModeHoverColor = color.toColor();
+    assert(brightModeHoverColor);
+    *brightModeHoverColor = color.toColor();
 }
 
 void customButton::setDarkModeHoverColor(const CellVariant &color)
 {
-    darkModeHoverColor = color.toColor();
+    assert(brightModeHoverColor);
+    *darkModeHoverColor = color.toColor();
 }

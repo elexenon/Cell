@@ -11,11 +11,11 @@
 #include <memory>
 
 class CellVariant{
-union Data{
+union _Data{
     QColor *color;
 };
 public:
-enum Type{
+enum class Type{
     Color
 };
     //! The default constructor that deleted is because
@@ -24,6 +24,7 @@ enum Type{
     CellVariant(CellVariant &other) noexcept;
     CellVariant(Cell::CellGrayColor value) noexcept;
     CellVariant(Cell::CellThemeColor) noexcept;
+    CellVariant(const QColor &color) noexcept;
     CellVariant& operator=(CellVariant &other) noexcept;
     CellVariant& operator=(Cell::CellGrayColor value) noexcept;
     CellVariant& operator=(Cell::CellThemeColor value) noexcept;
@@ -32,7 +33,7 @@ enum Type{
     QColor toColor() const { return *mData.get()->color; }
 
 private:
-    std::unique_ptr<Data> mData;
+    std::unique_ptr<_Data> mData;
     Type mType;
 };
 

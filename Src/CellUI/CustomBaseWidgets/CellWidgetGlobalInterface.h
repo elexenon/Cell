@@ -1,3 +1,7 @@
+// This class decalars necesssary data members and abstract interfaces
+// to for Cell's function of global color switching.A derived class mu-
+// st inherit from this class in order to implement color transform.
+//
 // Copyright 2018-2020 CellTek. < autologic@foxmail.com >
 //
 // This file may be used under the terms of the GNU General Public License
@@ -19,12 +23,28 @@ public:
     explicit CellWidgetGlobalInterface() = default;
     virtual ~CellWidgetGlobalInterface() = default;
 
-    inline
-    const QColor color() const { return m_color; }
-    inline
-    void         setColorAnimiDuration(int value) { this->colorSchemeAnimiDuration = value; }
-    void         setBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
-    virtual void setColorScheme(Cell::ColorScheme mode) = 0;
+    //! Return A Copy Of Current
+    //! Color.
+    inline const QColor
+    color() const { return m_color; }
+    //! Set The Duration Of Animation Of
+    //! Virtual Function "changeToColor".
+    inline void
+    setColorAnimiDuration(int value) { this->colorSchemeAnimiDuration = value; }
+    //! Return bright mode color
+    //! by const reference.
+    inline const QColor&
+    brightModeColor() { return brightmodeColor; }
+    //! Return dark mode color
+    //! by const reference.
+    inline const QColor&
+    darkModeColor()   { return darkmodeColor; }
+    //! Set bright/dark mode colors, so that cell
+    //! will switch colors automatically.
+    void          setBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
+    //! Inherited subclasses must implement this function
+    //! to set unique color switching effects.
+    virtual void  setColorScheme(Cell::ColorScheme mode) = 0;
 
 protected:
     Cell::ColorScheme m_mode = Cell::ColorScheme::Bright;

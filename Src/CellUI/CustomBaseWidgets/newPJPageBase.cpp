@@ -43,6 +43,7 @@ void newPJPageBase::init(){
     mainLayout->addWidget(blockConfig);
     mainLayout->addStretch(8);
 
+    labelTitle->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(labelTitle, CHAR2STR("Microsoft YaHei UI Light"), 24, CHAR2STR("Title"));
 
     lineEditName->setFixedWidth(200);
@@ -63,6 +64,9 @@ void newPJPageBase::init(){
     blockConfig->addItem(blockConfigName);
     blockConfig->addItem(blockConfigLoca);
     blockConfig->tidyItems();
+
+    _modules << dialogButton << labelTitle << blockConfig
+             << blockConfigName << blockConfigLoca;
 }
 
 void newPJPageBase::setEventConnections()
@@ -71,6 +75,11 @@ void newPJPageBase::setEventConnections()
     connect(lineEditName, &QLineEdit::textChanged, [this](const QString& text){
         emit nameSettled(text);
     });
+}
+
+void newPJPageBase::setColorScheme(Cell::ColorScheme mode)
+{
+    customFrame::setColorScheme(mode);
 }
 
 void newPJPageBase::btnPathClicked()
@@ -110,4 +119,6 @@ void newPJPageBase::enableToolChainsBlock()
     blockToolChain->addItem(blockToolChainVersion);
 
     addOptionBlock(blockToolChain);
+
+    _modules << blockToolChain << blockToolChainVersion;
 }

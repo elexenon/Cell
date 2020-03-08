@@ -39,6 +39,7 @@ private:
 protected:
     virtual void init();
     virtual void setEventConnections() override;
+    virtual void setColorScheme(Cell::ColorScheme mode) override;
     void         addOptionBlock(customOptionBlock *block);
     void         enableToolChainsBlock();
 

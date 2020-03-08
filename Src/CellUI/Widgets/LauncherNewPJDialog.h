@@ -57,7 +57,6 @@ private:
     virtual void setEventConnections() override;
 
 signals:
-    void enableColorScheme(Cell::ColorScheme mode);
     void projectSettled(CellProjectEntity *entity);
 
 public Q_SLOTS:

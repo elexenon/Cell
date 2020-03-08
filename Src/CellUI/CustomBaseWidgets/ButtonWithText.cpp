@@ -32,6 +32,19 @@ void ButtonWithText::setTextColor(const CellVariant &b, const CellVariant &d)
     tag->setBrightDarkModeColor(b, d);
 }
 
+void ButtonWithText::paintEvent(QPaintEvent *e)
+{
+    if(!(naviVerBar && isChecked())){
+        return;
+    }
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(QBrush(CellVariant(Cell::CellThemeColor::NavyBlue).toColor()));
+    painter.drawRect(0, 0, 5, this->height());
+    e->accept();
+}
+
 void ButtonWithText::init(const QString &text, int fontSize)
 {
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), fontSize, text);

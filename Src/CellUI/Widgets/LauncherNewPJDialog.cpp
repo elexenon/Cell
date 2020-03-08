@@ -141,6 +141,12 @@ void LauncherNewPJDialog::init()
     newPJPageBase *pyPJPage = new newPJPageBase(stackedWidget);
     pyPJPage->setPageTitle(CHAR2STR("Pure Python File"));
 
+    _modules << titleBar << label_choose
+             << btnListWidget1 << btnListWidget2
+             << btnConfirm << btnCancel
+             << cellPage << prePage
+             << emptyPJPage << cppPJPage << pyPJPage;
+
     QList<newPJPageBase*> pages;
     pages.append(cellPage);
     pages.append(prePage);
@@ -169,8 +175,6 @@ void LauncherNewPJDialog::setEventConnections()
 }
 
 void LauncherNewPJDialog::setColorScheme(Cell::ColorScheme mode){
-    if(mode == m_mode) return;
-    emit enableColorScheme(mode);
     customWinstyleDialog::setColorScheme(mode);
 }
 

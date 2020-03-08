@@ -10,8 +10,6 @@
 
 #include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
 
-class QPropertyAnimation;
-
 class customSwitch : public QWidget{
     Q_OBJECT
     Q_PROPERTY(qreal triggerOffset READ triggerOffset WRITE setTriggerOffset)

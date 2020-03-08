@@ -18,8 +18,13 @@ public:
 
     void init(const QString& text = "Button", int fontSize = 18);
     void setTextColor(const CellVariant &b, const CellVariant &d);
+    inline
+    void setNaviBar() { naviVerBar = true; }
 
 protected:
+    virtual void paintEvent(QPaintEvent*);
+
+    bool         naviVerBar;
     QVBoxLayout *mainLayout;
     customLabel *tag;
 };

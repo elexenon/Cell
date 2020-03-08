@@ -6,7 +6,7 @@
 #include "ButtonWithIconText.h"
 #include "customLabel.h"
 #include "../../CellCore/CellNamespace.h"
-#include "../../CellCore/Kits/CellUtility.h"
+#include "../../CellCore/Kits/CellUtility.h" // CellUiGlobal
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -26,12 +26,12 @@ ButtonWithIconText::ButtonWithIconText(customButton::Type type, QWidget *parent)
     mainLayout->addWidget(tag);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignHCenter);
 
-    tag->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    tag->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
 
     _modules << tag;
 }
 
-void ButtonWithIconText::init(const QString& fileName, int iconWidth, int iconHeight, const QString& text, int fontSize)
+void ButtonWithIconText::initModules(const QString& fileName, int iconWidth, int iconHeight, const QString& text, int fontSize)
 {
     CellUiGlobal::setLabelPixmap(icon, fileName, iconWidth, iconHeight);
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), fontSize, text);

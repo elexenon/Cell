@@ -10,23 +10,25 @@
 
 #include "customFrame.h"
 
-class customGradientChangeFrame : public customFrame{
+class customSwitchFrame : public customFrame{
     Q_OBJECT
 public:
-    explicit customGradientChangeFrame(const CellVariant &specialColor,QWidget *parent = nullptr);
-    virtual ~customGradientChangeFrame() override = default;
+    explicit customSwitchFrame(const CellVariant &specialColor,QWidget *parent = nullptr);
+    virtual ~customSwitchFrame() override = default;
     enum State{
         Normal,
         Special
     };
-    void transCurrState(const customGradientChangeFrame::State &newState);
+    void
+    transCurrState(const customSwitchFrame::State &newState);
 
 protected:
     State currState = Normal;
     QColor mSpecialColor;
 
 public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    virtual void
+    setColorScheme(Cell::ColorScheme mode) override;
 };
 
 #endif // CUSTOMGRADIENTCHANGEFRAME_H

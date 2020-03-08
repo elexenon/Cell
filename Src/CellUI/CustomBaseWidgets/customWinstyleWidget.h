@@ -18,22 +18,43 @@ public:
     explicit customWinstyleWidget(QWidget *parent = nullptr);
     virtual ~customWinstyleWidget() = default;
 
-    virtual void setBaseQss(const QString &qss) override;
-
 protected:
-    virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
-    virtual void setColor(const QColor &color) override;
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
-    virtual void mousePressEvent(QMouseEvent *event) override;
-    virtual void mouseMoveEvent(QMouseEvent *event) override;
-    virtual void mouseReleaseEvent(QMouseEvent *event) override;
-    void         LoadWinStyle(QWidget *obj); 
+    //! Inheried from
+    //! CellWidgetGlobalInterface.
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
+
+    virtual void
+    changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
+
+    virtual void
+    setColor(const QColor &color) override;
+    //! Inheried from
+    //! QWidget.
+    virtual bool
+    nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+
+    virtual void
+    mousePressEvent(QMouseEvent *event) override;
+
+    virtual void
+    mouseMoveEvent(QMouseEvent *event) override;
+
+    virtual void
+    mouseReleaseEvent(QMouseEvent *event) override;
+
+    void
+    LoadWinStyle(QWidget *obj);
 
     QPoint m_startPoint;
     QPoint m_windowPoint;
     bool   m_move; 
 
 public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    virtual void
+    setColorScheme(Cell::ColorScheme mode) override;
 };
 #endif // CELLWINSTYLEINTERFACE_H

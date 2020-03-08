@@ -17,8 +17,9 @@ class ButtonWithIconTextHint : public customButton{
 public:
     explicit ButtonWithIconTextHint(customButton::Type type = Static,QWidget *parent = nullptr);
 
-    void init(const QString &fileName, int iconWidth, int iconHeight,
-              const QString& text = "Button", int fontSize = 23, const QString& hint = "hint");
+    void
+    initModules(const QString &fileName, int iconWidth, int iconHeight,
+                const QString& text = "Button", int fontSize = 23, const QString& hint = "hint");
 
 protected:
     QHBoxLayout *mainLayout;

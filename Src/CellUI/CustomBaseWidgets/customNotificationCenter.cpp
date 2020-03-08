@@ -9,7 +9,7 @@
 #include <QLabel>
 
 notificationCenter::notificationCenter(QWidget *parent):
-    customGradientChangeFrame(Cell::CellThemeColor::NavyBlue,parent),
+    customSwitchFrame(Cell::CellThemeColor::NavyBlue,parent),
     workshop_instancesCount(0),
     label_ready(new QLabel(this)),
     label_identifi(new QLabel(this)),
@@ -24,22 +24,23 @@ notificationCenter::notificationCenter(QWidget *parent):
 
 void notificationCenter::init()
 {
+    customSwitchFrame::init();
     label_identifi->setText(CHAR2STR("WORKSHOP"));
     label_identifi->setFont(QFont (CHAR2STR("Microsoft YaHei UI"), 8, QFont::Bold));
-    label_identifi->setStyleSheet("QLabel{color:rgb(255,255,255);}");
+    label_identifi->setStyleSheet("QLabel{color:rgb(255,255,255);background:transparent;}");
     label_identifi->move(-120,0);
 
     label_ready->setText(QString::fromUtf8("就绪"));
     label_ready->setFont(CellUiGlobal::getFont(CHAR2STR("Microsoft YaHei UI"), 14));
-    label_ready->setStyleSheet("QLabel{color:rgb(255,255,255);}");
+    label_ready->setStyleSheet("QLabel{color:rgb(255,255,255);background:transparent;}");
     label_ready->move(10,0);
 }
 
 void notificationCenter::plusCnt()
 {
-    if(currState != customGradientChangeFrame::State::Special){
-        transCurrState(customGradientChangeFrame::State::Special);
-        CellUiGlobal::setPropertyAnimation({animi},
+    if(currState != customSwitchFrame::State::Special){
+        transCurrState(customSwitchFrame::State::Special);
+        CellUiGlobal::setPropertyAnimation({animiPtr},
                                          "pos",
                                          label_identifi->pos(),
                                          normalPos_iden,
@@ -67,8 +68,8 @@ void notificationCenter::plusCnt()
 void notificationCenter::minusCnt()
 {
     if(--workshop_instancesCount == 0){
-        transCurrState(customGradientChangeFrame::State::Normal);
-        CellUiGlobal::setPropertyAnimation({animi},
+        transCurrState(customSwitchFrame::State::Normal);
+        CellUiGlobal::setPropertyAnimation({animiPtr},
                                          "pos",
                                          label_identifi->pos(),
                                          hidePos_iden,

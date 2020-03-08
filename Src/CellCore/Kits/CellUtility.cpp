@@ -72,6 +72,21 @@ void setPropertyAnimation(QList<QPropertyAnimation*> &&animis,const QByteArray &
         animis[0]->start(QAbstractAnimation::DeleteWhenStopped);
     }
 }
+void setPropertyAnimation(QPropertyAnimation &animi,
+                          QWidget* module,
+                          const QByteArray &property,
+                          const QVariant &sValue,
+                          const QVariant &eValue, int duration,
+                          QEasingCurve curve)
+{
+    animi.setTargetObject(module);
+    animi.setPropertyName(property);
+    animi.setDuration(duration);
+    animi.setEasingCurve(curve);
+    animi.setStartValue(sValue);
+    animi.setEndValue(eValue);
+    animi.start(QAbstractAnimation::KeepWhenStopped);
+}
 void multiModulesOneStyleSheet(const QList<QWidget*> &modules, const QString &qss)
 {
     for(auto &e : modules)

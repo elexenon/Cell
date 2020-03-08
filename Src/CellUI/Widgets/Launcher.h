@@ -38,13 +38,21 @@ public:
         _SETTINGS
     };
 
-    const QRect maskGeometry();
+    const QRect
+    maskGeometry();
 
 private:
-    void         initLauncher();
-    virtual void setEventConnections() override;
-    void         startPageSwitchAnimation(PAGE_TYPE nextPage);
-    void         _launcherWorkshop();
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
+
+    void
+    startPageSwitchAnimation(PAGE_TYPE nextPage);
+
+    void
+    _launcherWorkshop();
 
     QGraphicsOpacityEffect *opacityEffect;
 
@@ -73,20 +81,38 @@ private:
     bool      isMaxSize = false;
     PAGE_TYPE currentPage;
 
-protected:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
-
 private Q_SLOTS:
-    void btnMiniClicked();
-    void btnMaxClicked();
-    void btnCloseClicked();
-    void tabHomeClicked();
-    void tabSettingsClicked();
-    void tabGuideClicked();
-    void tabTestClicked();
-    void btnNewClicked();
-    void btnOpenClicked();
-    void launchWorkShop(CellProjectEntity *entity);
-    void launchWorkShopByPath(const QString &path);
+    void
+    btnMiniClicked();
+
+    void
+    btnMaxClicked();
+
+    void
+    btnCloseClicked();
+
+    void
+    tabHomeClicked();
+
+    void
+    tabSettingsClicked();
+
+    void
+    tabGuideClicked();
+
+    void
+    tabTestClicked();
+
+    void
+    btnNewClicked();
+
+    void
+    btnOpenClicked();
+
+    void
+    launchWorkShop(CellProjectEntity *entity);
+
+    void
+    launchWorkShopByPath(const QString &path);
 };
 #endif

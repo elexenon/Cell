@@ -31,7 +31,7 @@
 #include <QJsonDocument>
 
 #include "../CustomBaseWidgets/customFrame.h"
-#include "../CustomBaseWidgets/customGradientChangeFrame.h"
+#include "../CustomBaseWidgets/customSwitchFrame.h"
 #include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
 #include "../../CellCore/CellVariant.h"
@@ -44,7 +44,7 @@ Workshop::Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent) :
     mainLayout(new QVBoxLayout(this)),
     loadingDialog(new WSLoadingDialog),
     menuBar(new QMenuBar(this)),
-    leftBlock(new customFrame(customFrame::Regular, this)),
+    leftBlock(new customFrame(customFrame::Type::Regular, this)),
     leftStackedWidget(new QStackedWidget(this)),
     btnDirectory(new QPushButton(this)),
     btnWarning(new QPushButton(this)),
@@ -52,9 +52,9 @@ Workshop::Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent) :
     treeView(new QTreeView(this)),
     fileModel(new QFileSystemModel(this)),
     mainEditor(new QsciScintilla(this)),
-    rightBlock(new customFrame(customFrame::Regular, this)),
-    statusBar(new customFrame(customFrame::Regular, this)),
-    textChangetoken(new customGradientChangeFrame(Cell::CellThemeColor::NavyBlue ,this)),
+    rightBlock(new customFrame(customFrame::Type::Regular, this)),
+    statusBar(new customFrame(customFrame::Type::Regular, this)),
+    textChangetoken(new customSwitchFrame(Cell::CellThemeColor::NavyBlue ,this)),
     labelCntRow(new QLabel(this)),
     labelCntChar(new QLabel(this)),
     labelFormat(new QLabel(this)),
@@ -62,7 +62,7 @@ Workshop::Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent) :
 {
     init();
     setEventConnections();
-    if(m_mode != mainWindow_mode)
+    if(mMode != mainWindow_mode)
         setColorScheme(mainWindow_mode);
 }
 
@@ -124,7 +124,7 @@ void Workshop::init()
     // Set LeftBlock.
     leftBlock->setMinimumWidth(300);
     QVBoxLayout *leftBlockLayout = new QVBoxLayout(leftBlock);
-    customFrame *topBtnsFrame = new customFrame(customFrame::Regular,leftBlock);
+    customFrame *topBtnsFrame = new customFrame(customFrame::Type::Regular,leftBlock);
     topBtnsFrame->setFixedHeight(27);
 
     QHBoxLayout *HLayout = new QHBoxLayout(topBtnsFrame);
@@ -186,11 +186,11 @@ void Workshop::init()
     CellUiGlobal::setCustomTextLabel(labelCntChar, CHAR2STR("Microsoft YaHei UI Light"), 12, CHAR2STR("Characters: 0"));
     CellUiGlobal::setCustomTextLabel(labelFormat,  CHAR2STR("Microsoft YaHei UI Light"), 12, CHAR2STR("UTF-8"));
 
-    textChangetoken->setBrightDarkModeColor(Cell::CellThemeColor::pureGreen, Cell::CGL45);
+    textChangetoken->setBrightDarkColor(Cell::CellThemeColor::pureGreen, Cell::CGL45);
     textChangetoken->setFixedSize(23, 15);
 
     statusBar->setFixedHeight(25);
-    statusBar->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
+    statusBar->setBrightDarkColor(Cell::CGL218, Cell::CGL45);
 
     _modules << textChangetoken << statusBar;
 
@@ -297,11 +297,6 @@ void Workshop::getProjectEntity(CellProjectEntity &entity)
     treeView->setRootIndex(fileModel->index(currEntity.path()));
 }
 
-void Workshop::setColorScheme(Cell::ColorScheme mode)
-{
-    CellWidgetGlobalInterface::setColorScheme(mode);
-}
-
 void Workshop::updateStatusBar()
 {
     labelCntRow->setText("Row: " + QString::number(mainEditor->lines()));
@@ -349,7 +344,7 @@ void Workshop::saveFile()
 {
     if(!codeModified) return;
     codePrev = codeCurr;
-    textChangetoken->transCurrState(customGradientChangeFrame::Normal);
+    textChangetoken->transCurrState(customSwitchFrame::Normal);
 
     currEntity.setCode(codeCurr);
 
@@ -377,8 +372,8 @@ void Workshop::checkCodeModifiedState()
     codePrev == (codeCurr = mainEditor->text()) ?
     codeModified = false : codeModified = true;
     codeModified ?
-        textChangetoken->transCurrState(customGradientChangeFrame::Special):
-        textChangetoken->transCurrState(customGradientChangeFrame::Normal);
+        textChangetoken->transCurrState(customSwitchFrame::Special):
+        textChangetoken->transCurrState(customSwitchFrame::Normal);
 }
 
 void Workshop::setColor(const QColor& color)
@@ -387,20 +382,11 @@ void Workshop::setColor(const QColor& color)
     setStyleSheet(QString("background-color:rgb(%1,%2,%3);").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
-void Workshop::setBaseQss(const QString &qss)
-{
-    (void)qss;
-}
-
 void Workshop::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
 {
-    CellUiGlobal::setPropertyAnimation({animi},
-                                 "color",
-                                 startColor,
-                                 targetColor,
-                                 duration,
-                                 easingCurve,
-                                 {this},nullptr);
+    CellUiGlobal::setPropertyAnimation(animi, this, "color",
+                                       startColor, targetColor, duration,
+                                       CellWidgetGlobalInterface::easingCurve);
 }
 
 void Workshop::closeEvent(QCloseEvent* e)
@@ -423,4 +409,8 @@ void Workshop::btnWarrningClicked()
 void Workshop::btnToolChainClicked()
 {
     leftStackedWidget->setCurrentIndex(2);
+}
+
+void Workshop::setColorScheme(Cell::ColorScheme mode){
+    CellWidgetGlobalInterface::setColorScheme(mode);
 }

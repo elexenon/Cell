@@ -42,7 +42,6 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customButton.cpp \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customDialogButton.cpp \
-    Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customGridView.cpp \
     Src/CellUI/CustomBaseWidgets/customLineEdit.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
@@ -52,10 +51,10 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customSwitch.cpp \
+    Src/CellUI/CustomBaseWidgets/customSwitchFrame.cpp \
     Src/CellUI/CustomBaseWidgets/customTitleBar.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.cpp \
-    Src/CellUI/CustomBaseWidgets/naviButton.cpp \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.cpp \
     Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
     Src/CellUI/Widgets/NewPJPredictEarPage.cpp \
@@ -92,7 +91,6 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.h \
     Src/CellUI/CustomBaseWidgets/customDialogButton.h \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
-    Src/CellUI/CustomBaseWidgets/customGradientChangeFrame.h \
     Src/CellUI/CustomBaseWidgets/customGridView.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
     Src/CellUI/CustomBaseWidgets/customLineEdit.h \
@@ -104,10 +102,10 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.h \
     Src/CellUI/CustomBaseWidgets/customSwitch.h \
+    Src/CellUI/CustomBaseWidgets/customSwitchFrame.h \
     Src/CellUI/CustomBaseWidgets/customTitleBar.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.h \
-    Src/CellUI/CustomBaseWidgets/naviButton.h \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.h \
     Src/CellUI/Widgets/Launcher.h \
     Src/CellUI/Widgets/LauncherGuideDialog.h \

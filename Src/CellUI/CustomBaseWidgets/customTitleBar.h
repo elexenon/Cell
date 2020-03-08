@@ -18,23 +18,31 @@ class customTitleBar : public customFrame
 public:
     explicit customTitleBar(QWidget *parent = nullptr);
 
-    void setText(const QString& text, const CellVariant &color = Cell::CGL0);
-    void setLeftMargin(int value);
-    void setIcon(const QString& fileName, int iconWidth, int iconHeight);
-    void setHeight(int value);
-    void setFont(const QFont& font);
-    void addWidget(QWidget *obj);
-    void addLayout(QLayout *obj);
+    void
+    setText(const QString& text, const CellVariant &color = Cell::CGL0);
+
+    void
+    setLeftMargin(int value);
+
+    void
+    setIcon(const QString& fileName, int iconWidth, int iconHeight);
+
+    void
+    setHeight(int value);
+
+    void
+    setFont(const QFont& font);
+
+    void
+    addWidget(QWidget *obj);
+
+    void
+    addLayout(QLayout *obj);
 
 protected:
-    //virtual void mouseDoubleClickEvent(QMouseEvent *event) override;
-
     QHBoxLayout *mainLayout;
     customLabel *label_title;
     QLabel      *icon;
-
-public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
 };
 
 #endif // CUSTOMTITLEBAR_H

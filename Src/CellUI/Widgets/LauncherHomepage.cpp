@@ -124,8 +124,8 @@ void LauncherHomepage::initTableView()
 
 void LauncherHomepage::setColorScheme(Cell::ColorScheme mode)
 {
-    if(mode == m_mode) return;
-    m_mode = mode;
+    if(mode == mMode) return;
+    mMode = mode;
 
     const QString labelQss = (mode == Cell::ColorScheme::Bright ? "QLabel{background:transparent; color:rgb(70,70,70);}":
                                                               "QLabel{background:transparent; color:white;}");

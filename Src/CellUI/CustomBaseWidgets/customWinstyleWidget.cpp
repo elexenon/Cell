@@ -10,23 +10,21 @@
 customWinstyleWidget::customWinstyleWidget(QWidget *parent):
     QWidget(parent)
 {
+    init();
+}
+
+void customWinstyleWidget::init(){
     setWindowFlags(Qt::FramelessWindowHint);
 }
 
-void customWinstyleWidget::setBaseQss(const QString &qss)
-{
-    (void)qss;
-}
+void customWinstyleWidget::setEventConnections()
+{}
 
 void customWinstyleWidget::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
 {
-    CellUiGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                      startColor,
-                                      targetColor,
-                                      duration,
-                                      easingCurve,
-                                      {this}, nullptr);
+    CellUiGlobal::setPropertyAnimation(animi, this, "color",
+                                       startColor, targetColor, duration,
+                                       CellWidgetGlobalInterface::easingCurve);
 }
 
 void customWinstyleWidget::setColor(const QColor &color)

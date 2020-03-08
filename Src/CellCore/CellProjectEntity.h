@@ -27,20 +27,23 @@ public:
     explicit CellProjectEntity() noexcept;
     ~CellProjectEntity() noexcept = default;
 
-    static const QString         getType(CellProjectEntityType type);
-    static CellProjectEntityType getType(const QString &type);
+    static const QString
+    getType(CellProjectEntityType type);
 
-    inline
-    void setName(const QString &name) { this->mName = name; }
+    static CellProjectEntityType
+    getType(const QString &type);
 
-    inline
-    void setPath(const QString &path) { this->mPath = path; }
+    inline void
+    setName(const QString &name) { this->mName = name; }
 
-    inline
-    void setType(const CellProjectEntityType &type) { this->mType = type; }
+    inline void
+    setPath(const QString &path) { this->mPath = path; }
 
-    inline
-    void setModifiedTime(const QString &time) { this->mModifiedTime = time; }
+    inline void
+    setType(const CellProjectEntityType &type) { this->mType = type; }
+
+    inline void
+    setModifiedTime(const QString &time) { this->mModifiedTime = time; }
 
     inline const QString&
     name() const { return mName; }
@@ -60,11 +63,15 @@ public:
     inline const QString&
     modifiedTime() const { return mModifiedTime; }
 
-    void print() const;
+    void
+    print() const;
 
-    void read(const QJsonObject &json);
+    void
+    read(const QJsonObject &json);
 
-    void write(QJsonObject &json);
+    void
+    write(QJsonObject &json);
+
 private:
     mutable QString               mName;
     mutable QString               mModifiedTime;

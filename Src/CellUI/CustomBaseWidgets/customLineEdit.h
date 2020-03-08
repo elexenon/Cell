@@ -10,12 +10,14 @@ public:
     explicit customLineEdit(QWidget *parent = nullptr);
 
 private:
-    void init();
+    void
+    init();
 
     Cell::ColorScheme mMode;
 
 public Q_SLOTS:
-    void setColorScheme(Cell::ColorScheme mode);
+    void
+    setColorScheme(Cell::ColorScheme mode);
 };
 
 #endif // CUSTOMLINEEDIT_H

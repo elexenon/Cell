@@ -52,24 +52,37 @@ private:
     CellProjectEntity *currEntity;
 
 private:
-    void init();
-    void judgeValidProject();
-    virtual void setEventConnections() override;
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
+
+    void
+    judgeValidProject();
 
 signals:
-    void projectSettled(CellProjectEntity *entity);
-
-public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme) override;
+    void
+    projectSettled(CellProjectEntity *entity);
 
 private Q_SLOTS:
-    inline
-    void btnCancelClicked() { this->close(); }
-    void btnConfirmClicked();
-    void btnListWidget1Clicked(int id);
-    void btnListWidget2Clicked(int id);
-    void setName(const QString &name);
-    void setPath(const QString &path);
+    inline void
+    btnCancelClicked() { this->close(); }
+
+    void
+    btnConfirmClicked();
+
+    void
+    btnListWidget1Clicked(int id);
+
+    void
+    btnListWidget2Clicked(int id);
+
+    void
+    setName(const QString &name);
+
+    void
+    setPath(const QString &path);
 };
 
 #endif // LAUNCHERNEWPJDIALOG_H

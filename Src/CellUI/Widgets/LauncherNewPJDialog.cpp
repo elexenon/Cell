@@ -35,7 +35,7 @@ LauncherNewPJDialog::LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *p
     currEntity(new CellProjectEntity)
 {
     init();
-    if(m_mode != globalMode)
+    if(mMode != globalMode)
         setColorScheme(globalMode);
     setEventConnections();
 }
@@ -47,19 +47,21 @@ LauncherNewPJDialog::~LauncherNewPJDialog()
 
 void LauncherNewPJDialog::init()
 {
+    customWinstyleDialog::init();
     customWinstyleDialog::LoadWinStyle(this);
     setAttribute(Qt::WA_DeleteOnClose);
-    setBrightDarkModeColor(Cell::CGL255, Cell::CGL30);
+    setAutoFillBackground(true);
+    setBrightDarkColor(Cell::CGL255, Cell::CGL30);
     resize(900, 520);
 
     titleBar->setFixedHeight(40);
-    titleBar->setBrightDarkModeColor(Cell::CGL218, Cell::CGL45);
+    titleBar->setBrightDarkColor(Cell::CGL218, Cell::CGL45);
     titleBar->setText(CHAR2STR("新建项目"), Cell::CGL70);
 
     QFont font(CHAR2STR("Microsoft YaHei UI Light"));
 
     CellUiGlobal::setCustomTextLabel(label_choose, CHAR2STR("Microsoft YaHei UI Light"), 25, CHAR2STR("选择一个模板"));
-    label_choose->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    label_choose->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
 
     btnListWidget1->addThemeHead(CHAR2STR("项目"));
     btnListWidget1->addButton(CHAR2STR("Cell DeepLearning"),Cell::CGL247,Cell::CGL70);
@@ -68,7 +70,7 @@ void LauncherNewPJDialog::init()
     btnListWidget1->setButtonSize(249,40);
     btnListWidget1->setSpacing(0);
     btnListWidget1->setBtnFontPixelSize(18);
-    btnListWidget1->setBrightDarkModeColor(Cell::CGL255,Cell::CGL30);
+    btnListWidget1->setBrightDarkColor(Cell::CGL255,Cell::CGL30);
     btnListWidget1->clickButton(0);
 
     btnListWidget2->addThemeHead(CHAR2STR("文件"));
@@ -79,20 +81,20 @@ void LauncherNewPJDialog::init()
     btnListWidget2->setButtonSize(249,40);
     btnListWidget2->setSpacing(0);
     btnListWidget2->setBtnFontPixelSize(18);
-    btnListWidget2->setBrightDarkModeColor(Cell::CGL255,Cell::CGL30);
+    btnListWidget2->setBrightDarkColor(Cell::CGL255,Cell::CGL30);
 
-    btnConfirm->setBrightDarkModeColor(Cell::CGL255, Cell::CGL70);
-    btnConfirm->setBrightModeHoveringColor(Cell::CGL218);
+    btnConfirm->setBrightDarkColor(Cell::CGL255, Cell::CGL70);
+    btnConfirm->setBrightHoveringColor(Cell::CGL218);
     btnConfirm->setAnimationDuration(300);
-    btnConfirm->init(CHAR2STR("确认"), 14);
+    btnConfirm->initModules(CHAR2STR("确认"), 14);
     btnConfirm->setFixedSize(100, 27);
     btnConfirm->setCursor(Qt::PointingHandCursor);
     btnConfirm->setEnabled(false);
 
-    btnCancel->setBrightDarkModeColor(Cell::CGL255, Cell::CGL70);
-    btnCancel->setBrightModeHoveringColor(Cell::CGL218);
+    btnCancel->setBrightDarkColor(Cell::CGL255, Cell::CGL70);
+    btnCancel->setBrightHoveringColor(Cell::CGL218);
     btnCancel->setAnimationDuration(300);
-    btnCancel->init(CHAR2STR("取消"), 14);
+    btnCancel->initModules(CHAR2STR("取消"), 14);
     btnCancel->setFixedSize(100, 27);
     btnCancel->setCursor(Qt::PointingHandCursor);
 
@@ -172,10 +174,6 @@ void LauncherNewPJDialog::setEventConnections()
 
     connect(btnCancel, &QPushButton::clicked, this, &LauncherNewPJDialog::btnCancelClicked);
     connect(btnConfirm, &QPushButton::clicked, this, &LauncherNewPJDialog::btnConfirmClicked);
-}
-
-void LauncherNewPJDialog::setColorScheme(Cell::ColorScheme mode){
-    customWinstyleDialog::setColorScheme(mode);
 }
 
 void LauncherNewPJDialog::btnListWidget1Clicked(int id)

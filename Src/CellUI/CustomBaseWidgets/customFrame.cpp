@@ -10,46 +10,54 @@
 
 #include <QDebug>
 
-customFrame::customFrame(CustomFrameType type, QWidget *parent):
+customFrame::customFrame(Type type, QWidget *parent):
     QFrame(parent),
     mType(type)
 {
-    setBaseQss("");
+    init();
+    setEventConnections();
 }
+
+void customFrame::init()
+{}
+
+void customFrame::setEventConnections()
+{}
 
 void customFrame::setColor(const QColor &color)
 {
     CellWidgetGlobalInterface::setColor(color);
-    setStyleSheet(BASEQSS.arg(color.red()).arg(color.green()).arg(color.blue()));
+    update();
 }
 
-void customFrame::setBaseQss(const QString& qss)
-{
-    (void)qss;
-    setObjectName(CHAR2STR("customFrameRadius"));
-    QString qssFileName = (mType == CustomFrameType::Regular ? "CustomFrame.css" : "CustomFrameRadius.css");
-
-    CellUiGlobal::loader.setFileName(qssFileName);
-    CellWidgetGlobalInterface::setBaseQss(CellUiGlobal::loader.content());
+void customFrame::changeToColor(const QColor& startColor, const QColor &targetColor, int duration){
+    CellUiGlobal::setPropertyAnimation(animi, this, "color",
+                                       startColor, targetColor, duration,
+                                       CellWidgetGlobalInterface::easingCurve);
 }
 
-void customFrame::changeToColor(const QColor& startColor, const QColor &targetColor, int duration)
+void customFrame::paintEvent(QPaintEvent *e)
 {
-    CellUiGlobal::setPropertyAnimation({animi},
-                                 "color",
-                                 startColor,
-                                 targetColor,
-                                 duration,
-                                 easingCurve,
-    {this},nullptr);
+    e->accept();
+
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setBrush(mColor);
+
+    QRect rect = this->rect();
+    if(mType == Type::Radius){
+        QPen pen(QColor(180, 180, 180), 1);
+        pen.setCapStyle(Qt::RoundCap);
+        pen.setJoinStyle(Qt::RoundJoin);
+        painter.setPen(pen);
+        painter.drawRoundedRect(rect, Cell::FrameRadius, Cell::FrameRadius);
+    }
+    else{
+        painter.setPen(Qt::NoPen);
+        painter.drawRect(rect);
+    }
 }
 
-void customFrame::setEventConnections()
-{
-
-}
-
-void customFrame::setColorScheme(Cell::ColorScheme mode)
-{
+void customFrame::setColorScheme(Cell::ColorScheme mode){
     CellWidgetGlobalInterface::setColorScheme(mode);
 }

@@ -22,7 +22,7 @@ class QPushButton;
 class QVBoxLayout;
 class QSplitter;
 class QShortcut;
-class customGradientChangeFrame;
+class customSwitchFrame;
 class QMenuBar;
 class QTreeView;
 class QStackedWidget;
@@ -42,17 +42,31 @@ public:
     inline
     void         constructed() { emit _constructed(); }
     virtual void setColor(const QColor& color) override;
-    virtual void setBaseQss(const QString &qss) override;
     virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
 
 private:
-    void         init();
-    void         initMainEditor();
-    void         initTreeView();
-    void         getProjectEntity(CellProjectEntity &entity);
-    void         read(const QJsonObject &json);
-    void         write(QJsonObject &json);
-    virtual void setEventConnections() override;
+    //! Inhrited from
+    //! CellWidgetGlobalInterface.
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
+
+    void
+    initMainEditor();
+
+    void
+    initTreeView();
+
+    void
+    getProjectEntity(CellProjectEntity &entity);
+
+    void
+    read(const QJsonObject &json);
+
+    void
+    write(QJsonObject &json);
 
     QVBoxLayout *mainLayout;
     WSLoadingDialog           *loadingDialog;
@@ -67,7 +81,7 @@ private:
     QsciScintilla             *mainEditor;
     customFrame               *rightBlock;
     customFrame               *statusBar;
-    customGradientChangeFrame *textChangetoken;
+    customSwitchFrame *textChangetoken;
     QLabel                    *labelCntRow;
     QLabel                    *labelCntChar;
     QLabel                    *labelFormat;
@@ -81,24 +95,44 @@ private:
     CellProjectEntity  currEntity;   
 
 protected:
-    virtual void closeEvent(QCloseEvent *event) override;
+    virtual void
+    closeEvent(QCloseEvent *event) override;
 
 signals:
-    void _constructed();
-    void destoryed();
-    void projectUpdate(CellProjectEntity &entity);
+    void
+    _constructed();
 
-public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    void
+    destoryed();
+
+    void
+    projectUpdate(CellProjectEntity &entity);
 
 private Q_SLOTS:
-    void         updateStatusBar();
-    void         loadFile(const QString &path);
-    void         saveFile();
-    void         checkCodeModifiedState();
-    void         btnDirectoryClicked();
-    void         btnWarrningClicked();
-    void         btnToolChainClicked();
+    void
+    updateStatusBar();
+
+    void
+    loadFile(const QString &path);
+
+    void
+    saveFile();
+
+    void
+    checkCodeModifiedState();
+
+    void
+    btnDirectoryClicked();
+
+    void
+    btnWarrningClicked();
+
+    void
+    btnToolChainClicked();
+
+public Q_SLOTS:
+    virtual void
+    setColorScheme(Cell::ColorScheme mode) override;
 };
 
 #endif // WORKSHOP_H

@@ -16,15 +16,13 @@ class ButtonWithText : public customButton{
 public:
     explicit ButtonWithText(customButton::Type type = Static,QWidget *parent = nullptr);
 
-    void init(const QString& text = "Button", int fontSize = 18);
-    void setTextColor(const CellVariant &b, const CellVariant &d);
-    inline
-    void setNaviBar() { naviVerBar = true; }
+    void
+    initModules(const QString& text = "Button", int fontSize = 18);
+
+    void
+    setTextColor(const CellVariant &b, const CellVariant &d);
 
 protected:
-    virtual void paintEvent(QPaintEvent*);
-
-    bool         naviVerBar;
     QVBoxLayout *mainLayout;
     customLabel *tag;
 };

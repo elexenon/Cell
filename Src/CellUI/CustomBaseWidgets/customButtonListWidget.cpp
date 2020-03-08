@@ -15,19 +15,38 @@
 #include <QButtonGroup>
 
 customButtonListWidget::customButtonListWidget(QWidget *parent) :
-    customFrame(customFrame::Regular, parent)
-  , mainLayout(new QVBoxLayout(this))
-  , buttons(new QList<customListButton*>)
-  , btnGroup(new QButtonGroup(this))
+    customFrame(customFrame::Type::Regular, parent),
+    mainLayout(new QVBoxLayout(this)),
+    buttons(new QList<customListButton*>),
+    btnGroup(new QButtonGroup(this))
 {
     init();
     setEventConnections();
 }
 
-void customButtonListWidget::setButtonsBrightDarkModeColor(const CellVariant &b, const CellVariant &d)
+void customButtonListWidget::init()
 {
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(3);
+    setLayout(mainLayout);
+    btnGroup->setExclusive(true);
+
+    if(typeid(CellWidgetGlobalInterface*) == typeid(this->parentWidget()))
+        setBrightDarkColor(dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->brightColor(),
+                                dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->darkModeColor());
+    else
+        setBrightDarkColor(Cell::CGL247, Cell::CGL30);
+}
+
+void customButtonListWidget::setEventConnections(){
+    connect(btnGroup, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), [=](int id){
+        emit clicked(id);
+    });
+}
+
+void customButtonListWidget::setButtonsBrightDarkModeColor(const CellVariant &b, const CellVariant &d){
     for(auto & e : *buttons)
-        e->setBrightDarkModeColor(b, d);
+        e->setBrightDarkColor(b, d);
 }
 
 void customButtonListWidget::addButton(const QString &text, const CellVariant &b, const CellVariant &d, int index)
@@ -36,16 +55,17 @@ void customButtonListWidget::addButton(const QString &text, const CellVariant &b
         index = buttonIndex++;
 
     customListButton *btn = new customListButton(this, text);
-    btn->setBrightModeCheckedColor(b);
-    btn->setDarkModeCheckedColor(d);
+    btn->setBrightCheckedColor(b);
+    btn->setDarkCheckedColor(d);
 
     buttons->append(btn);
     btnGroup->addButton(btn, index);
     mainLayout->addWidget(btn);
+
+    _modules << btn;
 }
 
-const customListButton* customButtonListWidget::getButton(int index) const
-{
+const customListButton* customButtonListWidget::getButton(int index) const{
     return buttons->at(index);
 }
 
@@ -64,44 +84,31 @@ void customButtonListWidget::setBtnFontPixelSize(int size)
         e->setFont(font);
 }
 
-void customButtonListWidget::setMargins(int left, int top, int right, int buttom)
-{
+void customButtonListWidget::setMargins(int left, int top, int right, int buttom){
     mainLayout->setContentsMargins(left, top, right, buttom);
 }
 
-void customButtonListWidget::setSpacing(int spacing)
-{
+void customButtonListWidget::setSpacing(int spacing){
     mainLayout->setSpacing(spacing);
 }
 
-void customButtonListWidget::clickButton(int index) const
-{
+void customButtonListWidget::clickButton(int index) const{
     buttons->at(index)->click();
 }
 
-void customButtonListWidget::setButtonCheckable(int index, bool value)
-{
+void customButtonListWidget::setButtonCheckable(int index, bool value){
     auto e = buttons->at(index);
     e->setCheckable(value);
 }
 
-void customButtonListWidget::setExlusive(bool value)
-{
+void customButtonListWidget::setExlusive(bool value){
     btnGroup->setExclusive(value);
 }
 
-void customButtonListWidget::setEventConnections()
-{
-    connect(btnGroup, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), [=](int id){
-        emit clicked(id);
-    });
-}
-
-void customButtonListWidget::addThemeHead(const QString& theme)
-{
+void customButtonListWidget::addThemeHead(const QString& theme){
     label_theme = new customLabel(this);
     CellUiGlobal::setCustomTextLabel(label_theme, CHAR2STR("Microsoft YaHei UI"), 15, theme);
-    label_theme->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    label_theme->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
     line_splitter = CellUiGlobal::getLine(Cell::LineType::HLine);
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(label_theme);
@@ -110,21 +117,6 @@ void customButtonListWidget::addThemeHead(const QString& theme)
 
     mainLayout->addLayout(layout);
     mainLayout->addWidget(line_splitter);
-}
 
-void customButtonListWidget::init()
-{
-    mainLayout->setMargin(0);
-    mainLayout->setSpacing(3);
-    setLayout(mainLayout);
-    btnGroup->setExclusive(true);
-}
-
-void customButtonListWidget::setColorScheme(Cell::ColorScheme mode)
-{
-    customFrame::setColorScheme(mode);
-    if(label_theme!=nullptr)
-        label_theme->setColorScheme(mode);
-    for(auto & e : *buttons)
-        e->setColorScheme(mode);
+    _modules << label_theme;
 }

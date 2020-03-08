@@ -23,7 +23,7 @@ LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
     mainLayout(new QVBoxLayout(this)),
     titleBar(new customTitleBar(this)),
     mainStackedWidget(new customStackedWidget(this)),
-    bottomBar(new customFrame(customFrame::Regular, this)),
+    bottomBar(new customFrame(customFrame::Type::Regular, this)),
     checkBox(new QCheckBox(bottomBar)),
     btnClose(new ButtonWithText(customButton::Dynamic, bottomBar)),
     btnNewPJ(new ButtonWithText(customButton::Dynamic, bottomBar))
@@ -34,13 +34,14 @@ LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
 
 void LauncherGuideDialog::init()
 {
+    customWinstyleDialog::init();
     customWinstyleDialog::LoadWinStyle(this);
     setLayout(mainLayout);
     setFixedSize(920, 580);
 
     // TitleBar Combination.
     titleBar->setFixedHeight(40);
-    titleBar->setBrightDarkModeColor(Cell::CGL218,Cell::CGL60);
+    titleBar->setBrightDarkColor(Cell::CGL218,Cell::CGL60);
     titleBar->setText("");
     titleBar->setFont(CellUiGlobal::getFont(CHAR2STR("InfoDisplayWeb W01 Medium.ttf"), 21));
     titleBar->setIcon(CHAR2STR("cellLogo28"), 0, 0);
@@ -52,19 +53,19 @@ void LauncherGuideDialog::init()
     checkBox->setFont(CellUiGlobal::getFont(CHAR2STR("Microsoft YaHei UI"), 13));
     checkBox->setStyleSheet(CHAR2STR("QCheckBox{color:white;background-color: transparent;}"));
 
-    btnClose->setBrightDarkModeColor(Cell::CGL70, Cell::CGL70);
-    btnClose->setBrightModeHoveringColor(Cell::CellThemeColor::NavyBlue);
-    btnClose->setDarkModeHoveringColor(Cell::CellThemeColor::NavyBlue);
+    btnClose->setBrightDarkColor(Cell::CGL70, Cell::CGL70);
+    btnClose->setBrightHoveringColor(Cell::CellThemeColor::NavyBlue);
+    btnClose->setDarkHoveringColor(Cell::CellThemeColor::NavyBlue);
     btnClose->setAnimationDuration(200);
-    btnClose->init(CHAR2STR("关闭"), 15);
+    btnClose->initModules(CHAR2STR("关闭"), 15);
     btnClose->setTextColor(Cell::CGL255, Cell::CGL255);
     btnClose->setFixedSize(100, 40);
 
-    btnNewPJ->setBrightDarkModeColor(Cell::CGL100, Cell::CGL100);
-    btnNewPJ->setBrightModeHoveringColor(Cell::CellThemeColor::NavyBlue);
-    btnNewPJ->setDarkModeHoveringColor(Cell::CellThemeColor::NavyBlue);
+    btnNewPJ->setBrightDarkColor(Cell::CGL100, Cell::CGL100);
+    btnNewPJ->setBrightHoveringColor(Cell::CellThemeColor::NavyBlue);
+    btnNewPJ->setDarkHoveringColor(Cell::CellThemeColor::NavyBlue);
     btnNewPJ->setAnimationDuration(200);
-    btnNewPJ->init(CHAR2STR("新建文档"), 15);
+    btnNewPJ->initModules(CHAR2STR("新建文档"), 15);
     btnNewPJ->setTextColor(Cell::CGL255, Cell::CGL255);
     btnNewPJ->setFixedSize(100, 40);
 
@@ -76,14 +77,14 @@ void LauncherGuideDialog::init()
     HLayoutBottom->addWidget(btnClose);
     HLayoutBottom->addWidget(btnNewPJ);
 
-    bottomBar->setBrightDarkModeColor(Cell::CGL60, Cell::CGL60);
+    bottomBar->setBrightDarkColor(Cell::CGL60, Cell::CGL60);
     bottomBar->setFixedHeight(40);
 
-    customFrame *f1 = new customFrame(customFrame::Regular, this);
-    f1->setBrightDarkModeColor(Cell::CGL247, Cell::CGL60);
+    customFrame *f1 = new customFrame(customFrame::Type::Regular, this);
+    f1->setBrightDarkColor(Cell::CGL247, Cell::CGL60);
 
-    customFrame *f2 = new customFrame(customFrame::Regular, this);
-    f2->setBrightDarkModeColor(Cell::CGL130, Cell::CGL60);
+    customFrame *f2 = new customFrame(customFrame::Type::Regular, this);
+    f2->setBrightDarkColor(Cell::CGL130, Cell::CGL60);
 
     mainStackedWidget->setAnimiDuration(800);
     mainStackedWidget->insertWidget(0, f1);
@@ -102,16 +103,16 @@ void LauncherGuideDialog::init()
 
 void LauncherGuideDialog::fade()
 {
-    animi = new QPropertyAnimation;
-    connect(animi, &QPropertyAnimation::finished, this, &LauncherGuideDialog::close);
+    animiPtr = new QPropertyAnimation;
+    connect(animiPtr, &QPropertyAnimation::finished, this, &LauncherGuideDialog::close);
 
-    animi->setTargetObject(this);
-    animi->setPropertyName("windowOpacity");
-    animi->setEasingCurve(QEasingCurve::Linear);
-    animi->setDuration(150);
-    animi->setStartValue(1);
-    animi->setEndValue(0);
-    animi->start(QAbstractAnimation::DeleteWhenStopped);
+    animiPtr->setTargetObject(this);
+    animiPtr->setPropertyName("windowOpacity");
+    animiPtr->setEasingCurve(QEasingCurve::Linear);
+    animiPtr->setDuration(150);
+    animiPtr->setStartValue(1);
+    animiPtr->setEndValue(0);
+    animiPtr->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void LauncherGuideDialog::setEventConnections()
@@ -126,9 +127,4 @@ void LauncherGuideDialog::showEvent(QShowEvent *e)
 {
     (void)e;
     this->setWindowOpacity(1);
-}
-
-void LauncherGuideDialog::setColorScheme(Cell::ColorScheme mode)
-{
-    customWinstyleDialog::setColorScheme(mode);
 }

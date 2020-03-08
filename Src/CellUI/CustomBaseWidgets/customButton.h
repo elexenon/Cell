@@ -26,45 +26,83 @@ public:
     explicit customButton(customButton::Type type = Static,QWidget *parent = nullptr);
     virtual ~customButton() = default;
 
+    inline void
+    setNaviBar() { naviVerBar = true; }
+
 protected:
-    virtual void setColor(const QColor &color) override;
-    virtual void setBaseQss(const QString &qss) override;
-    virtual void changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
+    //! Inherited from
+    //! QPushButton.
+    virtual void
+    paintEvent(QPaintEvent *) override;
+    //! Inheried from
+    //! CellWidgetGlobalInterface.
+    virtual void
+    setColor(const QColor &color) override;
+
+    virtual void
+    changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
+
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
 
 private:
-    void initializeColors();
+    //! Core Color Switching Function
+    //! For customButton.
+    virtual void
+    setAnimiStartEndColor(Cell::ColorScheme mode, QColor&, QColor&) override;
 
-    void setAnimiStartEndColor(Cell::ColorScheme mode, QColor&, QColor&);
     Type mType;
+    bool naviVerBar;
 
 public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    virtual void
+    setColorScheme(Cell::ColorScheme mode) override;
 
 CheckablePublic:
-    void setBrightModeCheckedColor(const CellVariant &color);
-    void setDarkModeCheckedColor(const CellVariant &color);
+    void
+    setBrightCheckedColor(const CellVariant &color);
+
+    void
+    setDarkCheckedColor(const CellVariant &color);
+
 CheckablePrivate:
-    QColor *brightModeCheckedColor;
-    QColor *darkModeCheckedColor;
+    QColor *brightCheckedColor;
+    QColor *darkCheckedColor;
 
 DynamicPublic:
-    void setBrightModeHoveringColor(const CellVariant &color);
-    void setDarkModeHoveringColor(const CellVariant &color);
-    inline
-    void setAnimationDuration(int dur) { hoverAnimiDuration = dur; }
+    void
+    setBrightHoveringColor(const CellVariant &color);
+
+    void
+    setDarkHoveringColor(const CellVariant &color);
+
+    inline void
+    setAnimationDuration(int dur) { hoverAnimiDuration = dur; }
+
 DynamicPrivate:
-    virtual void enterEvent(QEvent*) override;
-    virtual void leaveEvent(QEvent*) override;
-    QColor  *brightModeHoveringColor;
-    QColor  *darkModeHoveringColor;
+    virtual void
+    enterEvent(QEvent*) override;
+
+    virtual void
+    leaveEvent(QEvent*) override;
+
+    QColor  *brightHoveringColor;
+    QColor  *darkHoveringColor;
     int      hoverAnimiDuration = 300;
 
 StaticPublic:
-    void setBrightModeHoverColor(const CellVariant &color);
-    void setDarkModeHoverColor(const CellVariant &color);
+    void
+    setBrightHoverColor(const CellVariant &color);
+
+    void
+    setDarkHoverColor(const CellVariant &color);
+
 StaticPrivate:
-    QColor *brightModeHoverColor;
-    QColor *darkModeHoverColor;
+    QColor *brightHoverColor;
+    QColor *darkHoverColor;
 };
 
 #endif // CUSTOMBUTTON_H

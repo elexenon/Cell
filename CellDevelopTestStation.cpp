@@ -20,7 +20,6 @@
 #include "Src/CellUI/CustomBaseWidgets/customDialogButton.h"
 #include "Src/CellUI/CustomBaseWidgets/customSwitch.h"
 #include "Src/CellUI/CustomBaseWidgets/Processing.h"
-#include "Src/CellUI/CustomBaseWidgets/naviButton.h"
 #include "Src/CellUI/CustomBaseWidgets/customNavigator.h"
 
 CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
@@ -94,7 +93,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     item10->setHint("奥德赛大苏打阿德撒旦撒旦你扩散的扩散的三点三看到你撒");
 
     customOptionBlock *block1 = new customOptionBlock(this, CHAR2STR("OptionBlock"));
-    block1->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    block1->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     block1->addItem(item);
     block1->addItem(item2);
     block1->addItem(item3);
@@ -108,50 +107,47 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     block1->tidyItems();
 
     ButtonWithText *btn1 = new ButtonWithText(customButton::StaticRadius, this);
-    btn1->setBrightModeHoverColor(Cell::CGL218);
-    btn1->setDarkModeHoverColor(Cell::CGL130);
-    btn1->setBrightDarkModeColor(Cell::CGL247, Cell::CGL180);
-    btn1->init("customTextButton");
+    btn1->setBrightHoverColor(Cell::CGL218);
+    btn1->setDarkHoverColor(Cell::CGL130);
+    btn1->setBrightDarkColor(Cell::CGL247, Cell::CGL180);
+    btn1->initModules("customTextButton");
     btn1->setFixedSize(200, 81);
 
     ButtonWithIcon *btn2 = new ButtonWithIcon(customButton::Type::CheckableRadius, this);
-    btn2->setBrightModeCheckedColor(Cell::CGL130);
-    btn2->setDarkModeCheckedColor(Cell::CGL180);
-    btn2->setBrightDarkModeColor(Cell::CGL247, Cell::CGL180);
-    btn2->init(CHAR2STR("cellLogo32"), 32, 32);
+    btn2->setBrightCheckedColor(Cell::CGL130);
+    btn2->setDarkCheckedColor(Cell::CGL180);
+    btn2->setBrightDarkColor(Cell::CGL247, Cell::CGL180);
+    btn2->initModules(CHAR2STR("cellLogo32"), 32, 32);
     btn2->setFixedSize(200, 81);
 
     ButtonWithIconText *btn3 = new ButtonWithIconText(customButton::Type::DynamicRadius, this);
-    btn3->setBrightModeHoveringColor(Cell::CGL255);
-    btn3->setDarkModeHoveringColor(Cell::CGL255);
-    btn3->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
+    btn3->setBrightHoveringColor(Cell::CGL255);
+    btn3->setDarkHoveringColor(Cell::CGL255);
+    btn3->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
     btn3->setAnimationDuration(300);
-    btn3->init(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("带图标和文字的Button"));
+    btn3->initModules(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("带图标和文字的Button"));
     btn3->setFixedSize(250, 81);
 
     ButtonWithIconTextHint *btn4 = new ButtonWithIconTextHint(customButton::Type::CheckableRadius, this);
-    btn4->setBrightModeCheckedColor(Cell::CGL130);
-    btn4->setDarkModeCheckedColor(Cell::CGL180);
-    btn4->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
-    btn4->init(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已有的Cell文档"));
+    btn4->setBrightCheckedColor(Cell::CGL130);
+    btn4->setDarkCheckedColor(Cell::CGL180);
+    btn4->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
+    btn4->initModules(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目(O)"), 23, CHAR2STR("打开已有的Cell文档"));
     btn4->setFixedSize(250, 81);
 
     customDialogButton *customDB = new customDialogButton(CHAR2STR("FUSION"), this);
-    customDB->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    customDB->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
 
     customSwitch *mSwitch = new customSwitch(this);
 
     ProcessingWidget *wid = new ProcessingWidget(this);
 
     customOptionBlock *block2 = new customOptionBlock(this, CHAR2STR("OptionBlock2"));
-    block2->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    block2->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
 
     customNavigator *nav = new customNavigator(this);
     nav->jointBlock(block1);
     nav->jointBlock(block2);
-
-    naviButton *nab = new naviButton(this);
-    nab->init();
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(block1);
@@ -163,7 +159,6 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     layout->addWidget(customDB);
     layout->addWidget(mSwitch);
     layout->addWidget(wid);
-    layout->addWidget(nab);
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addWidget(nav);

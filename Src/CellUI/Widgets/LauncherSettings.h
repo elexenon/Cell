@@ -40,19 +40,33 @@ public:
     explicit LauncherSettings(QWidget *parent = nullptr);
     ~LauncherSettings();
 
-    void LauncherSetColorSchemeModeCall(Cell::ColorScheme mode);
-    inline
-    void getLauncherPtr(Launcher *ptr) { launcherPtr = ptr; }
+    void
+    LauncherSetColorSchemeModeCall(Cell::ColorScheme mode);
+
+    inline void
+    getLauncherPtr(Launcher *ptr) { launcherPtr = ptr; }
 
 private:
-    void init();
-    void initsettingsObj();
-    void write(SaveAttribute key, const QString &value);
-    void loadFile();
-    void saveFile();
-    void read(const QJsonObject&);
-    void setColorScheme(Cell::ColorScheme mode);
-    void setEventConnections();
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
+
+    void
+    initsettingsObj();
+
+    void
+    write(SaveAttribute key, const QString &value);
+
+    void
+    loadFile();
+
+    void
+    saveFile();
+
+    void
+    read(const QJsonObject&);
 
     QVBoxLayout *mainLayout;
 
@@ -79,15 +93,27 @@ private:
     QJsonObject settingsObj;
 
 signals:
-    void enableColorScheme(Cell::ColorScheme mode);
+    void
+    enableColorScheme(Cell::ColorScheme mode);
 
 private Q_SLOTS:
-    void btnColorSchemeClicked();
-    void btnLanguageClicked();
-    void switchAutoClicked(bool checked);
-    void switchMultiClicked(bool checked);
-    void btnBrightClicked();
-    void btnDarkClicked();
+    void
+    btnColorSchemeClicked();
+
+    void
+    btnLanguageClicked();
+
+    void
+    switchAutoClicked(bool checked);
+
+    void
+    switchMultiClicked(bool checked);
+
+    void
+    btnBrightClicked();
+
+    void
+    btnDarkClicked();
 };
 
 #endif // LauncherSettings_H

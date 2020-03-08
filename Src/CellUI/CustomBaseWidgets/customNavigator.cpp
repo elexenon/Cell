@@ -9,7 +9,7 @@
 #include <QVBoxLayout>
 
 customNavigator::customNavigator(QWidget *parent):
-    QWidget(parent),
+    customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QVBoxLayout(this)),
     btnGroup(new QButtonGroup(this))
 {
@@ -18,12 +18,18 @@ customNavigator::customNavigator(QWidget *parent):
 
 void customNavigator::init()
 {
-    setStyleSheet(CHAR2STR("background:transparent;"));
+    customFrame::init();
     setFixedWidth(80);
     mainLayout->setSpacing(10);
     mainLayout->setMargin(0);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
     btnGroup->setExclusive(true);
+
+    if(typeid(CellWidgetGlobalInterface*) == typeid(this->parentWidget()))
+        setBrightDarkColor(dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->brightColor(),
+                                dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->darkModeColor());
+    else
+        setBrightDarkColor(Cell::CGL247, Cell::CGL30);
 }
 
 void customNavigator::jointBlock(const customOptionBlock *block)
@@ -36,33 +42,26 @@ void customNavigator::jointBlock(const customOptionBlock *block)
     // Add New Button Into Layout.
     ButtonWithText *tmp = new ButtonWithText(customButton::Type::Checkable, this);
     if(typeid(CellWidgetGlobalInterface*) == typeid(this->parentWidget()))
-        tmp->setBrightDarkModeColor(dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->brightModeColor(),
+        tmp->setBrightDarkColor(dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->brightColor(),
                                 dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->darkModeColor());
     else
-        tmp->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
-    tmp->setBrightModeCheckedColor(Cell::CGL230);
-    tmp->setDarkModeCheckedColor(Cell::CGL130);
+        tmp->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
+    tmp->setBrightCheckedColor(Cell::CGL230);
+    tmp->setDarkCheckedColor(Cell::CGL130);
     tmp->setNaviBar();
-    tmp->init(CHAR2STR("通用"), 16);
+    tmp->initModules(CHAR2STR("通用"), 16);
     tmp->setFixedHeight(20);
     mainLayout->addWidget(tmp);
     btnGroup->addButton(tmp, buttonID);
-    btns.append(tmp);
-
     blockBtnMap[block->_theme] = buttonID++;
 
     if(!firstClicked){
         tmp->click();
         firstClicked = true;
     }
+    _modules << tmp;
 }
 
-void customNavigator::setColorScheme(Cell::ColorScheme mode)
-{
-    for(auto & e : btns) e->setColorScheme(mode);
-}
-
-void customNavigator::setCurr(const QString &name)
-{
+void customNavigator::setCurr(const QString &name){
     btnGroup->button(blockBtnMap[name])->click();
 }

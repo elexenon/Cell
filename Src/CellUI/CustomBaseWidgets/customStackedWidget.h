@@ -15,20 +15,28 @@ public:
     };
     explicit customStackedWidget(QWidget *parent = nullptr);
 
-    inline
-    double getMidIndex() { return midIndex; }
-    inline
-    void   setMidIndex(const double index) { midIndex = index; update(); }
-    inline
-    void   setAnimiDuration(int value) { animiDuration = value; }
+    inline double
+    getMidIndex() { return midIndex; }
+
+    inline void
+    setMidIndex(const double index) { midIndex = index; update(); }
+
+    inline void
+    setAnimiDuration(int value) { animiDuration = value; }
 
 protected:
-    virtual void paintEvent(QPaintEvent *e);
+    virtual void
+    paintEvent(QPaintEvent *e);
 
 private:
-    void paintNext(QPainter &painter, int index);
-    void paintPrevious(QPainter &painter, int index);
-    void setEventConnections();
+    void
+    paintNext(QPainter &painter, int index);
+
+    void
+    paintPrevious(QPainter &painter, int index);
+
+    void
+    setEventConnections();
 
     QPropertyAnimation *animi;
     SWITCH_TYPE         m_type;
@@ -38,9 +46,14 @@ private:
     bool                animiRunning = false;
 
 public Q_SLOTS:
-    void switchNext();
-    void switchPrevious();
-    void animiFinished();
+    void
+    switchNext();
+
+    void
+    switchPrevious();
+
+    void
+    animiFinished();
 };
 
 #endif // CUSTOMSTACKEDWIDGET_H

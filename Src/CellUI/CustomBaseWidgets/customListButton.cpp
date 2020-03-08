@@ -29,27 +29,20 @@ void customListButton::init()
     mainLayout->addStretch();
     mainLayout->setContentsMargins(12, 0, 0, 0);
 
-    tag->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
-    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 16);    
+    tag->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
+    CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 16);
+
+    _modules << tag;
 }
 
-void customListButton::setFont(const QFont &font)
-{
+void customListButton::setFont(const QFont &font){
     tag->setFont(font);
 }
 
-void customListButton::setMargins(int left, int top, int right, int buttom)
-{
+void customListButton::setMargins(int left, int top, int right, int buttom){
     mainLayout->setContentsMargins(left, top, right, buttom);
 }
 
-void customListButton::setText(QString &text)
-{
+void customListButton::setText(QString &text){
     tag->setText(text);
-}
-
-void customListButton::setColorScheme(Cell::ColorScheme mode)
-{
-    customButton::setColorScheme(mode);
-    tag->setColorScheme(mode);
 }

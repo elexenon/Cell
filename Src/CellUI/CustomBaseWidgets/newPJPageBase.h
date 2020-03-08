@@ -18,7 +18,8 @@ public:
     explicit newPJPageBase(QWidget *parent = nullptr);
     virtual ~newPJPageBase() = default;
 
-    void setPageTitle(const QString &text);
+    void
+    setPageTitle(const QString &text);
 
 private:
     QVBoxLayout           *mainLayout;
@@ -37,11 +38,17 @@ private:
     QString name;
 
 protected:
-    virtual void init();
-    virtual void setEventConnections() override;
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
-    void         addOptionBlock(customOptionBlock *block);
-    void         enableToolChainsBlock();
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
+
+    void
+    addOptionBlock(customOptionBlock *block);
+
+    void
+    enableToolChainsBlock();
 
 Q_SIGNALS:
     void pathSettled(const QString &path);

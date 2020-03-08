@@ -16,19 +16,22 @@ friend class customButtonListWidget;
 public:
     explicit customListButton(QWidget *parent = nullptr, const QString &text = "text");
 
-    void   setMargins(int left = 0, int top = 0, int right = 0, int buttom = 0);
-    void   setText(QString &text);
+    void
+    setMargins(int left = 0, int top = 0, int right = 0, int buttom = 0);
+
+    void
+    setText(QString &text);
 
 private:
     QHBoxLayout *mainLayout;
     customLabel *tag;
 
 protected:
-    void         init();
-    virtual void setFont(const QFont &font);
+    virtual void
+    init() override;
 
-protected Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    virtual void
+    setFont(const QFont &font);
 };
 
 #endif // CUSTOMLISTBUTTON_H

@@ -22,8 +22,8 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::Type type, QWidget 
 {
     setCursor(Qt::PointingHandCursor);
 
-    tag->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
-    hint->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    tag->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
+    hint->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
 
     _modules << tag << hint;
 
@@ -44,10 +44,9 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::Type type, QWidget 
     mainLayout->addLayout(VLayoutIcon);
     mainLayout->addLayout(VLayoutTextHint);
     mainLayout->setAlignment(Qt::AlignmentFlag::AlignCenter);
-    //setLayout(mainLayout);
 }
 
-void ButtonWithIconTextHint::init(const QString &fileName, int iconWidth, int iconHeight,
+void ButtonWithIconTextHint::initModules(const QString &fileName, int iconWidth, int iconHeight,
                                   const QString& text, int fontSize, const QString& hint)
 {
     CellUiGlobal::setLabelPixmap(icon, fileName, iconWidth, iconHeight);

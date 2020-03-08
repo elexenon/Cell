@@ -16,7 +16,8 @@ class ButtonWithIcon : public customButton{
 public:
     explicit ButtonWithIcon(customButton::Type type = Static,QWidget *parent = nullptr);
 
-    void init(const QString& fileName, int iconWidth, int iconHeight);
+    void
+    initModules(const QString& fileName, int iconWidth, int iconHeight);
 
 protected:
     QHBoxLayout *mainLayout;

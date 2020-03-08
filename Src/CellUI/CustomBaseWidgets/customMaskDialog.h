@@ -13,24 +13,43 @@ class customMaskDialog: public QWidget{
 public:
     explicit customMaskDialog(QWidget *parent = nullptr);
 
-    void setOptionText(const QString &text);
-    void setHintText(const QString &text);
-    void setOptionWidget(QWidget *widget);
-    inline
-    void setTargetWidget(QWidget *widget) { targetWidget = widget; }
-    inline
-    int  opacity() { return mOpacity; }
-    void setOpacity(int value);
+    void
+    setOptionText(const QString &text);
+
+    void
+    setHintText(const QString &text);
+
+    void
+    setOptionWidget(QWidget *widget);
+
+    inline void
+    setTargetWidget(QWidget *widget) { targetWidget = widget; }
+
+    inline int
+    opacity() { return mOpacity; }
+
+    void
+    setOpacity(int value);
 
 protected:
-    virtual void showEvent(QShowEvent *e) override;
-    virtual void paintEvent(QPaintEvent *event) override;
-    virtual void mousePressEvent(QMouseEvent *event) override;
+    virtual void
+    showEvent(QShowEvent *e) override;
+
+    virtual void
+    paintEvent(QPaintEvent *event) override;
+
+    virtual void
+    mousePressEvent(QMouseEvent *event) override;
 
 private:
-    void init();
-    void switchOpacity(int sValue, int eValue);
-    void fade();
+    void
+    init();
+
+    void
+    switchOpacity(int sValue, int eValue);
+
+    void
+    fade();
 
     QPropertyAnimation *animi;
     QWidget            *targetWidget;

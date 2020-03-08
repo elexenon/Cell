@@ -35,7 +35,7 @@ extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> &&animis,
                                 const QList<QWidget*> &modules,
                                 const QPoint &offset,
                                 const QColor &color, int blurRadius);
-//! Set The Same PropertiAnimation
+//! Set The Same PropertyAnimation
 //! For Multi Widgets.
 extern void setPropertyAnimation(QList<QPropertyAnimation*> &&animis,
                                  const QByteArray &_property,
@@ -44,6 +44,14 @@ extern void setPropertyAnimation(QList<QPropertyAnimation*> &&animis,
                                  QEasingCurve curve,
                                  const QList<QWidget*> &modules,
                                  QGraphicsEffect *effect = nullptr);
+//! Set PropertyAnimation
+//! For Single Widget.
+extern void setPropertyAnimation(QPropertyAnimation &animi,
+                                 QWidget* module,
+                                 const QByteArray &property,
+                                 const QVariant &sValue,
+                                 const QVariant &eValue, int duration,
+                                 QEasingCurve curve);
 //! Set Fade In & Out Animation
 //! For A Specific Target Widget.
 extern void setFadeInOrOutAnimation(QGraphicsOpacityEffect *eff,

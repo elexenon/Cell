@@ -10,8 +10,11 @@ public:
     ~NewPJPredictEarPage() = default;
 
 private:
-    virtual void init() override;
-    virtual void setEventConnections() override;
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
 };
 
 #endif // NEWPJPREDICTEARPAGE_H

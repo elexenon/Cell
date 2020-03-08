@@ -13,7 +13,7 @@
 #include <QHBoxLayout>
 
 customDialogButton::customDialogButton(const QString &state, QWidget *parent):
-    customFrame(customFrame::Radius, parent),
+    customFrame(customFrame::Type::Radius, parent),
     currState(new customLabel(this)),
     trigger(new ButtonWithIcon(customButton::DynamicRadius, this)),
     mainLayout(new QHBoxLayout(this))
@@ -22,15 +22,15 @@ customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     setLayout(mainLayout);
 
     CellUiGlobal::setCustomTextLabel(currState, CHAR2STR("Microsoft YaHei UI Light"), 15, state);
-    currState->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    currState->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
 
     trigger->setFixedSize(35, 22);
-    trigger->setBrightModeHoveringColor(Cell::CGL255);
-    trigger->setDarkModeHoveringColor(Cell::CGL130);
-    trigger->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
+    trigger->setBrightHoveringColor(Cell::CGL255);
+    trigger->setDarkHoveringColor(Cell::CGL130);
+    trigger->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
     trigger->setAnimationDuration(200);
     trigger->setCursor(Qt::PointingHandCursor);
-    trigger->init(CHAR2STR("popUpIcon.png"), 15, 12);
+    trigger->initModules(CHAR2STR("popUpIcon.png"), 15, 12);
 
     mainLayout->setContentsMargins(11, 3, 3, 3);
     mainLayout->addWidget(currState);
@@ -42,19 +42,14 @@ customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     setEventConnections();
 }
 
-void customDialogButton::setText(const QString &text)
-{
-    currState->setText(text);
-}
-
-void customDialogButton::setColorScheme(Cell::ColorScheme mode)
-{
-    customFrame::setColorScheme(mode);
-}
-
 void customDialogButton::setEventConnections()
 {
     connect(trigger, &QPushButton::clicked, [this]{
         emit clicked();
     });
+}
+
+void customDialogButton::setText(const QString &text)
+{
+    currState->setText(text);
 }

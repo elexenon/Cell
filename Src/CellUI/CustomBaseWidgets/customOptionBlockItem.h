@@ -23,20 +23,44 @@ enum MarginType{
 static int TagTextSize;
     explicit customOptionBlockItem(QWidget *parent = nullptr, const QString& tag = " ");
 
-    inline
-    int            getTagLen() { return tagLen; }
-    void           setTag(const QString& text);
-    void           setOptionWidget(QWidget* widget);
-    void           setHint(const QString& text);
-    void           setMargins(int left, int top, int right, int bottom);
-    void           setMargin(MarginType direction, int margin);
-    void           setSpacing(int value);
-    const QMargins getMargins();
+    inline int
+    getTagLen() { return tagLen; }
+
+    void
+    setTag(const QString& text);
+
+    void
+    setOptionWidget(QWidget* widget);
+
+    void
+    setHint(const QString& text);
+
+    void
+    setMargins(int left, int top, int right, int bottom);
+
+    void
+    setMargin(MarginType direction, int margin);
+
+    void
+    setSpacing(int value);
+
+    const QMargins
+    getMargins();
 
 protected:
-    virtual void setColor(const QColor &color) override;
-    virtual void setBaseQss(const QString &qss) override;
-    virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
+    //! Inhrited from
+    //! CellWidgetGlobalInterface.
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
+
+    virtual void
+    setColor(const QColor &color) override;
+
+    virtual void
+    changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
 
     QHBoxLayout *mainLayout;
     customLabel *tag;
@@ -47,7 +71,8 @@ protected:
     int tagLen     = 0;
 
 public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    virtual void
+    setColorScheme(Cell::ColorScheme mode) override;
 };
 
 #endif // CUSTOMOPTIONBLOCKITEM_H

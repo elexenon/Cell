@@ -18,19 +18,28 @@ friend class customNavigator;
 public:
     explicit customOptionBlock(QWidget *parent = nullptr, const QString& name = " ");
 
-    void addItem(QWidget *optionWidget, const QString& hint, const QString& tag = " ",
-                 bool addSplitterLine = false);
-    void addItem(customOptionBlockItem *item, bool addSplitterLine = false);
-    void setMainBlockBrightDarkModeColor(const CellVariant b, const CellVariant d);
-    void tidyItems(customOptionBlock *another = nullptr);
-    inline
-    int  getItemTagMaxLen() { return itemTagMaxLen; }
+    void
+    addItem(QWidget *optionWidget, const QString& hint, const QString& tag = " ",
+            bool addSplitterLine = false);
 
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    void
+    addItem(customOptionBlockItem *item, bool addSplitterLine = false);
+
+    void
+    setMainBlockBrightDarkModeColor(const CellVariant b, const CellVariant d);
+
+    void
+    tidyItems(customOptionBlock *another = nullptr);
+
+    inline int
+    getItemTagMaxLen() { return itemTagMaxLen; }
 
 protected:
-    void         addThemeTag(const QString &name);
-    virtual void mouseEvent(QMouseEvent*);
+    void
+    addThemeTag(const QString &name);
+
+    virtual void
+    mouseEvent(QMouseEvent*);
 
     QVBoxLayout                     *mainLayout;
     QVBoxLayout                     *mainBlockLayout;
@@ -43,10 +52,12 @@ protected:
     int itemTagMaxLen = 0;
 
 private:
-    void _tidyItems(int value = -1);
+    void
+    _tidyItems(int value = -1);
 
 Q_SIGNALS:
-    void clicked(const QString&);
+    void
+    clicked(const QString&);
 };
 
 #endif // CUSTOMOPTIONBLOCK_H

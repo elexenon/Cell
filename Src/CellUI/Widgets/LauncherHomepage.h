@@ -41,22 +41,39 @@ private:
     QLabel             *iconRecentPJ;
     QLabel             *labelRecentPJ;
 
-    Cell::ColorScheme m_mode = Cell::ColorScheme::Bright;
+    Cell::ColorScheme mMode = Cell::ColorScheme::Bright;
 
-    void init();
-    void setEventConnections();
-    void initTableView();
-    void updateDatas();
-    bool tableExists(const char *tableName);
+    void
+    init();
+
+    void
+    setEventConnections();
+
+    void
+    initTableView();
+
+    void
+    updateDatas();
+
+    bool
+    tableExists(const char *tableName);
 
 public Q_SLOTS:
-    void setColorScheme(Cell::ColorScheme mode);
+    void
+    setColorScheme(Cell::ColorScheme mode);
 
 private Q_SLOTS:
-    void updateDatasByWS(CellProjectEntity &entity);
-    void btnGridClicked();
-    void btnListClicked();
-    void tableDoubleClicked(const QModelIndex &index);
+    void
+    updateDatasByWS(CellProjectEntity &entity);
+
+    void
+    btnGridClicked();
+
+    void
+    btnListClicked();
+
+    void
+    tableDoubleClicked(const QModelIndex &index);
 
 Q_SIGNALS:
     void getProjectPath(const QString &path);

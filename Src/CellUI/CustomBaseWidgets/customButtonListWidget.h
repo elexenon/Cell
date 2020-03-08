@@ -19,24 +19,50 @@ class customButtonListWidget : public customFrame{
 public:
     explicit customButtonListWidget(QWidget *parent = nullptr);
 
-    void  addThemeHead(const QString& theme = "theme");
-    void  addButton(const QString &text, const CellVariant &b, const CellVariant &d, int index = -1);
-    void  setButtonsBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
-    const customListButton* getButton(int index = 0) const;
-    void  setButtonSize(int width, int height);
-    void  setBtnFontPixelSize(int size);
-    void  setMargins(int left = 0, int top = 0, int right = 0, int buttom = 0);
-    void  setSpacing(int spacing);
-    void  clickButton(int index) const;
-    void  setButtonCheckable(int index, bool value);
-    void  setExlusive(bool value = true);
-    virtual void setEventConnections() override;
+    void
+    addThemeHead(const QString& theme = "theme");
 
-    inline
-    const QList<customListButton*>* getButtons() { return buttons; }
+    void
+    addButton(const QString &text, const CellVariant &b, const CellVariant &d, int index = -1);
+
+    void
+    setButtonsBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
+
+    const customListButton*
+    getButton(int index = 0) const;
+
+    void
+    setButtonSize(int width, int height);
+
+    void
+    setBtnFontPixelSize(int size);
+
+    void
+    setMargins(int left = 0, int top = 0, int right = 0, int buttom = 0);
+
+    void
+    setSpacing(int spacing);
+
+    void
+    clickButton(int index) const;
+
+    void
+    setButtonCheckable(int index, bool value);
+
+    void
+    setExlusive(bool value = true);
+
+    inline const QList<customListButton*>*
+    getButtons() { return buttons; }
 
 private:
-    void init();
+    //! Inhrited from
+    //! CellWidgetGlobalInterface.
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
 
     customLabel              *label_theme = nullptr;
     QFrame                   *line_splitter;
@@ -47,10 +73,8 @@ private:
     int buttonIndex = 0;
 
 signals:
-    void clicked(int id);
-
-public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    void
+    clicked(int id);
 };
 
 #endif // CUSTOMBUTTONLISTWIDGET_H

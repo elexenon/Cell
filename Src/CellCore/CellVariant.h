@@ -21,16 +21,25 @@ enum class Type{
     //! The default constructor that deleted is because
     //! you must offer a explicit & implicit conversion.
     CellVariant() = delete;
+
     CellVariant(CellVariant &other) noexcept;
+
     CellVariant(Cell::CellGrayColor value) noexcept;
+
     CellVariant(Cell::CellThemeColor) noexcept;
+
     CellVariant(const QColor &color) noexcept;
+
     CellVariant& operator=(CellVariant &other) noexcept;
+
     CellVariant& operator=(Cell::CellGrayColor value) noexcept;
+
     CellVariant& operator=(Cell::CellThemeColor value) noexcept;
+
     ~CellVariant() noexcept;
-    inline
-    QColor toColor() const { return *mData.get()->color; }
+
+    inline QColor
+    toColor() const { return *mData.get()->color; }
 
 private:
     std::unique_ptr<_Data> mData;

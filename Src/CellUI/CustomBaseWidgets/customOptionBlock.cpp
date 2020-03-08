@@ -13,7 +13,7 @@
 #include <QHBoxLayout>
 
 customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
-    customFrame(customFrame::Regular, parent),
+    customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QVBoxLayout),
     mainBlockLayout(new QVBoxLayout),
     itemsList(new QList<customOptionBlockItem*>)
@@ -27,8 +27,8 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
 
     if(name != " ") addThemeTag(name);
 
-    mainBlock = new customFrame(customFrame::Radius, this);
-    mainBlock->setBrightDarkModeColor(Cell::CGL218, Cell::CGL70);
+    mainBlock = new customFrame(customFrame::Type::Radius, this);
+    mainBlock->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
     mainBlock->setLayout(mainBlockLayout);
 
     mainLayout->addWidget(mainBlock);
@@ -42,7 +42,7 @@ void customOptionBlock::addThemeTag(const QString &name)
 {
     _theme = name;
     theme = new customLabel(this);
-    theme->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    theme->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(theme, CHAR2STR("Microsoft YaHei UI Light"), 15, name);
 
     QHBoxLayout *themeTagLayout = new QHBoxLayout;
@@ -81,7 +81,7 @@ void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLin
 
 void customOptionBlock::setMainBlockBrightDarkModeColor(const CellVariant b, const CellVariant d)
 {
-    mainBlock->setBrightDarkModeColor(b, d);
+    mainBlock->setBrightDarkColor(b, d);
 }
 
 void customOptionBlock::_tidyItems(int value)
@@ -117,9 +117,4 @@ void customOptionBlock::mouseEvent(QMouseEvent *e)
         e->accept();
     }else
         e->ignore();
-}
-
-void customOptionBlock::setColorScheme(Cell::ColorScheme mode)
-{
-    customFrame::setColorScheme(mode);
 }

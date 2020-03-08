@@ -12,7 +12,7 @@
 #include <QHBoxLayout>
 
 customTitleBar::customTitleBar(QWidget *parent):
-    customFrame(customFrame::Regular, parent),
+    customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QHBoxLayout),
     label_title(new customLabel(this)),
     icon(new QLabel(this))
@@ -22,13 +22,14 @@ customTitleBar::customTitleBar(QWidget *parent):
     QPixmap defaultPixmap;
     defaultPixmap.load(CellUiLiteral::IMG_DIR + CHAR2STR("cellLogo28"));
     defaultPixmap = defaultPixmap.scaled(height()/2, height()/2);
+    icon->setStyleSheet(CHAR2STR("background:transparent;"));
     icon->setPixmap(defaultPixmap);
 
     QFont defaultFont(CHAR2STR("Microsoft YaHei UI Light"));
     defaultFont.setPixelSize(height()/3);
     label_title->setText(CHAR2STR("Title"));
     label_title->setFont(defaultFont);
-    label_title->setBrightDarkModeColor(Cell::CGL130, Cell::CGL255);
+    label_title->setBrightDarkColor(Cell::CGL130, Cell::CGL255);
 
     mainLayout->setContentsMargins(10, 0, 0, 0);
     mainLayout->setSpacing(8);
@@ -37,12 +38,14 @@ customTitleBar::customTitleBar(QWidget *parent):
     mainLayout->addStretch();
 
     setLayout(mainLayout);
+
+    _modules << label_title;
 }
 
 void customTitleBar::setText(const QString &text, const CellVariant &color)
 {
     label_title->setText(text);
-    label_title->setBrightDarkModeColor(color, Cell::CGL255);
+    label_title->setBrightDarkColor(color, Cell::CGL255);
 }
 
 void customTitleBar::setLeftMargin(int value)
@@ -76,10 +79,4 @@ void customTitleBar::addWidget(QWidget *obj)
 void customTitleBar::addLayout(QLayout *obj)
 {
     mainLayout->addLayout(obj);
-}
-
-void customTitleBar::setColorScheme(Cell::ColorScheme mode)
-{
-    customFrame::setColorScheme(mode);
-    label_title->setColorScheme(mode);
 }

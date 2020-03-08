@@ -16,14 +16,16 @@ class customDialogButton : public customFrame{
     Q_OBJECT
 public:
     explicit customDialogButton(const QString& state, QWidget *parent = nullptr);
-    inline
-    const ButtonWithIcon* getTrigger() { return trigger;}
-    void  setText(const QString &text);
 
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    inline const
+    ButtonWithIcon* getTrigger() { return trigger;}
+
+    void
+    setText(const QString &text);
 
 private:
-    virtual void setEventConnections() override;
+    virtual void
+    setEventConnections() override;
 
 protected:
     customLabel    *currState;
@@ -31,7 +33,8 @@ protected:
     QHBoxLayout    *mainLayout;
 
 signals:
-    void clicked();
+    void
+    clicked();
 };
 
 #endif // CUSTOMCOMBOBOX_H

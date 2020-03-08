@@ -8,22 +8,24 @@
 #ifndef CUSTOMNOTIFICATIONCENTER_H
 #define CUSTOMNOTIFICATIONCENTER_H
 
-#include "customGradientChangeFrame.h"
+#include "customSwitchFrame.h"
 
 class QPropertyAnimation;
 class QGraphicsOpacityEffect;
 class QLabel;
 
-class notificationCenter : public customGradientChangeFrame{
+class notificationCenter : public customSwitchFrame{
 friend class Launcher;
     Q_OBJECT
 public:
     explicit notificationCenter(QWidget *parent = nullptr);
     ~notificationCenter() override = default;
 
-    void   init();
-    inline
-    unsigned getCurrWorkshopCount(){ return workshop_instancesCount;}
+    virtual void
+    init() override;
+
+    inline unsigned
+    getCurrWorkshopCount(){ return workshop_instancesCount;}
 
 private:
     unsigned workshop_instancesCount;
@@ -44,8 +46,11 @@ private:
     const QPoint normalPos_ready;
 
 private Q_SLOTS:
-    void plusCnt();
-    void minusCnt();
+    void
+    plusCnt();
+
+    void
+    minusCnt();
 };
 
 #endif // CUSTOMNOTIFICATIONCENTER_H

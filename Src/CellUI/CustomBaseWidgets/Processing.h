@@ -14,19 +14,25 @@ public:
     ~ProcessingWidget() noexcept = default;
 
 private:
-    void  init();
-    void  setEventConnections();
-    inline
-    void  setOffset(qreal offset) { mOffset = offset; update(); }
-    inline
-    qreal offset() { return mOffset; }
+    void
+    init();
+
+    void
+    setEventConnections();
+
+    inline void
+    setOffset(qreal offset) { mOffset = offset; update(); }
+
+    inline qreal
+    offset() { return mOffset; }
 
     qreal mOffset;
     qreal mDiam;
     QPropertyAnimation animi;
 
 protected:
-    virtual void paintEvent(QPaintEvent *event) override;
+    virtual void
+    paintEvent(QPaintEvent *event) override;
 };
 
 #endif // PROCESSING_H

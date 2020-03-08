@@ -18,6 +18,7 @@ NewPJProjectCellPage::NewPJProjectCellPage(QWidget *parent):
 
 void NewPJProjectCellPage::init()
 {
+    newPJPageBase::init();
     newPJPageBase::setPageTitle(CHAR2STR("连接到Cell运算库。"));
     newPJPageBase::enableToolChainsBlock();
 }

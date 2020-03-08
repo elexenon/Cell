@@ -30,8 +30,11 @@ public:
     ~LauncherGuideDialog() = default;
 
 private:
-    void init();
-    virtual void setEventConnections() override;
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
 
     QVBoxLayout         *mainLayout;
     customTitleBar      *titleBar;
@@ -42,16 +45,16 @@ private:
     ButtonWithText      *btnNewPJ;
 
 protected:
-    virtual void showEvent(QShowEvent *e) override;
+    virtual void
+    showEvent(QShowEvent *e) override;
 
 signals:
-    void clickedNewPJ();
-
-public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme) override;
+    void
+    clickedNewPJ();
 
 private Q_SLOTS:
-    void         fade();
+    void
+    fade();
 };
 
 #endif // LauncherGuideDialog_H

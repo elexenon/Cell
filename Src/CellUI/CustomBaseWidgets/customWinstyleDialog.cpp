@@ -10,38 +10,28 @@
 customWinstyleDialog::customWinstyleDialog(QWidget *parent):
     QDialog(parent)
 {
+    init();
+}
+
+void customWinstyleDialog::init()
+{
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
 }
+
+void customWinstyleDialog::setEventConnections()
+{}
 
 void customWinstyleDialog::setColor(const QColor &color)
 {
     CellWidgetGlobalInterface::setColor(color);
-    QDialog::setStyleSheet(QString("QDialog{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue()));
-}
-
-void customWinstyleDialog::setBaseQss(const QString &qss)
-{
-    (void)qss;
+    setStyleSheet(QString("QDialog{background-color: rgb(%1, %2, %3);}").arg(color.red()).arg(color.green()).arg(color.blue()));
 }
 
 void customWinstyleDialog::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
 {
-    CellUiGlobal::setPropertyAnimation({animi},
-                                     "color",
-                                      startColor,
-                                      targetColor,
-                                      duration,
-                                      easingCurve,
-                                      {this}, nullptr);
-}
-
-void customWinstyleDialog::LoadWinStyle(QWidget *obj)
-{
-    HWND hwnd =  (HWND)obj->winId();
-    DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
-    ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
-    const MARGINS shadow = { 1, 1, 1, 1 };
-    WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
+    CellUiGlobal::setPropertyAnimation(animi, this, "color",
+                                       startColor, targetColor, duration,
+                                       CellWidgetGlobalInterface::easingCurve);
 }
 
 void customWinstyleDialog::setColorScheme(Cell::ColorScheme mode)
@@ -84,4 +74,14 @@ void customWinstyleDialog::mouseReleaseEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton){
         m_move = false;
     }
+}
+
+
+void customWinstyleDialog::LoadWinStyle(QWidget *obj)
+{
+    HWND hwnd =  (HWND)obj->winId();
+    DWORD style = static_cast<DWORD>(::GetWindowLong(hwnd, GWL_STYLE));
+    ::SetWindowLong(hwnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION);
+    const MARGINS shadow = { 1, 1, 1, 1 };
+    WinDwmapi::instance()->DwmExtendFrameIntoClientArea(HWND(winId()), &shadow);
 }

@@ -12,7 +12,7 @@
 
 int customOptionBlockItem::TagTextSize = 17;
 
-customOptionBlockItem::customOptionBlockItem(QWidget *parent,  const QString& tag):
+customOptionBlockItem::customOptionBlockItem(QWidget *parent, const QString& tag):
     QWidget(parent),
     mainLayout(new QHBoxLayout)
 {
@@ -26,17 +26,17 @@ customOptionBlockItem::customOptionBlockItem(QWidget *parent,  const QString& ta
     if(tag != " ") setTag(tag);
 }
 
-void customOptionBlockItem::setTag(const QString &text)
-{
+void customOptionBlockItem::setTag(const QString &text){
     tagLen = text.length();
     tag = new customLabel(this);
-    tag->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    tag->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), TagTextSize, text);
     mainLayout->addWidget(tag);
+
+    _modules << tag;
 }
 
-void customOptionBlockItem::setOptionWidget(QWidget *widget)
-{
+void customOptionBlockItem::setOptionWidget(QWidget *widget){
     optionWidget = widget;
     optionWidget->setParent(this);
     mainLayout->addWidget(optionWidget);
@@ -46,13 +46,14 @@ void customOptionBlockItem::setOptionWidget(QWidget *widget)
 void customOptionBlockItem::setHint(const QString &text)
 {
     hint = new customLabel(this);
-    hint->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    hint->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(hint, CHAR2STR("Microsoft YaHei UI Light"), 13, text+"。");
     mainLayout->addWidget(hint);
+
+    _modules << hint;
 }
 
-void customOptionBlockItem::setMargins(int left, int top, int right, int bottom)
-{
+void customOptionBlockItem::setMargins(int left, int top, int right, int bottom){
     mainLayout->setContentsMargins(left,top,right,bottom);
 }
 
@@ -75,35 +76,30 @@ void customOptionBlockItem::setMargin(customOptionBlockItem::MarginType directio
     }
 }
 
-void customOptionBlockItem::setSpacing(int value)
-{
+void customOptionBlockItem::setSpacing(int value){
     mainLayout->setSpacing(value);
 }
 
-const QMargins customOptionBlockItem::getMargins()
-{
+const QMargins customOptionBlockItem::getMargins(){
     return mainLayout->contentsMargins();
 }
 
-void customOptionBlockItem::setColor(const QColor &color)
-{
+void customOptionBlockItem::init()
+{}
+
+void customOptionBlockItem::setEventConnections()
+{}
+
+void customOptionBlockItem::setColor(const QColor &color){
     CellWidgetGlobalInterface::setColor(color);
 }
 
-void customOptionBlockItem::setBaseQss(const QString &qss)
-{
-    (void)qss;
-}
-
-void customOptionBlockItem::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
-{
+void customOptionBlockItem::changeToColor(const QColor &startColor, const QColor &targetColor, int duration){
     (void)startColor;
     (void)targetColor;
     (void)duration;
 }
 
-void customOptionBlockItem::setColorScheme(Cell::ColorScheme mode)
-{
-    tag->setColorScheme(mode);
-    hint->setColorScheme(mode);
+void customOptionBlockItem::setColorScheme(Cell::ColorScheme mode){
+    CellWidgetGlobalInterface::setColorScheme(mode);
 }

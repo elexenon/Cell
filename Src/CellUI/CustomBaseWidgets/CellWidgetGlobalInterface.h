@@ -14,56 +14,63 @@
 #include "../../CellCore/CellVariant.h"
 #include <QWidget>
 
-class QPropertyAnimation;
-class QEasingCurve;
-class CellVariant;
-
 class CellWidgetGlobalInterface{
 public:
     explicit CellWidgetGlobalInterface() = default;
     virtual ~CellWidgetGlobalInterface() = default;
-
     //! Return A Copy Of Current
     //! Color.
     inline const QColor
-    color() const { return m_color; }
+    color() const { return mColor; }
     //! Set The Duration Of Animation Of
     //! Virtual Function "changeToColor".
     inline void
-    setColorAnimiDuration(int value) { this->colorSchemeAnimiDuration = value; }
+    setSwitchDuration(int value) { this->switchDuration = value; }
     //! Return bright mode color
     //! by const reference.
     inline const QColor&
-    brightModeColor() { return brightmodeColor; }
+    brightColor() { return brightmodeColor; }
     //! Return dark mode color
     //! by const reference.
     inline const QColor&
     darkModeColor()   { return darkmodeColor; }
     //! Set bright/dark mode colors, so that cell
     //! will switch colors automatically.
-    void          setBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
-    //! Inherited subclasses must implement this function
+    void
+    setBrightDarkColor(const CellVariant &b, const CellVariant &d);
+    //! Inherited subclasses can reimplement this function
     //! to set unique color switching effects.
-    virtual void  setColorScheme(Cell::ColorScheme mode) = 0;
+    virtual void
+    setColorScheme(Cell::ColorScheme mode);
 
 protected:
-    Cell::ColorScheme m_mode = Cell::ColorScheme::Bright;
-    int                        colorSchemeAnimiDuration = static_cast<int>(Cell::AnimiDuration::GlobalDuration);
-    QEasingCurve               easingCurve = QEasingCurve::InOutCubic;
-    QColor                     m_color;
-    QColor                     brightmodeColor;
-    QColor                     darkmodeColor;
-    QString                    BASEQSS;
-    QPropertyAnimation        *animi;
-
-    inline
-    void         setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
-    virtual void setBaseQss(const QString& qss) = 0;
-    virtual void changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
-    virtual void setColor(const QColor &color) = 0;
-    virtual void setEventConnections();
-
+    Cell::ColorScheme mMode         = Cell::ColorScheme::Bright;
+    int                               switchDuration = static_cast<int>(Cell::AnimiDuration::GlobalDuration);
+    QEasingCurve                      easingCurve = QEasingCurve::InOutCubic;
+    QColor                            mColor;
+    QColor                            brightmodeColor;
+    QColor                            darkmodeColor;
+    QPropertyAnimation                animi;
+    QPropertyAnimation               *animiPtr;
     QList<CellWidgetGlobalInterface*> _modules;
+
+    inline void
+    setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
+
+    virtual void
+    setAnimiStartEndColor(Cell::ColorScheme mode, QColor &startColor, QColor &endColor);
+
+    virtual void
+    init() = 0;
+
+    virtual void
+    changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
+
+    virtual void
+    setColor(const QColor &color) = 0;
+
+    virtual void
+    setEventConnections() = 0;
 };
 
 #endif // CELLGLOBALWIDGET_H

@@ -20,7 +20,7 @@
 #include <QFileDialog>
 
 newPJPageBase::newPJPageBase(QWidget *parent):
-    customFrame(customFrame::Regular, parent),
+    customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QVBoxLayout(this)),
     labelTitle(new customLabel(this)),
     blockConfig(new customOptionBlock(this, CHAR2STR("项目属性"))),
@@ -34,7 +34,8 @@ newPJPageBase::newPJPageBase(QWidget *parent):
 }
 
 void newPJPageBase::init(){
-    setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    customFrame::init();
+    setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     setLayout(mainLayout);
 
     mainLayout->setContentsMargins(40, 20, 40, 10);
@@ -43,16 +44,16 @@ void newPJPageBase::init(){
     mainLayout->addWidget(blockConfig);
     mainLayout->addStretch(8);
 
-    labelTitle->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
+    labelTitle->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(labelTitle, CHAR2STR("Microsoft YaHei UI Light"), 24, CHAR2STR("Title"));
 
     lineEditName->setFixedWidth(200);
 
-    dialogButton->setBrightDarkModeColor(Cell::CGL255, Cell::CGL45);
+    dialogButton->setBrightDarkColor(Cell::CGL255, Cell::CGL45);
     dialogButton->setFixedWidth(200);
 
     // OptionBlock Configuration Combination.
-    blockConfig->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    blockConfig->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     // Item Name Combination.
     blockConfigName->setTag(CHAR2STR("名称"));
     blockConfigName->setOptionWidget(lineEditName);
@@ -75,11 +76,6 @@ void newPJPageBase::setEventConnections()
     connect(lineEditName, &QLineEdit::textChanged, [this](const QString& text){
         emit nameSettled(text);
     });
-}
-
-void newPJPageBase::setColorScheme(Cell::ColorScheme mode)
-{
-    customFrame::setColorScheme(mode);
 }
 
 void newPJPageBase::btnPathClicked()
@@ -111,7 +107,7 @@ void newPJPageBase::enableToolChainsBlock()
 
     // OptionBlock ToolChains Combination.
     cBoxVersions->addItem("1.0.1");
-    blockToolChain->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+    blockToolChain->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     // Item Versions Combination.
     blockToolChainVersion->setTag(CHAR2STR("Cell Calculations版本"));
     blockToolChainVersion->setOptionWidget(cBoxVersions);

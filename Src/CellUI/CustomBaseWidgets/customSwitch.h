@@ -8,8 +8,6 @@
 
 #include <QWidget>
 
-#include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
-
 class customSwitch : public QWidget{
     Q_OBJECT
     Q_PROPERTY(qreal triggerOffset READ triggerOffset WRITE setTriggerOffset)
@@ -17,22 +15,34 @@ public:
     explicit customSwitch(QWidget *parent = nullptr);
     ~customSwitch() = default;
 
-    void setChecked(bool checked);
-    inline
-    void setMargin(qreal value) { margin = value; update(); }
+    void
+    setChecked(bool checked);
+
+    inline void
+    setMargin(qreal value) { margin = value; update(); }
 
 protected:
-    void paintEvent(QPaintEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
+    virtual void
+    paintEvent(QPaintEvent *event) override;
+
+    virtual void
+    mousePressEvent(QMouseEvent *event) override;
+
+    virtual void
+    mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
-    void  init();
-    void  switchTrigger();
-    inline
-    void  setTriggerOffset(qreal value) { triggerPosOffset = value; update();}
-    inline
-    qreal triggerOffset() { return triggerPosOffset; }
+    void
+    init();
+
+    void
+    switchTrigger();
+
+    inline void
+    setTriggerOffset(qreal value) { triggerPosOffset = value; update();}
+
+    inline qreal
+    triggerOffset() { return triggerPosOffset; }
 
     bool   isChecked = false;
     qreal  triggerPosOffset = 0.0;
@@ -45,7 +55,8 @@ private:
     QPropertyAnimation animi;
 
 signals:
-    void clicked(bool checked);
+    void
+    clicked(bool checked);
 };
 
 #endif // CUSTOMSWITCH_H

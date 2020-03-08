@@ -22,6 +22,10 @@ namespace Cell{
         VLine = 0x0005,
     };
 
+    enum generalItem{
+        FrameRadius = 8
+    };
+
     enum class AnimiDuration: int{
         GlobalDuration = 700,
         GlobalPageSwitchDuration = 300
@@ -44,6 +48,7 @@ namespace Cell{
         CGL247 = 247,
         CGL255 = 255
     };
+
     enum class CellThemeColor{
         pureGreen,
         NavyBlue,

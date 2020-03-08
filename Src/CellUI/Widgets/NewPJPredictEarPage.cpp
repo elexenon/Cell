@@ -14,6 +14,7 @@ NewPJPredictEarPage::NewPJPredictEarPage(QWidget *parent):
 
 void NewPJPredictEarPage::init()
 {
+    newPJPageBase::init();
     newPJPageBase::setPageTitle(CHAR2STR("基于Cell运算库的地震预测。"));
     newPJPageBase::enableToolChainsBlock();
 }

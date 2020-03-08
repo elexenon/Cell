@@ -25,11 +25,25 @@ public:
     virtual ~customLabel() override = default;
 
 protected:
-    virtual void setBaseQss(const QString &qss) override;
-    virtual void setColor(const QColor &color) override;
-    virtual void changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
+    //! Inhrited from
+    //! CellWidgetGlobalInterface.
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
+
+    virtual void
+    setColor(const QColor &color) override;
+
+    virtual void
+    setAnimiStartEndColor(Cell::ColorScheme mode, QColor &startColor, QColor &endColor) override;
+
+    virtual void
+    changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;
 
 public Q_SLOTS:
-    virtual void setColorScheme(Cell::ColorScheme mode) override;
+    virtual void
+    setColorScheme(Cell::ColorScheme mode) override;
 };
 #endif // CUSTOMLABEL_H

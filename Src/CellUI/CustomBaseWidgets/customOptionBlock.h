@@ -13,6 +13,7 @@ class QVBoxLayout;
 class customLabel;
 
 class customOptionBlock : public customFrame{
+friend class customNavigator;
     Q_OBJECT
 public:
     explicit customOptionBlock(QWidget *parent = nullptr, const QString& name = " ");
@@ -28,10 +29,12 @@ public:
     virtual void setColorScheme(Cell::ColorScheme mode) override;
 
 protected:
-    void addThemeTag(const QString &name);
+    void         addThemeTag(const QString &name);
+    virtual void mouseEvent(QMouseEvent*);
 
     QVBoxLayout                     *mainLayout;
     QVBoxLayout                     *mainBlockLayout;
+    QString                         _theme;
     customLabel                     *theme;
     customFrame                     *mainBlock;
     QList<customOptionBlockItem*>   *itemsList;
@@ -41,6 +44,9 @@ protected:
 
 private:
     void _tidyItems(int value = -1);
+
+Q_SIGNALS:
+    void clicked(const QString&);
 };
 
 #endif // CUSTOMOPTIONBLOCK_H

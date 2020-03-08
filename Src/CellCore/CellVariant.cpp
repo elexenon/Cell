@@ -14,14 +14,14 @@ CellVariant::CellVariant(CellVariant &other) noexcept
 CellVariant::CellVariant(Cell::CellGrayColor value) noexcept
     :mType(Type::Color)
 {
-    mData.reset(new Data);
+    mData.reset(new _Data);
     mData.get()->color = new QColor(value, value, value);
 }
 
 CellVariant::CellVariant(Cell::CellThemeColor type) noexcept
+    :mType(Type::Color)
 {
-    mType = Color;
-    mData.reset(new Data);
+    mData.reset(new _Data);
     mData.get()->color = new QColor;
     switch(type){
     case Cell::CellThemeColor::pureGreen:
@@ -36,6 +36,13 @@ CellVariant::CellVariant(Cell::CellThemeColor type) noexcept
     case Cell::CellThemeColor::yellowGreen:
         mData.get()->color->setRgb(228, 246, 212);
     }
+}
+
+CellVariant::CellVariant(const QColor &color) noexcept:
+    mType(Type::Color)
+{
+    mData.reset(new _Data);
+    mData.get()->color = new QColor(color);
 }
 
 CellVariant &CellVariant::operator=(CellVariant &other) noexcept
@@ -63,6 +70,6 @@ CellVariant &CellVariant::operator=(Cell::CellThemeColor value) noexcept
 
 CellVariant::~CellVariant() noexcept
 {
-    if(mType == Color && mData) delete mData.get()->color;
+    if(mType == Type::Color && mData.get()) delete mData.get()->color;
 }
 

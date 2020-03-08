@@ -19,6 +19,9 @@
 #include "Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.h"
 #include "Src/CellUI/CustomBaseWidgets/customDialogButton.h"
 #include "Src/CellUI/CustomBaseWidgets/customSwitch.h"
+#include "Src/CellUI/CustomBaseWidgets/Processing.h"
+#include "Src/CellUI/CustomBaseWidgets/naviButton.h"
+#include "Src/CellUI/CustomBaseWidgets/customNavigator.h"
 
 CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     QWidget(parent),
@@ -138,16 +141,35 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
 
     customSwitch *mSwitch = new customSwitch(this);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    ProcessingWidget *wid = new ProcessingWidget(this);
+
+    customOptionBlock *block2 = new customOptionBlock(this, CHAR2STR("OptionBlock2"));
+    block2->setBrightDarkModeColor(Cell::CGL247, Cell::CGL30);
+
+    customNavigator *nav = new customNavigator(this);
+    nav->jointBlock(block1);
+    nav->jointBlock(block2);
+
+    naviButton *nab = new naviButton(this);
+    nab->init();
+
+    QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(block1);
+    layout->addWidget(block2);
     layout->addWidget(btn1);
     layout->addWidget(btn2);
     layout->addWidget(btn3);
     layout->addWidget(btn4);
     layout->addWidget(customDB);
     layout->addWidget(mSwitch);
+    layout->addWidget(wid);
+    layout->addWidget(nab);
 
-    setLayout(layout);
+    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    mainLayout->addWidget(nav);
+    mainLayout->addLayout(layout);
+
+    setLayout(mainLayout);
 }
 
 CellDevelopTestStation::~CellDevelopTestStation()

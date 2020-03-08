@@ -33,12 +33,14 @@ customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
 
     mainLayout->addWidget(mainBlock);
     setLayout(mainLayout);
+    setMinimumHeight(50);
 
     _modules << mainBlock;
 }
 
 void customOptionBlock::addThemeTag(const QString &name)
 {
+    _theme = name;
     theme = new customLabel(this);
     theme->setBrightDarkModeColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(theme, CHAR2STR("Microsoft YaHei UI Light"), 15, name);
@@ -106,6 +108,15 @@ void customOptionBlock::tidyItems(customOptionBlock *another)
             _tidyItems(itemTagMaxLen);
         }
     }
+}
+
+void customOptionBlock::mouseEvent(QMouseEvent *e)
+{
+    if(e->button() == Qt::MouseButton::LeftButton){
+        emit clicked(_theme);
+        e->accept();
+    }else
+        e->ignore();
 }
 
 void customOptionBlock::setColorScheme(Cell::ColorScheme mode)

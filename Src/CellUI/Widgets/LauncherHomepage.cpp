@@ -87,7 +87,7 @@ void LauncherHomepage::init()
     mainLayout->setSpacing(20);
     mainLayout->addLayout(HLayout_Row1);
     mainLayout->addWidget(stackedWidget);
-    mainLayout->setContentsMargins(4, 20, 15, 10);
+    mainLayout->setContentsMargins(4, 20, 20, 25);
 }
 
 void LauncherHomepage::setEventConnections()
@@ -119,6 +119,7 @@ void LauncherHomepage::initTableView()
     tableView->verticalHeader()->hide();
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->horizontalHeader()->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
+    tableView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 }
 
 void LauncherHomepage::setColorScheme(Cell::ColorScheme mode)

@@ -38,6 +38,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/ButtonWithIcon.cpp \
     Src/CellUI/CustomBaseWidgets/ButtonWithText.cpp \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.cpp \
+    Src/CellUI/CustomBaseWidgets/Processing.cpp \
     Src/CellUI/CustomBaseWidgets/customButton.cpp \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customDialogButton.cpp \
@@ -46,6 +47,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customLineEdit.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/CustomBaseWidgets/customMaskDialog.cpp \
+    Src/CellUI/CustomBaseWidgets/customNavigator.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.cpp \
@@ -53,6 +55,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customTitleBar.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.cpp \
+    Src/CellUI/CustomBaseWidgets/naviButton.cpp \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.cpp \
     Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
     Src/CellUI/Widgets/NewPJPredictEarPage.cpp \
@@ -84,7 +87,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/ButtonWithIconTextHint.h \
     Src/CellUI/CustomBaseWidgets/ButtonWithText.h \
     Src/CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.h \
-    Src/CellUI/CustomBaseWidgets/customAnimation.h \
+    Src/CellUI/CustomBaseWidgets/Processing.h \
     Src/CellUI/CustomBaseWidgets/customButton.h \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.h \
     Src/CellUI/CustomBaseWidgets/customDialogButton.h \
@@ -95,6 +98,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customLineEdit.h \
     Src/CellUI/CustomBaseWidgets/customListButton.h \
     Src/CellUI/CustomBaseWidgets/customMaskDialog.h \
+    Src/CellUI/CustomBaseWidgets/customNavigator.h \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
@@ -103,6 +107,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customTitleBar.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.h \
+    Src/CellUI/CustomBaseWidgets/naviButton.h \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.h \
     Src/CellUI/Widgets/Launcher.h \
     Src/CellUI/Widgets/LauncherGuideDialog.h \

@@ -59,21 +59,22 @@ void customOptionBlockItem::setMargins(int left, int top, int right, int bottom)
 
 void customOptionBlockItem::setMargin(customOptionBlockItem::MarginType direction, int value)
 {
-    QMargins tmp = mainLayout->contentsMargins();
+    auto tmp = mainLayout->contentsMargins();
     switch (direction) {
     case Left:
-        setContentsMargins(value, tmp.top(), tmp.right(), tmp.bottom());
+        tmp.setLeft(value);
         break;
     case Right:
-        setContentsMargins(tmp.left(), tmp.top(), value, tmp.bottom());
+        tmp.setRight(value);
         break;
     case Top:
-        setContentsMargins(tmp.left(), value, tmp.right(), tmp.bottom());
+        tmp.setTop(value);
         break;
     case Bottom:
-        setContentsMargins(tmp.left(), tmp.top(), tmp.right(), value);
+        tmp.setBottom(value);
         break;
     }
+    setContentsMargins(tmp);
 }
 
 void customOptionBlockItem::setSpacing(int value){

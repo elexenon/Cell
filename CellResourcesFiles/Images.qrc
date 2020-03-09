@@ -1,16 +1,5 @@
 <RCC>
     <qresource prefix="/images">
-        <file>Images/CELL.png</file>
-        <file>Images/gpl.png</file>
-        <file>Images/HomePageComboBoxArrow.png</file>
-        <file>Images/MainWindowGrid1_Bright.png</file>
-        <file>Images/MainWindowGrid1_Dark.png</file>
-        <file>Images/MainWindowGrid2_Bright.png</file>
-        <file>Images/MainWindowGrid2_Dark.png</file>
-        <file>Images/MainWindowList1_Bright.png</file>
-        <file>Images/MainWindowList1_Dark.png</file>
-        <file>Images/MainWindowList2_Bright.png</file>
-        <file>Images/MainWindowList2_Dark.png</file>
         <file>Images/popUpIcon.png</file>
         <file>Images/iconDirectory.png</file>
         <file>Images/iconDirectoryChecked.png</file>
@@ -19,20 +8,12 @@
         <file>Images/iconWarrnings.png</file>
         <file>Images/iconWarrningsChecked.png</file>
         <file>Images/iconRecentPJ.png</file>
-        <file>Images/iconForward.png</file>
         <file>Images/iconDone.png</file>
         <file>Images/iconClose.png</file>
         <file>Images/iconMaximize.png</file>
         <file>Images/iconMinimize.png</file>
-        <file>Images/arrowDown.png</file>
-        <file>Images/arrowDownSelected.png</file>
-        <file>Images/arrowRight.png</file>
-        <file>Images/arrowRightSelected.png</file>
         <file>Images/btnNewPJ.png</file>
         <file>Images/btnOpenPJ.png</file>
-        <file>Images/cellLogoBig.png</file>
-        <file>Images/cellLogoMedium.png</file>
-        <file>Images/cellLogoSmall.png</file>
         <file>Images/cellLogo64.png</file>
         <file>Images/cellLogo128.png</file>
         <file>Images/cellLogo256.png</file>
@@ -42,5 +23,8 @@
         <file>Images/cellLogo28.png</file>
         <file>Images/workshopLogo.png</file>
         <file>Images/cellSplashScreen.png</file>
+        <file>Images/iconGrid.png</file>
+        <file>Images/iconList.png</file>
+        <file>Images/iconRecentPJDark.png</file>
     </qresource>
 </RCC>

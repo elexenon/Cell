@@ -29,6 +29,8 @@ public:
     explicit LauncherGuideDialog(QWidget *parent = nullptr);
     ~LauncherGuideDialog() = default;
 
+    void setCheckBox(bool checked);
+
 private:
     virtual void
     init() override;
@@ -48,9 +50,12 @@ protected:
     virtual void
     showEvent(QShowEvent *e) override;
 
-signals:
+Q_SIGNALS:
     void
     clickedNewPJ();
+
+    void
+    checkBoxClicked(bool checked);
 
 private Q_SLOTS:
     void

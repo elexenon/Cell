@@ -34,7 +34,6 @@
 #include "../CustomBaseWidgets/ButtonWithIcon.h"
 
 #define ENABLE_WORKSHOP
-//#define AUTO_CHANGE
 //#define RELEASE_MODE
 
 Launcher::Launcher(QWidget *parent)
@@ -68,7 +67,6 @@ const QRect Launcher::maskGeometry()
 
 void Launcher::init()
 {
-    customWinstyleWidget::init();
     resize(1400, 800);
     setObjectName(CHAR2STR("Launcher"));
     customWinstyleWidget::LoadWinStyle(this);
@@ -169,7 +167,7 @@ void Launcher::init()
 
     notificationCenter->setObjectName(CHAR2STR("notificationCenter"));
     notificationCenter->setFixedHeight(25);
-    notificationCenter->setBrightDarkColor(Cell::CGL70, Cell::CGL45);
+    notificationCenter->setBrightDarkColor(Cell::CGL60, Cell::CGL45);
 
     QHBoxLayout *HLayoutTitleRight = new QHBoxLayout;
     HLayoutTitleRight->setSpacing(0);
@@ -181,28 +179,32 @@ void Launcher::init()
     titleBar->addLayout(HLayoutTitleRight);
 
     guideDialog = new LauncherGuideDialog(this);
-    guideDialog->hide();
+    guideDialog->setCheckBox(settingsPage->showGuideDialog());
+    settingsPage->showGuideDialog() ? guideDialog->show() : guideDialog->hide();
 
     _modules << titleBar << btnMini << btnMax << btnClose
              << btnListWidget << btnNewPJ << btnOpenPJ << notificationCenter
              << guideDialog;
-#ifdef AUTO_CHANGE
-    QTime currentTime = QTime::currentTime();
-    if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && mMode == Cell::ColorScheme::Bright){
-        btnListWidget->clickButton(1);
-        settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::Dark);
-    }else if(currentTime.hour() < 19 && mMode == Cell::ColorScheme::Dark){
-        btnListWidget->clickButton(1);
-        settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::Bright);
+
+    if(CellWidgetGlobalInterface::autoSwitch){
+        QTime currentTime = QTime::currentTime();
+        if((currentTime.hour() >= 19 || currentTime.hour() <= 4) && CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright){
+            btnListWidget->clickButton(1);
+            settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::Dark);
+        }else if(currentTime.hour() < 19 && CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Dark){
+            btnListWidget->clickButton(1);
+            settingsPage->LauncherSetColorSchemeModeCall(Cell::ColorScheme::Bright);
+        }
     }
-#endif
 }
 
 void Launcher::setEventConnections()
 {
     // Set connections between SettingsPage & ColorScheme-change-enabled modules
     connect(settingsPage, &LauncherSettings::enableColorScheme, this, &Launcher::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, homePage, &LauncherHomepage::setColorScheme);
     connect(guideDialog,  &LauncherGuideDialog::clickedNewPJ, this, &Launcher::btnNewClicked);
+    connect(guideDialog,  &LauncherGuideDialog::checkBoxClicked, settingsPage, &LauncherSettings::setOnShowGuide);
     connect(homePage, &LauncherHomepage::getProjectPath, this, &Launcher::launchWorkShopByPath);
 #ifndef RELEASE_MODE
     const customListButton *Tab_Test  = btnListWidget->getButton(3);
@@ -287,7 +289,7 @@ void Launcher::btnNewClicked()
 
     newPJDialog = nullptr;
     if(newPJDialog == nullptr){
-        newPJDialog = new LauncherNewPJDialog(mMode, this);
+        newPJDialog = new LauncherNewPJDialog(CellWidgetGlobalInterface::mMode, this);
         connect(settingsPage, &LauncherSettings::enableColorScheme, newPJDialog, &LauncherNewPJDialog::setColorScheme);
         connect(newPJDialog, &LauncherNewPJDialog::projectSettled, this, &Launcher::launchWorkShop);
     }  
@@ -304,7 +306,7 @@ void Launcher::btnOpenClicked()
 
 void Launcher::_launcherWorkshop()
 {
-    workshop = new Workshop(mMode);
+    workshop = new Workshop(CellWidgetGlobalInterface::mMode);
     connect(settingsPage, &LauncherSettings::enableColorScheme, workshop, &Workshop::setColorScheme);
     connect(workshop, &Workshop::_constructed,notificationCenter, &notificationCenter::plusCnt);
     connect(workshop, &Workshop::destoryed,notificationCenter, &notificationCenter::minusCnt);

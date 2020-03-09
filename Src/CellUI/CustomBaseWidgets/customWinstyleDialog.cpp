@@ -13,8 +13,7 @@ customWinstyleDialog::customWinstyleDialog(QWidget *parent):
     init();
 }
 
-void customWinstyleDialog::init()
-{
+void customWinstyleDialog::init(){
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
 }
 
@@ -29,6 +28,8 @@ void customWinstyleDialog::setColor(const QColor &color)
 
 void customWinstyleDialog::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
 {
+    CellWidgetGlobalInterface::switchMode == Cell::SwitchMode::Instant ?
+    setColor(targetColor):
     CellUiGlobal::setPropertyAnimation(animi, this, "color",
                                        startColor, targetColor, duration,
                                        CellWidgetGlobalInterface::easingCurve);

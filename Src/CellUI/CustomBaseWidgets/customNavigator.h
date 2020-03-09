@@ -18,6 +18,9 @@ public:
     void
     jointBlock(const customOptionBlock *block);
 
+    void
+    setTopMargin(int value);
+
 private:
     QVBoxLayout            *mainLayout;
     QButtonGroup           *btnGroup;

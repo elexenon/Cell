@@ -9,7 +9,7 @@
 #define Launcher_H
 
 #include "../CustomBaseWidgets/customWinstyleWidget.h"
-#include "../../CellCore/Kits/CellUtility.h"   // ColorScheme & FadeAnimiType
+#include "../../CellCore/Kits/CellUtility.h" // ColorScheme & FadeAnimiType
 #include "../../CellCore/CellProjectEntity.h"
 
 class LauncherGuideDialog;
@@ -42,17 +42,18 @@ public:
     maskGeometry();
 
 private:
-    virtual void
-    init() override;
-
-    virtual void
-    setEventConnections() override;
-
     void
     startPageSwitchAnimation(PAGE_TYPE nextPage);
 
     void
     _launcherWorkshop();
+    //! Inhrits From
+    //! CellWidgetGlobalInterface.
+    virtual void
+    init() override;
+
+    virtual void
+    setEventConnections() override;
 
     QGraphicsOpacityEffect *opacityEffect;
 
@@ -79,6 +80,7 @@ private:
     CellDevelopTestStation *testForm;
 
     bool      isMaxSize = false;
+    bool      onShowGuide = true;
     PAGE_TYPE currentPage;
 
 private Q_SLOTS:

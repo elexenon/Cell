@@ -24,7 +24,6 @@ notificationCenter::notificationCenter(QWidget *parent):
 
 void notificationCenter::init()
 {
-    customSwitchFrame::init();
     label_identifi->setText(CHAR2STR("WORKSHOP"));
     label_identifi->setFont(QFont (CHAR2STR("Microsoft YaHei UI"), 8, QFont::Bold));
     label_identifi->setStyleSheet("QLabel{color:rgb(255,255,255);background:transparent;}");

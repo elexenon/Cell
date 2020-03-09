@@ -17,6 +17,11 @@ namespace Cell{
         Dark
     };
 
+    enum class SwitchMode{
+        OnGoing,
+        Instant
+    };
+
     enum LineType{
         HLine = 0x0004,
         VLine = 0x0005,
@@ -26,7 +31,7 @@ namespace Cell{
         FrameRadius = 8
     };
 
-    enum class AnimiDuration: int{
+    enum AnimiDuration{
         GlobalDuration = 700,
         GlobalPageSwitchDuration = 300
     };

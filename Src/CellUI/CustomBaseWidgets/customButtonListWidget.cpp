@@ -33,7 +33,7 @@ void customButtonListWidget::init()
 
     if(typeid(CellWidgetGlobalInterface*) == typeid(this->parentWidget()))
         setBrightDarkColor(dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->brightColor(),
-                                dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->darkModeColor());
+                                dynamic_cast<CellWidgetGlobalInterface*>(this->parentWidget())->darkColor());
     else
         setBrightDarkColor(Cell::CGL247, Cell::CGL30);
 }

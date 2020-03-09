@@ -74,6 +74,7 @@ HEADERS += \
     CellDevelopTestStation.h \
     Pch.h \
     Src/CellCore/CellNamespace.h \
+    Src/CellCore/CellSettings.h \
     Src/CellCore/CellSqlManager.h \
     Src/CellCore/CellVariant.h \
     Src/CellCore/Kits/CellGlobalMacros.h \
@@ -123,8 +124,7 @@ FORMS += \
 
 RESOURCES += \
     CellResourcesFiles/Fonts.qrc \
-    CellResourcesFiles/Images.qrc \
-    CellResourcesFiles/StyleSheets.qrc
+    CellResourcesFiles/Images.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

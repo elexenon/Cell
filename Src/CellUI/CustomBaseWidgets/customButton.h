@@ -29,15 +29,16 @@ public:
     inline void
     setNaviBar() { naviVerBar = true; }
 
+    //! Inheried from
+    //! CellWidgetGlobalInterface.
+    virtual void
+    setColor(const QColor &color) override;
+
 protected:
     //! Inherited from
     //! QPushButton.
     virtual void
     paintEvent(QPaintEvent *) override;
-    //! Inheried from
-    //! CellWidgetGlobalInterface.
-    virtual void
-    setColor(const QColor &color) override;
 
     virtual void
     changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
@@ -55,7 +56,7 @@ private:
     setAnimiStartEndColor(Cell::ColorScheme mode, QColor&, QColor&) override;
 
     Type mType;
-    bool naviVerBar;
+    bool naviVerBar = false;
 
 public Q_SLOTS:
     virtual void

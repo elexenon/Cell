@@ -11,7 +11,7 @@
 #include <QSplashScreen>
 #include <iostream>
 
-//#define SPLASHSCREEN
+#define SPLASHSCREEN
 
 int main(int argc, char *argv[])
 {

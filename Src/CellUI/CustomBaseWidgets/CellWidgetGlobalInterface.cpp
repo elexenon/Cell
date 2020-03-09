@@ -5,6 +5,18 @@
 // the file LICENSE included in the packaging of this file.
 #include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
 
+QList<CellWidgetGlobalInterface*> _modules;
+
+int CellWidgetGlobalInterface::switchDuration = Cell::AnimiDuration::GlobalDuration;
+
+Cell::ColorScheme CellWidgetGlobalInterface::mMode = Cell::ColorScheme::Bright;
+
+Cell::SwitchMode CellWidgetGlobalInterface::switchMode = Cell::SwitchMode::OnGoing;
+
+QEasingCurve CellWidgetGlobalInterface::easingCurve = QEasingCurve::InOutCubic;
+
+bool CellWidgetGlobalInterface::autoSwitch = true;
+
 void CellWidgetGlobalInterface::setBrightDarkColor(const CellVariant &b, const CellVariant &d){
     brightmodeColor = b.toColor();
     darkmodeColor   = d.toColor();
@@ -26,8 +38,7 @@ void CellWidgetGlobalInterface::setColor(const QColor &color){
 // ***This is a default
 // ***implementation.
 void CellWidgetGlobalInterface::setColorScheme(Cell::ColorScheme mode){
-    if(mode == mMode) return;
-    mMode = mode;
+    CellWidgetGlobalInterface::mMode = mode;
     QColor sColor, eColor;
     // ***Polymorphic
     // ***Behavior.

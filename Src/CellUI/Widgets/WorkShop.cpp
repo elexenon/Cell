@@ -62,7 +62,7 @@ Workshop::Workshop(Cell::ColorScheme mainWindow_mode, QWidget *parent) :
 {
     init();
     setEventConnections();
-    if(mMode != mainWindow_mode)
+    if(CellWidgetGlobalInterface::mMode != mainWindow_mode)
         setColorScheme(mainWindow_mode);
 }
 
@@ -122,10 +122,12 @@ void Workshop::init()
     initTreeView();
 
     // Set LeftBlock.
+    leftBlock->setBrightDarkColor(Cell::CGL247,Cell::CGL30);
     leftBlock->setMinimumWidth(300);
     QVBoxLayout *leftBlockLayout = new QVBoxLayout(leftBlock);
     customFrame *topBtnsFrame = new customFrame(customFrame::Type::Regular,leftBlock);
     topBtnsFrame->setFixedHeight(27);
+    topBtnsFrame->setBrightDarkColor(Cell::CGL247,Cell::CGL30);
 
     QHBoxLayout *HLayout = new QHBoxLayout(topBtnsFrame);
     HLayout->setContentsMargins(8, 0, 0, 0);
@@ -173,6 +175,7 @@ void Workshop::init()
     leftBlock->setLayout(leftBlockLayout);
 
     // Set RightBlock
+    rightBlock->setBrightDarkColor(Cell::CGL247,Cell::CGL30);
     rightBlock->setMinimumWidth(300);
     QVBoxLayout *rightBlockLayout = new QVBoxLayout(rightBlock);
     rightBlockLayout->setMargin(0);
@@ -192,7 +195,8 @@ void Workshop::init()
     statusBar->setFixedHeight(25);
     statusBar->setBrightDarkColor(Cell::CGL218, Cell::CGL45);
 
-    _modules << textChangetoken << statusBar;
+    _modules << textChangetoken << statusBar << leftBlock << rightBlock
+             << topBtnsFrame;
 
     QHBoxLayout *HLayoutStatusBar = new QHBoxLayout(statusBar);
     HLayoutStatusBar->setContentsMargins(22, 0, 17, 0);
@@ -204,9 +208,6 @@ void Workshop::init()
     HLayoutStatusBar->addWidget(textChangetoken);
     statusBar->setLayout(HLayoutStatusBar);
 
-    // Two Blocks.
-    CellUiGlobal::multiModulesOneStyleSheet({leftBlock, rightBlock},
-                                       CHAR2STR("QFrame{background-color:rgb(235,235,235);}"));
     // Functional.
     loadingDialog->show();
     loadingDialog->progress();
@@ -384,6 +385,8 @@ void Workshop::setColor(const QColor& color)
 
 void Workshop::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
 {
+    CellWidgetGlobalInterface::switchMode == Cell::SwitchMode::Instant ?
+    setColor(targetColor):
     CellUiGlobal::setPropertyAnimation(animi, this, "color",
                                        startColor, targetColor, duration,
                                        CellWidgetGlobalInterface::easingCurve);

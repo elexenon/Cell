@@ -5,13 +5,13 @@
 // the file LICENSE included in the packaging of this file.
 #include "LauncherHomepage.h"
 #include "../CustomBaseWidgets/customOptionBlock.h"
+#include "../CustomBaseWidgets/ButtonWithIcon.h"
 #include "../../CellCore/CellSqlManager.h"
 #include "../../CellCore/CellProjectEntity.h"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QPushButton>
 #include <QHeaderView>
 #include <QComboBox>
 #include <QButtonGroup>
@@ -28,8 +28,8 @@ LauncherHomepage::LauncherHomepage(QWidget *parent) :
     stackedWidget(new QStackedWidget(this)),
     tableView(new QTableView(stackedWidget)),
     itemModel(new QStandardItemModel),
-    btnGrid(new QPushButton(this)),
-    btnList(new QPushButton(this)),
+    btnGrid(new ButtonWithIcon(customButton::Checkable, this)),
+    btnList(new ButtonWithIcon(customButton::Checkable, this)),
     iconRecentPJ(new QLabel(this)),
     labelRecentPJ(new QLabel(this))
 {
@@ -40,14 +40,16 @@ LauncherHomepage::LauncherHomepage(QWidget *parent) :
 void LauncherHomepage::init()
 {
     // Set HLayout_Btns.
-    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeGridBtn_Bright.css"));
-    btnGrid->setStyleSheet(CellUiGlobal::loader.content());
-    btnGrid->setCheckable(true);
+    btnGrid->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
+    btnGrid->setBrightCheckedColor(Cell::CGL218);
+    btnGrid->setDarkCheckedColor(Cell::CGL100);
+    btnGrid->initModules(CHAR2STR("iconGrid"), 23, 21);
     btnGrid->setFixedSize(51,41);
 
-    CellUiGlobal::loader.setFileName(CHAR2STR("LauncherHomeListBtn_Bright.css"));
-    btnList->setStyleSheet(CellUiGlobal::loader.content());
-    btnList->setCheckable(true);
+    btnList->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
+    btnList->setBrightCheckedColor(Cell::CGL218);
+    btnList->setDarkCheckedColor(Cell::CGL100);
+    btnList->initModules(CHAR2STR("iconList"), 27, 20);
     btnList->setFixedSize(51,41);
 
     QHBoxLayout *HLayout_Btns = new QHBoxLayout;
@@ -129,16 +131,17 @@ void LauncherHomepage::setColorScheme(Cell::ColorScheme mode)
 
     const QString labelQss = (mode == Cell::ColorScheme::Bright ? "QLabel{background:transparent; color:rgb(70,70,70);}":
                                                               "QLabel{background:transparent; color:white;}");
-    const QString gridQssFile =  (mode == Cell::ColorScheme::Bright ? "LauncherHomeGridBtn_Bright.css":
-                                                                  "LauncherHomeGridBtn_Dark.css");
-    const QString listQssFile =  (mode == Cell::ColorScheme::Bright ? "LauncherHomeListBtn_Bright.css":
-                                                                  "LauncherHomeListBtn_Dark.css");
+
+    const QString IconQss = (mode == Cell::ColorScheme::Bright ? "LauncherHomeIconRecentPJBright.css":
+                                                              "LauncherHomeIconRecentPJDark.css");
+
+    CellUiGlobal::loader.setFileName(IconQss);
+    iconRecentPJ->setStyleSheet(CellUiGlobal::loader.content());
+
+    btnGrid->setColorScheme(mode);
+    btnList->setColorScheme(mode);
 
     CellUiGlobal::multiModulesOneStyleSheet({labelRecentPJ},labelQss);
-    CellUiGlobal::loader.setFileName(gridQssFile);
-    btnGrid->setStyleSheet(CellUiGlobal::loader.content());
-    CellUiGlobal::loader.setFileName(listQssFile);
-    btnList->setStyleSheet(CellUiGlobal::loader.content());
 }
 
 void LauncherHomepage::updateDatasByWS(CellProjectEntity &entity)

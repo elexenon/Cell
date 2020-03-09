@@ -34,7 +34,6 @@ LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
 
 void LauncherGuideDialog::init()
 {
-    customWinstyleDialog::init();
     customWinstyleDialog::LoadWinStyle(this);
     setLayout(mainLayout);
     setFixedSize(920, 580);
@@ -121,10 +120,15 @@ void LauncherGuideDialog::setEventConnections()
     connect(btnNewPJ, &QPushButton::clicked, [this]{
         emit clickedNewPJ(); close();
     });
+    connect(checkBox, &QCheckBox::clicked, this, &LauncherGuideDialog::checkBoxClicked);
 }
 
 void LauncherGuideDialog::showEvent(QShowEvent *e)
 {
     (void)e;
     this->setWindowOpacity(1);
+}
+
+void LauncherGuideDialog::setCheckBox(bool checked){
+    checkBox->setChecked(checked);
 }

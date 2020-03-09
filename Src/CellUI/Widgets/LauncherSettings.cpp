@@ -13,10 +13,12 @@
 #include "../CustomBaseWidgets/customMaskDialog.h"
 #include "../CustomBaseWidgets/ButtonWithIcon.h"
 #include "../CustomBaseWidgets/customSwitch.h"
+#include "../CustomBaseWidgets/customNavigator.h"
 #include "../Widgets/Launcher.h"
 #include "LauncherSettings.h"
 
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QJsonDocument>
 #include <QJsonObject>
 
@@ -24,12 +26,16 @@ const QString LauncherSettings::path("CWS64.json");
 
 LauncherSettings::LauncherSettings(QWidget *parent) :
     customFrame(customFrame::Type::Regular, parent),
-    mainLayout(new QVBoxLayout(this)),
+    mainLayout(new QHBoxLayout(this)),
+    VLayoutRight(new QVBoxLayout),
+    navigator(new customNavigator(this)),
     blockGeneral(new customOptionBlock(this, CHAR2STR("通用"))),
     blockGeneralItemAppear(new customOptionBlockItem),
-    dBtnAppear(new customDialogButton(CHAR2STR("外观"))),
+    dBtnAppear(new customDialogButton(CHAR2STR("FUSION"))),
     blockGeneralItemAuto(new customOptionBlockItem),
     switchAuto(new customSwitch),
+    blockGeneralItemAbate(new customOptionBlockItem),
+    switchAbate(new customSwitch),
     blockGeneralItemLan(new customOptionBlockItem),
     dBtnLan(new customDialogButton(CHAR2STR("CHN"))),
     blockWorkshop(new customOptionBlock(this, CHAR2STR("Workshop"))),
@@ -57,14 +63,19 @@ void LauncherSettings::LauncherSetColorSchemeModeCall(Cell::ColorScheme mode)
 
 void LauncherSettings::init()
 {
-    customFrame::init();
     setBrightDarkColor(Cell::CGL247,Cell::CGL45);
     setLayout(mainLayout);
-    mainLayout->setSpacing(50);
-    mainLayout->setContentsMargins(45, 30, 45, 0);
-    mainLayout->addWidget(blockGeneral);
-    mainLayout->addWidget(blockWorkshop);
-    mainLayout->addStretch();
+
+    VLayoutRight->setSpacing(50);
+    VLayoutRight->setContentsMargins(45, 0, 45, 0);
+    VLayoutRight->addWidget(blockGeneral);
+    VLayoutRight->addWidget(blockWorkshop);
+    VLayoutRight->addStretch();
+
+    mainLayout->setSpacing(10);
+    mainLayout->setContentsMargins(0, 30, 0, 0);
+    mainLayout->addWidget(navigator);
+    mainLayout->addLayout(VLayoutRight);
 
     switchMulti->setChecked(true);
     // ComboBox Appear Combination
@@ -77,34 +88,43 @@ void LauncherSettings::init()
     // OptionBlock General Combination.
     blockGeneral->setBrightDarkColor(Cell::CGL247, Cell::CGL45);
     // Item Appear Combination.
-    blockGeneralItemAppear->setTag("外观");
+    blockGeneralItemAppear->setTag(CHAR2STR("外观"));
     blockGeneralItemAppear->setOptionWidget(dBtnAppear);
-    blockGeneralItemAppear->setHint("调整Cell的工作主题");
+    blockGeneralItemAppear->setHint(CHAR2STR("调整Cell的工作主题"));
     // Item Auto   Combination.
-    blockGeneralItemAuto->setTag("自动切换");
+    blockGeneralItemAuto->setTag(CHAR2STR("自动切换"));
     blockGeneralItemAuto->setOptionWidget(switchAuto);
-    blockGeneralItemAuto->setHint("在日落时自动切换工作主题");
+    blockGeneralItemAuto->setHint(CHAR2STR("在日落时自动切换工作主题"));
+    // Item Auto   Combination.
+    blockGeneralItemAbate->setTag(CHAR2STR("削弱动态效果"));
+    blockGeneralItemAbate->setOptionWidget(switchAbate);
+    blockGeneralItemAbate->setHint(CHAR2STR("选择此项可提升部分运行时性能"));
     // Item Lan Combination.
-    blockGeneralItemLan->setTag("语言");
+    blockGeneralItemLan->setTag(CHAR2STR("语言"));
     blockGeneralItemLan->setOptionWidget(dBtnLan);
-    blockGeneralItemLan->setHint("设置全局语言");
+    blockGeneralItemLan->setHint(CHAR2STR("设置全局语言"));
     blockGeneral->addItem(blockGeneralItemAppear);
+    blockGeneral->addItem(blockGeneralItemAbate);
     blockGeneral->addItem(blockGeneralItemAuto, true);
     blockGeneral->addItem(blockGeneralItemLan);
 
     // OptionBlock Workshop Combination.
     blockWorkshop->setBrightDarkColor(Cell::CGL247, Cell::CGL45);
     // Item Multi Combination.
-    blockWorkshopItemMulti->setTag("多实例");
+    blockWorkshopItemMulti->setTag(CHAR2STR("多实例"));
     blockWorkshopItemMulti->setOptionWidget(switchMulti);
-    blockWorkshopItemMulti->setHint("允许多个Workshop实例同时存在");
+    blockWorkshopItemMulti->setHint(CHAR2STR("允许多个Workshop实例同时存在"));
     blockWorkshop->addItem(blockWorkshopItemMulti);
     blockWorkshop->tidyItems(blockGeneral);
+
+    navigator->setBrightDarkColor(this->brightColor(), this->darkColor());
+    navigator->jointBlock(blockGeneral);
+    navigator->jointBlock(blockWorkshop);
 
     _modules << dBtnAppear << dBtnLan
              << blockGeneral
              << blockGeneralItemAuto
-             << blockWorkshop;
+             << blockWorkshop << navigator;
 
     setEventConnections();
 }
@@ -115,17 +135,25 @@ void LauncherSettings::setEventConnections()
     const ButtonWithIcon *trigger2 = dBtnLan->getTrigger();
     connect(trigger1, &QPushButton::clicked, this, &LauncherSettings::btnColorSchemeClicked);
     connect(trigger2, &QPushButton::clicked, this, &LauncherSettings::btnLanguageClicked);
-
-    connect(switchAuto, &customSwitch::clicked, this, &LauncherSettings::switchAutoClicked);
-    connect(switchMulti, &customSwitch::clicked, this, &LauncherSettings::switchMultiClicked);
+    connect(switchAuto, &customSwitch::clicked, [=](bool checked){
+        write(SaveAttribute::Auto, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
+        CellWidgetGlobalInterface::autoSwitch = checked == true ? true : false;
+    });
+    connect(switchAbate, &customSwitch::clicked, [=](bool checked){
+        write(SaveAttribute::AbateEffect, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
+        CellWidgetGlobalInterface::switchMode = checked == true ? Cell::SwitchMode::Instant : Cell::SwitchMode::OnGoing;
+    });
+    connect(switchMulti, &customSwitch::clicked,[=](bool checked){
+        write(SaveAttribute::MultiInstance, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
+    });
 }
 
 void LauncherSettings::btnColorSchemeClicked()
 {
     static bool statusBright = true;
     statusBright = !statusBright;
-
     statusBright ? btnBrightClicked() : btnDarkClicked();
+    dBtnAppear->setText(statusBright ? CHAR2STR("FUSION") : CHAR2STR("DARK"));
 }
 
 void LauncherSettings::btnLanguageClicked()
@@ -142,8 +170,10 @@ void LauncherSettings::initsettingsObj()
     QJsonObject tmp;
     tmp["Appearance"] = "FUSION";
     tmp["AutoChange"] = "false";
+    tmp["AbateEffect"]= "true";
     tmp["Language"]   = "CHN";
-    tmp["MultiInstance"] = "true";;
+    tmp["MultiInstance"] = "true";
+    tmp["OnShowGuideDialog"] = "true";
 
     settingsObj["CellLauncherSettgins"] = tmp;
     read(tmp);
@@ -156,8 +186,14 @@ void LauncherSettings::write(LauncherSettings::SaveAttribute key, const QString 
     case Auto:
         tmp["AutoChange"] = value;
         break;
+    case AbateEffect:
+        tmp["AbateEffect"]= value;
+        break;
     case MultiInstance:
         tmp["MultiInstance"] = value;
+        break;
+    case onShowGuideDialog:
+        tmp["OnShowGuideDialog"] = value;
         break;
     }
     settingsObj["CellLauncherSettgins"] = tmp;
@@ -205,27 +241,35 @@ void LauncherSettings::saveFile()
 
 void LauncherSettings::read(const QJsonObject &json)
 {
-    if(json["Appearance"] == CMPSTR("FUSION")){
-
+    if(json["AbateEffect"] == CMPSTR("true")){
+        switchAbate->setChecked(true);
+        CellWidgetGlobalInterface::switchMode = Cell::SwitchMode::Instant;
     }else{
-
+        switchAbate->setChecked(false);
+        CellWidgetGlobalInterface::switchMode = Cell::SwitchMode::OnGoing;
     }
+
+    if(json["AutoChange"] == CMPSTR("true")){
+        switchAuto->setChecked(true);
+        CellWidgetGlobalInterface::autoSwitch = true;
+    }else{
+        switchAuto->setChecked(false);
+        CellWidgetGlobalInterface::autoSwitch = false;
+    }
+    // TODO
+    if(json["MultiInstance"] == CMPSTR("true")){
+        switchMulti->setChecked(true);
+    }else{
+        switchMulti->setChecked(false);
+    }
+
     /* TODO
     switch(json["Language"]){
 
     }*/
     switchAuto->setChecked(json["AutoChange"] == CMPSTR("true") ? true : false);
+    switchAbate->setChecked(json["AbateEffect"] == CMPSTR("true") ? true : false);
     switchMulti->setChecked(json["MultiInstance"] == CMPSTR("true") ? true : false);
-}
-
-void LauncherSettings::switchAutoClicked(bool checked)
-{
-    write(SaveAttribute::Auto, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
-}
-
-void LauncherSettings::switchMultiClicked(bool checked)
-{
-    write(SaveAttribute::MultiInstance, checked == true ? CHAR2STR("true") : CHAR2STR("false"));
 }
 
 void LauncherSettings::btnBrightClicked()

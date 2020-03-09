@@ -22,6 +22,8 @@ void customWinstyleWidget::setEventConnections()
 
 void customWinstyleWidget::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
 {
+    CellWidgetGlobalInterface::switchMode == Cell::SwitchMode::Instant ?
+    setColor(targetColor):
     CellUiGlobal::setPropertyAnimation(animi, this, "color",
                                        startColor, targetColor, duration,
                                        CellWidgetGlobalInterface::easingCurve);

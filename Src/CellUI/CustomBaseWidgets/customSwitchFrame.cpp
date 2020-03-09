@@ -18,13 +18,13 @@ void customSwitchFrame::transCurrState(const customSwitchFrame::State &newState)
     if(newState == currState) return;
     currState = newState;
     const QColor targetColor = (newState == State::Special ? mSpecialColor :
-                                (mMode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor));
+                                (CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor));
     customFrame::changeToColor(mColor, targetColor, static_cast<int>(Cell::AnimiDuration::GlobalDuration));
 }
 
 void customSwitchFrame::setColorScheme(Cell::ColorScheme mode){
-    if(mode == mMode) return;
-    mMode = mode;
+    if(mode == CellWidgetGlobalInterface::mMode) return;
+    CellWidgetGlobalInterface::mMode = mode;
     if(currState == State::Special) return;
     const QColor targetColor = (mode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
     customFrame::changeToColor(mColor, targetColor, static_cast<int>(Cell::AnimiDuration::GlobalDuration));

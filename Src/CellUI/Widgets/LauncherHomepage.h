@@ -15,7 +15,7 @@
 
 class QVBoxLayout;
 class QLabel;
-class QPushButton;
+class ButtonWithIcon;
 class QComboBox;
 class QTableView;
 class QStackedWidget;
@@ -36,8 +36,8 @@ private:
     QStackedWidget     *stackedWidget;
     QTableView         *tableView;
     QStandardItemModel *itemModel;
-    QPushButton        *btnGrid;
-    QPushButton        *btnList;
+    ButtonWithIcon     *btnGrid;
+    ButtonWithIcon     *btnList;
     QLabel             *iconRecentPJ;
     QLabel             *labelRecentPJ;
 

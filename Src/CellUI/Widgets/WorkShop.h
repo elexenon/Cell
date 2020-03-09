@@ -98,7 +98,7 @@ protected:
     virtual void
     closeEvent(QCloseEvent *event) override;
 
-signals:
+Q_SIGNALS:
     void
     _constructed();
 

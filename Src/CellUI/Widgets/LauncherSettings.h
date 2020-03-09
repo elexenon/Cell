@@ -11,6 +11,7 @@
 #define LauncherSettings_H
 
 #include "../CustomBaseWidgets/customFrame.h"
+#include "../../CellCore/CellSettings.h"
 #include "../../CellCore/Kits/CellUtility.h" // ColorScheme
 
 namespace Ui {
@@ -22,19 +23,17 @@ class customOptionBlock;
 class customOptionBlockItem;
 class customDialogButton;
 class customButton;
+class customNavigator;
 class QVBoxLayout;
+class QHBoxLayout;
 class customMaskDialog;
 class Launcher;
 class customSwitch;
 class QJsonObject;
 
-class LauncherSettings : public customFrame
+class LauncherSettings : public customFrame, implements CellSettings
 {
     Q_OBJECT
-    enum SaveAttribute{
-        Auto,
-        MultiInstance
-    };
     static const QString path;
 public:
     explicit LauncherSettings(QWidget *parent = nullptr);
@@ -46,6 +45,9 @@ public:
     inline void
     getLauncherPtr(Launcher *ptr) { launcherPtr = ptr; }
 
+    inline bool
+    showGuideDialog() { return settingsObj["CellLauncherSettgins"].toObject()["OnShowGuideDialog"] == CMPSTR("true"); }
+
 private:
     virtual void
     init() override;
@@ -56,20 +58,22 @@ private:
     void
     initsettingsObj();
 
-    void
-    write(SaveAttribute key, const QString &value);
+    virtual void
+    write(SaveAttribute key, const QString &value) override;
 
-    void
-    loadFile();
+    virtual void
+    loadFile() override;
 
-    void
-    saveFile();
+    virtual void
+    saveFile() override;
 
-    void
-    read(const QJsonObject&);
+    virtual void
+    read(const QJsonObject&) override;
 
-    QVBoxLayout *mainLayout;
+    QHBoxLayout *mainLayout;
+    QVBoxLayout *VLayoutRight;
 
+    customNavigator *navigator;
     // OptionBlock blockGeneral Combination;
     customOptionBlock     *blockGeneral;
     // Item Appear Combination.
@@ -78,6 +82,9 @@ private:
     // Item Auto Combination.
     customOptionBlockItem *blockGeneralItemAuto;
     customSwitch          *switchAuto;
+    // Item Abate Combination
+    customOptionBlockItem *blockGeneralItemAbate;
+    customSwitch          *switchAbate;
     // Item Language Combination.
     customOptionBlockItem *blockGeneralItemLan;
     customDialogButton    *dBtnLan;
@@ -92,9 +99,13 @@ private:
 
     QJsonObject settingsObj;
 
-signals:
+Q_SIGNALS:
     void
     enableColorScheme(Cell::ColorScheme mode);
+
+public Q_SLOTS:
+    inline void
+    setOnShowGuide(bool checked) { write(onShowGuideDialog, checked ? "true" : "false"); }
 
 private Q_SLOTS:
     void
@@ -102,12 +113,6 @@ private Q_SLOTS:
 
     void
     btnLanguageClicked();
-
-    void
-    switchAutoClicked(bool checked);
-
-    void
-    switchMultiClicked(bool checked);
 
     void
     btnBrightClicked();

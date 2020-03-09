@@ -39,7 +39,7 @@ protected:
     addThemeTag(const QString &name);
 
     virtual void
-    mouseEvent(QMouseEvent*);
+    mousePressEvent(QMouseEvent*);
 
     QVBoxLayout                     *mainLayout;
     QVBoxLayout                     *mainBlockLayout;

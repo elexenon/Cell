@@ -22,10 +22,6 @@ public:
     //! Color.
     inline const QColor
     color() const { return mColor; }
-    //! Set The Duration Of Animation Of
-    //! Virtual Function "changeToColor".
-    inline void
-    setSwitchDuration(int value) { this->switchDuration = value; }
     //! Return bright mode color
     //! by const reference.
     inline const QColor&
@@ -33,7 +29,7 @@ public:
     //! Return dark mode color
     //! by const reference.
     inline const QColor&
-    darkModeColor()   { return darkmodeColor; }
+    darkColor()   { return darkmodeColor; }
     //! Set bright/dark mode colors, so that cell
     //! will switch colors automatically.
     void
@@ -44,31 +40,49 @@ public:
     setColorScheme(Cell::ColorScheme mode);
 
 protected:
-    Cell::ColorScheme mMode         = Cell::ColorScheme::Bright;
-    int                               switchDuration = static_cast<int>(Cell::AnimiDuration::GlobalDuration);
-    QEasingCurve                      easingCurve = QEasingCurve::InOutCubic;
+    QList<CellWidgetGlobalInterface*> _modules;
     QColor                            mColor;
     QColor                            brightmodeColor;
     QColor                            darkmodeColor;
     QPropertyAnimation                animi;
     QPropertyAnimation               *animiPtr;
-    QList<CellWidgetGlobalInterface*> _modules;
 
-    inline void
-    setColorEasingCurve(QEasingCurve curve) { this->easingCurve = curve; }
+    static Cell::ColorScheme mMode;
+    static QEasingCurve      easingCurve;
+    static Cell::SwitchMode  switchMode;
+    static int               switchDuration;
+    static bool              autoSwitch;
 
+    //! Set The Duration Of Animation Of
+    //! Virtual Function "changeToColor".
+    inline static void
+    setSwitchDuration(int value) { CellWidgetGlobalInterface::switchDuration = value; }
+    //! Set Easing Curve Of Animation Of
+    //! Virtual Function "changeToColor".
+    inline static void
+    setColorEasingCurve(QEasingCurve curve) { CellWidgetGlobalInterface::easingCurve = curve; }
+    //! This Function Controls The Behavior Of
+    //! Choosing Of StartColor and
+    //! EndColor Of Subclasses.
     virtual void
     setAnimiStartEndColor(Cell::ColorScheme mode, QColor &startColor, QColor &endColor);
-
+    //! Force Subclasses To Implement
+    //! Initializing Processes.
     virtual void
     init() = 0;
-
+    //! This Is A Polymorphic Behavior.
+    //! How The Switching Effect Works
+    //! Depends On The Implementations
+    //! Of Subclasses.
     virtual void
     changeToColor(const QColor& startColor, const QColor& targetColor, int duration) = 0;
-
+    //! This Is A Polymorphic Behavior.
+    //! It Resolves How Subclasses Set
+    //! "mColor"
     virtual void
     setColor(const QColor &color) = 0;
-
+    //! Force Subclasses To Implement
+    //! Events Connecting Processes.
     virtual void
     setEventConnections() = 0;
 };

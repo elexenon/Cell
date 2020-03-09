@@ -47,7 +47,6 @@ LauncherNewPJDialog::~LauncherNewPJDialog()
 
 void LauncherNewPJDialog::init()
 {
-    customWinstyleDialog::init();
     customWinstyleDialog::LoadWinStyle(this);
     setAttribute(Qt::WA_DeleteOnClose);
     setAutoFillBackground(true);

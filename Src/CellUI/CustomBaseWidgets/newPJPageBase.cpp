@@ -34,7 +34,6 @@ newPJPageBase::newPJPageBase(QWidget *parent):
 }
 
 void newPJPageBase::init(){
-    customFrame::init();
     setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     setLayout(mainLayout);
 
@@ -88,13 +87,11 @@ void newPJPageBase::btnPathClicked()
     emit pathSettled(path);
 }
 
-void newPJPageBase::setPageTitle(const QString &text)
-{
+void newPJPageBase::setPageTitle(const QString &text){
     labelTitle->setText(text);
 }
 
-void newPJPageBase::addOptionBlock(customOptionBlock *block)
-{
+void newPJPageBase::addOptionBlock(customOptionBlock *block){
     mainLayout->addWidget(block);
     mainLayout->addStretch(8);
 }

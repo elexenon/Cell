@@ -16,13 +16,11 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    /*
-    QSharedMemory mem("Cell Launcher");
+    QSharedMemory mem("CWS64");
     if(!mem.create(1)){
-        QMessageBox::information(nullptr, QObject::tr("提示:"), QObject::tr(CellUiConst::INSTANCE_IS_ON));
+        QMessageBox::information(nullptr, QObject::tr("提示:"), QObject::tr(CellUiLiteral::INSTANCE_IS_ON));
         return 0;
     }
-    */
     // This operation is to register our custom property "ColorScheme".
     qRegisterMetaType<Cell::ColorScheme>("ColorScheme");
     qRegisterMetaType<Cell::ColorScheme>("ColorScheme&");

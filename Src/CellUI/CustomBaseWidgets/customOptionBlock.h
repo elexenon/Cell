@@ -39,7 +39,7 @@ protected:
     addThemeTag(const QString &name);
 
     virtual void
-    mousePressEvent(QMouseEvent*);
+    enterEvent(QEvent*);
 
     QVBoxLayout                     *mainLayout;
     QVBoxLayout                     *mainBlockLayout;
@@ -57,7 +57,7 @@ private:
 
 Q_SIGNALS:
     void
-    clicked(const QString&);
+    entered(const QString&);
 };
 
 #endif // CUSTOMOPTIONBLOCK_H

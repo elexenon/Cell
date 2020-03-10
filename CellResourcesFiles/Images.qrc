@@ -12,8 +12,6 @@
         <file>Images/iconClose.png</file>
         <file>Images/iconMaximize.png</file>
         <file>Images/iconMinimize.png</file>
-        <file>Images/btnNewPJ.png</file>
-        <file>Images/btnOpenPJ.png</file>
         <file>Images/cellLogo64.png</file>
         <file>Images/cellLogo128.png</file>
         <file>Images/cellLogo256.png</file>
@@ -26,5 +24,8 @@
         <file>Images/iconGrid.png</file>
         <file>Images/iconList.png</file>
         <file>Images/iconRecentPJDark.png</file>
+        <file>Images/iconNewCode.png</file>
+        <file>Images/iconNewGUI.png</file>
+        <file>Images/iconOpen.png</file>
     </qresource>
 </RCC>

@@ -169,8 +169,8 @@ void LauncherSettings::initsettingsObj()
 {
     QJsonObject tmp;
     tmp["Appearance"] = "FUSION";
-    tmp["AutoChange"] = "false";
-    tmp["AbateEffect"]= "true";
+    tmp["AutoChange"] = "true";
+    tmp["AbateEffect"]= "false";
     tmp["Language"]   = "CHN";
     tmp["MultiInstance"] = "true";
     tmp["OnShowGuideDialog"] = "true";

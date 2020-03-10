@@ -14,6 +14,7 @@
 
 class LauncherGuideDialog;
 class LauncherNewPJDialog;
+class LauncherNewPJGUI;
 class LauncherHomepage;
 class Workshop;
 class LauncherSettings;
@@ -46,7 +47,10 @@ private:
     startPageSwitchAnimation(PAGE_TYPE nextPage);
 
     void
-    _launcherWorkshop();
+    _launchGuideDialog();
+
+    void
+    _launchWorkshop();
     //! Inhrits From
     //! CellWidgetGlobalInterface.
     virtual void
@@ -62,6 +66,7 @@ private:
     LauncherSettings    *settingsPage = nullptr;
     LauncherGuideDialog *guideDialog = nullptr;
     LauncherNewPJDialog *newPJDialog = nullptr;
+    LauncherNewPJGUI    *newPJGUI    = nullptr;
 
     customTitleBar *titleBar;
     ButtonWithIcon *btnMini;
@@ -70,8 +75,9 @@ private:
 
     QStackedWidget *stackedWidget;
 
-    ButtonWithIconTextHint *btnNewPJ;
-    ButtonWithIconTextHint *btnOpenPJ;
+    ButtonWithIconTextHint *btnNewCode;
+    ButtonWithIconTextHint *btnNewGUI;
+    ButtonWithIconTextHint *btnOpen;
 
     notificationCenter *notificationCenter;
 
@@ -83,6 +89,13 @@ private:
     bool      onShowGuide = true;
     PAGE_TYPE currentPage;
 
+protected:
+    virtual void
+    closeEvent(QCloseEvent *e) override;
+
+Q_SIGNALS:
+    void launcherClosed();
+
 private Q_SLOTS:
     void
     btnMiniClicked();
@@ -91,22 +104,16 @@ private Q_SLOTS:
     btnMaxClicked();
 
     void
-    btnCloseClicked();
-
-    void
     tabHomeClicked();
 
     void
     tabSettingsClicked();
 
     void
-    tabGuideClicked();
-
-    void
-    tabTestClicked();
-
-    void
     btnNewClicked();
+
+    void
+    btnNewGUIClicked();
 
     void
     btnOpenClicked();

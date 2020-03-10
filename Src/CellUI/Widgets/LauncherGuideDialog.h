@@ -25,6 +25,7 @@ class ButtonWithIcon;
 class LauncherGuideDialog : public customWinstyleDialog
 {
     Q_OBJECT
+
 public:
     explicit LauncherGuideDialog(QWidget *parent = nullptr);
     ~LauncherGuideDialog() = default;
@@ -45,10 +46,14 @@ private:
     QCheckBox           *checkBox;
     ButtonWithText      *btnClose;
     ButtonWithText      *btnNewPJ;
+    bool                 onCloseNewPJ;
 
 protected:
     virtual void
     showEvent(QShowEvent *e) override;
+
+    virtual void
+    closeEvent(QCloseEvent *e) override;
 
 Q_SIGNALS:
     void

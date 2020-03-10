@@ -42,4 +42,8 @@ public:\
         ptr = nullptr; \
     }
 
+#define MoveToCenter(dialog) \
+    dialog->move(this->x() + (this->width() -  dialog->width())  / 2, \
+                 this->y() + (this->height() - dialog->height()) / 2)
+
 #endif // CELLGLOBALMACROS_H

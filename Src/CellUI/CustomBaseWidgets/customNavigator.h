@@ -11,15 +11,24 @@ class QButtonGroup;
 class customNavigator : public customFrame
 {
     Q_OBJECT
+    static int buttonHeight;
 public:
     explicit customNavigator(QWidget *parent = nullptr);
     ~customNavigator() = default;
 
+    //! Custom navigator will create a correspounding
+    //! "ButtonWithText" of "checkable" attribute on-
+    //! ce a "customOptionBlock" is appended by user.
     void
     jointBlock(const customOptionBlock *block);
 
+    //! Set the top margin of main layout.
     void
     setTopMargin(int value);
+
+    //! Set the height of each "ButtonWithText"
+    void
+    setButtonHeight(int value);
 
 private:
     QVBoxLayout            *mainLayout;

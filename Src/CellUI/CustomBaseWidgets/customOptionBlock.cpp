@@ -110,12 +110,7 @@ void customOptionBlock::tidyItems(customOptionBlock *another)
     }
 }
 
-void customOptionBlock::mousePressEvent(QMouseEvent *e)
+void customOptionBlock::enterEvent(QEvent*)
 {
-    if(e->buttons() & Qt::LeftButton){
-        qDebug() << "block clicked";
-        emit clicked(_theme);
-        e->accept();
-    }else
-        e->ignore();
+    emit entered(_theme);
 }

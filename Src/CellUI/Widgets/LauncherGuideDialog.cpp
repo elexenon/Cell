@@ -35,9 +35,11 @@ LauncherGuideDialog::LauncherGuideDialog(QWidget *parent) :
 void LauncherGuideDialog::init()
 {
     customWinstyleDialog::LoadWinStyle(this);
+    setWindowTitle(CHAR2STR("Guide"));
+    setModal(true);
     setLayout(mainLayout);
+    setAttribute(Qt::WA_DeleteOnClose);
     setFixedSize(920, 580);
-
     // TitleBar Combination.
     titleBar->setFixedHeight(40);
     titleBar->setBrightDarkColor(Cell::CGL218,Cell::CGL60);
@@ -53,8 +55,8 @@ void LauncherGuideDialog::init()
     checkBox->setStyleSheet(CHAR2STR("QCheckBox{color:white;background-color: transparent;}"));
 
     btnClose->setBrightDarkColor(Cell::CGL70, Cell::CGL70);
-    btnClose->setBrightHoveringColor(Cell::CellThemeColor::NavyBlue);
-    btnClose->setDarkHoveringColor(Cell::CellThemeColor::NavyBlue);
+    btnClose->setBrightHoveringColor(Cell::CellThemeColor::ExitRed);
+    btnClose->setDarkHoveringColor(Cell::CellThemeColor::ExitRed);
     btnClose->setAnimationDuration(200);
     btnClose->initModules(CHAR2STR("关闭"), 15);
     btnClose->setTextColor(Cell::CGL255, Cell::CGL255);
@@ -111,22 +113,28 @@ void LauncherGuideDialog::fade()
     animiPtr->setDuration(150);
     animiPtr->setStartValue(1);
     animiPtr->setEndValue(0);
-    animiPtr->start(QAbstractAnimation::DeleteWhenStopped);
+    animiPtr->start(QAbstractAnimation::DeleteWhenStopped);  
 }
 
 void LauncherGuideDialog::setEventConnections()
 {
-    connect(btnClose, &QPushButton::clicked, this, &LauncherGuideDialog::fade);
-    connect(btnNewPJ, &QPushButton::clicked, [this]{
-        emit clickedNewPJ(); close();
+    connect(btnClose, &QPushButton::clicked, this, [=]{
+        onCloseNewPJ = false; fade();
+    });
+    connect(btnNewPJ, &QPushButton::clicked, this, [=]{
+        onCloseNewPJ = true; fade();
     });
     connect(checkBox, &QCheckBox::clicked, this, &LauncherGuideDialog::checkBoxClicked);
 }
 
-void LauncherGuideDialog::showEvent(QShowEvent *e)
-{
-    (void)e;
+void LauncherGuideDialog::showEvent(QShowEvent *e){
     this->setWindowOpacity(1);
+    e->accept();
+}
+
+void LauncherGuideDialog::closeEvent(QCloseEvent *e){
+    if(onCloseNewPJ) emit clickedNewPJ();
+    e->accept();
 }
 
 void LauncherGuideDialog::setCheckBox(bool checked){

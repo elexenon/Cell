@@ -8,6 +8,8 @@
 #include <QButtonGroup>
 #include <QVBoxLayout>
 
+int customNavigator::buttonHeight = 35;
+
 customNavigator::customNavigator(QWidget *parent):
     customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QVBoxLayout(this)),
@@ -36,7 +38,7 @@ void customNavigator::jointBlock(const customOptionBlock *block)
     assert(block);
     static unsigned buttonID(1);
     static bool firstClicked(false);
-    connect(block, &customOptionBlock::clicked, this, &customNavigator::setCurr);
+    connect(block, &customOptionBlock::entered, this, &customNavigator::setCurr);
 
     // Add New Button Into Layout.
     ButtonWithText *tmp = new ButtonWithText(customButton::Type::Checkable, this);
@@ -49,7 +51,7 @@ void customNavigator::jointBlock(const customOptionBlock *block)
     tmp->setDarkCheckedColor(Cell::CGL100);
     tmp->setNaviBar();
     tmp->initModules(block->_theme, 16);
-    tmp->setFixedHeight(35);
+    tmp->setFixedHeight(customNavigator::buttonHeight);
     mainLayout->addWidget(tmp);
     btnGroup->addButton(tmp, buttonID);
     blockBtnMap[block->_theme] = buttonID++;
@@ -66,6 +68,14 @@ void customNavigator::setTopMargin(int value)
     auto margin = mainLayout->contentsMargins();
     margin.setTop(value);
     mainLayout->setContentsMargins(margin);
+}
+
+void customNavigator::setButtonHeight(int value){
+    customNavigator::buttonHeight = value;
+    if(blockBtnMap.isEmpty()) return;
+    QMap<QString, unsigned>::const_iterator it;
+    for(it = blockBtnMap.constBegin();it != blockBtnMap.constEnd();it ++)
+        btnGroup->button(it.value())->setFixedHeight(value);
 }
 
 void customNavigator::setCurr(const QString &name){

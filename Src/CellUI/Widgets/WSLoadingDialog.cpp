@@ -15,7 +15,8 @@ WSLoadingDialog::WSLoadingDialog(QWidget *parent) :
     timer(new QTimer(this))
 {
     ui->setupUi(this);
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowTitle(CHAR2STR("Loading"));
     setAttribute(Qt::WA_DeleteOnClose);
     customWinstyleDialog::LoadWinStyle(this);
     setAutoFillBackground(true);

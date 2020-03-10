@@ -28,7 +28,7 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::Type type, QWidget 
     _modules << tag << hint;
 
     QVBoxLayout *VLayoutIcon = new QVBoxLayout;
-    VLayoutIcon->setMargin(0);
+    VLayoutIcon->setContentsMargins(0, 5, 0, 0);
     VLayoutIcon->addWidget(icon);
     VLayoutIcon->setAlignment(Qt::AlignmentFlag::AlignTop);
 

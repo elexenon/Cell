@@ -56,8 +56,6 @@ void customButton::setEventConnections()
 
 void customButton::paintEvent(QPaintEvent *e)
 {
-    e->accept();
-
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setBrush(mColor);
@@ -79,6 +77,7 @@ void customButton::paintEvent(QPaintEvent *e)
         painter.setBrush(QBrush(CellVariant(Cell::CellThemeColor::NavyBlue).toColor()));
         painter.drawRect(this->width() - 5, 1, 5, this->height()-2);
     }
+    e->accept();
 }
 
 void customButton::changeToColor(const QColor &startColor, const QColor &targetColor, int duration){

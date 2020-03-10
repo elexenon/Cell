@@ -137,6 +137,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
 
     customDialogButton *customDB = new customDialogButton(CHAR2STR("FUSION"), this);
     customDB->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
+    customDB->setFixedWidth(300);
 
     customSwitch *mSwitch = new customSwitch(this);
 

@@ -17,6 +17,7 @@
 
 #include "LauncherGuideDialog.h"
 #include "LauncherNewPJDialog.h"
+#include "LauncherNewPJGUI.h"
 #include "LauncherHomepage.h"
 #include "LauncherSettings.h"
 #include "WorkShop.h"
@@ -45,8 +46,9 @@ Launcher::Launcher(QWidget *parent)
       btnMax(new ButtonWithIcon(customButton::Dynamic, titleBar)),
       btnClose(new ButtonWithIcon(customButton::Dynamic, titleBar)),
       stackedWidget(new QStackedWidget(this)),
-      btnNewPJ(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
-      btnOpenPJ(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
+      btnNewCode(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
+      btnNewGUI(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
+      btnOpen(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
       notificationCenter(new class notificationCenter(this)),
       btnListWidget(new customButtonListWidget(this)),
 #ifndef RELEASE_MODE
@@ -60,13 +62,11 @@ Launcher::Launcher(QWidget *parent)
 Launcher::~Launcher()
 {}
 
-const QRect Launcher::maskGeometry()
-{
+const QRect Launcher::maskGeometry(){
     return QRect(0, titleBar->height(), this->width(),this->height()-titleBar->height()-notificationCenter->height());
 }
 
-void Launcher::init()
-{
+void Launcher::init(){
     resize(1400, 800);
     setObjectName(CHAR2STR("Launcher"));
     customWinstyleWidget::LoadWinStyle(this);
@@ -124,26 +124,34 @@ void Launcher::init()
     btnListWidget->setBrightDarkColor(Cell::CGL247,Cell::CGL30);
     btnListWidget->clickButton(0);
 
-    btnNewPJ->setBrightHoveringColor(Cell::CGL255);
-    btnNewPJ->setDarkHoveringColor(Cell::CGL130);
-    btnNewPJ->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
-    btnNewPJ->setAnimationDuration(150);
-    btnNewPJ->initModules(CHAR2STR("btnNewPJ"), 33, 33, CHAR2STR("新建项目"), 25, CHAR2STR("新建一个Cell文档"));
-    btnNewPJ->setFixedSize(250, 81);
+    btnNewCode->setBrightHoveringColor(Cell::CGL255);
+    btnNewCode->setDarkHoveringColor(Cell::CGL130);
+    btnNewCode->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
+    btnNewCode->setAnimationDuration(200);
+    btnNewCode->initModules(CHAR2STR("iconNewCode"), 33, 33, CHAR2STR("代码项目"), 25, CHAR2STR("新的纯代码Cell项目"));
+    btnNewCode->setFixedSize(250, 81);
 
-    btnOpenPJ->setBrightHoveringColor(Cell::CGL255);
-    btnOpenPJ->setDarkHoveringColor(Cell::CGL130);
-    btnOpenPJ->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
-    btnOpenPJ->setAnimationDuration(150);
-    btnOpenPJ->initModules(CHAR2STR("btnOpenPJ"), 33, 33, CHAR2STR("打开项目"), 25, CHAR2STR("打开已知的Cell文档"));
-    btnOpenPJ->setFixedSize(250, 81);
+    btnNewGUI->setBrightHoveringColor(Cell::CGL255);
+    btnNewGUI->setDarkHoveringColor(Cell::CGL130);
+    btnNewGUI->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
+    btnNewGUI->setAnimationDuration(200);
+    btnNewGUI->initModules(CHAR2STR("iconNewGUI"), 33, 33, CHAR2STR("引导项目"), 25, CHAR2STR("新的图形化Cell项目"));
+    btnNewGUI->setFixedSize(250, 81);
+
+    btnOpen->setBrightHoveringColor(Cell::CGL255);
+    btnOpen->setDarkHoveringColor(Cell::CGL130);
+    btnOpen->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
+    btnOpen->setAnimationDuration(200);
+    btnOpen->initModules(CHAR2STR("iconOpen"), 33, 33, CHAR2STR("打开文档"), 25, CHAR2STR("打开已知的Cell文档"));
+    btnOpen->setFixedSize(250, 81);
 
     QFont t(CHAR2STR("Microsoft Yahei UI Light"));
     t.setPixelSize(25);
 
     QVBoxLayout *VLayout_WorkBtns = new QVBoxLayout;
-    VLayout_WorkBtns->addWidget(btnNewPJ);
-    VLayout_WorkBtns->addWidget(btnOpenPJ);
+    VLayout_WorkBtns->addWidget(btnNewCode);
+    VLayout_WorkBtns->addWidget(btnNewGUI);
+    VLayout_WorkBtns->addWidget(btnOpen);
     VLayout_WorkBtns->setSpacing(15);
 
     QVBoxLayout *VLayout_Left = new QVBoxLayout;
@@ -178,13 +186,13 @@ void Launcher::init()
 
     titleBar->addLayout(HLayoutTitleRight);
 
-    guideDialog = new LauncherGuideDialog(this);
-    guideDialog->setCheckBox(settingsPage->showGuideDialog());
+    _launchGuideDialog();
     settingsPage->showGuideDialog() ? guideDialog->show() : guideDialog->hide();
 
     _modules << titleBar << btnMini << btnMax << btnClose
-             << btnListWidget << btnNewPJ << btnOpenPJ << notificationCenter
-             << guideDialog;
+             << btnListWidget << btnNewCode << btnOpen << notificationCenter
+             //<< guideDialog
+             << btnNewGUI;
 
     if(CellWidgetGlobalInterface::autoSwitch){
         QTime currentTime = QTime::currentTime();
@@ -198,78 +206,56 @@ void Launcher::init()
     }
 }
 
-void Launcher::setEventConnections()
-{
+void Launcher::setEventConnections(){
     // Set connections between SettingsPage & ColorScheme-change-enabled modules
-    connect(settingsPage, &LauncherSettings::enableColorScheme, this, &Launcher::setColorScheme);
-    connect(settingsPage, &LauncherSettings::enableColorScheme, homePage, &LauncherHomepage::setColorScheme);
-    connect(guideDialog,  &LauncherGuideDialog::clickedNewPJ, this, &Launcher::btnNewClicked);
+    connect(settingsPage, &LauncherSettings::enableColorScheme,  this,         &Launcher::setColorScheme);
+    connect(settingsPage, &LauncherSettings::enableColorScheme,  homePage,     &LauncherHomepage::setColorScheme);
+    connect(guideDialog,  &LauncherGuideDialog::clickedNewPJ,    this,         &Launcher::btnNewClicked);
     connect(guideDialog,  &LauncherGuideDialog::checkBoxClicked, settingsPage, &LauncherSettings::setOnShowGuide);
-    connect(homePage, &LauncherHomepage::getProjectPath, this, &Launcher::launchWorkShopByPath);
-#ifndef RELEASE_MODE
-    const customListButton *Tab_Test  = btnListWidget->getButton(3);
-    connect(Tab_Test, &QPushButton::clicked, this, &Launcher::tabTestClicked);
-#endif
+    connect(homePage,     &LauncherHomepage::getProjectPath,     this,         &Launcher::launchWorkShopByPath);
     // Set connections for page-switching buttons.
     const customListButton *Tab_HomePage = btnListWidget->getButton(0);
     const customListButton *Tab_Settings = btnListWidget->getButton(1);
     const customListButton *Tab_Guide = btnListWidget->getButton(2);
     connect(Tab_HomePage, &QPushButton::clicked, this, &Launcher::tabHomeClicked);
     connect(Tab_Settings, &QPushButton::clicked, this, &Launcher::tabSettingsClicked);
-    connect(Tab_Guide, &QPushButton::clicked, this, &Launcher::tabGuideClicked);
-    connect(btnNewPJ, &QPushButton::clicked, this, &Launcher::btnNewClicked);
-    connect(btnOpenPJ, &QPushButton::clicked, this, &Launcher::btnOpenClicked);
-    connect(btnMini,  &QPushButton::clicked, this, &Launcher::btnMiniClicked);
-    connect(btnMax,   &QPushButton::clicked, this, &Launcher::btnMaxClicked);
-    connect(btnClose, &QPushButton::clicked, this, &Launcher::btnCloseClicked);
+    connect(Tab_Guide, &QPushButton::clicked, [=]{
+        _launchGuideDialog();
+    });
+    connect(btnNewCode, &QPushButton::clicked, this, &Launcher::btnNewClicked);
+    connect(btnNewGUI,  &QPushButton::clicked, this, &Launcher::btnNewGUIClicked);
+    connect(btnOpen,    &QPushButton::clicked, this, &Launcher::btnOpenClicked);
+    connect(btnMini,    &QPushButton::clicked, this, &Launcher::btnMiniClicked);
+    connect(btnMax,     &QPushButton::clicked, this, &Launcher::btnMaxClicked);
+    connect(btnClose,   &QPushButton::clicked, [=]{
+        close();
+    });
+#ifndef RELEASE_MODE
+    const customListButton *Tab_Test  = btnListWidget->getButton(3);
+    connect(Tab_Test, &QPushButton::clicked, [=]{
+        testForm->show();
+    });
+#endif
 }
 
-void Launcher::btnMiniClicked()
-{
-
+void Launcher::btnMiniClicked(){
     if(this->windowState() != Qt::WindowMinimized)
-            this->setWindowState(Qt::WindowMinimized);
+        this->setWindowState(Qt::WindowMinimized);
 }
 
-void Launcher::btnCloseClicked()
-{
-
-    this->close();
-    if(workshop){
-        workshop->close();
-    }
-}
-
-void Launcher::tabHomeClicked()
-{
-
+void Launcher::tabHomeClicked(){
     if(currentPage == PAGE_TYPE::_HOME) return;
     currentPage = PAGE_TYPE::_HOME;
     startPageSwitchAnimation(PAGE_TYPE::_HOME);
 }
 
-void Launcher::tabSettingsClicked()
-{
-
+void Launcher::tabSettingsClicked(){
     if(currentPage == PAGE_TYPE::_SETTINGS) return;
     currentPage = PAGE_TYPE::_SETTINGS;
     startPageSwitchAnimation(PAGE_TYPE::_SETTINGS);
 }
 
-void Launcher::tabGuideClicked()
-{
-
-    guideDialog->show();
-}
-
-void Launcher::tabTestClicked()
-{
-
-    testForm->show();
-}
-
-void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
-{
+void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage){
     int duration = static_cast<int>(Cell::AnimiDuration::GlobalPageSwitchDuration);
     if(nextPage == PAGE_TYPE::_SETTINGS){
         settingsPage->setWindowOpacity(0);
@@ -284,28 +270,29 @@ void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage)
     }
 }
 
-void Launcher::btnNewClicked()
-{
-
-    newPJDialog = nullptr;
-    if(newPJDialog == nullptr){
-        newPJDialog = new LauncherNewPJDialog(CellWidgetGlobalInterface::mMode, this);
-        connect(settingsPage, &LauncherSettings::enableColorScheme, newPJDialog, &LauncherNewPJDialog::setColorScheme);
-        connect(newPJDialog, &LauncherNewPJDialog::projectSettled, this, &Launcher::launchWorkShop);
-    }  
+void Launcher::btnNewClicked(){
+    newPJDialog = new LauncherNewPJDialog(CellWidgetGlobalInterface::mMode);
+    connect(settingsPage, &LauncherSettings::enableColorScheme, newPJDialog, &LauncherNewPJDialog::setColorScheme);
+    connect(newPJDialog, &LauncherNewPJDialog::projectSettled, this, &Launcher::launchWorkShop);
+    connect(this, &Launcher::launcherClosed, newPJDialog, &LauncherNewPJDialog::close);
     newPJDialog->show();
 }
 
-void Launcher::btnOpenClicked()
+void Launcher::btnNewGUIClicked()
 {
+    newPJGUI = new LauncherNewPJGUI;
+    connect(this, &Launcher::launcherClosed, newPJGUI, &LauncherNewPJGUI::close);
+    newPJGUI->show();
+}
+
+void Launcher::btnOpenClicked(){
 
     QString path = QFileDialog::getOpenFileName(this, "打开Cell文档", ".", "*.workshop");
     if(path == "") return;
     launchWorkShopByPath(path);
 }
 
-void Launcher::_launcherWorkshop()
-{
+void Launcher::_launchWorkshop(){
     workshop = new Workshop(CellWidgetGlobalInterface::mMode);
     connect(settingsPage, &LauncherSettings::enableColorScheme, workshop, &Workshop::setColorScheme);
     connect(workshop, &Workshop::_constructed,notificationCenter, &notificationCenter::plusCnt);
@@ -315,21 +302,27 @@ void Launcher::_launcherWorkshop()
     workshop->show();
 }
 
-void Launcher::launchWorkShop(CellProjectEntity *entity)
-{
-    _launcherWorkshop();
+void Launcher::_launchGuideDialog(){
+    guideDialog = new LauncherGuideDialog;
+    MoveToCenter(guideDialog);
+    connect(guideDialog,  &LauncherGuideDialog::clickedNewPJ, this, &Launcher::btnNewClicked);
+    connect(guideDialog,  &LauncherGuideDialog::checkBoxClicked, settingsPage, &LauncherSettings::setOnShowGuide);
+    connect(this, &Launcher::launcherClosed, guideDialog, &LauncherGuideDialog::close);
+    guideDialog->setCheckBox(settingsPage->showGuideDialog());
+    guideDialog->show();
+}
+
+void Launcher::launchWorkShop(CellProjectEntity *entity){
+    _launchWorkshop();
     workshop->getProjectEntity(*entity);
 }
 
-void Launcher::launchWorkShopByPath(const QString &path)
-{
-    _launcherWorkshop();
+void Launcher::launchWorkShopByPath(const QString &path){
+    _launchWorkshop();
     workshop->loadFile(path);
 }
 
-void Launcher::btnMaxClicked()
-{
-
+void Launcher::btnMaxClicked(){
     static QSize size;
     static QPoint point;
     QDesktopWidget *desktopWidget = QApplication::desktop();
@@ -346,4 +339,9 @@ void Launcher::btnMaxClicked()
         resize(size.width(), size.height());
         move(point);
     }
+}
+
+void Launcher::closeEvent(QCloseEvent *e){
+    emit launcherClosed();
+    e->accept();
 }

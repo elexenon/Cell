@@ -19,7 +19,6 @@
 #include <QVBoxLayout>
 #include <QButtonGroup>
 #include <QTextStream>
-#define DEBUG
 
 LauncherNewPJDialog::LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *parent) :
     customWinstyleDialog(parent),
@@ -48,16 +47,14 @@ LauncherNewPJDialog::~LauncherNewPJDialog()
 void LauncherNewPJDialog::init()
 {
     customWinstyleDialog::LoadWinStyle(this);
+    setWindowTitle(CHAR2STR("New Project"));
     setAttribute(Qt::WA_DeleteOnClose);
-    setAutoFillBackground(true);
     setBrightDarkColor(Cell::CGL255, Cell::CGL30);
     resize(900, 520);
 
     titleBar->setFixedHeight(40);
     titleBar->setBrightDarkColor(Cell::CGL218, Cell::CGL45);
     titleBar->setText(CHAR2STR("新建项目"), Cell::CGL70);
-
-    QFont font(CHAR2STR("Microsoft YaHei UI Light"));
 
     CellUiGlobal::setCustomTextLabel(label_choose, CHAR2STR("Microsoft YaHei UI Light"), 25, CHAR2STR("选择一个模板"));
     label_choose->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
@@ -142,12 +139,6 @@ void LauncherNewPJDialog::init()
     newPJPageBase *pyPJPage = new newPJPageBase(stackedWidget);
     pyPJPage->setPageTitle(CHAR2STR("Pure Python File"));
 
-    _modules << titleBar << label_choose
-             << btnListWidget1 << btnListWidget2
-             << btnConfirm << btnCancel
-             << cellPage << prePage
-             << emptyPJPage << cppPJPage << pyPJPage;
-
     QList<newPJPageBase*> pages;
     pages.append(cellPage);
     pages.append(prePage);
@@ -158,6 +149,12 @@ void LauncherNewPJDialog::init()
     int index = 0;
     for(auto & e : pages)
         stackedWidget->insertWidget(index++, e);
+
+    _modules << titleBar << label_choose
+             << btnListWidget1 << btnListWidget2
+             << btnConfirm << btnCancel
+             << cellPage << prePage
+             << emptyPJPage << cppPJPage << pyPJPage;
 }
 
 void LauncherNewPJDialog::setEventConnections()
@@ -177,8 +174,8 @@ void LauncherNewPJDialog::setEventConnections()
 
 void LauncherNewPJDialog::btnListWidget1Clicked(int id)
 {
-#ifdef DEBUG
-    qDebug() << "btnListWidget1 Clicked::Tab::" << id;
+#ifdef CELL_DEBUG
+       CELL_DEBUG("LauncherNewPJDialog") << "btnListWidget1 Clicked::Tab::" << id << endl;
 #endif
     btnListWidget1->setExlusive(true);
     btnListWidget2->setExlusive(false);
@@ -200,8 +197,8 @@ void LauncherNewPJDialog::btnListWidget1Clicked(int id)
 
 void LauncherNewPJDialog::btnListWidget2Clicked(int id)
 {
-#ifdef DEBUG
-    qDebug() << "btnListWidget2 Clicked::Tab::" << id;
+#ifdef CELL_DEBUG
+       CELL_DEBUG("LauncherNewPJDialog") << "btnListWidget2 Clicked::Tab::" << id << endl;
 #endif
     btnListWidget2->setExlusive(true);
     btnListWidget1->setExlusive(false);

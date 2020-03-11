@@ -15,15 +15,18 @@ class customButton : public QPushButton, implements CellWidgetGlobalInterface{
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
 public:
-    enum Type{
-        Static       ,
-        Dynamic      ,
-        Checkable    ,
-        StaticRadius ,
-        DynamicRadius,
-        CheckableRadius
+    enum Type:int{
+        Static          = 0x01,
+        Dynamic         = 0x02,
+        Checkable       = 0x04,
+        Radius          = 0x08,
+        StaticRadius    = Static | Radius,
+        DynamicRadius   = Dynamic | Radius,
+        CheckableRadius = Checkable | Radius
     };
-    explicit customButton(customButton::Type type = Static,QWidget *parent = nullptr);
+    Q_DECLARE_FLAGS(ButtonType, Type)
+
+    explicit customButton(ButtonType type,QWidget *parent = nullptr);
     virtual ~customButton() = default;
 
     inline void
@@ -55,7 +58,7 @@ private:
     virtual void
     setAnimiStartEndColor(Cell::ColorScheme mode, QColor&, QColor&) override;
 
-    Type mType;
+    ButtonType mType;
     bool naviVerBar = false;
 
 public Q_SLOTS:
@@ -105,5 +108,7 @@ StaticPrivate:
     QColor *brightHoverColor;
     QColor *darkHoverColor;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(customButton::ButtonType)
 
 #endif // CUSTOMBUTTON_H

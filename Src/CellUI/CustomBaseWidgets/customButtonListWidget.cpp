@@ -62,7 +62,7 @@ void customButtonListWidget::addButton(const QString &text, const CellVariant &b
     btnGroup->addButton(btn, index);
     mainLayout->addWidget(btn);
 
-    _modules << btn;
+    CellWidgetGlobalInterface::_modules << btn;
 }
 
 const customListButton* customButtonListWidget::getButton(int index) const{
@@ -118,5 +118,5 @@ void customButtonListWidget::addThemeHead(const QString& theme){
     mainLayout->addLayout(layout);
     mainLayout->addWidget(line_splitter);
 
-    _modules << label_theme;
+    CellWidgetGlobalInterface::_modules << label_theme;
 }

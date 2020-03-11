@@ -29,17 +29,12 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     mainLayout(new QHBoxLayout(this)),
     VLayoutRight(new QVBoxLayout),
     navigator(new customNavigator(this)),
-    blockGeneral(new customOptionBlock(this, CHAR2STR("通用"))),
-    blockGeneralItemAppear(new customOptionBlockItem),
+    blockGeneral(new customOptionBlock(CHAR2STR("通用"), this)),
     dBtnAppear(new customDialogButton(CHAR2STR("FUSION"))),
-    blockGeneralItemAuto(new customOptionBlockItem),
     switchAuto(new customSwitch),
-    blockGeneralItemAbate(new customOptionBlockItem),
     switchAbate(new customSwitch),
-    blockGeneralItemLan(new customOptionBlockItem),
     dBtnLan(new customDialogButton(CHAR2STR("CHN"))),
-    blockWorkshop(new customOptionBlock(this, CHAR2STR("Workshop"))),
-    blockWorkshopItemMulti(new customOptionBlockItem),
+    blockWorkshop(new customOptionBlock(CHAR2STR("Workshop"), this)),
     switchMulti(new customSwitch),
     launcherPtr(nullptr)
 {
@@ -77,53 +72,28 @@ void LauncherSettings::init()
     mainLayout->addWidget(navigator);
     mainLayout->addLayout(VLayoutRight);
 
-    switchMulti->setChecked(true);
-    // ComboBox Appear Combination
+    // OptionBlock General Combination.
     dBtnAppear->setBrightDarkColor(Cell::CGL247, Cell::CGL100);
     dBtnAppear->setFixedWidth(200);
-    // ComboBox Lan Combination.
     dBtnLan->setBrightDarkColor(Cell::CGL247, Cell::CGL100);
     dBtnLan->setFixedWidth(200);
-
-    // OptionBlock General Combination.
     blockGeneral->setBrightDarkColor(Cell::CGL247, Cell::CGL45);
-    // Item Appear Combination.
-    blockGeneralItemAppear->setTag(CHAR2STR("外观"));
-    blockGeneralItemAppear->setOptionWidget(dBtnAppear);
-    blockGeneralItemAppear->setHint(CHAR2STR("调整Cell的工作主题"));
-    // Item Auto   Combination.
-    blockGeneralItemAuto->setTag(CHAR2STR("自动切换"));
-    blockGeneralItemAuto->setOptionWidget(switchAuto);
-    blockGeneralItemAuto->setHint(CHAR2STR("在日落时自动切换工作主题"));
-    // Item Auto   Combination.
-    blockGeneralItemAbate->setTag(CHAR2STR("削弱动态效果"));
-    blockGeneralItemAbate->setOptionWidget(switchAbate);
-    blockGeneralItemAbate->setHint(CHAR2STR("选择此项可提升部分运行时性能"));
-    // Item Lan Combination.
-    blockGeneralItemLan->setTag(CHAR2STR("语言"));
-    blockGeneralItemLan->setOptionWidget(dBtnLan);
-    blockGeneralItemLan->setHint(CHAR2STR("设置全局语言"));
-    blockGeneral->addItem(blockGeneralItemAppear);
-    blockGeneral->addItem(blockGeneralItemAbate);
-    blockGeneral->addItem(blockGeneralItemAuto, true);
-    blockGeneral->addItem(blockGeneralItemLan);
+    blockGeneral->addItem(dBtnAppear, CHAR2STR("外观"), CHAR2STR("调整Cell的工作主题"));
+    blockGeneral->addItem(switchAbate, CHAR2STR("削弱动态效果"), CHAR2STR("选择此项可提升部分运行时性能"));
+    blockGeneral->addItem(switchAuto, CHAR2STR("自动切换"), CHAR2STR("在日落时自动切换工作主题"), true);
+    blockGeneral->addItem(dBtnLan, CHAR2STR("语言"), CHAR2STR("设置全局语言"));
 
     // OptionBlock Workshop Combination.
     blockWorkshop->setBrightDarkColor(Cell::CGL247, Cell::CGL45);
-    // Item Multi Combination.
-    blockWorkshopItemMulti->setTag(CHAR2STR("多实例"));
-    blockWorkshopItemMulti->setOptionWidget(switchMulti);
-    blockWorkshopItemMulti->setHint(CHAR2STR("允许多个Workshop实例同时存在"));
-    blockWorkshop->addItem(blockWorkshopItemMulti);
+    blockWorkshop->addItem(switchMulti, CHAR2STR("多实例"), CHAR2STR("允许多个Workshop实例同时存在"));
     blockWorkshop->tidyItems(blockGeneral);
 
     navigator->setBrightDarkColor(this->brightColor(), this->darkColor());
     navigator->jointBlock(blockGeneral);
     navigator->jointBlock(blockWorkshop);
 
-    _modules << dBtnAppear << dBtnLan
+    CellWidgetGlobalInterface::_modules << dBtnAppear << dBtnLan
              << blockGeneral
-             << blockGeneralItemAuto
              << blockWorkshop << navigator;
 
     setEventConnections();

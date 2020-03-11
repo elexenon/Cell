@@ -14,8 +14,8 @@ class CellProjectEntity;
 
 class CellSqlManager{
 public:
-    explicit CellSqlManager() = default;
-    ~CellSqlManager();
+    explicit CellSqlManager() noexcept = default;
+    ~CellSqlManager() noexcept;
 
     //! Set the exsiting Sqlite3 database file path and open.
     //! If it not exists, create a new Sqlite3 database instead.
@@ -31,7 +31,6 @@ public:
     //! Into Database.
     bool
     insertProjectEntity(CellProjectEntity &entity);
-
     //! Create a new table, users have to provide the CREATE
     //! SQL Sentence.
     inline bool

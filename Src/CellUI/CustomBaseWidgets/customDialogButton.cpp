@@ -15,7 +15,7 @@
 customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     customFrame(customFrame::Type::Radius, parent),
     currState(new customLabel(this)),
-    trigger(new ButtonWithIcon(customButton::DynamicRadius, this)),
+    trigger(new ButtonWithIcon(customButton::Dynamic | customButton::Radius, this)),
     mainLayout(new QHBoxLayout(this))
 {
     setFixedHeight(30);
@@ -37,7 +37,7 @@ customDialogButton::customDialogButton(const QString &state, QWidget *parent):
     mainLayout->addStretch();
     mainLayout->addWidget(trigger);
 
-    _modules << currState << trigger;
+    CellWidgetGlobalInterface::_modules << currState << trigger;
 
     setEventConnections();
 }

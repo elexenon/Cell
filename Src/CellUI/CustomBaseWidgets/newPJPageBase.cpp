@@ -23,10 +23,8 @@ newPJPageBase::newPJPageBase(QWidget *parent):
     customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QVBoxLayout(this)),
     labelTitle(new customLabel(this)),
-    blockConfig(new customOptionBlock(this, CHAR2STR("项目属性"))),
-    blockConfigName(new customOptionBlockItem),
+    blockConfig(new customOptionBlock(CHAR2STR("项目属性"), this)),
     lineEditName(new customLineEdit),
-    blockConfigLoca(new customOptionBlockItem),
     dialogButton(new customDialogButton(CHAR2STR("选择一个目录")))
 {
     init();
@@ -53,20 +51,11 @@ void newPJPageBase::init(){
 
     // OptionBlock Configuration Combination.
     blockConfig->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
-    // Item Name Combination.
-    blockConfigName->setTag(CHAR2STR("名称"));
-    blockConfigName->setOptionWidget(lineEditName);
-    blockConfigName->setHint("设置项目名称");
-    // Item Location Combination.
-    blockConfigLoca->setTag(CHAR2STR("位置"));
-    blockConfigLoca->setOptionWidget(dialogButton);
-    blockConfigLoca->setHint("设置工作路径");
-    blockConfig->addItem(blockConfigName);
-    blockConfig->addItem(blockConfigLoca);
+    blockConfig->addItem(lineEditName, CHAR2STR("名称"), CHAR2STR("设置项目名称"));
+    blockConfig->addItem(dialogButton, CHAR2STR("位置"), CHAR2STR("设置工作路径"));
     blockConfig->tidyItems();
 
-    _modules << dialogButton << labelTitle << blockConfig
-             << blockConfigName << blockConfigLoca;
+    CellWidgetGlobalInterface::_modules << dialogButton << labelTitle << blockConfig;
 }
 
 void newPJPageBase::setEventConnections()
@@ -98,20 +87,15 @@ void newPJPageBase::addOptionBlock(customOptionBlock *block){
 
 void newPJPageBase::enableToolChainsBlock()
 {
-    blockToolChain = new customOptionBlock(this, CHAR2STR("ToolChains"));
-    blockToolChainVersion = new customOptionBlockItem;
+    blockToolChain = new customOptionBlock(CHAR2STR("ToolChains"), this);
     cBoxVersions = new QComboBox;
 
     // OptionBlock ToolChains Combination.
     cBoxVersions->addItem("1.0.1");
     blockToolChain->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
-    // Item Versions Combination.
-    blockToolChainVersion->setTag(CHAR2STR("Cell Calculations版本"));
-    blockToolChainVersion->setOptionWidget(cBoxVersions);
-    blockToolChainVersion->setHint("选择工具链版本");
-    blockToolChain->addItem(blockToolChainVersion);
+    blockToolChain->addItem(cBoxVersions, CHAR2STR("Cell Calculations版本"), CHAR2STR("选择工具链版本"));
 
     addOptionBlock(blockToolChain);
 
-    _modules << blockToolChain << blockToolChainVersion;
+    CellWidgetGlobalInterface::_modules << blockToolChain;
 }

@@ -1,3 +1,8 @@
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
+//
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #ifndef NEWPJPAGEBASE_H
 #define NEWPJPAGEBASE_H
 
@@ -25,13 +30,10 @@ private:
     QVBoxLayout           *mainLayout;
     customLabel           *labelTitle;
     customOptionBlock     *blockConfig;
-    customOptionBlockItem *blockConfigName;
     customLineEdit        *lineEditName;
-    customOptionBlockItem *blockConfigLoca;
     customDialogButton    *dialogButton;
 
     customOptionBlock     *blockToolChain;
-    customOptionBlockItem *blockToolChainVersion;
     QComboBox             *cBoxVersions;
 
     QString path;

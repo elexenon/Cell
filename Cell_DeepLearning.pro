@@ -3,7 +3,7 @@ QT += widgets  #Only On Qt5
 
 PRECOMPILED_HEADER = Pch.h
 
-CONFIG += c++11
+CONFIG += c++17
 CONFIG += precompile_header
 CONFIG += debug_and_release
 
@@ -49,6 +49,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customNavigator.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
+    Src/CellUI/CustomBaseWidgets/customScrollBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customSmoothScrollArea.cpp \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customSwitch.cpp \
@@ -57,6 +58,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.cpp \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.cpp \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.cpp \
+    Src/CellUI/CustomBaseWidgets/optionBlockBase.cpp \
     Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
     Src/CellUI/Widgets/LauncherNewPJGUI.cpp \
     Src/CellUI/Widgets/NewPJPredictEarPage.cpp \
@@ -103,6 +105,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
+    Src/CellUI/CustomBaseWidgets/customScrollBlock.h \
     Src/CellUI/CustomBaseWidgets/customSmoothScrollArea.h \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.h \
     Src/CellUI/CustomBaseWidgets/customSwitch.h \
@@ -111,6 +114,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customWinstyleDialog.h \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.h \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.h \
+    Src/CellUI/CustomBaseWidgets/optionBlockBase.h \
     Src/CellUI/Widgets/Launcher.h \
     Src/CellUI/Widgets/LauncherGuideDialog.h \
     Src/CellUI/Widgets/LauncherHomepage.h \

@@ -1,3 +1,8 @@
+// Copyright 2018-2020 CellTek. < autologic@foxmail.com >
+//
+// This file may be used under the terms of the GNU General Public License
+// version 3.0 as published by the free software foundation and appearing in
+// the file LICENSE included in the packaging of this file.
 #include "customNavigator.h"
 #include "ButtonWithText.h"
 #include "customOptionBlock.h"
@@ -38,7 +43,7 @@ void customNavigator::jointBlock(const customOptionBlock *block)
     assert(block);
     static unsigned buttonID(1);
     static bool firstClicked(false);
-    connect(block, &customOptionBlock::entered, this, &customNavigator::setCurr);
+    connect(block, &optionBlockBase::entered, this, &customNavigator::setCurr);
 
     // Add New Button Into Layout.
     ButtonWithText *tmp = new ButtonWithText(customButton::Type::Checkable, this);
@@ -60,7 +65,7 @@ void customNavigator::jointBlock(const customOptionBlock *block)
         tmp->click();
         firstClicked = true;
     }
-    _modules << tmp;
+    CellWidgetGlobalInterface::_modules << tmp;
 }
 
 void customNavigator::setTopMargin(int value)

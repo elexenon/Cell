@@ -39,7 +39,7 @@ customTitleBar::customTitleBar(QWidget *parent):
 
     setLayout(mainLayout);
 
-    _modules << label_title;
+    CellWidgetGlobalInterface::_modules << label_title;
 }
 
 void customTitleBar::setText(const QString &text, const CellVariant &color)

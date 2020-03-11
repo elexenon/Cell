@@ -150,7 +150,7 @@ void LauncherNewPJDialog::init()
     for(auto & e : pages)
         stackedWidget->insertWidget(index++, e);
 
-    _modules << titleBar << label_choose
+    CellWidgetGlobalInterface::_modules << titleBar << label_choose
              << btnListWidget1 << btnListWidget2
              << btnConfirm << btnCancel
              << cellPage << prePage

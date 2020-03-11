@@ -13,7 +13,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
-ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::Type type, QWidget *parent):
+ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::ButtonType type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this)),
@@ -25,7 +25,7 @@ ButtonWithIconTextHint::ButtonWithIconTextHint(customButton::Type type, QWidget 
     tag->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
     hint->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
 
-    _modules << tag << hint;
+    CellWidgetGlobalInterface::_modules << tag << hint;
 
     QVBoxLayout *VLayoutIcon = new QVBoxLayout;
     VLayoutIcon->setContentsMargins(0, 5, 0, 0);

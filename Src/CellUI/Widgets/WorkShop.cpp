@@ -195,7 +195,7 @@ void Workshop::init()
     statusBar->setFixedHeight(25);
     statusBar->setBrightDarkColor(Cell::CGL218, Cell::CGL45);
 
-    _modules << textChangetoken << statusBar << leftBlock << rightBlock
+    CellWidgetGlobalInterface::_modules << textChangetoken << statusBar << leftBlock << rightBlock
              << topBtnsFrame;
 
     QHBoxLayout *HLayoutStatusBar = new QHBoxLayout(statusBar);

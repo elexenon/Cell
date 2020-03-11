@@ -4,55 +4,33 @@
 // version 3.0 as published by the free software foundation and appearing in
 // the file LICENSE included in the packaging of this file.
 #include "customOptionBlock.h"
+#include "customOptionBlockItem.h"
 #include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
-#include "customOptionBlockItem.h"
-#include "customLabel.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-customOptionBlock::customOptionBlock(QWidget *parent, const QString& name):
-    customFrame(customFrame::Type::Regular, parent),
-    mainLayout(new QVBoxLayout),
+customOptionBlock::customOptionBlock(const QString& name, QWidget *parent):
+    optionBlockBase(name, parent),
     mainBlockLayout(new QVBoxLayout),
     itemsList(new QList<customOptionBlockItem*>)
 {
-    setStyleSheet(CHAR2STR("background-color:transparent"));
+    init();
+}
 
-    mainLayout->setMargin(0);
-    mainLayout->setSpacing(3);
+void customOptionBlock::init()
+{
     mainBlockLayout->setMargin(0);
     mainBlockLayout->setSpacing(0);
-
-    if(name != " ") addThemeTag(name);
-
     mainBlock = new customFrame(customFrame::Type::Radius, this);
     mainBlock->setBrightDarkColor(Cell::CGL218, Cell::CGL70);
     mainBlock->setLayout(mainBlockLayout);
 
     mainLayout->addWidget(mainBlock);
-    setLayout(mainLayout);
     setMinimumHeight(50);
 
-    _modules << mainBlock;
-}
-
-void customOptionBlock::addThemeTag(const QString &name)
-{
-    _theme = name;
-    theme = new customLabel(this);
-    theme->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
-    CellUiGlobal::setCustomTextLabel(theme, CHAR2STR("Microsoft YaHei UI Light"), 15, name);
-
-    QHBoxLayout *themeTagLayout = new QHBoxLayout;
-    themeTagLayout->addWidget(theme);
-    themeTagLayout->addStretch();
-    themeTagLayout->setMargin(0);
-
-    mainLayout->addLayout(themeTagLayout);
-
-    _modules << theme;
+    CellWidgetGlobalInterface::_modules << mainBlock;
 }
 
 void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLine)
@@ -66,20 +44,31 @@ void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLin
     blockHeight += item->height();
     setFixedHeight(blockHeight + 25);
 
-    if(addSplitterLine){
-        QFrame *lineSplitter = CellUiGlobal::getLine(Cell::LineType::HLine);
-        QHBoxLayout *layout = new QHBoxLayout;
-        layout->setContentsMargins(10, 0, 10, 0);
-        layout->addWidget(lineSplitter);
-        mainBlockLayout->addLayout(layout);
-        blockHeight += 1;
-        setFixedHeight(blockHeight + 25);
-    }
+    _addSplitterLine(addSplitterLine);
 
-    _modules << item;
+    CellWidgetGlobalInterface::_modules << item;
 }
 
-void customOptionBlock::setMainBlockBrightDarkModeColor(const CellVariant b, const CellVariant d)
+void customOptionBlock::addItem(QWidget *optionWidget, const QString &tag, const QString &hint, bool addSplitterLine)
+{
+    auto *item = new customOptionBlockItem(mainBlock, tag);
+    item->setOptionWidget(optionWidget);
+    if(hint != CMPSTR("")) item->setHint(hint);
+
+    if(item->tagLen > itemTagMaxLen) itemTagMaxLen = item->tagLen;
+
+    itemsList->append(item);
+    mainBlockLayout->addWidget(item);
+
+    blockHeight += item->height();
+    setFixedHeight(blockHeight + 25);
+
+    _addSplitterLine(addSplitterLine);
+
+    CellWidgetGlobalInterface::_modules << item;
+}
+
+void customOptionBlock::setMainBlockBrightDarkModeColor(const CellVariant &b, const CellVariant &d)
 {
     mainBlock->setBrightDarkColor(b, d);
 }
@@ -91,6 +80,17 @@ void customOptionBlock::_tidyItems(int value)
             item->setMargin(customOptionBlockItem::Left, (itemTagMaxLen-item->tagLen)*customOptionBlockItem::TagTextSize);
         else
             item->setMargin(customOptionBlockItem::Left, (value-item->tagLen)*customOptionBlockItem::TagTextSize);
+}
+
+void customOptionBlock::_addSplitterLine(bool add)
+{
+    if(!add) return;
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setContentsMargins(10, 0, 10, 0);
+    layout->addWidget(CellUiGlobal::getLine(Cell::LineType::HLine));
+    mainBlockLayout->addLayout(layout);
+    blockHeight += 1;
+    setFixedHeight(blockHeight + 25);
 }
 
 void customOptionBlock::tidyItems(customOptionBlock *another)
@@ -108,9 +108,4 @@ void customOptionBlock::tidyItems(customOptionBlock *another)
             _tidyItems(itemTagMaxLen);
         }
     }
-}
-
-void customOptionBlock::enterEvent(QEvent*)
-{
-    emit entered(_theme);
 }

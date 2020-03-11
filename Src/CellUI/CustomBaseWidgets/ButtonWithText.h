@@ -14,7 +14,7 @@ class QVBoxLayout;
 class ButtonWithText : public customButton{
     Q_OBJECT
 public:
-    explicit ButtonWithText(customButton::Type type = Static,QWidget *parent = nullptr);
+    explicit ButtonWithText(customButton::ButtonType,QWidget *parent = nullptr);
 
     void
     initModules(const QString& text = "Button", int fontSize = 18);

@@ -5,8 +5,6 @@
 // the file LICENSE included in the packaging of this file.
 #include "../CustomBaseWidgets/CellWidgetGlobalInterface.h"
 
-QList<CellWidgetGlobalInterface*> _modules;
-
 int CellWidgetGlobalInterface::switchDuration = Cell::AnimiDuration::GlobalDuration;
 
 Cell::ColorScheme CellWidgetGlobalInterface::mMode = Cell::ColorScheme::Bright;
@@ -44,8 +42,8 @@ void CellWidgetGlobalInterface::setColorScheme(Cell::ColorScheme mode){
     // ***Behavior.
     setAnimiStartEndColor(mode, sColor, eColor);
     changeToColor(sColor, eColor, switchDuration);
-    if(!_modules.isEmpty())
-        for(auto & e : _modules) e->setColorScheme(mode);
+    if(!CellWidgetGlobalInterface::_modules.isEmpty())
+        for(auto & e : CellWidgetGlobalInterface::_modules) e->setColorScheme(mode);
 }
 // ***This is a default
 // ***implementation.

@@ -91,7 +91,7 @@ void LauncherGuideDialog::init()
     mainStackedWidget->insertWidget(0, f1);
     mainStackedWidget->insertWidget(1, f2);
 
-    _modules << titleBar << btnClose << btnNewPJ << bottomBar;
+    CellWidgetGlobalInterface::_modules << titleBar << btnClose << btnNewPJ << bottomBar;
 
 
     // Set MainLayout

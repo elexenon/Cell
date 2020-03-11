@@ -32,7 +32,7 @@ void customListButton::init()
     tag->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), 16);
 
-    _modules << tag;
+    CellWidgetGlobalInterface::_modules << tag;
 }
 
 void customListButton::setFont(const QFont &font){

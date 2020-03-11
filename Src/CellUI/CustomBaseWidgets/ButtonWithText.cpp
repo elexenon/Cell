@@ -10,7 +10,7 @@
 
 #include <QVBoxLayout>
 
-ButtonWithText::ButtonWithText(customButton::Type type, QWidget *parent):
+ButtonWithText::ButtonWithText(customButton::ButtonType type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QVBoxLayout(this)),
     tag(new customLabel(this))
@@ -24,7 +24,7 @@ ButtonWithText::ButtonWithText(customButton::Type type, QWidget *parent):
     
     setTextColor(Cell::CGL70, Cell::CGL255);
 
-    _modules << tag;
+    CellWidgetGlobalInterface::_modules << tag;
 }
 
 void ButtonWithText::setTextColor(const CellVariant &b, const CellVariant &d){

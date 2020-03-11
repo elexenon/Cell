@@ -11,7 +11,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
-ButtonWithIconText::ButtonWithIconText(customButton::Type type, QWidget *parent):
+ButtonWithIconText::ButtonWithIconText(customButton::ButtonType type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this)),
@@ -28,7 +28,7 @@ ButtonWithIconText::ButtonWithIconText(customButton::Type type, QWidget *parent)
 
     tag->setBrightDarkColor(Cell::CGL70, Cell::CGL255);
 
-    _modules << tag;
+    CellWidgetGlobalInterface::_modules << tag;
 }
 
 void ButtonWithIconText::initModules(const QString& fileName, int iconWidth, int iconHeight, const QString& text, int fontSize)

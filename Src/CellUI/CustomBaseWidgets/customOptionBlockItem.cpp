@@ -33,7 +33,7 @@ void customOptionBlockItem::setTag(const QString &text){
     CellUiGlobal::setCustomTextLabel(tag, CHAR2STR("Microsoft YaHei UI Light"), TagTextSize, text);
     mainLayout->addWidget(tag);
 
-    _modules << tag;
+    CellWidgetGlobalInterface::_modules << tag;
 }
 
 void customOptionBlockItem::setOptionWidget(QWidget *widget){
@@ -50,7 +50,7 @@ void customOptionBlockItem::setHint(const QString &text)
     CellUiGlobal::setCustomTextLabel(hint, CHAR2STR("Microsoft YaHei UI Light"), 13, text+"。");
     mainLayout->addWidget(hint);
 
-    _modules << hint;
+    CellWidgetGlobalInterface::_modules << hint;
 }
 
 void customOptionBlockItem::setMargins(int left, int top, int right, int bottom){

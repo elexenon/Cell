@@ -10,7 +10,7 @@
 //#define NDEBUG
 #include <cassert>
 
-customButton::customButton(customButton::Type type, QWidget *parent):
+customButton::customButton(ButtonType type, QWidget *parent):
     QPushButton(parent),
     mType(type),
     brightCheckedColor(nullptr),  darkCheckedColor(nullptr),
@@ -24,30 +24,25 @@ customButton::customButton(customButton::Type type, QWidget *parent):
 void customButton::init()
 {
     setFlat(true);
-    switch(mType){
-    case Static:
-    case StaticRadius:
+    if((mType & Static) == Static){
         brightHoverColor = new QColor;
         darkHoverColor   = new QColor;
-        break;
-    case Dynamic:
-    case DynamicRadius:
+    }
+    else if((mType & Dynamic) == Dynamic){
         brightHoveringColor = new QColor;
         darkHoveringColor   = new QColor;
-        break;
-    case Checkable:
-    case CheckableRadius:
+    }
+    else{
         setCheckable(true);
         brightCheckedColor = new QColor;
         darkCheckedColor   = new QColor;
-        break;
     }
 }
 
 void customButton::setEventConnections()
 {
     connect(this, &QPushButton::toggled, [=](bool checked){
-        if(mType == Type::Checkable || mType == Type::CheckableRadius){
+        if((mType & Checkable) == Checkable){
             checked ? setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? *brightCheckedColor : *darkCheckedColor):
                       setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
         }
@@ -61,7 +56,7 @@ void customButton::paintEvent(QPaintEvent *e)
     painter.setBrush(mColor);
 
     QRect rect = this->rect();
-    if(mType == Type::StaticRadius || mType == Type::DynamicRadius || mType == Type::CheckableRadius){
+    if((mType & Radius) == Radius){
         QPen pen(QColor(180, 180, 180), 1);
         pen.setJoinStyle(Qt::RoundJoin);
         pen.setCapStyle(Qt::RoundCap);
@@ -95,40 +90,38 @@ void customButton::setColorScheme(Cell::ColorScheme mode){
 
 void customButton::enterEvent(QEvent *)
 {
-    switch(mType){
-    case Static:
-    case StaticRadius:
-        setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? *brightHoverColor : *darkHoverColor);
-        break;
-    case Checkable:
-    case CheckableRadius:
-        if(!isChecked())
-            setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? *brightCheckedColor : *darkCheckedColor);
-        break;
-    case Dynamic:
-    case DynamicRadius:
-        QColor *enterColor = (CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? brightHoveringColor : darkHoveringColor);
+    if((mType & Static) == Static)
+        setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                     *brightHoverColor :
+                     *darkHoverColor);
+    else if((mType & Dynamic) == Dynamic){
+        QColor *enterColor = (CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                                  brightHoveringColor :
+                                  darkHoveringColor);
         changeToColor(mColor, *enterColor, hoverAnimiDuration);
-        break;
+    }else{
+        if(!isChecked())
+            setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                         *brightCheckedColor :
+                         *darkCheckedColor);
     }
 }
 
 void customButton::leaveEvent(QEvent*){
-    switch(mType){
-    case Static:
-    case StaticRadius:
-        setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
-        break;
-    case Checkable:
-    case CheckableRadius:
-        if(!isChecked())
-            setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
-        break;
-    case Dynamic:
-    case DynamicRadius:
-        QColor leaveColor = (CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
+    if((mType & Static) == Static)
+        setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                     brightmodeColor :
+                     darkmodeColor);
+    else if((mType & Dynamic) == Dynamic){
+        QColor leaveColor = (CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                                 brightmodeColor :
+                                 darkmodeColor);
         changeToColor(mColor, leaveColor, hoverAnimiDuration);
-        break;
+    }else{
+        if(!isChecked())
+            setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                         brightmodeColor :
+                         darkmodeColor);
     }
 }
 
@@ -142,18 +135,12 @@ void customButton::setAnimiStartEndColor(Cell::ColorScheme mode, QColor &startCo
                                          QColor &endColor)
 {
     startColor = mColor;
-    switch(mType){
-    case Checkable:
-    case CheckableRadius:
+    if((mType & Checkable) == Checkable){
         endColor = isChecked() ? (mode == Cell::ColorScheme::Dark ? *darkCheckedColor : *brightCheckedColor):
                                  (mode == Cell::ColorScheme::Dark ? darkmodeColor : brightmodeColor);
-        break;
-    case Static:
-    case Dynamic:
-    case StaticRadius:
-    case DynamicRadius:
+    }
+    else{
         endColor = mode == Cell::ColorScheme::Dark ? darkmodeColor : brightmodeColor;
-        break;
     }
 }
 // Setters.

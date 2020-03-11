@@ -76,23 +76,13 @@ private:
     customNavigator *navigator;
     // OptionBlock blockGeneral Combination;
     customOptionBlock     *blockGeneral;
-    // Item Appear Combination.
-    customOptionBlockItem *blockGeneralItemAppear;
     customDialogButton    *dBtnAppear;
-    // Item Auto Combination.
-    customOptionBlockItem *blockGeneralItemAuto;
     customSwitch          *switchAuto;
-    // Item Abate Combination
-    customOptionBlockItem *blockGeneralItemAbate;
     customSwitch          *switchAbate;
-    // Item Language Combination.
-    customOptionBlockItem *blockGeneralItemLan;
     customDialogButton    *dBtnLan;
 
     // OptionBlock blockWorkshop Combination.
     customOptionBlock     *blockWorkshop;
-    // Item Multi Combination.
-    customOptionBlockItem *blockWorkshopItemMulti;
     customSwitch          *switchMulti;
 
     Launcher *launcherPtr;

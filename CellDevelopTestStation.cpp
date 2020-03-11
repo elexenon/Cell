@@ -92,7 +92,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     item10->setOptionWidget(box10);
     item10->setHint("奥德赛大苏打阿德撒旦撒旦你扩散的扩散的三点三看到你撒");
 
-    customOptionBlock *block1 = new customOptionBlock(this, CHAR2STR("OptionBlock"));
+    customOptionBlock *block1 = new customOptionBlock(CHAR2STR("OptionBlock"), this);
     block1->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     block1->addItem(item);
     block1->addItem(item2);
@@ -143,7 +143,7 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
 
     ProcessingWidget *wid = new ProcessingWidget(this);
 
-    customOptionBlock *block2 = new customOptionBlock(this, CHAR2STR("OptionBlock2"));
+    customOptionBlock *block2 = new customOptionBlock(CHAR2STR("OptionBlock2"), this);
     block2->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
 
     customNavigator *nav = new customNavigator(this);

@@ -6,27 +6,25 @@
 #ifndef CUSTOMOPTIONBLOCK_H
 #define CUSTOMOPTIONBLOCK_H
 
-#include "customFrame.h"
+#include "optionBlockBase.h"
 
 class customOptionBlockItem;
-class QVBoxLayout;
-class customLabel;
 
-class customOptionBlock : public customFrame{
+class customOptionBlock : public optionBlockBase{
 friend class customNavigator;
     Q_OBJECT
 public:
-    explicit customOptionBlock(QWidget *parent = nullptr, const QString& name = " ");
+    explicit customOptionBlock(const QString& name, QWidget *parent = nullptr);
 
     void
-    addItem(QWidget *optionWidget, const QString& hint, const QString& tag = " ",
+    addItem(QWidget *optionWidget, const QString& tag, const QString& hint,
             bool addSplitterLine = false);
 
     void
     addItem(customOptionBlockItem *item, bool addSplitterLine = false);
 
     void
-    setMainBlockBrightDarkModeColor(const CellVariant b, const CellVariant d);
+    setMainBlockBrightDarkModeColor(const CellVariant &b, const CellVariant &d);
 
     void
     tidyItems(customOptionBlock *another = nullptr);
@@ -35,29 +33,22 @@ public:
     getItemTagMaxLen() { return itemTagMaxLen; }
 
 protected:
-    void
-    addThemeTag(const QString &name);
-
-    virtual void
-    enterEvent(QEvent*);
-
-    QVBoxLayout                     *mainLayout;
-    QVBoxLayout                     *mainBlockLayout;
-    QString                         _theme;
-    customLabel                     *theme;
-    customFrame                     *mainBlock;
-    QList<customOptionBlockItem*>   *itemsList;
+    QVBoxLayout                   *mainBlockLayout;
+    customFrame                   *mainBlock;
+    QList<customOptionBlockItem*> *itemsList;
 
     int blockHeight = 0;
-    int itemTagMaxLen = 0;
+    int itemTagMaxLen = std::numeric_limits<int>::lowest();
 
 private:
+    virtual void
+    init() override;
+
     void
     _tidyItems(int value = -1);
 
-Q_SIGNALS:
     void
-    entered(const QString&);
+    _addSplitterLine(bool add = true);
 };
 
 #endif // CUSTOMOPTIONBLOCK_H

@@ -9,7 +9,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
-ButtonWithIcon::ButtonWithIcon(customButton::Type type, QWidget *parent):
+ButtonWithIcon::ButtonWithIcon(customButton::ButtonType type, QWidget *parent):
     customButton(type, parent),
     mainLayout(new QHBoxLayout(this)),
     icon(new QLabel(this))

@@ -46,9 +46,9 @@ Launcher::Launcher(QWidget *parent)
       btnMax(new ButtonWithIcon(customButton::Dynamic, titleBar)),
       btnClose(new ButtonWithIcon(customButton::Dynamic, titleBar)),
       stackedWidget(new QStackedWidget(this)),
-      btnNewCode(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
-      btnNewGUI(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
-      btnOpen(new ButtonWithIconTextHint(customButton::DynamicRadius, this)),
+      btnNewCode(new ButtonWithIconTextHint(customButton::Dynamic | customButton::Radius, this)),
+      btnNewGUI(new ButtonWithIconTextHint(customButton::Dynamic | customButton::Radius, this)),
+      btnOpen(new ButtonWithIconTextHint(customButton::Dynamic | customButton::Radius, this)),
       notificationCenter(new class notificationCenter(this)),
       btnListWidget(new customButtonListWidget(this)),
 #ifndef RELEASE_MODE
@@ -189,7 +189,7 @@ void Launcher::init(){
     _launchGuideDialog();
     settingsPage->showGuideDialog() ? guideDialog->show() : guideDialog->hide();
 
-    _modules << titleBar << btnMini << btnMax << btnClose
+    CellWidgetGlobalInterface::_modules << titleBar << btnMini << btnMax << btnClose
              << btnListWidget << btnNewCode << btnOpen << notificationCenter
              //<< guideDialog
              << btnNewGUI;

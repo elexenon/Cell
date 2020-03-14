@@ -24,11 +24,11 @@ public:
 protected:
     //! Inhrited from
     //! CellWidgetGlobalInterface.
-    virtual void
-    init() override;
+    inline virtual void
+    init() override {}
 
-    virtual void
-    setEventConnections() override;
+    inline virtual void
+    setEventConnections() override {}
 
     virtual void
     setColor(const QColor &color) override;
@@ -44,7 +44,7 @@ private:
     Type mType;
 
 public Q_SLOTS:
-    virtual void
-    setColorScheme(Cell::ColorScheme mode) override;
+    inline virtual void
+    setColorScheme(Cell::ColorScheme mode) override { CellWidgetGlobalInterface::setColorScheme(mode); }
 };
 #endif

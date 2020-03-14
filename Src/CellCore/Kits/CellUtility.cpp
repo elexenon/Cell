@@ -8,17 +8,15 @@
 #include "CellUtility.h"
 #include "textFileLoader.hpp"
 #include "CellGlobalMacros.h"
+#include "../../CellUI/CustomBaseWidgets/CellWidgetGlobalInterface.h"
 
-#include <QWidget>
+#include <QStackedWidget>
 #include <QFrame>
-#include <QDebug>
-#include <QGraphicsEffect>
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 #include <QLabel>
 #include <QFontDatabase>
-#define DEBUG
 
 namespace CellUiLiteral {
 const char* const INSTANCE_IS_ON("Cell Launcher is already running");
@@ -142,5 +140,16 @@ void setLabelPixmap(QLabel *label, const QString& fileName, int iconWidth, int i
     newPixmap = newPixmap.scaled(iconWidth, iconHeight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     label->setPixmap(newPixmap);
     label->setStyleSheet(("QLabel{background:transparent;}"));
+}
+
+void setPageSwitchAnimation(QStackedWidget *stackedWidget, QWidget *targetPage, QPropertyAnimation *animiPtr){
+    int duration = Cell::AnimiDuration::GlobalPageSwitchDuration;
+    QGraphicsOpacityEffect *opacityEffect(nullptr);
+    targetPage->setWindowOpacity(0);
+    stackedWidget->setCurrentWidget(targetPage);
+    CellWidgetGlobalInterface::globalSwitchMode() == Cell::SwitchMode::Instant ?
+                targetPage->setWindowOpacity(1):
+    CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animiPtr,
+                                          targetPage,duration,Cell::FadeAnimiType::FadeIn);
 }
 } // namespace CellUiGlobal{

@@ -8,5 +8,6 @@
 customSmoothScrollArea::customSmoothScrollArea(QWidget *parent):
     QScrollArea(parent)
 {
-
+    setFrameShape(QFrame::Shape::NoFrame);
+    setWidgetResizable(true);
 }

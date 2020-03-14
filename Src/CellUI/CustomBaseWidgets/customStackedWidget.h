@@ -16,7 +16,7 @@ public:
     explicit customStackedWidget(QWidget *parent = nullptr);
 
     inline double
-    getMidIndex() { return midIndex; }
+    getMidIndex() const { return midIndex; }
 
     inline void
     setMidIndex(const double index) { midIndex = index; update(); }

@@ -12,6 +12,7 @@ class QVBoxLayout;
 #include "customFrame.h"
 
 class optionBlockBase : public customFrame{
+friend class customNavigator;
     Q_OBJECT
 public:
     explicit optionBlockBase(const QString& name, QWidget *parent = nullptr);
@@ -22,10 +23,10 @@ protected:
     init() override = 0;
 
     virtual void
-    addThemeTag(const QString&);
-
-    virtual void
     enterEvent(QEvent*) override;
+
+    void
+    addThemeTag(const QString&);
 
     QVBoxLayout *mainLayout;
     QString     _theme;

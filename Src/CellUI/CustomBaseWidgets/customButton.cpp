@@ -8,14 +8,18 @@
 #include "../../CellCore/Kits/CellUtility.h"
 
 //#define NDEBUG
-#include <cassert>
 
 customButton::customButton(ButtonType type, QWidget *parent):
     QPushButton(parent),
     mType(type),
-    brightCheckedColor(nullptr),  darkCheckedColor(nullptr),
-    brightHoveringColor(nullptr), darkHoveringColor(nullptr),
-    brightHoverColor(nullptr),    darkHoverColor(nullptr)
+    brightCheckedColor(nullptr),
+    darkCheckedColor(nullptr),
+    mDrawMark(false),
+    mDrawFocusEdge(false),
+    brightHoveringColor(nullptr),
+    darkHoveringColor(nullptr),
+    brightHoverColor(nullptr),
+    darkHoverColor(nullptr)
 {
     init();
     setEventConnections();
@@ -39,27 +43,42 @@ void customButton::init()
     }
 }
 
+customButton::~customButton()
+{
+    CellSafeDelete(brightHoverColor)
+    CellSafeDelete(darkHoverColor)
+    CellSafeDelete(brightHoveringColor)
+    CellSafeDelete(darkHoveringColor)
+    CellSafeDelete(brightCheckedColor)
+    CellSafeDelete(darkCheckedColor)
+}
+
 void customButton::setEventConnections()
 {
     connect(this, &QPushButton::toggled, [=](bool checked){
         if((mType & Checkable) == Checkable){
             checked ? setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? *brightCheckedColor : *darkCheckedColor):
                       setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ? brightmodeColor : darkmodeColor);
+            if(mDrawFocusEdge && isCheckable()) updateFocusEdge();
         }
     });
 }
 
 void customButton::paintEvent(QPaintEvent *e)
 {
+    QColor navyBlue(CellVariant(Cell::CellThemeColor::NavyBlue).toColor());
+    QRect rect = this->rect();
+    QPen pen;
+    pen.setJoinStyle(Qt::RoundJoin);
+    pen.setCapStyle(Qt::RoundCap);
+    QBrush brush(mColor);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setBrush(mColor);
+    painter.setBrush(brush);
 
-    QRect rect = this->rect();
     if((mType & Radius) == Radius){
-        QPen pen(QColor(180, 180, 180), 1);
-        pen.setJoinStyle(Qt::RoundJoin);
-        pen.setCapStyle(Qt::RoundCap);
+        pen.setColor(QColor(180, 180, 180));
+        pen.setWidth(1);
         painter.setPen(pen);
         painter.drawRoundedRect(rect, Cell::FrameRadius, Cell::FrameRadius);
     }
@@ -67,10 +86,25 @@ void customButton::paintEvent(QPaintEvent *e)
         painter.setPen(Qt::NoPen);
         painter.drawRect(rect);
     }
-    if(naviVerBar && isChecked()){
+    if(mDrawMark && isChecked()){
+        static int markWidth = 5;
+        brush.setColor(navyBlue);
         painter.setPen(Qt::NoPen);
-        painter.setBrush(QBrush(CellVariant(Cell::CellThemeColor::NavyBlue).toColor()));
-        painter.drawRect(this->width() - 5, 1, 5, this->height()-2);
+        painter.setBrush(brush);
+        painter.drawRect(this->width() - markWidth, 1, markWidth, this->height() - 2);
+    }
+    if(mDrawFocusEdge && isCheckable()){
+        navyBlue.setAlphaF(1.0 - mFocusEdgeOffset*0.1);
+        pen.setColor(navyBlue);
+        pen.setWidth(4);
+        painter.setPen(pen);
+        painter.setBrush(Qt::NoBrush);
+        (mType & Radius) == Radius ?
+        painter.drawRoundedRect(QRect(rect.x() + mFocusEdgeOffset, rect.y() + mFocusEdgeOffset,
+                                      rect.width() - 2*mFocusEdgeOffset, rect.height() -2*mFocusEdgeOffset),
+                                Cell::FrameRadius + 1, Cell::FrameRadius+1):
+        painter.drawRect(QRect(rect.x() + mFocusEdgeOffset, rect.y() + mFocusEdgeOffset,
+                                      rect.width() - 2*mFocusEdgeOffset, rect.height() -2*mFocusEdgeOffset));
     }
     e->accept();
 }
@@ -81,11 +115,6 @@ void customButton::changeToColor(const QColor &startColor, const QColor &targetC
     CellUiGlobal::setPropertyAnimation(animi, this, "color",
                                        startColor, targetColor, duration,
                                        CellWidgetGlobalInterface::easingCurve);
-}
-// Not using the default implementation
-// of base class CellWidgetGlobalInterface
-void customButton::setColorScheme(Cell::ColorScheme mode){
-    CellWidgetGlobalInterface::setColorScheme(mode);
 }
 
 void customButton::enterEvent(QEvent *)
@@ -103,7 +132,7 @@ void customButton::enterEvent(QEvent *)
         if(!isChecked())
             setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
                          *brightCheckedColor :
-                         *darkCheckedColor);
+                         *darkCheckedColor);       
     }
 }
 
@@ -143,6 +172,18 @@ void customButton::setAnimiStartEndColor(Cell::ColorScheme mode, QColor &startCo
         endColor = mode == Cell::ColorScheme::Dark ? darkmodeColor : brightmodeColor;
     }
 }
+
+void customButton::updateFocusEdge()
+{
+    static qreal maxOffset = 10.0;
+    qreal targetOffset = isChecked() ? 0.0 : maxOffset;
+    CellWidgetGlobalInterface::switchMode == Cell::SwitchMode::Instant ?
+    setFocusEdgeOffset(targetOffset):
+    CellUiGlobal::setPropertyAnimation(animi, this, "focusEdgeOffset",
+                                       mFocusEdgeOffset, targetOffset, 180,
+                                       CellWidgetGlobalInterface::easingCurve);
+}
+
 // Setters.
 void customButton::setBrightCheckedColor(const CellVariant &color)
 {

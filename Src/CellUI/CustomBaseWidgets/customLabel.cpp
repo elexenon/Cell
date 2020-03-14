@@ -19,10 +19,6 @@ void customLabel::init(){
     setAutoFillBackground(true);
 }
 
-void customLabel::setEventConnections(){
-    CellWidgetGlobalInterface::setEventConnections();
-}
-
 void customLabel::setColor(const QColor &color)
 {
     CellWidgetGlobalInterface::setColor(color);
@@ -43,7 +39,6 @@ void customLabel::changeToColor(const QColor &startColor, const QColor &targetCo
                                        CellWidgetGlobalInterface::easingCurve);
 }
 
-void customLabel::setColorScheme(Cell::ColorScheme mode)
-{
+void customLabel::setColorScheme(Cell::ColorScheme mode){
     CellWidgetGlobalInterface::setColorScheme(mode);
 }

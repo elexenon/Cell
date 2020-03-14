@@ -175,7 +175,7 @@ void LauncherHomepage::updateDatas()
         if(itemList->isEmpty()) continue;
         itemModel->appendRow(*itemList);
     }
-    SafeDelete(itemList);
+    CellSafeDelete(itemList);
 }
 
 void LauncherHomepage::btnGridClicked()

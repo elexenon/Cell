@@ -24,7 +24,7 @@ static int TagTextSize;
     explicit customOptionBlockItem(QWidget *parent = nullptr, const QString& tag = " ");
 
     inline int
-    getTagLen() { return tagLen; }
+    getTagLen() const { return tagLen; }
 
     void
     setTag(const QString& text);
@@ -45,16 +45,16 @@ static int TagTextSize;
     setSpacing(int value);
 
     const QMargins
-    getMargins();
+    getMargins() const;
 
 protected:
     //! Inhrited from
     //! CellWidgetGlobalInterface.
-    virtual void
-    init() override;
+    inline virtual void
+    init() override {}
 
-    virtual void
-    setEventConnections() override;
+    inline virtual void
+    setEventConnections() override {}
 
     virtual void
     setColor(const QColor &color) override;

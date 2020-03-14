@@ -26,6 +26,9 @@ public:
     void
     setPageTitle(const QString &text);
 
+    void
+    enableToolChainsBlock();
+
 private:
     QVBoxLayout           *mainLayout;
     customLabel           *labelTitle;
@@ -48,9 +51,6 @@ protected:
 
     void
     addOptionBlock(customOptionBlock *block);
-
-    void
-    enableToolChainsBlock();
 
 Q_SIGNALS:
     void pathSettled(const QString &path);

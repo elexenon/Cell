@@ -36,11 +36,7 @@ public:\
 
 #define CELL_DEBUG(arg) (QTextStream(stdout) << CHAR2STR("***") + arg + "::")
 
-#define SafeDelete(ptr) \
-    if(ptr) { \
-        delete(ptr); \
-        ptr = nullptr; \
-    }
+#define CellSafeDelete(ptr) if(ptr) {delete(ptr);ptr = nullptr;}
 
 #define MoveToCenter(dialog) \
     dialog->move(this->x() + (this->width() -  dialog->width())  / 2, \

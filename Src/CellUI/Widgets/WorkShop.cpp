@@ -72,7 +72,6 @@ void Workshop::init()
     this->resize(1400, 820);
     setWindowTitle(CHAR2STR("WorkShop"));
     setAttribute(Qt::WA_DeleteOnClose);
-    setWindowFlag(Qt::WindowType::Window);
 
     // Set MenuBar.
     CellUiGlobal::loader.setFileName(CHAR2STR("WorkshopMenuBar.css"));

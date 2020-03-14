@@ -42,7 +42,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customButton.cpp \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customDialogButton.cpp \
-    Src/CellUI/CustomBaseWidgets/customGridView.cpp \
+    Src/CellUI/CustomBaseWidgets/customFlowLayout.cpp \
     Src/CellUI/CustomBaseWidgets/customLineEdit.cpp \
     Src/CellUI/CustomBaseWidgets/customListButton.cpp \
     Src/CellUI/CustomBaseWidgets/customMaskDialog.cpp \
@@ -50,6 +50,7 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
     Src/CellUI/CustomBaseWidgets/customScrollBlock.cpp \
+    Src/CellUI/CustomBaseWidgets/customScrollBlockItem.cpp \
     Src/CellUI/CustomBaseWidgets/customSmoothScrollArea.cpp \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customSwitch.cpp \
@@ -59,8 +60,11 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.cpp \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.cpp \
     Src/CellUI/CustomBaseWidgets/optionBlockBase.cpp \
+    Src/CellUI/Widgets/DeepSense.cpp \
     Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
     Src/CellUI/Widgets/LauncherNewPJGUI.cpp \
+    Src/CellUI/Widgets/NewPJGUIConfig.cpp \
+    Src/CellUI/Widgets/NewPJGUIModel.cpp \
     Src/CellUI/Widgets/NewPJPredictEarPage.cpp \
     Src/CellUI/Widgets/NewPJProjectCellPage.cpp \
     Src/main.cpp \
@@ -95,8 +99,8 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customButton.h \
     Src/CellUI/CustomBaseWidgets/customButtonListWidget.h \
     Src/CellUI/CustomBaseWidgets/customDialogButton.h \
+    Src/CellUI/CustomBaseWidgets/customFlowLayout.h \
     Src/CellUI/CustomBaseWidgets/customFrame.h \
-    Src/CellUI/CustomBaseWidgets/customGridView.h \
     Src/CellUI/CustomBaseWidgets/customLabel.h \
     Src/CellUI/CustomBaseWidgets/customLineEdit.h \
     Src/CellUI/CustomBaseWidgets/customListButton.h \
@@ -106,6 +110,7 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
     Src/CellUI/CustomBaseWidgets/customScrollBlock.h \
+    Src/CellUI/CustomBaseWidgets/customScrollBlockItem.h \
     Src/CellUI/CustomBaseWidgets/customSmoothScrollArea.h \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.h \
     Src/CellUI/CustomBaseWidgets/customSwitch.h \
@@ -115,12 +120,15 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customWinstyleWidget.h \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.h \
     Src/CellUI/CustomBaseWidgets/optionBlockBase.h \
+    Src/CellUI/Widgets/DeepSense.h \
     Src/CellUI/Widgets/Launcher.h \
     Src/CellUI/Widgets/LauncherGuideDialog.h \
     Src/CellUI/Widgets/LauncherHomepage.h \
     Src/CellUI/Widgets/LauncherNewPJDialog.h \
     Src/CellUI/Widgets/LauncherNewPJGUI.h \
     Src/CellUI/Widgets/LauncherSettings.h \
+    Src/CellUI/Widgets/NewPJGUIConfig.h \
+    Src/CellUI/Widgets/NewPJGUIModel.h \
     Src/CellUI/Widgets/NewPJPredictEarPage.h \
     Src/CellUI/Widgets/NewPJProjectCellPage.h \
     Src/CellUI/Widgets/WorkShop.h \

@@ -28,7 +28,7 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QHBoxLayout(this)),
     VLayoutRight(new QVBoxLayout),
-    navigator(new customNavigator(this)),
+    navigator(new customNavigator(this, true)),
     blockGeneral(new customOptionBlock(CHAR2STR("通用"), this)),
     dBtnAppear(new customDialogButton(CHAR2STR("FUSION"))),
     switchAuto(new customSwitch),
@@ -139,7 +139,7 @@ void LauncherSettings::initsettingsObj()
 {
     QJsonObject tmp;
     tmp["Appearance"] = "FUSION";
-    tmp["AutoChange"] = "true";
+    tmp["AutoChange"] = "false";
     tmp["AbateEffect"]= "false";
     tmp["Language"]   = "CHN";
     tmp["MultiInstance"] = "true";

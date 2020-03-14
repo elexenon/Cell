@@ -21,6 +21,7 @@
 #include "LauncherHomepage.h"
 #include "LauncherSettings.h"
 #include "WorkShop.h"
+#include "DeepSense.h"
 #include "Launcher.h"
 
 #include "../../../CellDevelopTestStation.h"
@@ -256,18 +257,9 @@ void Launcher::tabSettingsClicked(){
 }
 
 void Launcher::startPageSwitchAnimation(PAGE_TYPE nextPage){
-    int duration = static_cast<int>(Cell::AnimiDuration::GlobalPageSwitchDuration);
-    if(nextPage == PAGE_TYPE::_SETTINGS){
-        settingsPage->setWindowOpacity(0);
-        stackedWidget->setCurrentWidget(settingsPage);
-        CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animiPtr,
-                                       settingsPage,duration,Cell::FadeAnimiType::FadeIn);
-    }else{
-        homePage->setWindowOpacity(0);
-        stackedWidget->setCurrentWidget(homePage);
-        CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animiPtr,
-                                       homePage,duration,Cell::FadeAnimiType::FadeIn);
-    }
+    nextPage == PAGE_TYPE::_SETTINGS ?
+        CellUiGlobal::setPageSwitchAnimation(stackedWidget, settingsPage, animiPtr):
+        CellUiGlobal::setPageSwitchAnimation(stackedWidget, homePage, animiPtr);
 }
 
 void Launcher::btnNewClicked(){
@@ -282,6 +274,7 @@ void Launcher::btnNewGUIClicked()
 {
     newPJGUI = new LauncherNewPJGUI;
     connect(this, &Launcher::launcherClosed, newPJGUI, &LauncherNewPJGUI::close);
+    connect(newPJGUI, &LauncherNewPJGUI::projectSettled, this, &Launcher::launchDeepSense);
     newPJGUI->show();
 }
 
@@ -302,6 +295,23 @@ void Launcher::_launchWorkshop(){
     workshop->show();
 }
 
+void Launcher::launchWorkShop(CellProjectEntity *entity){
+    _launchWorkshop();
+    workshop->getProjectEntity(*entity);
+}
+
+
+void Launcher::_launchDeepSense()
+{
+    deepSense = new DeepSense;
+    deepSense->show();
+}
+
+void Launcher::launchDeepSense()
+{
+    _launchDeepSense();
+}
+
 void Launcher::_launchGuideDialog(){
     guideDialog = new LauncherGuideDialog;
     MoveToCenter(guideDialog);
@@ -310,11 +320,6 @@ void Launcher::_launchGuideDialog(){
     connect(this, &Launcher::launcherClosed, guideDialog, &LauncherGuideDialog::close);
     guideDialog->setCheckBox(settingsPage->showGuideDialog());
     guideDialog->show();
-}
-
-void Launcher::launchWorkShop(CellProjectEntity *entity){
-    _launchWorkshop();
-    workshop->getProjectEntity(*entity);
 }
 
 void Launcher::launchWorkShopByPath(const QString &path){
@@ -343,5 +348,4 @@ void Launcher::btnMaxClicked(){
 
 void Launcher::closeEvent(QCloseEvent *e){
     emit launcherClosed();
-    e->accept();
 }

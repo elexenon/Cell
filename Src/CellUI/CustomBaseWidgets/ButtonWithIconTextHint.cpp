@@ -6,7 +6,6 @@
 #include "ButtonWithIconTextHint.h"
 
 #include "customLabel.h"
-#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
 #include <QHBoxLayout>

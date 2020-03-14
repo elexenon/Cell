@@ -24,8 +24,8 @@ protected:
     virtual void
     init() override;
 
-    virtual void
-    setEventConnections() override;
+    inline virtual void
+    setEventConnections() override {}
 
     virtual void
     changeToColor(const QColor &startColor, const QColor &targetColor, int duration) override;

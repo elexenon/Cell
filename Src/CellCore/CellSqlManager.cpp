@@ -21,8 +21,7 @@ CellSqlManager::~CellSqlManager() noexcept
 
 bool CellSqlManager::setDataBase(const char *dbPath)
 {
-    flag = sqlite3_open(dbPath, &dbHandle);
-    if(SQLITE_OK != flag){
+    if(flag = sqlite3_open(dbPath, &dbHandle); SQLITE_OK != flag){
 #ifdef  CELL_DEBUG
         CELL_DEBUG("CellSqlManager") << "Database::" << dbPath << "::Connect_Failed::" << printErrorMsg() << endl;
         CELL_DEBUG("CellSqlManager") << "Created A New Database As::" << dbPath << endl;
@@ -105,15 +104,14 @@ bool CellSqlManager::removeTuple(const QString &tableName, const QString &mainKe
     return execQuery(sqlSentence);
 }
 
-const char* CellSqlManager::printErrorMsg()
-{
+const char* CellSqlManager::printErrorMsg(){
     return sqlite3_errmsg(dbHandle);
 }
 
 bool CellSqlManager::prepareStmt(const char *sqlSentence)
 {
-    flag = sqlite3_prepare_v2(dbHandle, sqlSentence, -1, &stmtHandle, nullptr);
-    if(flag != SQLITE_OK){
+    // Feature Of CPP17
+    if(flag = sqlite3_prepare_v2(dbHandle, sqlSentence, -1, &stmtHandle, nullptr); flag != SQLITE_OK){
 #ifdef  CELL_DEBUG
         CELL_DEBUG("CellSqlManager") << "Prepared Statement For" << "::[" << QString::fromUtf8(sqlSentence) 
                                      << "]::Failed::" << printErrorMsg() << endl;
@@ -133,8 +131,8 @@ bool CellSqlManager::execQuery(const char *sqlSentence, bool clearStmt)
     if(!prepareStmt(sqlSentence))
         return false;
 
-    flag = sqlite3_step(stmtHandle);
-    if(flag != SQLITE_DONE){
+    // Feature of CPP17.
+    if(flag = sqlite3_step(stmtHandle); flag != SQLITE_DONE){
 #ifdef  CELL_DEBUG
         CELL_DEBUG("CellSqlManager") << "Execute::[" << QString::fromUtf8(sqlSentence) << "]::Failed::" << printErrorMsg() << endl;
 #endif
@@ -153,8 +151,8 @@ bool CellSqlManager::tableExists(const char *tableName)
     const QString tmp = CHAR2STR("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '") + tableName + "';";
     QByteArray sqlSentence = tmp.toLatin1();
     if(prepareStmt(sqlSentence.data())){
-        flag = sqlite3_step(stmtHandle);
-        if(flag == SQLITE_ROW){
+        // Feature Of CPP17.
+        if(flag = sqlite3_step(stmtHandle); flag == SQLITE_ROW){
             int column = atoi(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 0)));
             if(column == 0){
 #ifdef          CELL_DEBUG
@@ -181,8 +179,8 @@ bool CellSqlManager::tupleExists(const QString &tableName, const QString &mainKe
     QByteArray byteArray = tmp.toUtf8();
     const char *sqlSentence = byteArray.data();
     if(prepareStmt(sqlSentence)){
-        flag = sqlite3_step(stmtHandle);
-        if(flag == SQLITE_ROW){
+        // Feature Of CPP17.
+        if(flag = sqlite3_step(stmtHandle); flag == SQLITE_ROW){
             int column = atoi(reinterpret_cast<const char*>(sqlite3_column_text(stmtHandle, 0)));
             if(column == 0){
 #ifdef          CELL_DEBUG

@@ -26,7 +26,7 @@ public:
     setTargetWidget(QWidget *widget) { targetWidget = widget; }
 
     inline int
-    opacity() { return mOpacity; }
+    opacity() const { return mOpacity; }
 
     void
     setOpacity(int value);

@@ -30,14 +30,13 @@ public:
     tidyItems(customOptionBlock *another = nullptr);
 
     inline int
-    getItemTagMaxLen() { return itemTagMaxLen; }
+    getItemTagMaxLen() const { return itemTagMaxLen; }
 
 protected:
     QVBoxLayout                   *mainBlockLayout;
     customFrame                   *mainBlock;
     QList<customOptionBlockItem*> *itemsList;
 
-    int blockHeight = 0;
     int itemTagMaxLen = std::numeric_limits<int>::lowest();
 
 private:

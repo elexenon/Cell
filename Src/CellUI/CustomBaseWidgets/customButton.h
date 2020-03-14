@@ -14,6 +14,7 @@
 class customButton : public QPushButton, implements CellWidgetGlobalInterface{
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
+    Q_PROPERTY(qreal focusEdgeOffset READ focusEdgeOffset WRITE setFocusEdgeOffset)
 public:
     enum Type:int{
         Static          = 0x01,
@@ -24,14 +25,12 @@ public:
         DynamicRadius   = Dynamic | Radius,
         CheckableRadius = Checkable | Radius
     };
+    //! Register Enum Type "Type"
+    //! Into QFlags.
     Q_DECLARE_FLAGS(ButtonType, Type)
 
     explicit customButton(ButtonType type,QWidget *parent = nullptr);
-    virtual ~customButton() = default;
-
-    inline void
-    setNaviBar() { naviVerBar = true; }
-
+    virtual ~customButton();
     //! Inheried from
     //! CellWidgetGlobalInterface.
     virtual void
@@ -42,54 +41,99 @@ protected:
     //! QPushButton.
     virtual void
     paintEvent(QPaintEvent *) override;
-
+    //! Inheried from
+    //! CellWidgetGlobalInterface.
     virtual void
     changeToColor(const QColor& startColor, const QColor &targetColor, int duration) override;
-
+    //! Inheried from
+    //! CellWidgetGlobalInterface.
     virtual void
     init() override;
-
+    //! Inheried from
+    //! CellWidgetGlobalInterface.
     virtual void
     setEventConnections() override;
 
 private:
+    //! Inheried from
+    //! CellWidgetGlobalInterface.
     //! Core Color Switching Function
     //! For customButton.
     virtual void
     setAnimiStartEndColor(Cell::ColorScheme mode, QColor&, QColor&) override;
 
     ButtonType mType;
-    bool naviVerBar = false;
 
 public Q_SLOTS:
-    virtual void
-    setColorScheme(Cell::ColorScheme mode) override;
+    //! Inheried from
+    //! CellWidgetGlobalInterface.
+    inline virtual void
+    setColorScheme(Cell::ColorScheme mode) override { CellWidgetGlobalInterface::setColorScheme(mode); }
 
 CheckablePublic:
+    //! Set The Bright Color
+    //! Of State "Checked".
     void
     setBrightCheckedColor(const CellVariant &color);
-
+    //! Set The Dark Color
+    //! Of State "Checked".
     void
     setDarkCheckedColor(const CellVariant &color);
+    //! If This Function Is Called,
+    //! And The State Of Button Is
+    //! "Checkable", Then There's
+    //! Going To Be A Vertical Thin
+    //! Blue Bar Right On The Button's
+    //! Edge.
+    inline void
+    drawMarkOnChecked() { mDrawMark = true; }
+    //! If This Function Is Called,
+    //! And The State Of Button Is
+    //! "Checkable", Then There's
+    //! Going To Be A Blue Edge All
+    //! Around The Button That Stands
+    //! For "Focus".
+    inline void
+    drawFocusEdgeOnChecked() { mDrawFocusEdge = true; }
+    //! If mDrawFocusEdge Is True, T-
+    //! his Function Will Update Focus
+    //! Edge.
+    void
+    updateFocusEdge();
+    inline qreal
+    focusEdgeOffset() const { return mFocusEdgeOffset; }
+    inline void
+    setFocusEdgeOffset(const qreal offset) { mFocusEdgeOffset = offset; update(); }
 
 CheckablePrivate:
     QColor *brightCheckedColor;
     QColor *darkCheckedColor;
+    bool  mDrawMark;
+    bool  mDrawFocusEdge;
+    //! 0.0 ~ 10.0
+    qreal mFocusEdgeOffset = 10.0;
 
 DynamicPublic:
+    //! Set The Bright Color
+    //! Of State "Mouse Hovering".
     void
     setBrightHoveringColor(const CellVariant &color);
-
+    //! Set The Dark Color
+    //! Of State "Mouse Hovering".
     void
     setDarkHoveringColor(const CellVariant &color);
-
+    //! Set The Switching
+    //! Animation Duration.
     inline void
     setAnimationDuration(int dur) { hoverAnimiDuration = dur; }
 
 DynamicPrivate:
+    //! Inheried from
+    //! QPushButton.
     virtual void
     enterEvent(QEvent*) override;
-
+    //! Inheried from
+    //! QPushButton.
     virtual void
     leaveEvent(QEvent*) override;
 
@@ -98,9 +142,12 @@ DynamicPrivate:
     int      hoverAnimiDuration = 300;
 
 StaticPublic:
+    //! Set The Bright Color
+    //! Of State "Mouse Hovering".
     void
     setBrightHoverColor(const CellVariant &color);
-
+    //! Set The Dark Color
+    //! Of State "Mouse Hovering".
     void
     setDarkHoverColor(const CellVariant &color);
 

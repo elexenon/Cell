@@ -18,7 +18,7 @@ public:
     explicit customDialogButton(const QString& state, QWidget *parent = nullptr);
 
     inline const
-    ButtonWithIcon* getTrigger() { return trigger;}
+    ButtonWithIcon* getTrigger() const { return trigger;}
 
     void
     setText(const QString &text);

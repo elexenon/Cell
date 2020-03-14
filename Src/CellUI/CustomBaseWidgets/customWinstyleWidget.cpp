@@ -17,9 +17,6 @@ void customWinstyleWidget::init(){
     setWindowFlags(Qt::FramelessWindowHint);
 }
 
-void customWinstyleWidget::setEventConnections()
-{}
-
 void customWinstyleWidget::changeToColor(const QColor &startColor, const QColor &targetColor, int duration)
 {
     CellWidgetGlobalInterface::switchMode == Cell::SwitchMode::Instant ?

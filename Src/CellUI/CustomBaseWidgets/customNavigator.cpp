@@ -5,7 +5,7 @@
 // the file LICENSE included in the packaging of this file.
 #include "customNavigator.h"
 #include "ButtonWithText.h"
-#include "customOptionBlock.h"
+#include "optionBlockBase.h"
 #include "CellWidgetGlobalInterface.h"
 #include "../../CellCore/Kits/CellGlobalMacros.h"
 
@@ -15,10 +15,11 @@
 
 int customNavigator::buttonHeight = 35;
 
-customNavigator::customNavigator(QWidget *parent):
+customNavigator::customNavigator(QWidget *parent, bool onCheckedDrawFocus):
     customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QVBoxLayout(this)),
-    btnGroup(new QButtonGroup(this))
+    btnGroup(new QButtonGroup(this)),
+    mDrawFocus(onCheckedDrawFocus)
 {
     init();
 }
@@ -38,11 +39,9 @@ void customNavigator::init()
         setBrightDarkColor(Cell::CGL247, Cell::CGL30);
 }
 
-void customNavigator::jointBlock(const customOptionBlock *block)
+void customNavigator::jointBlock(const optionBlockBase *block)
 {
     assert(block);
-    static unsigned buttonID(1);
-    static bool firstClicked(false);
     connect(block, &optionBlockBase::entered, this, &customNavigator::setCurr);
 
     // Add New Button Into Layout.
@@ -54,9 +53,9 @@ void customNavigator::jointBlock(const customOptionBlock *block)
         tmp->setBrightDarkColor(this->brightColor(), this->darkColor());
     tmp->setBrightCheckedColor(Cell::CGL230);
     tmp->setDarkCheckedColor(Cell::CGL100);
-    tmp->setNaviBar();
     tmp->initModules(block->_theme, 16);
     tmp->setFixedHeight(customNavigator::buttonHeight);
+    mDrawFocus ? tmp->drawFocusEdgeOnChecked() : tmp->drawMarkOnChecked();
     mainLayout->addWidget(tmp);
     btnGroup->addButton(tmp, buttonID);
     blockBtnMap[block->_theme] = buttonID++;
@@ -65,6 +64,7 @@ void customNavigator::jointBlock(const customOptionBlock *block)
         tmp->click();
         firstClicked = true;
     }
+
     CellWidgetGlobalInterface::_modules << tmp;
 }
 

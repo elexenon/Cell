@@ -22,13 +22,13 @@ class QGraphicsDropShadowEffect;
 class QPropertyAnimation;
 class textFileLoader;
 class QGraphicsEffect;
+class QStackedWidget;
 class QGraphicsOpacityEffect;
 class QFrame;
 class QLabel;
 
 namespace CellUiGlobal{
 extern textFileLoader& loader;
-
 //! Set The Same Drop Shadow
 //! Effect For Multi Widgets.
 extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> &&animis,
@@ -76,6 +76,9 @@ extern void    multiModulesOneStyleSheet(const QList<QWidget*> &modules, const Q
 //! Set Pixmap
 //! For A Specific Target QLabel.
 extern void    setLabelPixmap(QLabel *label, const QString& fileName, int iconWidth, int iconHeight);
+//! Set Page Switch Animation
+//! For Target Pages.
+extern void    setPageSwitchAnimation(QStackedWidget *stackedWidget, QWidget *targetPage, QPropertyAnimation *animiPtr);
 } // namespace CellUiGlobal{
 
 #endif

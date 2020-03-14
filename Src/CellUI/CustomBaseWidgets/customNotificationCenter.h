@@ -21,13 +21,13 @@ public:
     explicit notificationCenter(QWidget *parent = nullptr);
     ~notificationCenter() override = default;
 
+    inline unsigned
+    getCurrWorkshopCount() const { return workshop_instancesCount;}
+
+private:
     virtual void
     init() override;
 
-    inline unsigned
-    getCurrWorkshopCount(){ return workshop_instancesCount;}
-
-private:
     unsigned workshop_instancesCount;
 
     QGraphicsOpacityEffect *eff;

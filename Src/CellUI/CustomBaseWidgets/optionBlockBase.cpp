@@ -20,7 +20,6 @@ optionBlockBase::optionBlockBase(const QString& name, QWidget *parent):
 
 void optionBlockBase::init()
 {
-    setAttribute(Qt::WA_TranslucentBackground);
     setLayout(mainLayout);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(3);

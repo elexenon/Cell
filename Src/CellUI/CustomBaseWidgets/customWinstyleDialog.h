@@ -27,8 +27,8 @@ public:
     virtual void
     init() override;
 
-    virtual void
-    setEventConnections() override;
+    inline virtual void
+    setEventConnections() override {}
 
     virtual void
     setColor(const QColor &color) override;

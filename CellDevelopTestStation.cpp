@@ -114,11 +114,12 @@ CellDevelopTestStation::CellDevelopTestStation(QWidget *parent) :
     btn1->setFixedSize(200, 81);
 
     ButtonWithIcon *btn2 = new ButtonWithIcon(customButton::Type::CheckableRadius, this);
-    btn2->setBrightCheckedColor(Cell::CGL130);
-    btn2->setDarkCheckedColor(Cell::CGL180);
+    btn2->setBrightCheckedColor(Cell::CGL218);
+    btn2->setDarkCheckedColor(Cell::CGL218);
     btn2->setBrightDarkColor(Cell::CGL247, Cell::CGL180);
     btn2->initModules(CHAR2STR("cellLogo32"), 32, 32);
     btn2->setFixedSize(200, 81);
+    btn2->drawFocusEdgeOnChecked();
 
     ButtonWithIconText *btn3 = new ButtonWithIconText(customButton::Type::DynamicRadius, this);
     btn3->setBrightHoveringColor(Cell::CGL255);

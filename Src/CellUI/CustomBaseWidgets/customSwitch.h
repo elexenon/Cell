@@ -42,7 +42,7 @@ private:
     setTriggerOffset(qreal value) { triggerPosOffset = value; update();}
 
     inline qreal
-    triggerOffset() { return triggerPosOffset; }
+    triggerOffset() const { return triggerPosOffset; }
 
     bool   isChecked = false;
     qreal  triggerPosOffset = 0.0;

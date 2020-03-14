@@ -5,7 +5,6 @@
 // the file LICENSE included in the packaging of this file.
 #include "ButtonWithText.h"
 #include "customLabel.h"
-#include "../../CellCore/CellNamespace.h"
 #include "../../CellCore/Kits/CellUtility.h"
 
 #include <QVBoxLayout>

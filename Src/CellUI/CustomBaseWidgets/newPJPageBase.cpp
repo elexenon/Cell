@@ -35,7 +35,7 @@ void newPJPageBase::init(){
     setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     setLayout(mainLayout);
 
-    mainLayout->setContentsMargins(40, 20, 40, 10);
+    mainLayout->setContentsMargins(60, 20, 60, 10);
     mainLayout->addWidget(labelTitle);
     mainLayout->addStretch(5);
     mainLayout->addWidget(blockConfig);

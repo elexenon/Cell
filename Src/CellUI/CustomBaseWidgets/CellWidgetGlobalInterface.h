@@ -18,6 +18,10 @@ class CellWidgetGlobalInterface{
 public:
     explicit CellWidgetGlobalInterface() = default;
     virtual ~CellWidgetGlobalInterface() = default;
+    //! Return Global Switch
+    //! Mode Enum Value.
+    static inline Cell::SwitchMode
+    globalSwitchMode() { return CellWidgetGlobalInterface::switchMode; }
     //! Return A Copy Of Current
     //! Color.
     inline const QColor
@@ -25,11 +29,11 @@ public:
     //! Return bright mode color
     //! by const reference.
     inline const QColor&
-    brightColor() { return brightmodeColor; }
+    brightColor() const { return brightmodeColor; }
     //! Return dark mode color
     //! by const reference.
     inline const QColor&
-    darkColor()   { return darkmodeColor; }
+    darkColor() const { return darkmodeColor; }
     //! Set bright/dark mode colors, so that cell
     //! will switch colors automatically.
     void
@@ -37,7 +41,7 @@ public:
     //! Inherited subclasses can reimplement this function
     //! to set unique color switching effects.
     virtual void
-    setColorScheme(Cell::ColorScheme mode);
+    setColorScheme(Cell::ColorScheme mode) = 0;
 
 protected:
     QList<CellWidgetGlobalInterface*> _modules;

@@ -15,8 +15,9 @@ class ButtonWithIcon : public customButton{
     Q_OBJECT
 public:
     explicit ButtonWithIcon(customButton::ButtonType,QWidget *parent = nullptr);
+    virtual ~ButtonWithIcon() = default;
 
-    void
+    virtual void
     initModules(const QString& fileName, int iconWidth, int iconHeight);
 
 protected:

@@ -23,12 +23,12 @@ class QStackedWidget;
 class QFrame;
 class NewPJProjectCellPage;
 class NewPJPredictEarPage;
+class newPJPageBase;
 class customButtonListWidget;
 
 class LauncherNewPJDialog : public customWinstyleDialog
 {
     Q_OBJECT
-
 public:
     explicit LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *parent = nullptr);
     ~LauncherNewPJDialog();
@@ -45,6 +45,9 @@ private:
 
     NewPJProjectCellPage *cellPage;
     NewPJPredictEarPage  *prePage;
+    newPJPageBase        *emptyPJPage;
+    newPJPageBase        *cppPJPage;
+    newPJPageBase        *pyPJPage;
 
     customButtonListWidget *btnListWidget1;
     customButtonListWidget *btnListWidget2;
@@ -61,7 +64,7 @@ private:
     void
     judgeValidProject();
 
-signals:
+Q_SIGNALS:
     void
     projectSettled(CellProjectEntity *entity);
 

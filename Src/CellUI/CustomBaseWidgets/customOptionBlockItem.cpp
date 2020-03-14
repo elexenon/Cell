@@ -81,15 +81,9 @@ void customOptionBlockItem::setSpacing(int value){
     mainLayout->setSpacing(value);
 }
 
-const QMargins customOptionBlockItem::getMargins(){
+const QMargins customOptionBlockItem::getMargins() const{
     return mainLayout->contentsMargins();
 }
-
-void customOptionBlockItem::init()
-{}
-
-void customOptionBlockItem::setEventConnections()
-{}
 
 void customOptionBlockItem::setColor(const QColor &color){
     CellWidgetGlobalInterface::setColor(color);

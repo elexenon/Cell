@@ -29,6 +29,9 @@ LauncherNewPJDialog::LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *p
     stackedWidget(new QStackedWidget(this)),
     cellPage(new NewPJProjectCellPage(this)),
     prePage(new NewPJPredictEarPage(this)),
+    emptyPJPage(new newPJPageBase(this)),
+    cppPJPage(new newPJPageBase(this)),
+    pyPJPage(new newPJPageBase(this)),
     btnListWidget1(new customButtonListWidget(this)),
     btnListWidget2(new customButtonListWidget(this)),
     currEntity(new CellProjectEntity)
@@ -41,7 +44,7 @@ LauncherNewPJDialog::LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *p
 
 LauncherNewPJDialog::~LauncherNewPJDialog()
 {
-    SafeDelete(currEntity);
+    CellSafeDelete(currEntity);
 }
 
 void LauncherNewPJDialog::init()
@@ -130,13 +133,8 @@ void LauncherNewPJDialog::init()
     setLayout(mainLayout);
 
     // Stacked Widget Combination.
-    newPJPageBase *emptyPJPage = new newPJPageBase(stackedWidget);
     emptyPJPage->setPageTitle(CHAR2STR("空文本文件。"));
-
-    newPJPageBase *cppPJPage = new newPJPageBase(stackedWidget);
     cppPJPage->setPageTitle(CHAR2STR("Pure C++ File"));
-
-    newPJPageBase *pyPJPage = new newPJPageBase(stackedWidget);
     pyPJPage->setPageTitle(CHAR2STR("Pure Python File"));
 
     QList<newPJPageBase*> pages;

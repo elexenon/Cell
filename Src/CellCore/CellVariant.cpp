@@ -6,8 +6,6 @@
 #include "CellVariant.h"
 #include "Kits/CellGlobalMacros.h"
 
-#include <cassert>
-
 CellVariant::CellVariant(CellVariant &other) noexcept
 {
     if(mType == Type::Color)

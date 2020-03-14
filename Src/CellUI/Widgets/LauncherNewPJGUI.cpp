@@ -9,18 +9,22 @@
 #include "../CustomBaseWidgets/customLabel.h"
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customTitleBar.h"
-#include "../CustomBaseWidgets/customNavigator.h"
-#include "../CustomBaseWidgets/customSmoothScrollArea.h"
+#include "../CustomBaseWidgets/newPJPageBase.h"
+#include "../../CellCore/Kits/CellUtility.h"
+
+#include "NewPJGUIModel.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QStackedWidget>
 
 LauncherNewPJGUI::LauncherNewPJGUI(QWidget *parent):
     customWinstyleDialog(parent),
     mainLayout(new QVBoxLayout(this)),
     titleBar(new customTitleBar(this)),
-    navigator(new customNavigator(this)),
-    scrollArea(new customSmoothScrollArea(this)),
+    stackedWidget(new QStackedWidget(this)),
+    modelPage(new NewPJGUIModel(this)),
+    configPage(new newPJPageBase(this)),
     bottomBar(new customFrame(customFrame::Type::Regular, this)),
     btnCancel(new ButtonWithText(customButton::Type::Dynamic, bottomBar)),
     btnBackward(new ButtonWithText(customButton::Type::Dynamic, bottomBar)),
@@ -42,17 +46,6 @@ void LauncherNewPJGUI::init()
     titleBar->setFixedHeight(40);
     titleBar->setBrightDarkColor(Cell::CGL218, Cell::CGL45);
     titleBar->setText(CHAR2STR("新建项目"), Cell::CGL70);
-
-    // Set navigator.
-    navigator->setFixedWidth(200);
-    navigator->setButtonHeight(60);
-
-    // Set the secondary layout.
-    QHBoxLayout *HLayout = new QHBoxLayout;
-    HLayout->setMargin(0);
-    HLayout->setSpacing(0);
-    HLayout->addWidget(navigator);
-    HLayout->addWidget(scrollArea);
 
     // Set  bottom Bar.
     btnCancel->setBrightDarkColor(Cell::CGL60, Cell::CGL60);
@@ -87,21 +80,56 @@ void LauncherNewPJGUI::init()
     HLayoutBottom->addWidget(btnBackward);
     HLayoutBottom->addWidget(btnForward);
 
+    // Set Bottom Bar.
     bottomBar->setBrightDarkColor(Cell::CGL60, Cell::CGL60);
     bottomBar->setFixedHeight(40);
 
+    // Set Stacked Widget.
+    configPage->enableToolChainsBlock();
+    configPage->setPageTitle(CHAR2STR("项目属性"));
+
+    stackedWidget->addWidget(modelPage);
+    stackedWidget->addWidget(configPage);
+
     // Set main layout.
     mainLayout->addWidget(titleBar);
-    mainLayout->addLayout(HLayout);
+    mainLayout->addWidget(stackedWidget);
     mainLayout->addWidget(bottomBar);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    CellWidgetGlobalInterface::_modules << titleBar << navigator << btnCancel
-             << btnForward << btnBackward << bottomBar;
+    CellWidgetGlobalInterface::_modules << titleBar << btnCancel
+             << btnForward << btnBackward << bottomBar << modelPage;
 }
 
 void LauncherNewPJGUI::setEventConnections()
 {
+    connect(btnCancel, &QPushButton::clicked, [=]{this->close();});
+    connect(btnForward, &QPushButton::clicked, this, [=]{
+        if(stackedWidget->currentIndex() == 1){
+            emit projectSettled();
+            this->close();
+        }
+        else
+            stackedWidget->setCurrentIndex(stackedWidget->currentIndex()+1);
+    });
+    connect(btnBackward, &QPushButton::clicked, [=]{
+        stackedWidget->setCurrentIndex(stackedWidget->currentIndex()-1);
+    });
+    connect(configPage, &newPJPageBase::pathSettled, this, &LauncherNewPJGUI::setPath);
+    connect(configPage, &newPJPageBase::nameSettled, this, &LauncherNewPJGUI::setName);
+}
 
+void LauncherNewPJGUI::setName(const QString &name)
+{
+    QRegExp exp(CHAR2STR("[<>\"?/\\\\|:*]"));
+    if(name.indexOf(exp) >= 0)
+        btnForward->setEnabled(true);
+    else
+        btnForward->setEnabled(false);
+}
+
+void LauncherNewPJGUI::setPath(const QString &path)
+{
+    (void)path;
 }

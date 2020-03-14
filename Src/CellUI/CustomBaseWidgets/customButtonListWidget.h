@@ -53,7 +53,7 @@ public:
     setExlusive(bool value = true);
 
     inline const QList<customListButton*>*
-    getButtons() { return buttons; }
+    getButtons() const { return buttons; }
 
 private:
     //! Inhrited from
@@ -72,7 +72,7 @@ private:
 
     int buttonIndex = 0;
 
-signals:
+Q_SIGNALS:
     void
     clicked(int id);
 };

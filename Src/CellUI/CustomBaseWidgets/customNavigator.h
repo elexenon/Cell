@@ -3,7 +3,7 @@
 
 #include "customFrame.h"
 
-class customOptionBlock;
+class optionBlockBase;
 class ButtonWithText;
 class QVBoxLayout;
 class QButtonGroup;
@@ -13,33 +13,32 @@ class customNavigator : public customFrame
     Q_OBJECT
     static int buttonHeight;
 public:
-    explicit customNavigator(QWidget *parent = nullptr);
+    explicit customNavigator(QWidget *parent = nullptr, bool onCheckedDrawFocus = false);
     ~customNavigator() = default;
-
     //! Custom navigator will create a correspounding
     //! "ButtonWithText" of "checkable" attribute on-
     //! ce a "customOptionBlock" is appended by user.
     void
-    jointBlock(const customOptionBlock *block);
-
+    jointBlock(const optionBlockBase *block);
     //! Set the top margin of main layout.
     void
     setTopMargin(int value);
-
     //! Set the height of each "ButtonWithText"
     void
     setButtonHeight(int value);
 
 private:
-    QVBoxLayout            *mainLayout;
-    QButtonGroup           *btnGroup;
-    QMap<QString, unsigned> blockBtnMap;
-
-protected:
     //! Inhrited from
     //! CellWidgetGlobalInterface.
     virtual void
     init() override;
+
+    QVBoxLayout            *mainLayout;
+    QButtonGroup           *btnGroup;
+    QMap<QString, unsigned> blockBtnMap;
+    bool                    mDrawFocus;
+    unsigned                buttonID = 1;
+    bool firstClicked     = false;
 
 private Q_SLOTS:
     void

@@ -9,15 +9,16 @@
 #include "../CustomBaseWidgets/customWinstyleDialog.h"
 
 class QVBoxLayout;
-class customLabel;
+class QStackedWidget;
 class customFrame;
-class customNavigator;
 class ButtonWithText;
 class customTitleBar;
-class customSmoothScrollArea;
+class NewPJGUIModel;
+class newPJPageBase;
 
 class LauncherNewPJGUI : public customWinstyleDialog
 {
+    Q_OBJECT
 public:
     explicit LauncherNewPJGUI(QWidget *parent = nullptr);
     ~LauncherNewPJGUI() = default;
@@ -29,14 +30,27 @@ private:
     virtual void
     setEventConnections() override;
 
-    QVBoxLayout            *mainLayout;
-    customTitleBar         *titleBar;
-    customNavigator        *navigator;
-    customSmoothScrollArea *scrollArea;
-    customFrame            *bottomBar;
-    ButtonWithText         *btnCancel;
-    ButtonWithText         *btnBackward;
-    ButtonWithText         *btnForward;
+    QVBoxLayout    *mainLayout;
+    customTitleBar *titleBar;
+    QStackedWidget *stackedWidget;
+    NewPJGUIModel  *modelPage;
+    newPJPageBase  *configPage;
+    customFrame    *bottomBar;
+    ButtonWithText *btnCancel;
+    ButtonWithText *btnBackward;
+    ButtonWithText *btnForward;
+
+Q_SIGNALS:
+    void
+    projectSettled();
+
+private Q_SLOTS:
+
+    void
+    setName(const QString &name);
+
+    void
+    setPath(const QString &path);
 };
 
 #endif // LAUNCHERNEWPJGUI_H

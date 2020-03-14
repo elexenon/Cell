@@ -41,9 +41,6 @@ void customOptionBlock::addItem(customOptionBlockItem *item, bool addSplitterLin
     mainBlockLayout->addWidget(item);
     item->setParent(mainBlock);
 
-    blockHeight += item->height();
-    setFixedHeight(blockHeight + 25);
-
     _addSplitterLine(addSplitterLine);
 
     CellWidgetGlobalInterface::_modules << item;
@@ -59,9 +56,6 @@ void customOptionBlock::addItem(QWidget *optionWidget, const QString &tag, const
 
     itemsList->append(item);
     mainBlockLayout->addWidget(item);
-
-    blockHeight += item->height();
-    setFixedHeight(blockHeight + 25);
 
     _addSplitterLine(addSplitterLine);
 
@@ -89,8 +83,6 @@ void customOptionBlock::_addSplitterLine(bool add)
     layout->setContentsMargins(10, 0, 10, 0);
     layout->addWidget(CellUiGlobal::getLine(Cell::LineType::HLine));
     mainBlockLayout->addLayout(layout);
-    blockHeight += 1;
-    setFixedHeight(blockHeight + 25);
 }
 
 void customOptionBlock::tidyItems(customOptionBlock *another)

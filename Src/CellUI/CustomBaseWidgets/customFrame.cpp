@@ -18,12 +18,6 @@ customFrame::customFrame(Type type, QWidget *parent):
     setEventConnections();
 }
 
-void customFrame::init()
-{}
-
-void customFrame::setEventConnections()
-{}
-
 void customFrame::setColor(const QColor &color)
 {
     CellWidgetGlobalInterface::setColor(color);
@@ -60,6 +54,3 @@ void customFrame::paintEvent(QPaintEvent *e)
     }
 }
 
-void customFrame::setColorScheme(Cell::ColorScheme mode){
-    CellWidgetGlobalInterface::setColorScheme(mode);
-}

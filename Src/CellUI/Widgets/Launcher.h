@@ -17,6 +17,7 @@ class LauncherNewPJDialog;
 class LauncherNewPJGUI;
 class LauncherHomepage;
 class Workshop;
+class DeepSense;
 class LauncherSettings;
 
 class QGraphicsOpacityEffect;
@@ -51,6 +52,9 @@ private:
 
     void
     _launchWorkshop();
+
+    void
+    _launchDeepSense();
     //! Inhrits From
     //! CellWidgetGlobalInterface.
     virtual void
@@ -61,12 +65,13 @@ private:
 
     QGraphicsOpacityEffect *opacityEffect;
 
-    Workshop            *workshop = nullptr;
-    LauncherHomepage    *homePage = nullptr;
+    Workshop            *workshop     = nullptr;
+    DeepSense           *deepSense    = nullptr;
+    LauncherHomepage    *homePage     = nullptr;
     LauncherSettings    *settingsPage = nullptr;
-    LauncherGuideDialog *guideDialog = nullptr;
-    LauncherNewPJDialog *newPJDialog = nullptr;
-    LauncherNewPJGUI    *newPJGUI    = nullptr;
+    LauncherGuideDialog *guideDialog  = nullptr;
+    LauncherNewPJDialog *newPJDialog  = nullptr;
+    LauncherNewPJGUI    *newPJGUI     = nullptr;
 
     customTitleBar *titleBar;
     ButtonWithIcon *btnMini;
@@ -123,5 +128,11 @@ private Q_SLOTS:
 
     void
     launchWorkShopByPath(const QString &path);
+
+    void
+    launchDeepSense();
+
+    //void
+    //launchWorkShopByPath(const QString &path);
 };
 #endif

@@ -17,9 +17,6 @@ void customWinstyleDialog::init(){
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
 }
 
-void customWinstyleDialog::setEventConnections()
-{}
-
 void customWinstyleDialog::setColor(const QColor &color)
 {
     CellWidgetGlobalInterface::setColor(color);

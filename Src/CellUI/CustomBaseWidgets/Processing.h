@@ -24,7 +24,7 @@ private:
     setOffset(qreal offset) { mOffset = offset; update(); }
 
     inline qreal
-    offset() { return mOffset; }
+    offset() const { return mOffset; }
 
     qreal mOffset;
     qreal mDiam;

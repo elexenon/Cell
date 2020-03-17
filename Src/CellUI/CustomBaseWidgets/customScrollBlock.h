@@ -7,6 +7,7 @@ class customFlowLayout;
 class QButtonGroup;
 class customLabel;
 class customScrollBlockItem;
+class QAbstractButton;
 
 class customScrollBlock : public optionBlockBase
 {
@@ -17,10 +18,19 @@ public:
     ~customScrollBlock() override;
 
     void
-    addItem(const QString &tag);
+    addItem(const QString &tag, const QString& fileName, int iconWidth, int iconHeight);
 
     void
     setExclusive(bool value);
+
+    inline const QAbstractButton*
+    testButton() const { return button(1); }
+
+    const QAbstractButton*
+    button(int ID) const;
+
+    bool
+    isEmpty();
 
     void
     setButtonsChecked(bool checked);

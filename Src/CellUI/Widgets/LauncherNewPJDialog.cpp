@@ -12,13 +12,11 @@
 #include "../CustomBaseWidgets/customListButton.h"
 #include "../CustomBaseWidgets/customButtonListWidget.h"
 #include "NewPJProjectCellPage.h"
-#include "NewPJPredictEarPage.h"
 
 #include <QStackedWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QButtonGroup>
-#include <QTextStream>
 
 LauncherNewPJDialog::LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *parent) :
     customWinstyleDialog(parent),
@@ -28,23 +26,16 @@ LauncherNewPJDialog::LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *p
     btnCancel(new ButtonWithText(customButton::Dynamic, this)),
     stackedWidget(new QStackedWidget(this)),
     cellPage(new NewPJProjectCellPage(this)),
-    prePage(new NewPJPredictEarPage(this)),
     emptyPJPage(new newPJPageBase(this)),
     cppPJPage(new newPJPageBase(this)),
     pyPJPage(new newPJPageBase(this)),
     btnListWidget1(new customButtonListWidget(this)),
-    btnListWidget2(new customButtonListWidget(this)),
-    currEntity(new CellProjectEntity)
+    btnListWidget2(new customButtonListWidget(this))
 {
     init();
-    if(mMode != globalMode)
+    if(CellWidgetGlobalInterface::mMode != globalMode)
         setColorScheme(globalMode);
     setEventConnections();
-}
-
-LauncherNewPJDialog::~LauncherNewPJDialog()
-{
-    CellSafeDelete(currEntity);
 }
 
 void LauncherNewPJDialog::init()
@@ -64,7 +55,6 @@ void LauncherNewPJDialog::init()
 
     btnListWidget1->addThemeHead(CHAR2STR("项目"));
     btnListWidget1->addButton(CHAR2STR("Cell DeepLearning"),Cell::CGL247,Cell::CGL70);
-    btnListWidget1->addButton(CHAR2STR("地震预测系统"),Cell::CGL247,Cell::CGL70);
     btnListWidget1->setButtonsBrightDarkModeColor(Cell::CGL255,Cell::CGL30);
     btnListWidget1->setButtonSize(249,40);
     btnListWidget1->setSpacing(0);
@@ -139,7 +129,6 @@ void LauncherNewPJDialog::init()
 
     QList<newPJPageBase*> pages;
     pages.append(cellPage);
-    pages.append(prePage);
     pages.append(emptyPJPage);
     pages.append(cppPJPage);
     pages.append(pyPJPage);
@@ -151,8 +140,7 @@ void LauncherNewPJDialog::init()
     CellWidgetGlobalInterface::_modules << titleBar << label_choose
              << btnListWidget1 << btnListWidget2
              << btnConfirm << btnCancel
-             << cellPage << prePage
-             << emptyPJPage << cppPJPage << pyPJPage;
+             << cellPage << emptyPJPage << cppPJPage << pyPJPage;
 }
 
 void LauncherNewPJDialog::setEventConnections()
@@ -162,10 +150,6 @@ void LauncherNewPJDialog::setEventConnections()
 
     connect(cellPage, &newPJPageBase::pathSettled, this, &LauncherNewPJDialog::setPath);
     connect(cellPage, &newPJPageBase::nameSettled, this, &LauncherNewPJDialog::setName);
-
-    connect(prePage, &newPJPageBase::pathSettled, this, &LauncherNewPJDialog::setPath);
-    connect(prePage, &newPJPageBase::nameSettled, this, &LauncherNewPJDialog::setName);
-
     connect(btnCancel, &QPushButton::clicked, this, &LauncherNewPJDialog::btnCancelClicked);
     connect(btnConfirm, &QPushButton::clicked, this, &LauncherNewPJDialog::btnConfirmClicked);
 }
@@ -183,12 +167,8 @@ void LauncherNewPJDialog::btnListWidget1Clicked(int id)
 
     switch(id){
     case 0:
-        currEntity->setType(CellProjectEntity::CellDeepLearning);
+        entity.setType(CellProjectEntity::CellDeepLearning);
         stackedWidget->setCurrentIndex(0);
-        break;
-    case 1:
-        currEntity->setType(CellProjectEntity::PredictEarthquake);
-        stackedWidget->setCurrentIndex(1);
         break;
     }
 }
@@ -206,15 +186,15 @@ void LauncherNewPJDialog::btnListWidget2Clicked(int id)
 
     switch(id){
     case 0:
-        currEntity->setType(CellProjectEntity::Empty);
+        entity.setType(CellProjectEntity::Empty);
         stackedWidget->setCurrentIndex(2);
         break;
     case 1:
-        currEntity->setType(CellProjectEntity::CPP);
+        entity.setType(CellProjectEntity::CPP);
         stackedWidget->setCurrentIndex(3);
         break;
     case 2:
-        currEntity->setType(CellProjectEntity::Python);
+        entity.setType(CellProjectEntity::Python);
         stackedWidget->setCurrentIndex(4);
         break;
     }
@@ -222,30 +202,25 @@ void LauncherNewPJDialog::btnListWidget2Clicked(int id)
 
 void LauncherNewPJDialog::setName(const QString &name)
 {
-    QRegExp exp(CHAR2STR("[<>\"?/\\\\|:*]"));
-    if(name.indexOf(exp) >= 0)
-        currEntity->setName(CHAR2STR(""));
-    else
-        currEntity->setName(name);
+    entity.setName(name);
     judgeValidProject();
 }
 
 void LauncherNewPJDialog::setPath(const QString &path)
 {
-    currEntity->setPath(path);
+    entity.setPath(path);
     judgeValidProject();
-}
-
-void LauncherNewPJDialog::btnConfirmClicked()
-{
-    emit projectSettled(currEntity);
-    this->close();
 }
 
 void LauncherNewPJDialog::judgeValidProject()
 {
-    if(currEntity->name() != CMPSTR("") && currEntity->path() != CMPSTR(""))
-        btnConfirm->setEnabled(true);
-    else
+    CellProjectEntity::validEntity(entity) ?
+        btnConfirm->setEnabled(true):
         btnConfirm->setEnabled(false);
+}
+
+void LauncherNewPJDialog::btnConfirmClicked()
+{
+    emit projectSettled(entity);
+    this->close();
 }

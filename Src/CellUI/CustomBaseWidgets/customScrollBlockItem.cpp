@@ -4,6 +4,7 @@
 #include "../../CellCore/Kits/CellUtility.h"
 
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 
 unsigned customScrollBlockItem::_buttonWidth = 200;
 unsigned customScrollBlockItem::_unitSpacing = 8;
@@ -21,8 +22,8 @@ customScrollBlockItem::customScrollBlockItem(QWidget *parent):
 
 void customScrollBlockItem::initModules(const QString &tag, const QString &fileName, int iconWidth, int iconHeight)
 {
-    btn->setBrightDarkColor(Cell::CGL218, Cell::CGL100);
-    btn->setBrightCheckedColor(Cell::CGL218);
+    btn->setBrightDarkColor(Cell::CGL235, Cell::CGL100);
+    btn->setBrightCheckedColor(Cell::CGL235);
     btn->setDarkCheckedColor(Cell::CGL100);
     btn->initModules(fileName, iconWidth, iconHeight);
     btn->setFixedSize(_buttonWidth, _buttonWidth - _unitSpacing - _fontSize);
@@ -33,10 +34,15 @@ void customScrollBlockItem::initModules(const QString &tag, const QString &fileN
 
 void customScrollBlockItem::init()
 {
+    QHBoxLayout *labelLayout = new QHBoxLayout;
+    labelLayout->setMargin(0);
+    labelLayout->setAlignment(Qt::AlignmentFlag::AlignCenter);
+    labelLayout->addWidget(label);
+
     mainLayout->setMargin(0);
     mainLayout->setSpacing(_unitSpacing);
     mainLayout->addWidget(btn);
-    mainLayout->addWidget(label);
+    mainLayout->addLayout(labelLayout);
     _modules << btn << label;
 }
 

@@ -26,7 +26,6 @@ class customSwitchFrame;
 class QMenuBar;
 class QTreeView;
 class QStackedWidget;
-class QJsonObject;
 class QFileSystemModel;
 
 class Workshop : public QWidget, implements CellWidgetGlobalInterface
@@ -60,34 +59,29 @@ private:
     initTreeView();
 
     void
-    getProjectEntity(CellProjectEntity &entity);
-
-    void
     read(const QJsonObject &json);
 
     void
     write(QJsonObject &json);
 
     QVBoxLayout *mainLayout;
-    WSLoadingDialog           *loadingDialog;
-    QMenuBar                  *menuBar;
-    customFrame               *leftBlock;
-    QStackedWidget            *leftStackedWidget;
-    QPushButton               *btnDirectory;
-    QPushButton               *btnWarning;
-    QPushButton               *btnToolChain;
-    QTreeView                 *treeView;
-    QFileSystemModel          *fileModel;
-    QsciScintilla             *mainEditor;
-    customFrame               *rightBlock;
-    customFrame               *statusBar;
+    WSLoadingDialog   *loadingDialog;
+    QMenuBar          *menuBar;
+    customFrame       *leftBlock;
+    QStackedWidget    *leftStackedWidget;
+    QPushButton       *btnDirectory;
+    QPushButton       *btnWarning;
+    QPushButton       *btnToolChain;
+    QTreeView         *treeView;
+    QFileSystemModel  *fileModel;
+    QsciScintilla     *mainEditor;
+    customFrame       *rightBlock;
+    customFrame       *statusBar;
     customSwitchFrame *textChangetoken;
-    QLabel                    *labelCntRow;
-    QLabel                    *labelCntChar;
-    QLabel                    *labelFormat;
+    QLabel            *labelCntRow;
+    QLabel            *labelCntChar;
+    QLabel            *labelFormat;
 
-    QString    codePrev;
-    QString    codeCurr;
     QString    savePath;
     QShortcut *ctrlS;
     bool       codeModified = false;
@@ -114,6 +108,9 @@ private Q_SLOTS:
 
     void
     loadFile(const QString &path);
+
+    void
+    newProject(CellProjectEntity &entity);
 
     void
     saveFile();

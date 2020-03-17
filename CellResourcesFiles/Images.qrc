@@ -27,5 +27,10 @@
         <file>Images/iconNewCode.png</file>
         <file>Images/iconNewGUI.png</file>
         <file>Images/iconOpen.png</file>
+        <file>Images/iconClassifyPic.png</file>
+        <file>Images/iconObjectDetect.png</file>
+        <file>Images/iconPredictEar.png</file>
+        <file>Images/iconPJDS.png</file>
+        <file>Images/iconPJWS.png</file>
     </qresource>
 </RCC>

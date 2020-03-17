@@ -7,6 +7,7 @@
 #define LAUNCHERNEWPJGUI_H
 
 #include "../CustomBaseWidgets/customWinstyleDialog.h"
+#include "../../CellCore/CellProjectEntity.h"
 
 class QVBoxLayout;
 class QStackedWidget;
@@ -30,6 +31,9 @@ private:
     virtual void
     setEventConnections() override;
 
+    void
+    judgeValidProject();
+
     QVBoxLayout    *mainLayout;
     customTitleBar *titleBar;
     QStackedWidget *stackedWidget;
@@ -40,17 +44,21 @@ private:
     ButtonWithText *btnBackward;
     ButtonWithText *btnForward;
 
+    CellProjectEntity currEntity;
+
 Q_SIGNALS:
     void
     projectSettled();
 
 private Q_SLOTS:
-
     void
     setName(const QString &name);
 
     void
     setPath(const QString &path);
+
+    inline void
+    setType(CellProjectEntity::ProjectType type) { currEntity.setType(type); }
 };
 
 #endif // LAUNCHERNEWPJGUI_H

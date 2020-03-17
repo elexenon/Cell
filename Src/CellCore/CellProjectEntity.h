@@ -14,24 +14,44 @@ class QJsonObject;
 
 class CellProjectEntity{
 public:
-    enum CellProjectEntityType{
-        CellDeepLearning = 0, PredictEarthquake,
-        CPP                 , Python,
-        Empty
+    enum ProjectType{
+        CellDeepLearning  = 0x001,
+        Empty             = 0x002,
+        CPP               = 0x004,
+        Python            = 0x008,
+        ImageClassify     = 0x010,
+        ObjectDetect      = 0x020,
+        PredictEarthquake = 0x040,
+        WSProject         = CellDeepLearning | Empty | CPP | Python,
+        DSProject         = ImageClassify | ObjectDetect | PredictEarthquake
     };
+    //! Register Enum Type "ProjectType"
+    //! Into QFlags.
+    Q_DECLARE_FLAGS(EntityType, ProjectType)
     enum CellProjectEntityIndex{
         Name = 0, ModifiedTime,
         Type,     Path
     };
 
     explicit CellProjectEntity() noexcept;
-    ~CellProjectEntity() noexcept = default;
+
+    CellProjectEntity(const QString&, const QString&,
+                      ProjectType, const QString&) noexcept;
 
     static const QString
-    getType(CellProjectEntityType type);
+    getType(ProjectType type);
 
-    static CellProjectEntityType
+    static ProjectType
     getType(const QString &type);
+
+    static CellProjectEntity
+    convert(const QList<QStandardItem*> &items);
+
+    static bool
+    validEntity(CellProjectEntity &entity);
+
+    static bool
+    judgeDSFromFile(const QString &path);
 
     inline void
     setName(const QString &name) { this->mName = name; }
@@ -40,7 +60,7 @@ public:
     setPath(const QString &path) { this->mPath = path; }
 
     inline void
-    setType(const CellProjectEntityType &type) { this->mType = type; }
+    setType(const ProjectType &type) { this->mType = type; }
 
     inline void
     setModifiedTime(const QString &time) { this->mModifiedTime = time; }
@@ -51,7 +71,7 @@ public:
     inline const QString&
     path() const { return mPath; }
 
-    inline const CellProjectEntityType&
+    inline const ProjectType&
     type() const { return mType; }
 
     inline const QString
@@ -73,11 +93,11 @@ public:
     write(QJsonObject &json);
 
 private:
-    mutable QString               mName;
-    mutable QString               mModifiedTime;
-    mutable CellProjectEntityType mType = CellDeepLearning;
-    mutable QString               mPath;
-    mutable QString               mCode;
+    mutable QString     mName;
+    mutable QString     mModifiedTime;
+    mutable ProjectType mType = CellDeepLearning;
+    mutable QString     mPath;
+    mutable QString     mCode;
 };
 
 Q_DECLARE_METATYPE(CellProjectEntity);

@@ -28,13 +28,14 @@ class CellDevelopTestStation;
 class ButtonWithIcon;
 class ButtonWithIconTextHint;
 class QStackedWidget;
+class QVBoxLayout;
 
 class Launcher : public customWinstyleWidget
 {
     Q_OBJECT
 public:
     explicit Launcher(QWidget *parent = nullptr);
-    ~Launcher();
+    ~Launcher() = default;
     enum PAGE_TYPE{
         _HOME,
         _SETTINGS
@@ -48,13 +49,13 @@ private:
     startPageSwitchAnimation(PAGE_TYPE nextPage);
 
     void
-    _launchGuideDialog();
+    launchGuideDialog();
 
     void
-    _launchWorkshop();
+    launchWorkshop();
 
     void
-    _launchDeepSense();
+    launchDeepSense();
     //! Inhrits From
     //! CellWidgetGlobalInterface.
     virtual void
@@ -63,8 +64,7 @@ private:
     virtual void
     setEventConnections() override;
 
-    QGraphicsOpacityEffect *opacityEffect;
-
+    QVBoxLayout         *mainLayout;
     Workshop            *workshop     = nullptr;
     DeepSense           *deepSense    = nullptr;
     LauncherHomepage    *homePage     = nullptr;
@@ -124,13 +124,7 @@ private Q_SLOTS:
     btnOpenClicked();
 
     void
-    launchWorkShop(CellProjectEntity *entity);
-
-    void
-    launchWorkShopByPath(const QString &path);
-
-    void
-    launchDeepSense();
+    launchClientByPath(bool isDS, const QString &path);
 
     //void
     //launchWorkShopByPath(const QString &path);

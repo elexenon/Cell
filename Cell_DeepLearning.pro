@@ -49,9 +49,9 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/customNavigator.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.cpp \
+    Src/CellUI/CustomBaseWidgets/customScrollArea.cpp \
     Src/CellUI/CustomBaseWidgets/customScrollBlock.cpp \
     Src/CellUI/CustomBaseWidgets/customScrollBlockItem.cpp \
-    Src/CellUI/CustomBaseWidgets/customSmoothScrollArea.cpp \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.cpp \
     Src/CellUI/CustomBaseWidgets/customSwitch.cpp \
     Src/CellUI/CustomBaseWidgets/customSwitchFrame.cpp \
@@ -61,11 +61,11 @@ SOURCES += \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.cpp \
     Src/CellUI/CustomBaseWidgets/optionBlockBase.cpp \
     Src/CellUI/Widgets/DeepSense.cpp \
+    Src/CellUI/Widgets/HomeStackGrid.cpp \
+    Src/CellUI/Widgets/HomeStackList.cpp \
     Src/CellUI/Widgets/LauncherNewPJDialog.cpp \
     Src/CellUI/Widgets/LauncherNewPJGUI.cpp \
-    Src/CellUI/Widgets/NewPJGUIConfig.cpp \
     Src/CellUI/Widgets/NewPJGUIModel.cpp \
-    Src/CellUI/Widgets/NewPJPredictEarPage.cpp \
     Src/CellUI/Widgets/NewPJProjectCellPage.cpp \
     Src/main.cpp \
     Src/CellUI/CustomBaseWidgets/customFrame.cpp \
@@ -109,9 +109,9 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/customNotificationCenter.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlock.h \
     Src/CellUI/CustomBaseWidgets/customOptionBlockItem.h \
+    Src/CellUI/CustomBaseWidgets/customScrollArea.h \
     Src/CellUI/CustomBaseWidgets/customScrollBlock.h \
     Src/CellUI/CustomBaseWidgets/customScrollBlockItem.h \
-    Src/CellUI/CustomBaseWidgets/customSmoothScrollArea.h \
     Src/CellUI/CustomBaseWidgets/customStackedWidget.h \
     Src/CellUI/CustomBaseWidgets/customSwitch.h \
     Src/CellUI/CustomBaseWidgets/customSwitchFrame.h \
@@ -121,15 +121,15 @@ HEADERS += \
     Src/CellUI/CustomBaseWidgets/newPJPageBase.h \
     Src/CellUI/CustomBaseWidgets/optionBlockBase.h \
     Src/CellUI/Widgets/DeepSense.h \
+    Src/CellUI/Widgets/HomeStackGrid.h \
+    Src/CellUI/Widgets/HomeStackList.h \
     Src/CellUI/Widgets/Launcher.h \
     Src/CellUI/Widgets/LauncherGuideDialog.h \
     Src/CellUI/Widgets/LauncherHomepage.h \
     Src/CellUI/Widgets/LauncherNewPJDialog.h \
     Src/CellUI/Widgets/LauncherNewPJGUI.h \
     Src/CellUI/Widgets/LauncherSettings.h \
-    Src/CellUI/Widgets/NewPJGUIConfig.h \
     Src/CellUI/Widgets/NewPJGUIModel.h \
-    Src/CellUI/Widgets/NewPJPredictEarPage.h \
     Src/CellUI/Widgets/NewPJProjectCellPage.h \
     Src/CellUI/Widgets/WorkShop.h \
     Src/CellUI/Widgets/WSLoadingDialog.h

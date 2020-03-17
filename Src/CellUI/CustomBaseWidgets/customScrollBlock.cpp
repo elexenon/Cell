@@ -41,10 +41,10 @@ void customScrollBlock::setEventConnections(){
     });
 }
 
-void customScrollBlock::addItem(const QString &tag)
+void customScrollBlock::addItem(const QString &tag, const QString &fileName, int iconWidth, int iconHeight)
 {
     customScrollBlockItem *item = new customScrollBlockItem(this);
-    item->initModules(tag, CHAR2STR("iconMaximize"), 17, 14);
+    item->initModules(tag, fileName, iconWidth,iconHeight);
 
     flowLayout->addWidget(item);
 
@@ -59,6 +59,14 @@ void customScrollBlock::addItem(const QString &tag)
 inline
 void customScrollBlock::setExclusive(bool value){
     btnGroup->setExclusive(value);
+}
+
+const QAbstractButton *customScrollBlock::button(int ID) const{
+    return btnGroup->button(ID);
+}
+
+bool customScrollBlock::isEmpty(){
+   return btnGroup->buttons().size() == 0;
 }
 
 void customScrollBlock::setButtonsChecked(bool checked)
@@ -82,6 +90,7 @@ void customScrollBlock::processBlocks(const QString &theme, int buttonID)
 
 void customScrollBlock::addExclusiveBlock(customScrollBlock *block)
 {
+    if(block == this) return;
     if(blocks == nullptr) {
         blocks = new QVector<customScrollBlock*>;
         blocks->append(this);
@@ -89,5 +98,5 @@ void customScrollBlock::addExclusiveBlock(customScrollBlock *block)
     }
     blocks->append(block);
     connect(block, &customScrollBlock::clicked, this, &customScrollBlock::processBlocks);
-    btnGroup->button(1)->click();
+    if(!block->isEmpty()) btnGroup->button(1)->click();
 }

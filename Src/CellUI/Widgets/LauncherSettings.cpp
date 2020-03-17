@@ -28,7 +28,7 @@ LauncherSettings::LauncherSettings(QWidget *parent) :
     customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QHBoxLayout(this)),
     VLayoutRight(new QVBoxLayout),
-    navigator(new customNavigator(this, true)),
+    navigator(new customNavigator(this)),
     blockGeneral(new customOptionBlock(CHAR2STR("通用"), this)),
     dBtnAppear(new customDialogButton(CHAR2STR("FUSION"))),
     switchAuto(new customSwitch),

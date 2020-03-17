@@ -48,6 +48,7 @@ namespace Cell{
         CGL180 = 180,
         CGL218 = 218,
         CGL230 = 230,
+        CGL235 = 235,
         CGL240 = 240,
         CGL245 = 245,
         CGL247 = 247,
@@ -57,6 +58,7 @@ namespace Cell{
     enum class CellThemeColor{
         pureGreen,
         NavyBlue,
+        CellBlue,
         ExitRed,
         yellowGreen
     };

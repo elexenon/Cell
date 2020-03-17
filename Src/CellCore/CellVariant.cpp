@@ -33,6 +33,9 @@ CellVariant::CellVariant(Cell::CellThemeColor type) noexcept
     case Cell::CellThemeColor::NavyBlue:
         mData.get()->color->setRgb(79, 147, 184);
         break;
+    case Cell::CellThemeColor::CellBlue:
+        mData.get()->color->setRgb(26, 96, 134);
+        break;
     case Cell::CellThemeColor::ExitRed:
         mData.get()->color->setRgb(220, 20, 60);
         break;

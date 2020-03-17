@@ -27,8 +27,6 @@
 #include <Qsci/qscilexercpp.h>
 #include <QButtonGroup>
 #include <QList>
-#include <QJsonObject>
-#include <QJsonDocument>
 
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customSwitchFrame.h"
@@ -211,11 +209,6 @@ void Workshop::init()
     loadingDialog->show();
     loadingDialog->progress();
 
-    codePrev = "#!/usr/bin/python\n"
-           "#conding=utf-8\n"
-           "import sys\n";
-    mainEditor->setText(codePrev);
-
     ctrlS->setKey(tr("ctrl+s"));
     ctrlS->setAutoRepeat(false);
 
@@ -231,7 +224,7 @@ void Workshop::init()
 
 void Workshop::setEventConnections()
 {
-    connect(ctrlS, &QShortcut::activated, this, &Workshop::saveFile);
+    connect(ctrlS, &QShortcut::activated     , this, &Workshop::saveFile);
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(updateStatusBar()));
     connect(mainEditor, SIGNAL(textChanged()), this, SLOT(checkCodeModifiedState()));
 }
@@ -290,13 +283,6 @@ void Workshop::initTreeView()
     treeView->setFont(QFont(CHAR2STR("Microsoft YaHei UI Light")));
 }
 
-void Workshop::getProjectEntity(CellProjectEntity &entity)
-{
-    currEntity = entity;
-    fileModel->setRootPath(currEntity.path());
-    treeView->setRootIndex(fileModel->index(currEntity.path()));
-}
-
 void Workshop::updateStatusBar()
 {
     labelCntRow->setText("Row: " + QString::number(mainEditor->lines()));
@@ -305,48 +291,11 @@ void Workshop::updateStatusBar()
     labelCntChar->setText("Char: " + QString::number(tmp.length()));
 }
 
-void Workshop::loadFile(const QString &path)
-{
-#ifdef CELL_DEBUG
-    CELL_DEBUG("WorkShop") << "Project_Path: " << path << endl;
-#endif
-    QFile loadFile(path);
-    if (!loadFile.open(QIODevice::ReadOnly))
-        qWarning("Couldn't open save file.");
-    QByteArray saveData = loadFile.readAll();
-    loadFile.close();
-    QJsonDocument loadDoc(QJsonDocument::fromBinaryData(saveData));
-    read(loadDoc.object());
-
-    currEntity.setPath(path.left(path.lastIndexOf('/')));
-
-    mainEditor->setText(currEntity.code());
-
-    fileModel->setRootPath(currEntity.path());
-    treeView->setRootIndex(fileModel->index(currEntity.path()));
-}
-
-void Workshop::write(QJsonObject &json)
-{
-    QJsonObject projectObject;
-    currEntity.write(projectObject);
-    json["CellProject"] = projectObject;
-}
-
-void Workshop::read(const QJsonObject &json)
-{
-     if (json.contains("CellProject") && json["CellProject"].isObject())
-         currEntity.read(json["CellProject"].toObject());
-     currEntity.print();
-}
-
 void Workshop::saveFile()
 {
-    if(!codeModified) return;
-    codePrev = codeCurr;
     textChangetoken->transCurrState(customSwitchFrame::Normal);
 
-    currEntity.setCode(codeCurr);
+    currEntity.setCode(mainEditor->text());
 
     CellSqlManager manager;
     manager.setDataBase("CellDB.db");
@@ -367,10 +316,54 @@ void Workshop::saveFile()
     saveFile.close();
 }
 
+void Workshop::loadFile(const QString &path)
+{
+#ifdef CELL_DEBUG
+       CELL_DEBUG("WorkShop") << "Project_Path: " << path << endl;
+#endif
+    QFile loadProject(path);
+    if (!loadProject.open(QIODevice::ReadOnly))
+        qWarning("Couldn't open save file.");
+    QByteArray saveData = loadProject.readAll();
+    loadProject.close();
+    QJsonDocument loadDoc(QJsonDocument::fromBinaryData(saveData));
+    read(loadDoc.object());
+
+    currEntity.setPath(path.left(path.lastIndexOf('/')));
+
+    mainEditor->setText(currEntity.code());
+
+    fileModel->setRootPath(currEntity.path());
+    treeView->setRootIndex(fileModel->index(currEntity.path()));
+}
+
+void Workshop::newProject(CellProjectEntity &entity)
+{
+    currEntity = entity;
+    fileModel->setRootPath(currEntity.path());
+    treeView->setRootIndex(fileModel->index(currEntity.path()));
+    saveFile();
+}
+
+void Workshop::write(QJsonObject &json)
+{
+    QJsonObject projectObject;
+    currEntity.write(projectObject);
+    json["CellProject"] = projectObject;
+}
+
+void Workshop::read(const QJsonObject &json)
+{
+     if (json.contains("CellProject") && json["CellProject"].isObject())
+         currEntity.read(json["CellProject"].toObject());
+     currEntity.print();
+}
+
 void Workshop::checkCodeModifiedState()
 {
-    codePrev == (codeCurr = mainEditor->text()) ?
-    codeModified = false : codeModified = true;
+    currEntity.code() == mainEditor->text() ?
+        codeModified = false:
+        codeModified = true;
     codeModified ?
         textChangetoken->transCurrState(customSwitchFrame::Special):
         textChangetoken->transCurrState(customSwitchFrame::Normal);

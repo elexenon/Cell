@@ -68,6 +68,13 @@ extern QFrame* getLine(Cell::LineType type);
 //! This Founction Will Return A Font Which's
 //! Specified By User.
 extern QFont   getFont(const QString &fontName, int pixelSize);
+//! Return A QString Form Of Current Time.
+extern QString getProjectTime();
+
+extern bool hasAttribute(int flag, int mask);
+
+extern bool hasNoAttribute(int flag, int mask);
+
 //! Set Custom Label.
 extern void    setCustomTextLabel(QLabel *label, const QString& fontName, int fontPixelSize, const QString& text = " ");
 //! Set The Same StyleSheet

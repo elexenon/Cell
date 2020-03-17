@@ -84,9 +84,8 @@ void LauncherNewPJGUI::init()
     bottomBar->setBrightDarkColor(Cell::CGL60, Cell::CGL60);
     bottomBar->setFixedHeight(40);
 
-    // Set Stacked Widget.
-    configPage->enableToolChainsBlock();
-    configPage->setPageTitle(CHAR2STR("项目属性"));
+    // Set Config Page
+    configPage->setPageTitle(CHAR2STR("配置"));
 
     stackedWidget->addWidget(modelPage);
     stackedWidget->addWidget(configPage);
@@ -99,7 +98,7 @@ void LauncherNewPJGUI::init()
     mainLayout->setSpacing(0);
 
     CellWidgetGlobalInterface::_modules << titleBar << btnCancel
-             << btnForward << btnBackward << bottomBar << modelPage;
+             << btnForward << btnBackward << bottomBar << modelPage << configPage;
 }
 
 void LauncherNewPJGUI::setEventConnections()
@@ -110,11 +109,17 @@ void LauncherNewPJGUI::setEventConnections()
             emit projectSettled();
             this->close();
         }
-        else
-            stackedWidget->setCurrentIndex(stackedWidget->currentIndex()+1);
+        else{
+            stackedWidget->setCurrentIndex(1);
+            btnForward->setEnabled(false);
+        }
     });
     connect(btnBackward, &QPushButton::clicked, [=]{
-        stackedWidget->setCurrentIndex(stackedWidget->currentIndex()-1);
+
+        stackedWidget->setCurrentIndex(0);
+    });
+    connect(modelPage, &NewPJGUIModel::typeSeleted, [=](CellProjectEntity::ProjectType type){
+        currEntity.setType(type);
     });
     connect(configPage, &newPJPageBase::pathSettled, this, &LauncherNewPJGUI::setPath);
     connect(configPage, &newPJPageBase::nameSettled, this, &LauncherNewPJGUI::setName);
@@ -122,14 +127,19 @@ void LauncherNewPJGUI::setEventConnections()
 
 void LauncherNewPJGUI::setName(const QString &name)
 {
-    QRegExp exp(CHAR2STR("[<>\"?/\\\\|:*]"));
-    if(name.indexOf(exp) >= 0)
-        btnForward->setEnabled(true);
-    else
-        btnForward->setEnabled(false);
+    currEntity.setName(name);
+    judgeValidProject();
 }
 
 void LauncherNewPJGUI::setPath(const QString &path)
 {
-    (void)path;
+    currEntity.setPath(path);
+    judgeValidProject();
+}
+
+void LauncherNewPJGUI::judgeValidProject()
+{
+    CellProjectEntity::validEntity(currEntity) ?
+        btnForward->setEnabled(true):
+        btnForward->setEnabled(false);
 }

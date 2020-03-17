@@ -152,4 +152,17 @@ void setPageSwitchAnimation(QStackedWidget *stackedWidget, QWidget *targetPage, 
     CellUiGlobal::setFadeInOrOutAnimation(opacityEffect,animiPtr,
                                           targetPage,duration,Cell::FadeAnimiType::FadeIn);
 }
+QString getProjectTime()
+{
+    QDateTime curr = QDateTime::currentDateTime();
+    return curr.toString("yyyy-MM-dd-hh:mm");
+}
+
+bool hasAttribute(int flag, int mask){
+    return (flag & mask) == mask;
+}
+
+bool hasNoAttribute(int flag, int mask){
+    return !(flag & mask);
+}
 } // namespace CellUiGlobal{

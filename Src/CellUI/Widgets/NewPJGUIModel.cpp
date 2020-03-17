@@ -2,7 +2,7 @@
 #include "../CustomBaseWidgets/customFrame.h"
 #include "../CustomBaseWidgets/customNavigator.h"
 #include "../CustomBaseWidgets/customScrollBlock.h"
-#include "../CustomBaseWidgets/customSmoothScrollArea.h"
+#include "../CustomBaseWidgets/customScrollArea.h"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -11,8 +11,10 @@ NewPJGUIModel::NewPJGUIModel(QWidget *parent):
     customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QHBoxLayout(this)),
     navigator(new customNavigator(this)),
-    scrollArea(new customSmoothScrollArea(this)),
-    scrollWidget(new customFrame(customFrame::Type::Regular))
+    scrollArea(new customScrollArea(this)),
+    scrollWidget(new customFrame(customFrame::Type::Regular)),
+    blockPic(new customScrollBlock(CHAR2STR("图像"), scrollWidget)),
+    blockBinary(new customScrollBlock(CHAR2STR("二值"), scrollWidget))
 {
     init();
 }
@@ -25,23 +27,21 @@ void NewPJGUIModel::init()
     mainLayout->addWidget(scrollArea);
 
     // Set Scroll Area.
-    customScrollBlock *block = new customScrollBlock(CHAR2STR("图像"), scrollWidget);
-    block->setBrightDarkColor(Cell::CGL247, Cell::CGL45);
-    block->addItem(CHAR2STR("图像分类"));
-    block->addItem(CHAR2STR("对象分离"));
+    blockPic->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
+    blockPic->addItem(CHAR2STR("图像分类"), CHAR2STR("iconClassifyPic"), 180, 154);
+    blockPic->addItem(CHAR2STR("对象探测"), CHAR2STR("iconObjectDetect"), 180, 155);
 
-    customScrollBlock *block2 = new customScrollBlock(CHAR2STR("二值"), scrollWidget);
-    block2->setBrightDarkColor(Cell::CGL247, Cell::CGL45);
-    block2->addItem(CHAR2STR("地震预测"));
+    blockBinary->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
+    blockBinary->addItem(CHAR2STR("地震预测"), CHAR2STR("iconPredictEar"), 180, 154);
 
-    block->addExclusiveBlock(block2);
+    blockPic->addExclusiveBlock(blockBinary);
 
     QVBoxLayout *widgetLayout = new QVBoxLayout(scrollWidget);
     widgetLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
     widgetLayout->setSpacing(20);
     widgetLayout->setContentsMargins(20, 20, 20, 20);
-    widgetLayout->addWidget(block);
-    widgetLayout->addWidget(block2);
+    widgetLayout->addWidget(blockPic);
+    widgetLayout->addWidget(blockBinary);
     scrollWidget->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
 
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
@@ -51,6 +51,33 @@ void NewPJGUIModel::init()
     navigator->setFixedWidth(150);
     navigator->setButtonHeight(45);
 
-    navigator->jointBlock(block);
-    navigator->jointBlock(block2);
+    navigator->jointBlock(blockPic);
+    navigator->jointBlock(blockBinary);
+
+    CellWidgetGlobalInterface::_modules << blockPic << blockBinary << scrollWidget << navigator;
+}
+
+void NewPJGUIModel::setEventConnections()
+{
+    connect(blockPic, &customScrollBlock::clicked, [=](const QString&, int ID){
+        CellProjectEntity::ProjectType type;
+        switch(ID){
+        case 1:
+            type = CellProjectEntity::ProjectType::ImageClassify;
+            break;
+        case 2:
+            type = CellProjectEntity::ProjectType::ObjectDetect;
+            break;
+        }
+        emit typeSeleted(type);
+    });
+    connect(blockBinary, &customScrollBlock::clicked, [=](const QString&, int ID){
+        CellProjectEntity::ProjectType type;
+        switch(ID){
+        case 1:
+            type = CellProjectEntity::ProjectType::PredictEarthquake;
+            break;
+        }
+        emit typeSeleted(type);
+    });
 }

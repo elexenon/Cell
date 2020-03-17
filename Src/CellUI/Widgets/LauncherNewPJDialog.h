@@ -16,13 +16,9 @@
 
 class customTitleBar;
 class customLabel;
-class QPropertyAnimation;
-class QGraphicsDropShadowEffect;
 class ButtonWithText;
 class QStackedWidget;
-class QFrame;
 class NewPJProjectCellPage;
-class NewPJPredictEarPage;
 class newPJPageBase;
 class customButtonListWidget;
 
@@ -31,7 +27,7 @@ class LauncherNewPJDialog : public customWinstyleDialog
     Q_OBJECT
 public:
     explicit LauncherNewPJDialog(Cell::ColorScheme globalMode,QWidget *parent = nullptr);
-    ~LauncherNewPJDialog();
+    ~LauncherNewPJDialog() = default;
 
 private:
     customTitleBar *titleBar;
@@ -44,7 +40,6 @@ private:
     QStackedWidget *stackedWidget;
 
     NewPJProjectCellPage *cellPage;
-    NewPJPredictEarPage  *prePage;
     newPJPageBase        *emptyPJPage;
     newPJPageBase        *cppPJPage;
     newPJPageBase        *pyPJPage;
@@ -52,7 +47,7 @@ private:
     customButtonListWidget *btnListWidget1;
     customButtonListWidget *btnListWidget2;
 
-    CellProjectEntity *currEntity;
+    CellProjectEntity entity;
 
 private:
     virtual void
@@ -66,7 +61,7 @@ private:
 
 Q_SIGNALS:
     void
-    projectSettled(CellProjectEntity *entity);
+    projectSettled(CellProjectEntity &entity);
 
 private Q_SLOTS:
     inline void

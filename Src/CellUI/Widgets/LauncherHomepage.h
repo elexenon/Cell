@@ -13,14 +13,14 @@
 #include <QWidget>
 #include "../../CellCore/Kits/CellUtility.h" // ColorScheme
 
+class HomeStackGrid;
+class HomeStackList;
+class customLabel;
 class QVBoxLayout;
 class QLabel;
 class ButtonWithIcon;
-class QComboBox;
-class QTableView;
 class QStackedWidget;
 class CellProjectEntity;
-class QStandardItemModel;
 
 class LauncherHomepage : public QWidget
 {
@@ -32,14 +32,14 @@ public:
     ~LauncherHomepage() = default;
 
 private:
-    QVBoxLayout        *mainLayout;
-    QStackedWidget     *stackedWidget;
-    QTableView         *tableView;
-    QStandardItemModel *itemModel;
-    ButtonWithIcon     *btnGrid;
-    ButtonWithIcon     *btnList;
-    QLabel             *iconRecentPJ;
-    QLabel             *labelRecentPJ;
+    QVBoxLayout    *mainLayout;
+    HomeStackGrid  *stackGrid;
+    HomeStackList  *stackList;
+    QStackedWidget *stackedWidget;
+    ButtonWithIcon *btnGrid;
+    ButtonWithIcon *btnList;
+    QLabel         *iconRecentPJ;
+    customLabel    *labelRecentPJ;
 
     Cell::ColorScheme mMode = Cell::ColorScheme::Bright;
 
@@ -50,33 +50,17 @@ private:
     setEventConnections();
 
     void
-    initTableView();
-
-    void
     updateDatas();
-
-    bool
-    tableExists(const char *tableName);
 
 public Q_SLOTS:
     void
     setColorScheme(Cell::ColorScheme mode);
 
-private Q_SLOTS:
     void
-    updateDatasByWS(CellProjectEntity &entity);
-
-    void
-    btnGridClicked();
-
-    void
-    btnListClicked();
-
-    void
-    tableDoubleClicked(const QModelIndex &index);
+    insertProject(const CellProjectEntity &entity);
 
 Q_SIGNALS:
-    void getProjectPath(const QString &path);
+    void openFileByPath(bool isDS, const QString &path);
 };
 
 #endif // LauncherHomepage_H

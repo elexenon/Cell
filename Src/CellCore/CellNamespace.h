@@ -45,6 +45,7 @@ namespace Cell{
         CGL80 = 80,
         CGL100 = 100,
         CGL130 = 130,
+        CGL160 = 160,
         CGL180 = 180,
         CGL218 = 218,
         CGL230 = 230,

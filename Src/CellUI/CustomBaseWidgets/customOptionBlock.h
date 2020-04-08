@@ -13,6 +13,8 @@ class customOptionBlockItem;
 class customOptionBlock : public optionBlockBase{
 friend class customNavigator;
     Q_OBJECT
+    static Cell::CellGrayColor brightEnterColor;
+    static Cell::CellGrayColor darkEnterColor;
 public:
     explicit customOptionBlock(const QString& name, QWidget *parent = nullptr);
 
@@ -33,6 +35,12 @@ public:
     getItemTagMaxLen() const { return itemTagMaxLen; }
 
 protected:
+    virtual void
+    enterEvent(QEvent *) override;
+
+    virtual void
+    leaveEvent(QEvent *) override;
+
     QVBoxLayout                   *mainBlockLayout;
     customFrame                   *mainBlock;
     QList<customOptionBlockItem*> *itemsList;

@@ -1,0 +1,58 @@
+// Profile Of Cell CNN
+{
+	"train":{
+		"learning rate": 0.001,
+		"LR decay": 0.99,
+		// The Policy Of Updating. sgd/momentum/rmsprop/adagrad
+		"update method": "momentum",
+		"momentum parameter" : 0.95,
+		// It is called "num epochs" once A Training Set Loop Is Done. 
+		"num epochs": 500,
+		// Whether to use mini-batc algorithm.
+		"use batch" : true,
+		"batch size": 200,
+		// Define How Many Iterations To Test Accuracy Once
+		"acc frequence": 1,
+		// Define Wheter To Update acc frequence
+		"update frequence": true,
+		// Define Wheter To Save The Snap Shot Of Model.
+		"save snapshot": false,
+		// Define How Many Iterations To Save Snap Shot Once.
+		"snapshot interval": 10,
+		// Define Wheter To Use "fine_tune" Method For Training.
+		"fine_tune": false,
+		"pre train model": "./iter20.cellmodel"
+	}
+
+	"net":[
+		{ // 卷积层
+			"name": "conv1", 	
+			"type": "Conv" ,   
+			"kernel num": 5,   
+			"kernel height": 3,
+			"kernel width": 3, 	
+			"pad": 1, 		
+			"stride": 1
+		}
+		{ // 激活层
+			"name": "relu1", 	
+			"type": "Relu" 	
+		}
+		{ // 池化层
+			"name": "pool1", 	
+			"type": "Pool" , 	
+			"kernel height": 2, 
+			"kernel width": 2, 	
+			"stride": 1        
+		}	
+		{ // 全连接层
+			"name": "fc1", 	
+			"type": "Fc" ,    
+			"kernel num": 10
+		}
+		{ // 全连接层
+			"name": "softmax", 	
+			"type": "Softmax"
+		}
+	]
+}

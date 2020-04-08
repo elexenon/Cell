@@ -48,6 +48,8 @@ void HomeStackGrid::init()
     blockDeepSense->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     blockWorkShop->addExclusiveBlock(blockDeepSense);
 
+    blockDeepSense->addItem("Classify Cats", CHAR2STR("iconPJDS"), 180, 155);
+
     widgetLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
     widgetLayout->setContentsMargins(0, 0, 20, 0);
     widgetLayout->setSpacing(50);
@@ -57,8 +59,6 @@ void HomeStackGrid::init()
     scrollWidget->setBrightDarkColor(Cell::CGL247, Cell::CGL30);
     scrollWidget->setLayout(widgetLayout);
 
-    CellUiGlobal::loader.setFileName(CHAR2STR("scrollBar.css"));
-    scrollArea->setStyleSheet(CellUiGlobal::loader.content());
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
     scrollArea->setWidget(scrollWidget);
 

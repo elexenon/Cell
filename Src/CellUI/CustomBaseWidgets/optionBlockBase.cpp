@@ -23,6 +23,7 @@ void optionBlockBase::init()
     setLayout(mainLayout);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(3);
+    mainLayout->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
 }
 
 void optionBlockBase::addThemeTag(const QString &name)

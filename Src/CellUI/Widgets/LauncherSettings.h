@@ -18,11 +18,9 @@ namespace Ui {
 class LauncherSettings;
 }
 class QPropertyAnimation;
-class QGraphicsDropShadowEffect;
+class customScrollArea;
 class customOptionBlock;
-class customOptionBlockItem;
 class customDialogButton;
-class customButton;
 class customNavigator;
 class QVBoxLayout;
 class QHBoxLayout;
@@ -71,19 +69,20 @@ private:
     read(const QJsonObject&) override;
 
     QHBoxLayout *mainLayout;
-    QVBoxLayout *VLayoutRight;
 
-    customNavigator *navigator;
+    customScrollArea   *scrollArea;
+    customFrame        *scrollWidget;
+    QVBoxLayout        *widgetLayout;
+    customNavigator    *navigator;
     // OptionBlock blockGeneral Combination;
-    customOptionBlock     *blockGeneral;
-    customDialogButton    *dBtnAppear;
-    customSwitch          *switchAuto;
-    customSwitch          *switchAbate;
-    customDialogButton    *dBtnLan;
-
+    customOptionBlock  *blockGeneral;
+    customDialogButton *dBtnAppear;
+    customSwitch       *switchAuto;
+    customSwitch       *switchAbate;
+    customDialogButton *dBtnLan;
     // OptionBlock blockWorkshop Combination.
-    customOptionBlock     *blockWorkshop;
-    customSwitch          *switchMulti;
+    customOptionBlock  *blockWorkshop;
+    customSwitch       *switchMulti;
 
     Launcher *launcherPtr;
 

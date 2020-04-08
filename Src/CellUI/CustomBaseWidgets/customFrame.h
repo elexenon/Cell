@@ -12,6 +12,7 @@
 
 class customFrame : public QFrame, implements CellWidgetGlobalInterface
 {
+friend class customOptionBlock;
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor)
 public:

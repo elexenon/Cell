@@ -43,6 +43,15 @@ void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> animis,const QList<QW
         modules[i]->setGraphicsEffect(animis[i]);
     }
 }
+void setDropShadowEffect(QWidget *module, const QPoint &offset, const QColor &color, int blurRadius)
+{
+    QGraphicsDropShadowEffect *eff;
+    eff = new QGraphicsDropShadowEffect(module);
+    eff->setOffset(offset);
+    eff->setColor(color);
+    eff->setBlurRadius(blurRadius);
+    module->setGraphicsEffect(eff);
+}
 void setPropertyAnimation(QList<QPropertyAnimation*> &&animis,const QByteArray &_property, const QVariant &s_value,
                                       const QVariant &e_value,int duration, QEasingCurve curve, const QList<QWidget*> &modules, QGraphicsEffect *effect)
 {

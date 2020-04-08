@@ -9,11 +9,11 @@
 #include "../CustomBaseWidgets/customOptionBlock.h"
 #include "../CustomBaseWidgets/customOptionBlockItem.h"
 #include "../CustomBaseWidgets/customDialogButton.h"
-#include "../CustomBaseWidgets/customButton.h"
 #include "../CustomBaseWidgets/customMaskDialog.h"
 #include "../CustomBaseWidgets/ButtonWithIcon.h"
 #include "../CustomBaseWidgets/customSwitch.h"
 #include "../CustomBaseWidgets/customNavigator.h"
+#include "../CustomBaseWidgets/customScrollArea.h"
 #include "../Widgets/Launcher.h"
 #include "LauncherSettings.h"
 
@@ -27,14 +27,16 @@ const QString LauncherSettings::path("CWS64.json");
 LauncherSettings::LauncherSettings(QWidget *parent) :
     customFrame(customFrame::Type::Regular, parent),
     mainLayout(new QHBoxLayout(this)),
-    VLayoutRight(new QVBoxLayout),
+    scrollArea(new customScrollArea(this)),
+    scrollWidget(new customFrame(customFrame::Type::Regular, this)),
+    widgetLayout(new QVBoxLayout(scrollWidget)),
     navigator(new customNavigator(this)),
-    blockGeneral(new customOptionBlock(CHAR2STR("通用"), this)),
+    blockGeneral(new customOptionBlock(CHAR2STR("通用"), scrollWidget)),
     dBtnAppear(new customDialogButton(CHAR2STR("FUSION"))),
     switchAuto(new customSwitch),
     switchAbate(new customSwitch),
     dBtnLan(new customDialogButton(CHAR2STR("CHN"))),
-    blockWorkshop(new customOptionBlock(CHAR2STR("Workshop"), this)),
+    blockWorkshop(new customOptionBlock(CHAR2STR("Workshop"), scrollWidget)),
     switchMulti(new customSwitch),
     launcherPtr(nullptr)
 {
@@ -61,16 +63,22 @@ void LauncherSettings::init()
     setBrightDarkColor(Cell::CGL247,Cell::CGL45);
     setLayout(mainLayout);
 
-    VLayoutRight->setSpacing(50);
-    VLayoutRight->setContentsMargins(45, 0, 45, 0);
-    VLayoutRight->addWidget(blockGeneral);
-    VLayoutRight->addWidget(blockWorkshop);
-    VLayoutRight->addStretch();
+    // Set Scroll Area
+    widgetLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+    widgetLayout->setSpacing(50);
+    widgetLayout->setContentsMargins(45, 0, 45, 0);
+    widgetLayout->addWidget(blockGeneral);
+    widgetLayout->addWidget(blockWorkshop);
+
+    scrollWidget->setBrightDarkColor(Cell::CGL247, Cell::CGL45);
+    scrollWidget->setLayout(widgetLayout);
+
+    scrollArea->setWidget(scrollWidget);
 
     mainLayout->setSpacing(10);
-    mainLayout->setContentsMargins(0, 30, 0, 0);
+    mainLayout->setContentsMargins(0, 30, 15, 30);
     mainLayout->addWidget(navigator);
-    mainLayout->addLayout(VLayoutRight);
+    mainLayout->addWidget(scrollArea);
 
     // OptionBlock General Combination.
     dBtnAppear->setBrightDarkColor(Cell::CGL247, Cell::CGL100);
@@ -94,7 +102,7 @@ void LauncherSettings::init()
 
     CellWidgetGlobalInterface::_modules << dBtnAppear << dBtnLan
              << blockGeneral
-             << blockWorkshop << navigator;
+             << blockWorkshop << navigator << scrollWidget;
 
     setEventConnections();
 }

@@ -86,6 +86,7 @@ void LauncherNewPJGUI::init()
 
     // Set Config Page
     configPage->setPageTitle(CHAR2STR("配置"));
+    configPage->enableToolChainsBlock();
 
     stackedWidget->addWidget(modelPage);
     stackedWidget->addWidget(configPage);
@@ -115,8 +116,8 @@ void LauncherNewPJGUI::setEventConnections()
         }
     });
     connect(btnBackward, &QPushButton::clicked, [=]{
-
         stackedWidget->setCurrentIndex(0);
+        btnForward->setEnabled(true);
     });
     connect(modelPage, &NewPJGUIModel::typeSeleted, [=](CellProjectEntity::ProjectType type){
         currEntity.setType(type);

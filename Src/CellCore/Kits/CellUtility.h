@@ -35,6 +35,11 @@ extern void setDropShadowEffect(QList<QGraphicsDropShadowEffect*> &&animis,
                                 const QList<QWidget*> &modules,
                                 const QPoint &offset,
                                 const QColor &color, int blurRadius);
+//! Set The Same Drop Shadow
+//! Effect For One Widget.
+extern void setDropShadowEffect(QWidget* module,
+                                const QPoint &offset,
+                                const QColor &color, int blurRadius);
 //! Set The Same PropertyAnimation
 //! For Multi Widgets.
 extern void setPropertyAnimation(QList<QPropertyAnimation*> &&animis,

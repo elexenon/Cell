@@ -4,9 +4,6 @@
 // version 3.0 as published by the free software foundation and appearing in
 // the file LICENSE included in the packaging of this file.
 #include <QPropertyAnimation>
-#include <QGraphicsOpacityEffect>
-#include <QFontDatabase>
-#include <QDebug>
 #include <QTime>
 #include <QVBoxLayout>
 #include <QHBoxLayout>

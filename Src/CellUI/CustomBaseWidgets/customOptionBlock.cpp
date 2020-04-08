@@ -11,6 +11,10 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
+Cell::CellGrayColor customOptionBlock::brightEnterColor = Cell::CGL247;
+
+Cell::CellGrayColor customOptionBlock::darkEnterColor   = Cell::CGL100;
+
 customOptionBlock::customOptionBlock(const QString& name, QWidget *parent):
     optionBlockBase(name, parent),
     mainBlockLayout(new QVBoxLayout),
@@ -100,4 +104,27 @@ void customOptionBlock::tidyItems(customOptionBlock *another)
             _tidyItems(itemTagMaxLen);
         }
     }
+}
+
+void customOptionBlock::enterEvent(QEvent *e)
+{
+    optionBlockBase::enterEvent(e);
+    if(CellWidgetGlobalInterface::switchMode == Cell::SwitchMode::Instant)
+        return;
+    mainBlock->changeToColor(mainBlock->color(),
+                             CellVariant(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                                     brightEnterColor : darkEnterColor).toColor(), 300);
+}
+
+void customOptionBlock::leaveEvent(QEvent *e)
+{
+    optionBlockBase::leaveEvent(e);
+    if(CellWidgetGlobalInterface::switchMode == Cell::SwitchMode::Instant){
+        mainBlock->setColor(CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                                mainBlock->brightColor(): mainBlock->darkColor());
+        return;
+    }
+    mainBlock->changeToColor(mainBlock->color(),
+                             CellWidgetGlobalInterface::mMode == Cell::ColorScheme::Bright ?
+                                     mainBlock->brightColor(): mainBlock->darkColor(), 300);
 }

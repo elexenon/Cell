@@ -22,7 +22,7 @@ namespace CellUiLiteral {
 const char* const INSTANCE_IS_ON("Cell Launcher is already running");
 const QString IMG_DIR(":/images/Images/");
 const QString FONT_DIR(":/fonts/Fonts/");
-const QString STYLESHEET_DIR("C:/Users/HengyiYu/Desktop/Projects/c++/Qt/Cell_DeepLearning/CellResourcesFiles/StyleSheets/");
+const QString STYLESHEET_DIR("C:/Users/fijiisland/Desktop/Projects/Cell_DeepLearning/CellResourcesFiles/StyleSheets/");
 } // namespace CellUiLiteral{
 
 namespace CellUiGlobal{

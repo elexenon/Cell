@@ -7,7 +7,7 @@ CONFIG += c++17
 CONFIG += precompile_header
 CONFIG += debug_and_release
 
-MYLIBDIR = "C:\Users\HengyiYu\Desktop\Projects\c++\Qt\Cell_DeepLearning_Dependency\X64"
+MYLIBDIR = "C:\Users\fijiisland\Desktop\Projects\Dependency\X64"
 
 CONFIG(debug, debug | release){
     LIBS += -L$$MYLIBDIR -lqscintilla2_qt5d -lsqlite3

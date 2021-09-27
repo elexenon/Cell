@@ -17,7 +17,7 @@ ProcessingWidget::ProcessingWidget(QWidget *parent) noexcept:
 void ProcessingWidget::init()
 {
     setStyleSheet(CHAR2STR("background:transparent"));
-    setFixedSize(500, 20);
+    setFixedSize(100, 20);
 
     animi.setTargetObject(this);
 
@@ -27,7 +27,7 @@ void ProcessingWidget::init()
 
     animi.setStartValue(-mDiam);
     animi.setEndValue(width() + mDiam);
-    animi.setDuration(2500);
+    animi.setDuration(1500);
     animi.setLoopCount(-1);
     animi.start(QAbstractAnimation::KeepWhenStopped);
 }

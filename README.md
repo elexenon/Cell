@@ -1,39 +1,36 @@
 Cell_DeepLearning
 ====
-[中文版本](README_CN.md)
 ## A Qt Based Project
-This is originally a college students' innovation project, then we decided to go further more, to make it stronger.
+这是一个大学生创新项目的代码仓库。
 
-We're developing a universal deeplearning library,and we call it CELL.As you see, we aim to build a good-interactive user interface.
-
-Note that CELL imports an open-source text editor **QScintilla**, which's a transported version of the original **Scintilla** editor for windows Qt, owned by **Riverbank Computing Limited**, here's their official website:
+此项目使用了第三方开源文字编辑器 **QScintilla**, 其为 **Scintilla** 编辑器的Qt移植实现, 由 **Riverbank Computing Limited** 所持有, 他们的官方网站为:
 
 <https://www.riverbankcomputing.com/software/qscintilla>
 
-We very appreciate about Riverbank's production, because QScintilla works very well.
-
-
 ## Compile
 
-Go to <https://www.riverbankcomputing.com/software/qscintilla/download> page, and download QScintilla for windows.
+### QScintilla
 
-After unarchiving the QScintilla source package, enter its child directory Qt4Qt5, then double click project file "QScintilla.pro".
+进入 <https://www.riverbankcomputing.com/software/qscintilla/download> 页面, 下载编辑器源码。
 
-Qt will load the QScintilla source automaticly, choose the MinGW 32-bit toolchain, and compile debug version and release version respectively.
+解压后，进入src目录, 双击项目文件 "QScintilla.pro"。
 
-After that, you will get two dynamic link libraries "qscintilla2_qt5.dll" & "qscintilla2_qt5d.dll", they correspond to debug mode and release mode respectively.
+Qt会自动解析编辑器项目, 请选择 MinGW 64-bit 工具链, 然后同时将Debug和Release版本编译出来。
 
-Almost done,put the two dlls to a protable directory, and add them into cell's pro file to compile.
+完成后，会得到两个动态链接库 "qscintilla2_qt5.dll" 以及 "qscintilla2_qt5d.dll" 。
+
+最后，将这两个动态库放到一个合适的文件夹，将此文件夹路径复制到Cell_DeepLearning.pro对应位置即可。
+
+### Sqlite3
+
+进入sqlite官网 <https://sqlite.org/2021/sqlite-dll-win64-x64-3360000.zip> 下载预编译好的动态库，解压放置到之前创建好的那个“合适的文件夹”中。
 
 ## License
 
 The GNU License(<http://www.gnu.org/licenses/gpl-3.0.html>)
 
-## Contribution
-
-If you have any ideas or suggestions, welcome to submit an issue/pull request.
-
 ## Preview
-![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/launcher.png)
-![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/launcher2.png)
-![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/workshop.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/1.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/2.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/3.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/4.png)

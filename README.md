@@ -30,7 +30,7 @@ Qt会自动解析编辑器项目, 请选择 MinGW 64-bit 工具链, 然后同时
 The GNU License(<http://www.gnu.org/licenses/gpl-3.0.html>)
 
 ## Preview
-![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/1.png)
-![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/2.png)
-![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/3.png)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/1.PNG)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/2.PNG)
+![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/3.PNG)
 ![image](https://github.com/Fijiisland/Cell_DeepLearning/blob/master/AppPreview/4.png)

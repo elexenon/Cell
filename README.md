@@ -1,7 +1,5 @@
-Cell_DeepLearning
-====
 ## A Qt Based Project
-这是一个大学生创新项目的代码仓库。
+这是一个大学生创新项目的legacy代码仓库。
 
 此项目使用了第三方开源文字编辑器 **QScintilla**, 其为 **Scintilla** 编辑器的Qt移植实现, 由 **Riverbank Computing Limited** 所持有, 他们的官方网站为:
 
